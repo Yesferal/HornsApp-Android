@@ -84,6 +84,8 @@ class ConcertsFragment
             val options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(
                     it,
+                    // TODO: Set "concertImageView" as a constant in string.xml
+                    // cause is used in several xml too
                     Pair(concertImageView, "concertImageView")
                 )
 

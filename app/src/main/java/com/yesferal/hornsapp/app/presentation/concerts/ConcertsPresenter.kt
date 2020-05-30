@@ -12,8 +12,8 @@ class ConcertsPresenter(
     override fun onCreate() {
         getConcertsUseCase(
             onSuccess = { viewData ->
-                val stateSuccess = State.Success(viewData)
-                getView()?.updateWith(stateSuccess)
+                val success = State.Success(viewData)
+                getView()?.updateWith(state = success)
             },
             onError = {
                 // TODO: ErrorHandler

@@ -10,6 +10,7 @@ class ConcertAdapter (
 ) : RecyclerView.Adapter<ConcertViewHolder>() {
     private var list: List<Concert> = listOf()
 
+    // TODO: Set this as a lambda
     interface Listener {
         fun onConcertItemClick(
             concert: Concert,
