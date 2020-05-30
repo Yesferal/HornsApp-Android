@@ -16,8 +16,8 @@ Then, you should clone the repository.
 
 ---
 ## Usage
-Launch AndroidStudio and `Open an existing project`.
-Then run on a real or virtual device.
+Launch AndroidStudio and `Open an existing project`. You have to create a hornsapp-lib.cpp file in `./app/src/main/cpp/
+`. Then create functions for both your `authentication()` and `baseUrl()`. Finally, refresh linked C++ and run the project.
 
 ---
 ## License
