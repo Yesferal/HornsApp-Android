@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.concerts.ConcertsFragment">
+
+    <ImageView
+        android:id="@+id/concertImageView"
+        android:contentDescription="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/backgroundView"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_gradient"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintBottom_toTopOf="@id/backgroundView"/>
+
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/buyTicketsButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/buy_tickets"
+        android:layout_marginBottom="16dp"
+        android:background="@color/accent"
+        android:textColor="@android:color/white"
+        app:layout_constraintWidth_percent="0.65"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/concertsViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintBottom_toTopOf="@+id/buyTicketsButton"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
