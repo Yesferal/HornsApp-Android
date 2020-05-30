@@ -1,6 +1,6 @@
-package com.yesferal.hornsapp.data.datasource.api
+package com.yesferal.hornsapp.data.abstraction
 
-import com.yesferal.hornsapp.data.datasource.api.response.GetConcerts
+import com.yesferal.hornsapp.data.repository.entity.GetConcerts
 
 interface ApiDataSource {
     fun getConcerts(

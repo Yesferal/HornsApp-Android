@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.domain.repository
+package com.yesferal.hornsapp.domain.abstraction
 
 import com.yesferal.hornsapp.domain.entity.Concert
 

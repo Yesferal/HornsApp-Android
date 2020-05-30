@@ -1,10 +1,10 @@
 package com.yesferal.hornsapp.data.repository
 
-import com.yesferal.hornsapp.data.datasource.storage.StorageDataSource
-import com.yesferal.hornsapp.data.datasource.api.ApiDataSource
-import com.yesferal.hornsapp.data.datasource.api.response.mapToConcert
+import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
+import com.yesferal.hornsapp.data.abstraction.StorageDataSource
+import com.yesferal.hornsapp.data.abstraction.ApiDataSource
+import com.yesferal.hornsapp.data.mapper.mapToConcert
 import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.repository.ConcertRepository
 
 class ConcertRepositoryImpl(
     private val storageDataSource: StorageDataSource,

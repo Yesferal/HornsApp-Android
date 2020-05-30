@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.data.datasource.storage
+package com.yesferal.hornsapp.data.abstraction
 
 interface StorageDataSource {
     fun setString(concerts: String)

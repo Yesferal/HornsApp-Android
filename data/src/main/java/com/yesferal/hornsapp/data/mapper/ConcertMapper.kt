@@ -1,18 +1,9 @@
-package com.yesferal.hornsapp.data.datasource.api.response
+package com.yesferal.hornsapp.data.mapper
 
-import com.yesferal.hornsapp.domain.common.formatted
-import com.yesferal.hornsapp.domain.common.timeFormatted
+import com.yesferal.hornsapp.data.repository.entity.GetConcerts
 import com.yesferal.hornsapp.domain.entity.Concert
-import java.util.*
-
-data class GetConcerts(
-    val _id: String,
-    val name: String?,
-    val description: String?,
-    val posterImage: String?,
-    val headlinerImage: String?,
-    val dateTime: Date?
-)
+import com.yesferal.hornsapp.domain.util.formatted
+import com.yesferal.hornsapp.domain.util.timeFormatted
 
 fun GetConcerts.mapToConcert(): Concert {
     val date = this
