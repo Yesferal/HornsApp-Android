@@ -31,6 +31,14 @@ android {
             version "3.10.2"
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
 }
 
 dependencies {
@@ -42,9 +50,15 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    implementation "com.yesferal.hornsapp:hada:${versions.hada}"
+    implementation "androidx.viewpager2:viewpager2:${versions.viewpager2}"
+    implementation "com.squareup.picasso:picasso:${versions.picasso}"
 
     // Module
     implementation project(hornsAppModules.domain)
+    implementation project(hornsAppModules.data)
 
     // Test Library
     testImplementation 'junit:junit:4.12'

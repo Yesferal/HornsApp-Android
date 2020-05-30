@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.domain.entity.Concert
 class GetConcertsUseCase(
     private val concertRepository: ConcertRepository
 ) {
-    fun invoke(
+    operator fun invoke(
         onSuccess: (response: List<Concert>) -> Unit,
         onError: (t: Throwable) -> Unit
     ) {
