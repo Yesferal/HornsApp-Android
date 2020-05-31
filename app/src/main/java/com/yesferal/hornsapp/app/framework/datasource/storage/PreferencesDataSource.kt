@@ -22,9 +22,8 @@ class SharedPreferencesDataSource(
         editor.apply()
     }
 
-    override fun getString(): String {
+    override fun getString(): String? {
         val key = Key.CONCERTS.value
-        // TODO: Return null instead of ""
-        return sharedPreferences.getString(key, "")?: ""
+        return sharedPreferences.getString(key, null)
     }
 }
