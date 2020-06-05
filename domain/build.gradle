@@ -1,0 +1,27 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
+}
