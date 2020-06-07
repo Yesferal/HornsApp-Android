@@ -1,8 +1,8 @@
 package com.yesferal.hornsapp.app.presentation.di
 
-import com.yesferal.hornsapp.app.framework.datasource.api.RetrofitBuilder
-import com.yesferal.hornsapp.app.framework.datasource.api.RetrofitDataSource
-import com.yesferal.hornsapp.app.framework.datasource.storage.SharedPreferencesDataSource
+import com.yesferal.hornsapp.app.framework.retrofit.RetrofitBuilder
+import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
+import com.yesferal.hornsapp.app.framework.preferences.SharedPreferencesDataSource
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
 import com.yesferal.hornsapp.data.abstraction.StorageDataSource
 import com.yesferal.hornsapp.hada.container.Container

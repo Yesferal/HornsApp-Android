@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.extension
+package com.yesferal.hornsapp.app.common
 
 import android.view.View
 import android.widget.TextView

@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.framework.datasource.storage
+package com.yesferal.hornsapp.app.framework.preferences
 
 import android.content.Context
 import com.yesferal.hornsapp.data.abstraction.StorageDataSource

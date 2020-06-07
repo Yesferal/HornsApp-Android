@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.base
+package com.yesferal.hornsapp.app.presentation.base
 
 import android.os.Bundle
 import android.view.View

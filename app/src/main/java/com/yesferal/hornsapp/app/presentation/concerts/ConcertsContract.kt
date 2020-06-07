@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.concerts
 
-import com.yesferal.hornsapp.app.presentation.common.base.BaseContract
-import com.yesferal.hornsapp.app.presentation.common.base.State
+import com.yesferal.hornsapp.app.presentation.base.BaseContract
+import com.yesferal.hornsapp.app.presentation.base.State
 import com.yesferal.hornsapp.domain.entity.Concert
 
 interface ConcertsContract {

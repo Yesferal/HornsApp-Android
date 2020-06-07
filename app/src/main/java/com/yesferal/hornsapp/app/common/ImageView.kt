@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.extension
+package com.yesferal.hornsapp.app.common
 
 import android.widget.ImageView
 import com.squareup.picasso.Picasso

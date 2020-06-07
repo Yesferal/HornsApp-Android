@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.extension.load
-import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.app.common.load
+import com.yesferal.hornsapp.app.common.setUpWith
 import com.yesferal.hornsapp.domain.entity.Concert
 import kotlinx.android.synthetic.main.item_concert.view.*
 

@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.extension
+package com.yesferal.hornsapp.app.common
 
 import android.app.Activity
 import android.graphics.Color

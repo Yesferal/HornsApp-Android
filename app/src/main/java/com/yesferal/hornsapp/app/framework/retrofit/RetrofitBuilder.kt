@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.framework.datasource.api
+package com.yesferal.hornsapp.app.framework.retrofit
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
