@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.domain.util
+package com.yesferal.hornsapp.domain.common
 
 import java.lang.Exception
 import java.text.SimpleDateFormat

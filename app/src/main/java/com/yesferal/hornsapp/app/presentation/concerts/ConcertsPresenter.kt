@@ -13,7 +13,7 @@ class ConcertsPresenter(
         getConcertsUseCase(
             onSuccess = { viewData ->
                 val success = State.Success(viewData)
-                getView()?.updateWith(state = success)
+                view?.updateWith(state = success)
             },
             onError = {
                 // TODO: ErrorHandler
