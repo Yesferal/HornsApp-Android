@@ -10,10 +10,10 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.viewpager2.widget.ViewPager2
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.concerts.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concerts.adapter.PageTransformation
-import com.yesferal.hornsapp.app.presentation.base.State
+import com.yesferal.hornsapp.app.presentation.common.State
 import com.yesferal.hornsapp.app.common.load
 import com.yesferal.hornsapp.app.presentation.concertDetail.ConcertDetailActivity
 import com.yesferal.hornsapp.app.presentation.concertDetail.EXTRA_PARAM_PARCELABLE

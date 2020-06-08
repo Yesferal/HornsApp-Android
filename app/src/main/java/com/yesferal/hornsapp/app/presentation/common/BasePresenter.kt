@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.base
+package com.yesferal.hornsapp.app.presentation.common
 
 @Suppress("UNCHECKED_CAST")
 abstract class BasePresenter<V: BaseContract.View>

@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.concerts
 
-import com.yesferal.hornsapp.app.presentation.base.BasePresenter
-import com.yesferal.hornsapp.app.presentation.base.State
+import com.yesferal.hornsapp.app.presentation.common.BasePresenter
+import com.yesferal.hornsapp.app.presentation.common.State
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 
 class ConcertsPresenter(

@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.base
+package com.yesferal.hornsapp.app.presentation.common
 
 sealed class State<T> {
     // TODO: Replace T with ViewData
