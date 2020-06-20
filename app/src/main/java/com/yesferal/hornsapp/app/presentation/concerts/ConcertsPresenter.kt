@@ -6,8 +6,7 @@ import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 
 class ConcertsPresenter(
     private val getConcertsUseCase: GetConcertsUseCase
-) : BasePresenter<ConcertsContract.View>(),
-    ConcertsContract.ActionListener {
+) : BasePresenter<ConcertsFragment>() {
     
     override fun onViewCreated() {
         getConcertsUseCase(

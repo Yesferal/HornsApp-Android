@@ -23,14 +23,12 @@ import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concerts.*
 
 class ConcertsFragment
-    : BaseFragment(),
-    ConcertsContract.View,
-    ConcertAdapter.Listener {
+    : BaseFragment() {
 
     private lateinit var concertAdapter: ConcertAdapter
 
     override val actionListener by lazy {
-        getContainer().resolve<ConcertsContract.ActionListener>()
+        getContainer().resolve<ConcertsPresenter>()
     }
 
     override fun onCreateView(
@@ -46,12 +44,12 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
         actionListener.onViewCreated()
-        concertAdapter = ConcertAdapter(this)
+        concertAdapter = initAdapter()
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())
     }
 
-    override fun render(state: State<List<Concert>>) {
+    fun render(state: State<List<Concert>>) {
         when(state) {
             is State.Success -> {
                 show(concerts = state.data)
@@ -73,10 +71,13 @@ class ConcertsFragment
         )
     }
 
-    override fun onConcertItemClick(
-        concert: Concert,
-        concertImageView: ImageView
-    ) {
+    companion object {
+        fun newInstance() = ConcertsFragment()
+    }
+}
+
+fun ConcertsFragment.initAdapter() = ConcertAdapter(object : ConcertAdapter.Listener {
+    override fun onConcertItemClick(concert: Concert, concertImageView: ImageView) {
         activity?.let {
             val intent = Intent(it, ConcertDetailActivity::class.java)
             intent.putExtra(EXTRA_PARAM_PARCELABLE, concert.asParcelable())
@@ -90,8 +91,4 @@ class ConcertsFragment
             startActivity(intent, options.toBundle())
         }
     }
-
-    companion object {
-        fun newInstance() = ConcertsFragment()
-    }
-}
+})
