@@ -45,13 +45,13 @@ class ConcertsFragment
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        actionListener.onCreate()
+        actionListener.onViewCreated()
         concertAdapter = ConcertAdapter(this)
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())
     }
 
-    override fun updateWith(state: State<List<Concert>>) {
+    override fun render(state: State<List<Concert>>) {
         when(state) {
             is State.Success -> {
                 show(concerts = state.data)

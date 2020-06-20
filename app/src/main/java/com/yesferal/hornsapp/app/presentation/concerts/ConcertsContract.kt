@@ -6,10 +6,10 @@ import com.yesferal.hornsapp.domain.entity.Concert
 
 interface ConcertsContract {
     interface View: BaseContract.View {
-        fun updateWith(state: State<List<Concert>>)
+        fun render(state: State<List<Concert>>)
     }
 
     interface ActionListener: BaseContract.ActionListener {
-        fun onCreate()
+        fun onViewCreated()
     }
 }

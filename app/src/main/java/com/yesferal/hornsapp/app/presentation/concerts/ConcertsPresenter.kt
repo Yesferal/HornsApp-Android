@@ -9,11 +9,11 @@ class ConcertsPresenter(
 ) : BasePresenter<ConcertsContract.View>(),
     ConcertsContract.ActionListener {
     
-    override fun onCreate() {
+    override fun onViewCreated() {
         getConcertsUseCase(
             onSuccess = { viewData ->
                 val success = State.Success(viewData)
-                view?.updateWith(state = success)
+                view?.render(state = success)
             },
             onError = {
                 // TODO: ErrorHandler
