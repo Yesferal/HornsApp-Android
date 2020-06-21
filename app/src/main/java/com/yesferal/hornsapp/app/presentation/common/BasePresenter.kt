@@ -5,6 +5,9 @@ abstract class BasePresenter<V: BaseContract.View, VD: ViewData>
     : BaseContract.ActionListener {
     var view: V? = null
 
+    abstract fun onViewCreated()
+    abstract fun render(state: State<VD>)
+
     override fun attach(view: BaseContract.View) {
         this.view = view as V
     }
@@ -12,6 +15,4 @@ abstract class BasePresenter<V: BaseContract.View, VD: ViewData>
     override fun detachView() {
         this.view = null
     }
-
-    abstract fun render(state: State<VD>)
 }

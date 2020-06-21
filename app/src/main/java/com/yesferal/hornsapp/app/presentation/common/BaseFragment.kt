@@ -8,6 +8,7 @@ import com.yesferal.hornsapp.app.presentation.HornsApp
 abstract class BaseFragment
     : Fragment(),
     BaseContract.View {
+
     abstract val actionListener: BaseContract.ActionListener?
 
     protected fun getContainer() = (activity?.application as HornsApp).container

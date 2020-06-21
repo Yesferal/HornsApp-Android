@@ -6,6 +6,5 @@ interface BaseContract {
     interface ActionListener {
         fun attach(view: View)
         fun detachView()
-        fun onViewCreated()
     }
 }
