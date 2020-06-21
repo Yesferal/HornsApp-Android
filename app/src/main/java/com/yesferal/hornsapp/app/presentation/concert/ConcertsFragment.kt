@@ -13,7 +13,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.adapter.PageTransformation
-import com.yesferal.hornsapp.app.common.load
+import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertDetailActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.domain.entity.Concert

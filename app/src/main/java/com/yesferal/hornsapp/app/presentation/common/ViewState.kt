@@ -2,15 +2,15 @@ package com.yesferal.hornsapp.app.presentation.common
 
 open class ViewData
 
-sealed class State<VD: ViewData> {
+sealed class ViewState<VIEW_DATA: ViewData> {
 
-    data class Success<VD: ViewData>(
-        val viewData: VD
-    ): State<VD>()
+    data class Success<VIEW_DATA: ViewData>(
+        val viewData: VIEW_DATA
+    ): ViewState<VIEW_DATA>()
 
-    object Progress: State<Nothing>()
+    object Progress: ViewState<Nothing>()
 
     data class Error(
         val message: Int
-    ): State<Nothing>()
+    ): ViewState<Nothing>()
 }

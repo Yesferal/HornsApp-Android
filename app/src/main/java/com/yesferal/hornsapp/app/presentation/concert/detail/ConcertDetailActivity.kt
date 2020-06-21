@@ -3,8 +3,8 @@ package com.yesferal.hornsapp.app.presentation.concert.detail
 import android.os.Bundle
 import com.yesferal.hornsapp.app.R
 import androidx.appcompat.app.AppCompatActivity
-import com.yesferal.hornsapp.app.common.load
-import com.yesferal.hornsapp.app.common.transparentStateBar
+import com.yesferal.hornsapp.app.util.load
+import com.yesferal.hornsapp.app.util.transparentStateBar
 import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
 import kotlinx.android.synthetic.main.activity_concert_detail.*
 

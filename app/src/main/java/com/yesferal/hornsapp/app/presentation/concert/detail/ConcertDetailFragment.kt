@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.common.setUpWith
+import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
 import kotlinx.android.synthetic.main.fragment_concert_detail.*
 

@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit.model
 
-import com.yesferal.hornsapp.domain.common.formatted
-import com.yesferal.hornsapp.domain.common.timeFormatted
+import com.yesferal.hornsapp.domain.util.formatted
+import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.entity.Concert
 import java.util.*
 
