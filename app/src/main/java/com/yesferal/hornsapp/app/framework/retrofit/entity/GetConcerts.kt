@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.framework.retrofit.model
+package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.domain.util.formatted
 import com.yesferal.hornsapp.domain.util.timeFormatted

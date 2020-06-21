@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-import com.yesferal.hornsapp.app.framework.retrofit.model.GetConcerts
-import com.yesferal.hornsapp.app.framework.retrofit.model.mapToConcert
+import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcerts
+import com.yesferal.hornsapp.app.framework.retrofit.entity.mapToConcert
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
 import com.yesferal.hornsapp.domain.entity.Concert
 import retrofit2.Call
