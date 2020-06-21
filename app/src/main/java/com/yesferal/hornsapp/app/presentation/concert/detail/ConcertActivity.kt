@@ -33,7 +33,7 @@ class ConcertDetailActivity : AppCompatActivity() {
                 .beginTransaction()
                 .replace(
                     R.id.contentLayout,
-                    ConcertDetailFragment.newInstance(concert)
+                    ConcertFragment.newInstance(concert)
                 )
                 .commit()
         }

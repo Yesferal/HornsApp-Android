@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concert_detail.*
 
-class ConcertDetailFragment
+class ConcertFragment
     : BaseFragment() {
 
     override val actionListener by lazy {
@@ -57,11 +57,11 @@ class ConcertDetailFragment
     companion object {
         fun newInstance(
             concert: ConcertParcelable
-        ) : ConcertDetailFragment {
+        ) : ConcertFragment {
             val bundle = Bundle()
             bundle.putParcelable(EXTRA_PARAM_PARCELABLE, concert)
 
-            return ConcertDetailFragment().apply {
+            return ConcertFragment().apply {
                 arguments = bundle
             }
         }
