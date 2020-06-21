@@ -1,7 +1,9 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
+import com.yesferal.hornsapp.app.framework.retrofit.model.GetConcerts
+import com.yesferal.hornsapp.app.framework.retrofit.model.mapToConcert
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
-import com.yesferal.hornsapp.data.repository.entity.GetConcerts
+import com.yesferal.hornsapp.domain.entity.Concert
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,7 +12,7 @@ class RetrofitDataSource(
     private val service: Service
 ) : ApiDataSource {
     override fun getConcerts(
-        onSuccess: (entity: List<GetConcerts>) -> Unit,
+        onSuccess: (entity: List<Concert>) -> Unit,
         onError: (t: Throwable) -> Unit
     ) {
         val call = service.getConcerts()
@@ -27,7 +29,10 @@ class RetrofitDataSource(
                 response: Response<List<GetConcerts>>
             ) {
                 val data = response.body()?: listOf()
-                onSuccess(data)
+                val concerts = data.map {
+                    it.mapToConcert()
+                }
+                onSuccess(concerts)
             }
         })
     }

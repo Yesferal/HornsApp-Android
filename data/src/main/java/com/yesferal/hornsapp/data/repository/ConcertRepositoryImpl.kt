@@ -3,7 +3,6 @@ package com.yesferal.hornsapp.data.repository
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
 import com.yesferal.hornsapp.data.abstraction.StorageDataSource
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
-import com.yesferal.hornsapp.data.mapper.mapToConcert
 import com.yesferal.hornsapp.domain.entity.Concert
 
 class ConcertRepositoryImpl(
@@ -17,11 +16,7 @@ class ConcertRepositoryImpl(
     ) {
         apiDataSource.getConcerts(
             onSuccess = {
-                val entities = it.map { response ->
-                    response.mapToConcert()
-                }
-
-                onSuccess(entities)
+                onSuccess(it)
             }, onError = {
                 onError(it)
             }
