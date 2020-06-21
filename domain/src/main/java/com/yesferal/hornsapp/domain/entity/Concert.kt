@@ -7,5 +7,8 @@ data class Concert (
     val posterImage: String?,
     val headlinerImage: String?,
     val date: String?,
-    val time: String?
+    val time: String?,
+    val state: String? = null,
+    val bands: List<Band>? = null,
+    val socialNetworks: List<String>? = null
 )

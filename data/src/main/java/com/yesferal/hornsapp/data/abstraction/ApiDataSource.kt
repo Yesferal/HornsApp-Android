@@ -7,4 +7,10 @@ interface ApiDataSource {
         onSuccess: (entity: List<Concert>) -> Unit,
         onError: (t: Throwable) -> Unit
     )
+
+    fun getConcert(
+        id: String,
+        onSuccess: (entity: Concert) -> Unit,
+        onError: (t: Throwable) -> Unit
+    )
 }

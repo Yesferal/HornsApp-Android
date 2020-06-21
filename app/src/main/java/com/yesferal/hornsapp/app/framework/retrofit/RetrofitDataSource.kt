@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
+import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcert
 import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcerts
 import com.yesferal.hornsapp.app.framework.retrofit.entity.mapToConcert
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
@@ -33,6 +34,32 @@ class RetrofitDataSource(
                     it.mapToConcert()
                 }
                 onSuccess(concerts)
+            }
+        })
+    }
+
+    override fun getConcert(
+        id: String,
+        onSuccess: (entity: Concert) -> Unit,
+        onError: (t: Throwable) -> Unit
+    ) {
+        val call = service.getConcertBy(id)
+        call.enqueue(object : Callback<GetConcert> {
+            override fun onFailure(
+                call: Call<GetConcert>,
+                t: Throwable
+            ) {
+                onError(t)
+            }
+
+            override fun onResponse(
+                call: Call<GetConcert>,
+                response: Response<GetConcert>
+            ) {
+                val data = response.body()
+                data?.let {
+                    onSuccess(it.mapToConcert())
+                }
             }
         })
     }

@@ -5,7 +5,6 @@ abstract class BasePresenter<VIEW: BaseContract.View, VIEW_DATA: ViewData>
     : BaseContract.ActionListener {
     var view: VIEW? = null
 
-    abstract fun onViewCreated()
     abstract fun render(state: ViewState<VIEW_DATA>)
 
     override fun attach(view: BaseContract.View) {

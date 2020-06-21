@@ -3,8 +3,14 @@ package com.yesferal.hornsapp.domain.abstraction
 import com.yesferal.hornsapp.domain.entity.Concert
 
 interface ConcertRepository {
+    fun getConcerts(
+        onSuccess: (concerts: List<Concert>) -> Unit,
+        onError: (t: Throwable) -> Unit
+    )
+
     fun getConcert(
-        onSuccess: (entities: List<Concert>) -> Unit,
+        id: String,
+        onSuccess: (concert: Concert) -> Unit,
         onError: (t: Throwable) -> Unit
     )
 }

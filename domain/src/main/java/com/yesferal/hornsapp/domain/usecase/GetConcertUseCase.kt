@@ -3,14 +3,16 @@ package com.yesferal.hornsapp.domain.usecase
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
 import com.yesferal.hornsapp.domain.entity.Concert
 
-class GetConcertsUseCase(
+class GetConcertUseCase(
     private val concertRepository: ConcertRepository
 ) {
     operator fun invoke(
-        onSuccess: (response: List<Concert>) -> Unit,
+        id: String,
+        onSuccess: (response: Concert) -> Unit,
         onError: (t: Throwable) -> Unit
     ) {
-        concertRepository.getConcerts(
+        concertRepository.getConcert(
+            id,
             onSuccess = {
                 onSuccess(it)
             },
