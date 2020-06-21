@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concerts.adapter
+package com.yesferal.hornsapp.app.presentation.concert.adapter
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,11 +1,11 @@
-package com.yesferal.hornsapp.app.presentation.concertDetail
+package com.yesferal.hornsapp.app.presentation.concert.detail
 
 import android.os.Bundle
 import com.yesferal.hornsapp.app.R
 import androidx.appcompat.app.AppCompatActivity
 import com.yesferal.hornsapp.app.common.load
 import com.yesferal.hornsapp.app.common.transparentStateBar
-import com.yesferal.hornsapp.app.presentation.concerts.model.ConcertParcelable
+import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
 import kotlinx.android.synthetic.main.activity_concert_detail.*
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
@@ -17,7 +17,9 @@ class ConcertDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_concert_detail)
         transparentStateBar()
 
-        val concert = intent?.extras?.getParcelable<ConcertParcelable>(EXTRA_PARAM_PARCELABLE)
+        val concert = intent?.extras?.getParcelable<ConcertParcelable>(
+            EXTRA_PARAM_PARCELABLE
+        )
 
         if (concert == null) {
             this.finish()
@@ -29,7 +31,10 @@ class ConcertDetailActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.contentLayout, ConcertDetailFragment.newInstance(concert))
+                .replace(
+                    R.id.contentLayout,
+                    ConcertDetailFragment.newInstance(concert)
+                )
                 .commit()
         }
     }

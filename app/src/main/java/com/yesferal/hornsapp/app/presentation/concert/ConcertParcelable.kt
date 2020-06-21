@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concerts.model
+package com.yesferal.hornsapp.app.presentation.concert
 
 import android.os.Parcelable
 import com.yesferal.hornsapp.domain.entity.Concert
@@ -21,5 +21,6 @@ fun Concert.asParcelable(): ConcertParcelable {
         description,
         posterImage,
         date,
-        time)
+        time
+    )
 }

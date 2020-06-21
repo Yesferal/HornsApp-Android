@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.common
 
 @Suppress("UNCHECKED_CAST")
-abstract class BasePresenter<V: BaseContract.View>
+abstract class BasePresenter<V: BaseContract.View, VD: ViewData>
     : BaseContract.ActionListener {
     var view: V? = null
 
@@ -12,4 +12,6 @@ abstract class BasePresenter<V: BaseContract.View>
     override fun detachView() {
         this.view = null
     }
+
+    abstract fun render(state: State<VD>)
 }

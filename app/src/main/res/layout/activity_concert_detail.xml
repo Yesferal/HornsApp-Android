@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.concertDetail.ConcertDetailActivity">
+    tools:context=".presentation.concert.detail.ConcertDetailActivity">
 
     <ImageView
         android:id="@+id/concertImageView"

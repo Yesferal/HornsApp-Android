@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concerts
+package com.yesferal.hornsapp.app.presentation.concert
 
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.State
@@ -6,17 +6,26 @@ import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 
 class ConcertsPresenter(
     private val getConcertsUseCase: GetConcertsUseCase
-) : BasePresenter<ConcertsFragment>() {
-    
+) : BasePresenter<ConcertsFragment, ConcertViewData>() {
+
     override fun onViewCreated() {
         getConcertsUseCase(
-            onSuccess = { viewData ->
+            onSuccess = { list ->
+                val viewData = ConcertViewData(list)
                 val success = State.Success(viewData)
-                view?.render(state = success)
+                render(state = success)
             },
             onError = {
                 // TODO: ErrorHandler
             }
         )
+    }
+
+    override fun render(state: State<ConcertViewData>) {
+        when(state) {
+            is State.Success -> {
+                view?.show(concerts = state.viewData.list)
+            }
+        }
     }
 }

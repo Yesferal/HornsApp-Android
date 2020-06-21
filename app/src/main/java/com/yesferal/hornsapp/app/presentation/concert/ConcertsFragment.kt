@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concerts
+package com.yesferal.hornsapp.app.presentation.concert
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +11,11 @@ import androidx.core.util.Pair
 import androidx.viewpager2.widget.ViewPager2
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.concerts.adapter.ConcertAdapter
-import com.yesferal.hornsapp.app.presentation.concerts.adapter.PageTransformation
-import com.yesferal.hornsapp.app.presentation.common.State
+import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
+import com.yesferal.hornsapp.app.presentation.concert.adapter.PageTransformation
 import com.yesferal.hornsapp.app.common.load
-import com.yesferal.hornsapp.app.presentation.concertDetail.ConcertDetailActivity
-import com.yesferal.hornsapp.app.presentation.concertDetail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.concerts.model.asParcelable
+import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertDetailActivity
+import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concerts.*
@@ -49,15 +47,7 @@ class ConcertsFragment
         concertsViewPager.setPageTransformer(PageTransformation())
     }
 
-    fun render(state: State<List<Concert>>) {
-        when(state) {
-            is State.Success -> {
-                show(concerts = state.data)
-            }
-        }
-    }
-
-    private fun show(concerts: List<Concert>) {
+    fun show(concerts: List<Concert>) {
         concertAdapter.setItem(concerts)
 
         concertsViewPager.registerOnPageChangeCallback(
@@ -76,19 +66,31 @@ class ConcertsFragment
     }
 }
 
-fun ConcertsFragment.initAdapter() = ConcertAdapter(object : ConcertAdapter.Listener {
-    override fun onConcertItemClick(concert: Concert, concertImageView: ImageView) {
-        activity?.let {
-            val intent = Intent(it, ConcertDetailActivity::class.java)
-            intent.putExtra(EXTRA_PARAM_PARCELABLE, concert.asParcelable())
+fun ConcertsFragment.initAdapter() =
+    ConcertAdapter(
+        object :
+            ConcertAdapter.Listener {
+            override fun onConcertItemClick(concert: Concert, concertImageView: ImageView) {
+                activity?.let {
+                    val intent = Intent(
+                        it,
+                        ConcertDetailActivity::class.java
+                    )
+                    intent.putExtra(
+                        EXTRA_PARAM_PARCELABLE,
+                        concert.asParcelable()
+                    )
 
-            val options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(
-                    it,
-                    Pair(concertImageView, getString(R.string.transitionNameConcertImageView))
-                )
+                    val options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation(
+                            it,
+                            Pair(
+                                concertImageView,
+                                getString(R.string.transitionNameConcertImageView)
+                            )
+                        )
 
-            startActivity(intent, options.toBundle())
-        }
-    }
-})
+                    startActivity(intent, options.toBundle())
+                }
+            }
+        })

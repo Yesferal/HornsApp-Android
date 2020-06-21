@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concertDetail
+package com.yesferal.hornsapp.app.presentation.concert.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.common.setUpWith
-import com.yesferal.hornsapp.app.presentation.concerts.model.ConcertParcelable
+import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
 import kotlinx.android.synthetic.main.fragment_concert_detail.*
 
 class ConcertDetailFragment
@@ -29,7 +29,9 @@ class ConcertDetailFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val concert = arguments?.getParcelable<ConcertParcelable>(EXTRA_PARAM_PARCELABLE)
+        val concert = arguments?.getParcelable<ConcertParcelable>(
+            EXTRA_PARAM_PARCELABLE
+        )
         titleTextView.setUpWith(concert?.name)
         descriptionTextView.setUpWith(concert?.description)
         timeTextView.setUpWith(concert?.time)
