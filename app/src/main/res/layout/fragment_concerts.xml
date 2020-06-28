@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/background"
-        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
@@ -36,8 +36,7 @@
         android:layout_height="0dp"
         android:text="@string/buy_tickets"
         android:layout_marginBottom="16dp"
-        android:background="@color/accent"
-        android:textColor="@android:color/white"
+        android:backgroundTint="@color/accent"
         app:layout_constraintWidth_percent="0.65"
         app:layout_constraintHeight_percent="0.10"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +47,7 @@
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.60"
+        app:layout_constraintHeight_percent="0.65"
         app:layout_constraintBottom_toTopOf="@+id/buyTicketsButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

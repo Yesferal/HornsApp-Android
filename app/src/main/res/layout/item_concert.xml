@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guidelineLeft"
-        app:layout_constraintGuide_percent="0.15"
+        app:layout_constraintGuide_percent="0.10"
         android:orientation="vertical"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guidelineRight"
-        app:layout_constraintGuide_percent="0.85"
+        app:layout_constraintGuide_percent="0.90"
         android:orientation="vertical"/>
 
     <View
@@ -54,35 +54,129 @@
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintTop_toBottomOf="@+id/concertImageView" />
 
-
+    <ImageView
+        android:id="@+id/calendarImageView"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_calendar"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:tint="@color/secondaryText"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
         android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_tag"
-        android:textAlignment="center"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@+id/calendarImageView"
+        app:layout_constraintStart_toEndOf="@id/calendarImageView"/>
 
     <TextView
         android:id="@+id/dateTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_tag"
-        android:textAlignment="center"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/timeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/timeTextView"
+        app:layout_constraintStart_toStartOf="@id/timeTextView"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"/>
 
+    <ImageView
+        android:id="@+id/genreImageView"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_launcher"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:tint="@color/secondaryText"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+    <TextView
+        android:id="@+id/genreTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Rock / Metal"
+        app:layout_constraintTop_toTopOf="@+id/genreImageView"
+        app:layout_constraintStart_toEndOf="@id/genreImageView"/>
+
+    <ImageView
+        android:id="@+id/youtubeImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_youtube"
+        android:tint="@color/disable"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/genreTextView"
+        app:layout_constraintStart_toStartOf="@+id/youtubeTextView"
+        app:layout_constraintEnd_toEndOf="@+id/youtubeTextView"/>
+
+    <TextView
+        android:id="@+id/youtubeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Trailer"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/youtubeImageView"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintWidth_percent="0.33"/>
+
+    <ImageView
+        android:id="@+id/facebookImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_facebook"
+        android:tint="@color/disable"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="@+id/youtubeImageView"
+        app:layout_constraintStart_toStartOf="@+id/facebookTextView"
+        app:layout_constraintEnd_toEndOf="@+id/facebookTextView"/>
+
+    <TextView
+        android:id="@+id/facebookTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Facebook"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/facebookImageView"
+        app:layout_constraintStart_toEndOf="@+id/youtubeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteTextView"
+        app:layout_constraintWidth_percent="0.33"/>
+
+    <ImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_favorite"
+        android:tint="@color/disable"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="@+id/youtubeImageView"
+        app:layout_constraintStart_toStartOf="@+id/favoriteTextView"
+        app:layout_constraintEnd_toEndOf="@+id/favoriteTextView"/>
+
+    <TextView
+        android:id="@+id/favoriteTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Añadir"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteImageView"
+        app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+        app:layout_constraintWidth_percent="0.33"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

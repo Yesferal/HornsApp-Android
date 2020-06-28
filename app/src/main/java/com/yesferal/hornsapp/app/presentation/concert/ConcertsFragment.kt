@@ -40,7 +40,7 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
         actionListener.onViewCreated()
-        concertImageView.setBottomCornersRounded(dp = 48)
+        concertImageView.setBottomCornersRounded(dp = 96)
         concertAdapter = initAdapter()
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())
