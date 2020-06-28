@@ -6,33 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_rounded_tag"
-        android:textAlignment="center"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/secondaryText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_rounded_tag"
-        android:textAlignment="center"
-        android:layout_marginTop="4dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/secondaryText"
-        app:layout_constraintTop_toBottomOf="@+id/timeTextView"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,9 +14,18 @@
         android:textStyle="bold"
         android:letterSpacing="0.05"
         android:textColor="@color/primaryText"
-        app:layout_constraintTop_toBottomOf="@+id/dateTextView"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/secondaryText"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/descriptionTextView"

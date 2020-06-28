@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
-import kotlinx.android.synthetic.main.fragment_concert_detail.*
+import kotlinx.android.synthetic.main.fragment_concert.*
 
 class ConcertFragment
     : BaseFragment() {
@@ -24,7 +24,7 @@ class ConcertFragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_concert_detail, container, false)
+        return inflater.inflate(R.layout.fragment_concert, container, false)
     }
 
     override fun onViewCreated(
@@ -45,7 +45,6 @@ class ConcertFragment
         actionListener.onViewCreated(concert.id)
         titleTextView.setUpWith(concert.name)
         descriptionTextView.setUpWith(concert.description)
-        timeTextView.setUpWith(concert.time)
         dateTextView.setUpWith(concert.date)
     }
 

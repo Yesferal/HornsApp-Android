@@ -25,7 +25,6 @@ class ConcertViewHolder constructor(
 
     fun bind(concert: Concert) {
         itemView.titleTextView.setUpWith(concert.name)
-        itemView.descriptionTextView.setUpWith(concert.description)
         itemView.dateTextView.setUpWith(concert.date)
         itemView.timeTextView.setUpWith(concert.time)
         itemView.concertImageView.load(concert.posterImage)
