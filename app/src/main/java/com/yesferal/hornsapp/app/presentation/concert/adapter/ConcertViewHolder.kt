@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.util.load
+import com.yesferal.hornsapp.app.util.setAllCornersRounded
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.domain.entity.Concert
 import kotlinx.android.synthetic.main.item_concert.view.*
@@ -27,13 +28,12 @@ class ConcertViewHolder constructor(
         itemView.titleTextView.setUpWith(concert.name)
         itemView.dateTextView.setUpWith(concert.date)
         itemView.timeTextView.setUpWith(concert.time)
+
+        itemView.concertImageView.setAllCornersRounded(dp = 16)
         itemView.concertImageView.load(concert.posterImage)
 
         itemView.cardView.setOnClickListener {
-            listener.onConcertItemClick(
-                concert,
-                itemView.concertImageView
-            )
+            listener.onConcertItemClick(concert)
         }
     }
 }

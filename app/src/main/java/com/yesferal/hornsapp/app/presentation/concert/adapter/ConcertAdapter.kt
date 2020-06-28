@@ -1,7 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.concert.adapter
 
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.domain.entity.Concert
 
@@ -11,10 +10,7 @@ class ConcertAdapter (
     private var list: List<Concert> = listOf()
 
     interface Listener {
-        fun onConcertItemClick(
-            concert: Concert,
-            concertImageView: ImageView
-        )
+        fun onConcertItemClick(concert: Concert)
     }
 
     override fun onCreateViewHolder(

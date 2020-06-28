@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">HornsApp</string>
     <string name="buy_tickets">Comprar Entradas</string>
-
-    <string name="transitionNameConcertImageView">concertImageView</string>
 </resources>

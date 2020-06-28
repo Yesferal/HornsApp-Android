@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.viewpager2.widget.ViewPager2
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
@@ -70,27 +67,19 @@ fun ConcertsFragment.initAdapter() =
     ConcertAdapter(
         object :
             ConcertAdapter.Listener {
-            override fun onConcertItemClick(concert: Concert, concertImageView: ImageView) {
+            override fun onConcertItemClick(concert: Concert) {
                 activity?.let {
                     val intent = Intent(
                         it,
                         ConcertActivity::class.java
                     )
+
                     intent.putExtra(
                         EXTRA_PARAM_PARCELABLE,
                         concert.asParcelable()
                     )
 
-                    val options = ActivityOptionsCompat
-                        .makeSceneTransitionAnimation(
-                            it,
-                            Pair(
-                                concertImageView,
-                                getString(R.string.transitionNameConcertImageView)
-                            )
-                        )
-
-                    startActivity(intent, options.toBundle())
+                    startActivity(intent)
                 }
             }
         })
