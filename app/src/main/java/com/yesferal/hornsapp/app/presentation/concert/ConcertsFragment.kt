@@ -13,6 +13,7 @@ import com.yesferal.hornsapp.app.presentation.concert.adapter.PageTransformation
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.util.load
+import com.yesferal.hornsapp.app.util.setBottomCornersRounded
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concerts.*
@@ -39,6 +40,7 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
         actionListener.onViewCreated()
+        concertImageView.setBottomCornersRounded(dp = 48)
         concertAdapter = initAdapter()
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())

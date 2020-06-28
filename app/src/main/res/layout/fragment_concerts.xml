@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.concert.ConcertsFragment">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/concertImageView"
         android:contentDescription="@string/app_name"
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintHeight_percent="0.60"
         app:layout_constraintBottom_toTopOf="@+id/buyTicketsButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

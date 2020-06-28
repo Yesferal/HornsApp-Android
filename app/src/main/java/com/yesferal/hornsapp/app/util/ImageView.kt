@@ -29,3 +29,18 @@ fun ShapeableImageView.setAllCornersRounded(dp: Int) {
         .setAllCorners(CornerFamily.ROUNDED, cornerSize)
         .build()
 }
+
+fun ShapeableImageView.setBottomCornersRounded(dp: Int) {
+
+    val cornerSize = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp.toFloat(),
+        resources.displayMetrics
+    )
+
+    shapeAppearanceModel = shapeAppearanceModel
+        .toBuilder()
+        .setBottomLeftCorner(CornerFamily.ROUNDED, cornerSize)
+        .setBottomRightCorner(CornerFamily.ROUNDED, cornerSize)
+        .build()
+}
