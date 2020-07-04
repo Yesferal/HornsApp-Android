@@ -5,6 +5,7 @@ import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.entity.State
 import com.yesferal.hornsapp.domain.util.formatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
+import com.yesferal.hornsapp.domain.util.toSafeUri
 import java.util.*
 
 data class GetConcert(
@@ -12,11 +13,12 @@ data class GetConcert(
     val name: String?,
     val description: String?,
     val posterImage: String?,
+    val trailerUrl: String?,
+    val socialNetworks: List<String>?,
     val headlinerImage: String?,
     val dateTime: Date?,
     val state: State?,
-    val bands: List<Band>?,
-    val socialNetworks: List<String>?
+    val bands: List<Band>?
 )
 
 fun GetConcert.mapToConcert(): Concert {
@@ -28,6 +30,10 @@ fun GetConcert.mapToConcert(): Concert {
         .dateTime
         ?.timeFormatted()
 
+    val facebookUrl = socialNetworks?.first()
+
+    val isFavorite = false
+
     return Concert(
         this._id,
         this.name,
@@ -36,8 +42,10 @@ fun GetConcert.mapToConcert(): Concert {
         this.headlinerImage,
         date,
         time,
-        state?.name,
-        bands,
-        socialNetworks
+        this.trailerUrl?.toSafeUri(),
+        facebookUrl?.toSafeUri(),
+        isFavorite,
+        this.state?.name,
+        this.bands
     )
 }

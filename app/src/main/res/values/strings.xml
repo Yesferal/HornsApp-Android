@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">HornsApp</string>
     <string name="buy_tickets">Comprar Entradas</string>
+
+    <string name="favorite">Favorito</string>
+    <string name="add">Agregar</string>
+    <string name="trailer">Trailer</string>
+    <string name="genre">Rock / Metal</string>
+    <string name="facebook">Facebook</string>
 </resources>

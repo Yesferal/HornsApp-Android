@@ -1,6 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.concert
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.yesferal.hornsapp.app.util.setBottomCornersRounded
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concerts.*
+import java.net.URI
 
 class ConcertsFragment
     : BaseFragment() {
@@ -83,5 +85,28 @@ fun ConcertsFragment.initAdapter() =
 
                     startActivity(intent)
                 }
+            }
+
+            override fun onFacebookButtonClick(uri: URI) {
+                val androidUri = try {
+                    activity?.packageManager?.getPackageInfo("com.facebook.katana", 0)
+                    Uri.parse("fb://${uri.path.replace("/events", "event")}")
+                } catch (e: Exception) {
+                    Uri.parse(uri.toString())
+                }
+                startExternalActivity(androidUri)
+            }
+
+            override fun onYoutubeButtonClick(uri: URI) {
+                startExternalActivity(Uri.parse(uri.toString()))
+            }
+
+            private fun startExternalActivity(uri: Uri) {
+                val intent = Intent(Intent.ACTION_VIEW,  uri)
+                startActivity(intent)
+            }
+
+            override fun onFavoriteButtonClick(concert: Concert) {
+                actionListener.onFavoriteButtonClick(concert)
             }
         })

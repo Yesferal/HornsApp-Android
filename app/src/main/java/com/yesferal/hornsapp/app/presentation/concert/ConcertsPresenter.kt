@@ -2,6 +2,7 @@ package com.yesferal.hornsapp.app.presentation.concert
 
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.ViewState
+import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 
 class ConcertsPresenter(
@@ -27,5 +28,9 @@ class ConcertsPresenter(
                 view?.show(concerts = state.viewData.concerts)
             }
         }
+    }
+
+    fun onFavoriteButtonClick(concert: Concert) {
+
     }
 }

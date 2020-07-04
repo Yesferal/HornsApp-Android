@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.app.presentation.concert.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.domain.entity.Concert
+import java.net.URI
 
 class ConcertAdapter (
     private val listener: Listener
@@ -11,6 +12,9 @@ class ConcertAdapter (
 
     interface Listener {
         fun onConcertItemClick(concert: Concert)
+        fun onFacebookButtonClick(uri: URI)
+        fun onYoutubeButtonClick(uri: URI)
+        fun onFavoriteButtonClick(concert: Concert)
     }
 
     override fun onCreateViewHolder(
