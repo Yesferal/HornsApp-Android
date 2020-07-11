@@ -39,4 +39,26 @@ class ConcertRepositoryImpl(
             }
         )
     }
+
+    override fun getFavoriteConcert(): List<String>? {
+        return storageDataSource.getFavoriteConcerts()
+    }
+
+    override fun insertFavoriteConcert(
+        concert: Concert,
+        onComplete: () -> Unit
+    ) {
+        storageDataSource.insertFavoriteConcert(concert) {
+            onComplete()
+        }
+    }
+
+    override fun removeFavoriteConcert(
+        concert: Concert,
+        onComplete: () -> Unit
+    ) {
+        storageDataSource.removeFavoriteConcert(concert) {
+            onComplete()
+        }
+    }
 }

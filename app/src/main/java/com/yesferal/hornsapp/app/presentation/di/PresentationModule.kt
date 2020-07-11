@@ -10,13 +10,15 @@ import com.yesferal.hornsapp.hada.dependency.Factory
 fun Container.registerPresentationModule() {
     this register Factory<ConcertsPresenter> {
         ConcertsPresenter(
-            resolve()
+            getConcertsUseCase = resolve(),
+            updateFavoriteConcertUseCase = resolve(),
+            adManager = resolve()
         )
     }
 
     this register Factory<ConcertPresenter> {
         ConcertPresenter(
-            resolve()
+            getConcertUseCase = resolve()
         )
     }
 }

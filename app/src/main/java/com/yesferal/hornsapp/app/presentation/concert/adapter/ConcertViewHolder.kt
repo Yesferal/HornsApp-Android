@@ -34,6 +34,8 @@ class ConcertViewHolder constructor(
         itemView.concertImageView.load(concert.posterImage)
 
         initFavoriteButtonFor(concert)
+        initFacebookButton(concert)
+        initTrailerButton(concert)
 
         itemView.cardView.setOnClickListener {
             listener.onConcertItemClick(concert)
@@ -74,6 +76,26 @@ class ConcertViewHolder constructor(
         } else {
             itemView.favoriteImageView.tintWith(R.color.disable)
             itemView.favoriteTextView.text = itemView.resources.getString(R.string.add)
+        }
+    }
+
+    private fun initFacebookButton(concert: Concert) {
+        concert.facebookUrl?.let {
+            itemView.facebookTextView.visibility = View.VISIBLE
+            itemView.facebookImageView.visibility = View.VISIBLE
+        }?: kotlin.run {
+            itemView.facebookTextView.visibility = View.GONE
+            itemView.facebookImageView.visibility = View.GONE
+        }
+    }
+
+    private fun initTrailerButton(concert: Concert) {
+        concert.trailerUrl?.let {
+            itemView.youtubeTextView.visibility = View.VISIBLE
+            itemView.youtubeImageView.visibility = View.VISIBLE
+        }?: kotlin.run {
+            itemView.youtubeTextView.visibility = View.GONE
+            itemView.youtubeImageView.visibility = View.GONE
         }
     }
 }

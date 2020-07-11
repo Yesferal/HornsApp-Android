@@ -10,9 +10,20 @@ class GetConcertsUseCase(
         onSuccess: (response: List<Concert>) -> Unit,
         onError: (t: Throwable) -> Unit
     ) {
+        val favouriteConcertsIds = concertRepository.getFavoriteConcert()
+
         concertRepository.getConcerts(
-            onSuccess = {
-                onSuccess(it)
+            onSuccess = { concerts ->
+
+                favouriteConcertsIds?.let { favorites ->
+                    concerts.forEach { concert ->
+                        if (favorites.contains(concert.id)) {
+                            concert.isFavorite = true
+                        }
+                    }
+                }
+
+                onSuccess(concerts)
             },
             onError = {
                 onError(it)

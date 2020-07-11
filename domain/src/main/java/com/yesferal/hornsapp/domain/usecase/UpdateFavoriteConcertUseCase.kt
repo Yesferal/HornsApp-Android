@@ -8,9 +8,17 @@ class UpdateFavoriteConcertUseCase(
 ) {
     operator fun invoke(
         concert: Concert,
-        onSuccess: (response: Concert) -> Unit,
-        onError: (t: Throwable) -> Unit
+        onInsert: () -> Unit,
+        onRemove: () -> Unit
     ) {
-
+        if (concert.isFavorite) {
+            concertRepository.insertFavoriteConcert(concert) {
+                onInsert()
+            }
+        } else {
+            concertRepository.removeFavoriteConcert(concert) {
+                onRemove()
+            }
+        }
     }
 }

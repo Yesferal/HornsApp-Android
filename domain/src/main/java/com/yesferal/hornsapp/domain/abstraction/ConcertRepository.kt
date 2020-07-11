@@ -13,4 +13,16 @@ interface ConcertRepository {
         onSuccess: (concert: Concert) -> Unit,
         onError: (t: Throwable) -> Unit
     )
+
+    fun getFavoriteConcert(): List<String>?
+
+    fun insertFavoriteConcert(
+        concert: Concert,
+        onComplete: () -> Unit
+    )
+
+    fun removeFavoriteConcert(
+        concert: Concert,
+        onComplete: () -> Unit
+    )
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
@@ -42,7 +43,7 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
         actionListener.onViewCreated()
-        concertImageView.setBottomCornersRounded(dp = 96)
+        concertImageView.setBottomCornersRounded(dp = 128)
         concertAdapter = initAdapter()
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())
@@ -60,6 +61,11 @@ class ConcertsFragment
                 }
             }
         )
+    }
+
+    fun show(adView: AdView) {
+        adContainerLayout.removeAllViews()
+        adContainerLayout.addView(adView)
     }
 
     companion object {
@@ -89,8 +95,12 @@ fun ConcertsFragment.initAdapter() =
 
             override fun onFacebookButtonClick(uri: URI) {
                 val androidUri = try {
-                    activity?.packageManager?.getPackageInfo("com.facebook.katana", 0)
-                    Uri.parse("fb://${uri.path.replace("/events", "event")}")
+                    activity?.packageManager?.getPackageInfo(
+                        getString(R.string.facebook_package),
+                        0
+                    )
+                    val event = uri.path.replace("/events", "event")
+                    Uri.parse("fb://$event")
                 } catch (e: Exception) {
                     Uri.parse(uri.toString())
                 }

@@ -2,6 +2,8 @@ package com.yesferal.hornsapp.app.presentation.common
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.presentation.HornsApp
 
@@ -21,5 +23,16 @@ abstract class BaseFragment
     override fun onDestroyView() {
         actionListener?.detachView()
         super.onDestroyView()
+    }
+
+    fun showToast(
+        @StringRes id: Int,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
+        Toast.makeText(
+            context,
+            getString(id),
+            duration
+        ).show()
     }
 }

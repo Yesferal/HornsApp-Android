@@ -30,24 +30,21 @@
         app:layout_constraintHeight_percent="0.6"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <Button
-        android:id="@+id/buyTicketsButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/buy_tickets"
+    <FrameLayout
+        android:id="@+id/adContainerLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/accent"
-        app:layout_constraintWidth_percent="0.65"
-        app:layout_constraintHeight_percent="0.10"
+        android:background="@drawable/ic_rocks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.65"
-        app:layout_constraintBottom_toTopOf="@+id/buyTicketsButton"/>
+        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
