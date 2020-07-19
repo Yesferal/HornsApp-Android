@@ -22,7 +22,8 @@ class ConcertsPresenter(
                 render(state = success)
             },
             onError = {
-                TODO("Implement ErrorHandler")
+                render(ViewState.Error(R.string.default_error))
+                // TODO("Implement ErrorHandler")
             }
         )
     }
@@ -30,8 +31,15 @@ class ConcertsPresenter(
     override fun render(state: ViewState<ConcertsViewData>) {
         when(state) {
             is ViewState.Success -> {
+                view?.hideProgress()
                 view?.show(concerts = state.viewData.concerts)
                 view?.show(adView = adManager.concertsAdView())
+            }
+            is ViewState.Progress -> {
+                view?.showProgress()
+            }
+            is ViewState.Error-> {
+                view?.hideProgress()
             }
         }
     }

@@ -14,6 +14,8 @@ import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.adapter.PageTransformation
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
+import com.yesferal.hornsapp.app.util.fadeIn
+import com.yesferal.hornsapp.app.util.fadeOut
 import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.util.setBottomCornersRounded
 import com.yesferal.hornsapp.domain.entity.Concert
@@ -42,22 +44,37 @@ class ConcertsFragment
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        actionListener.onViewCreated()
+
+        concertImageView.visibility = View.INVISIBLE
         concertImageView.setBottomCornersRounded(dp = 128)
+
         concertAdapter = initAdapter()
+        concertsViewPager.visibility = View.INVISIBLE
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())
+
+        actionListener.onViewCreated()
+    }
+
+    fun showProgress() {
+        progressBar.fadeIn()
+    }
+
+    fun hideProgress() {
+        progressBar.fadeOut()
     }
 
     fun show(concerts: List<Concert>) {
         concertAdapter.setItem(concerts)
 
+        concertsViewPager.fadeIn()
         concertsViewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     val concert = concerts[position]
                     concertImageView.load(concert.headlinerImage)
+                    concertImageView.fadeIn()
                 }
             }
         )
