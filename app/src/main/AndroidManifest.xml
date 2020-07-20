@@ -16,15 +16,20 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${AD_MOB_APP_ID}"/>
+            android:value="${AD_MOB_APP_ID}" />
 
-        <activity android:name=".presentation.concert.detail.ConcertActivity"/>
-        <activity android:name=".presentation.MainActivity">
+        <activity
+            android:name=".presentation.SplashActivity"
+            android:theme="@style/HornsApp.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".presentation.concert.detail.ConcertActivity" />
+
+        <activity android:name=".presentation.MainActivity"/>
     </application>
+
 </manifest>

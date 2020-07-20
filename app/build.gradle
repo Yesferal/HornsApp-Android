@@ -19,7 +19,7 @@ android {
         externalNativeBuild {
             cmake { cppFlags "" }
         }
-        manifestPlaceholders = [AD_MOB_APP_ID:AD_MOB_APP_ID]
+        manifestPlaceholders = [AD_MOB_APP_ID: AD_MOB_APP_ID]
     }
     buildTypes {
         debug {

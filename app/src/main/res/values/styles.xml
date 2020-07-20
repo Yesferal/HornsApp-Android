@@ -16,4 +16,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="HornsApp.Splash" parent="HornsApp.AppTheme">
+        <item name="android:windowBackground">@drawable/layer_list_splash</item>
+    </style>
+
 </resources>
