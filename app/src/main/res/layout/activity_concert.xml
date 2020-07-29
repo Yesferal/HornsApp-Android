@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.motion.widget.MotionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/scene_activity_concert"
     tools:context=".presentation.concert.detail.ConcertActivity">
 
     <ImageView
@@ -17,6 +18,37 @@
         app:layout_constraintDimensionRatio="1.6:1" />
 
     <View
+        android:id="@+id/concertForegroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/primaryDark"
+        android:alpha="0"
+        app:layout_constraintTop_toTopOf="@+id/concertImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
+
+    <ImageView
+        android:id="@+id/closeImageView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_back"
+        android:contentDescription="@string/app_name"
+        android:padding="24dp"
+        android:tint="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_favorite"
+        android:contentDescription="@string/app_name"
+        android:padding="24dp"
+        android:tint="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
         android:layout_height="64dp"
@@ -27,16 +59,17 @@
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_rounded_32dp"
+        android:background="@drawable/shape_rectangle_rounded_32dp_top"
         app:layout_constraintTop_toTopOf="@+id/dividerView"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
+        android:id="@+id/trailerImageView"
         android:contentDescription="@string/app_name"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/shape_rectangle_rounded_8dp"
-        android:src="@drawable/ic_youtube"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:src="@drawable/ic_trailer"
         app:layout_constraintTop_toTopOf="@id/contentLayout"
         app:layout_constraintBottom_toTopOf="@id/contentLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,9 +77,10 @@
         android:elevation="2dp"/>
 
     <View
+        android:id="@+id/gradientBackgroundView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_gradient"
+        android:background="@drawable/shape_rectangle_gradient_bottom"
         app:layout_constraintHeight_percent="0.10"
         app:layout_constraintBottom_toTopOf="@id/backgroundView"/>
 
@@ -59,12 +93,12 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
-        android:id="@+id/favoriteImageView"
+        android:id="@+id/locationImageView"
         android:contentDescription="@string/app_name"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:background="@drawable/shape_rectangle_tag"
-        android:src="@drawable/ic_favorite"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:src="@drawable/ic_map"
         android:padding="12dp"
         android:elevation="2dp"
         android:layout_marginStart="16dp"
@@ -83,8 +117,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toEndOf="@+id/favoriteImageView"
+        app:layout_constraintStart_toEndOf="@+id/locationImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

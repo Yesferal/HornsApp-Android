@@ -14,7 +14,6 @@ class ConcertActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
-        transparentStateBar()
 
         val concert = intent?.extras?.getParcelable<ConcertParcelable>(
             EXTRA_PARAM_PARCELABLE
@@ -25,8 +24,6 @@ class ConcertActivity : BaseActivity() {
             return
         }
 
-        concertImageView.load(concert.posterImage)
-
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -35,6 +32,12 @@ class ConcertActivity : BaseActivity() {
                     ConcertFragment.newInstance(concert)
                 )
                 .commit()
+        }
+
+        concertImageView.load(concert.posterImage)
+
+        closeImageView.setOnClickListener {
+            finish()
         }
     }
 }

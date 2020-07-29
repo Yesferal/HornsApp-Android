@@ -8,19 +8,13 @@ import kotlinx.android.parcel.Parcelize
 class ConcertParcelable(
     val id: String,
     val name: String?,
-    val description: String?,
-    val posterImage: String?,
-    val date: String?,
-    val time: String?
+    val posterImage: String?
 ) : Parcelable
 
 fun Concert.asParcelable(): ConcertParcelable {
     return ConcertParcelable(
         id,
         name,
-        description,
-        posterImage,
-        date,
-        time
+        posterImage
     )
 }

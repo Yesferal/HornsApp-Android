@@ -7,9 +7,9 @@
     <item android:drawable="@android:color/white"/>
 
     <item
-        android:width="84dp"
-        android:height="84dp"
-        android:drawable="@drawable/ic_rocks"
+        android:width="96dp"
+        android:height="96dp"
+        android:drawable="@mipmap/ic_launcher"
         android:gravity="center">
     </item>
 

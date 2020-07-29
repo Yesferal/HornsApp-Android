@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
+import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
@@ -17,7 +18,6 @@ import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELA
 import com.yesferal.hornsapp.app.util.fadeIn
 import com.yesferal.hornsapp.app.util.fadeOut
 import com.yesferal.hornsapp.app.util.load
-import com.yesferal.hornsapp.app.util.setBottomCornersRounded
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concerts.*
@@ -46,12 +46,16 @@ class ConcertsFragment
         super.onViewCreated(view, savedInstanceState)
 
         concertImageView.visibility = View.INVISIBLE
-        concertImageView.setBottomCornersRounded(dp = 128)
 
         concertAdapter = initAdapter()
         concertsViewPager.visibility = View.INVISIBLE
         concertsViewPager.adapter = concertAdapter
         concertsViewPager.setPageTransformer(PageTransformation())
+
+        allFilterTextView.setTextColor(getColor(R.color.accent))
+
+        TabLayoutMediator(tabLayout, concertsViewPager) { _,_ -> }
+            .attach()
 
         actionListener.onViewCreated()
     }

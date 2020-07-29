@@ -8,7 +8,6 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.util.setAllCornersRounded
 import com.yesferal.hornsapp.app.util.setUpWith
-import com.yesferal.hornsapp.app.util.tintWith
 import com.yesferal.hornsapp.domain.entity.Concert
 import kotlinx.android.synthetic.main.item_concert.view.*
 
@@ -27,21 +26,22 @@ class ConcertViewHolder constructor(
 
     fun bind(concert: Concert) {
         itemView.titleTextView.setUpWith(concert.name)
-        itemView.dateTextView.setUpWith(concert.date)
+        itemView.dayTextView.setUpWith(concert.day)
+        itemView.monthTextView.setUpWith(concert.month)
         itemView.timeTextView.setUpWith(concert.time)
 
         itemView.concertImageView.setAllCornersRounded(dp = 16)
         itemView.concertImageView.load(concert.posterImage)
 
-        initFavoriteButtonFor(concert)
-        initFacebookButton(concert)
-        initTrailerButton(concert)
+        //initFavoriteButtonFor(concert)
+        //initFacebookButton(concert)
+        //initTrailerButton(concert)
 
         itemView.cardView.setOnClickListener {
             listener.onConcertItemClick(concert)
         }
 
-        itemView.facebookTextView.setOnClickListener {
+        /*itemView.facebookTextView.setOnClickListener {
             itemView.facebookImageView.performClick()
         }
         itemView.facebookImageView.setOnClickListener {
@@ -59,23 +59,18 @@ class ConcertViewHolder constructor(
             }
         }
 
-        itemView.favoriteTextView.setOnClickListener {
-            itemView.favoriteImageView.performClick()
-        }
         itemView.favoriteImageView.setOnClickListener {
             concert.isFavorite = !concert.isFavorite
             initFavoriteButtonFor(concert)
             listener.onFavoriteButtonClick(concert)
-        }
+        }*/
     }
 
-    private fun initFavoriteButtonFor(concert: Concert) {
+    /*private fun initFavoriteButtonFor(concert: Concert) {
         if (concert.isFavorite) {
             itemView.favoriteImageView.tintWith(R.color.accent)
-            itemView.favoriteTextView.text = itemView.resources.getString(R.string.favorite)
         } else {
             itemView.favoriteImageView.tintWith(R.color.disable)
-            itemView.favoriteTextView.text = itemView.resources.getString(R.string.add)
         }
     }
 
@@ -97,5 +92,5 @@ class ConcertViewHolder constructor(
             itemView.youtubeTextView.visibility = View.GONE
             itemView.youtubeImageView.visibility = View.GONE
         }
-    }
+    }*/
 }

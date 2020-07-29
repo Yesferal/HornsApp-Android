@@ -44,13 +44,25 @@ class ConcertFragment
 
         actionListener.onViewCreated(concert.id)
         titleTextView.setUpWith(concert.name)
-        descriptionTextView.setUpWith(concert.description)
-        dateTextView.setUpWith(concert.date)
     }
 
     fun show(concert: Concert) {
         //TODO("Implement new view")
-        descriptionTextView.setUpWith(concert.bands.toString())
+        descriptionTextView.setUpWith(concert.description)
+        descriptionTextView.setUpWith(
+            concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+                +concert.bands.toString()
+        )
     }
 
     companion object {

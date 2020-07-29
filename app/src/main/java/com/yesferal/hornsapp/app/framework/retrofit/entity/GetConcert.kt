@@ -3,7 +3,8 @@ package com.yesferal.hornsapp.app.framework.retrofit.entity
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.entity.State
-import com.yesferal.hornsapp.domain.util.formatted
+import com.yesferal.hornsapp.domain.util.day
+import com.yesferal.hornsapp.domain.util.month
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.toSafeUri
 import java.util.*
@@ -22,9 +23,13 @@ data class GetConcert(
 )
 
 fun GetConcert.mapToConcert(): Concert {
-    val date = this
+    val day = this
         .dateTime
-        ?.formatted()
+        ?.day()
+
+    val month = this
+        .dateTime
+        ?.month()
 
     val time = this
         .dateTime
@@ -40,7 +45,8 @@ fun GetConcert.mapToConcert(): Concert {
         this.description,
         this.posterImage,
         this.headlinerImage,
-        date,
+        day,
+        month,
         time,
         this.trailerUrl?.toSafeUri(),
         facebookUrl?.toSafeUri(),
