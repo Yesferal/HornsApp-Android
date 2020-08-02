@@ -11,32 +11,34 @@
     <ImageView
         android:id="@+id/concertImageView"
         android:contentDescription="@string/app_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="@+id/allFilterTextView"
-        app:layout_constraintHeight_percent="0.4"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="1.6:1"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/shape_rectangle_gradient_top"
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintHeight_percent="0.5"/>
+        app:layout_constraintHeight_percent="0.25"/>
 
     <View
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:background="@drawable/shape_rectangle_gradient_right"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.5"/>
+        app:layout_constraintStart_toStartOf="@+id/concertImageView"
+        app:layout_constraintWidth_percent="0.6"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/shape_rectangle_gradient_bottom"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
-        app:layout_constraintHeight_percent="0.5"/>
+        app:layout_constraintHeight_percent="0.25"/>
 
     <TextView
         android:id="@+id/titleTextView"
@@ -80,53 +82,48 @@
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:layout_constraintStart_toEndOf="@+id/locationImageView"/>
 
-    <TextView
-        android:id="@+id/allFilterTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/all"
-        android:padding="16dp"
-        android:layout_marginStart="8dp"
-        style="@style/HornsApp.TextView.Filter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationTextView"/>
-
-    <TextView
-        android:id="@+id/virtualFilterTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/virtual"
-        android:padding="16dp"
-        style="@style/HornsApp.TextView.Filter"
-        app:layout_constraintTop_toTopOf="@+id/allFilterTextView"
-        app:layout_constraintStart_toEndOf="@+id/allFilterTextView"/>
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintTop_toBottomOf="@id/locationTextView"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
-        android:layout_height="3dp"
+        android:layout_height="4dp"
         android:layout_marginBottom="16dp"
         android:background="@color/disable"
-        app:tabIndicatorHeight="6dp"
+        app:tabIndicatorHeight="4dp"
         app:tabIndicatorColor="@color/accent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.15"
-        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout" />
+        app:layout_constraintBottom_toTopOf="@+id/categoryTextView"
+        app:layout_constraintWidth_percent="0.15"/>
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recommended"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/categoryRecyclerView"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"
+        app:layout_constraintHeight_percent="0.25"/>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_margin="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

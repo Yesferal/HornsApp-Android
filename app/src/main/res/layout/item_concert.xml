@@ -6,26 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guidelineLeft"
-        app:layout_constraintGuide_percent="0.1"
-        android:orientation="vertical"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guidelineRight"
-        app:layout_constraintGuide_percent="0.9"
-        android:orientation="vertical"/>
-
     <View
-        android:id="@+id/cardView"
+        android:id="@+id/containerView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/concertImageView"
@@ -33,61 +22,48 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:elevation="8dp"
         android:background="@color/background"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintBottom_toTopOf="@+id/dayTextView"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintTop_toTopOf="@+id/containerView"
+        app:layout_constraintStart_toStartOf="@id/containerView"
+        app:layout_constraintEnd_toEndOf="@id/containerView"
+        app:layout_constraintBottom_toTopOf="@+id/dividerView"
         app:layout_constraintDimensionRatio="1.6:1"/>
 
-    <TextView
-        android:id="@+id/dayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingTop="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:background="@drawable/shape_rectangle_rounded_32dp_top"
-        android:backgroundTint="@color/disable"
-        android:textColor="@color/accent"
-        android:textAlignment="center"
-        style="@style/HornsApp.TextView.SubTitle"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintBottom_toTopOf="@+id/monthTextView"/>
-
-    <TextView
-        android:id="@+id/monthTextView"
+    <View
+        android:id="@+id/detailView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:background="@drawable/shape_rectangle_rounded_32dp_bottom"
-        android:backgroundTint="@color/disable"
-        android:textColor="@color/accent"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="@id/dayTextView"
-        app:layout_constraintEnd_toEndOf="@id/dayTextView"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="@+id/concertImageView"
+        app:layout_constraintEnd_toEndOf="@+id/concertImageView"
+        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
         android:layout_marginStart="16dp"
-        style="@style/HornsApp.TextView.SubTitle"
-        app:layout_constraintStart_toEndOf="@id/dayTextView"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toTopOf="@+id/dayTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/dayTextView"/>
+        android:layout_marginEnd="16dp"
+        android:elevation="2dp"
+        style="@style/HornsApp.TextView.ViewHolderTitle"
+        app:layout_constraintStart_toStartOf="@id/detailView"
+        app:layout_constraintEnd_toEndOf="@id/detailView"
+        app:layout_constraintBottom_toTopOf="@+id/timeTextView"/>
 
     <ImageView
         android:id="@+id/timeImageView"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:src="@drawable/ic_calendar"
         android:tint="@color/secondaryText"
         android:contentDescription="@string/app_name"
+        android:elevation="2dp"
         app:layout_constraintTop_toTopOf="@+id/timeTextView"
         app:layout_constraintStart_toStartOf="@id/titleTextView"
         app:layout_constraintBottom_toBottomOf="@+id/timeTextView"/>
@@ -96,80 +72,60 @@
         android:id="@+id/timeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:padding="4dp"
         android:text="@string/genre"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        android:elevation="2dp"
         app:layout_constraintStart_toEndOf="@id/timeImageView"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"/>
+        app:layout_constraintEnd_toEndOf="@id/containerView"
+        app:layout_constraintBottom_toTopOf="@id/favoriteImageView"/>
 
-    <!--<ImageView
-        android:id="@+id/youtubeImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_youtube"
-        android:tint="@color/disable"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintTop_toTopOf="@+id/favoriteImageView"
-        app:layout_constraintStart_toStartOf="@+id/youtubeTextView"
-        app:layout_constraintEnd_toEndOf="@+id/youtubeTextView"/>
-
-    <TextView
-        android:id="@+id/youtubeTextView"
+    <View
+        android:id="@+id/dividerView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/trailer"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/youtubeImageView"
-        app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
-        app:layout_constraintWidth_percent="0.33"/>
+        android:layout_height="0.25dp"
+        android:background="@color/divider"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintEnd_toEndOf="@id/titleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/favoriteImageView"/>
+
+    <ImageView
+        android:id="@+id/youtubeImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_trailer"
+        android:tint="@color/secondaryText"
+        android:contentDescription="@string/app_name"
+        android:elevation="2dp"
+        app:layout_constraintStart_toEndOf="@+id/facebookImageView"
+        app:layout_constraintEnd_toEndOf="@+id/detailView"
+        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
 
     <ImageView
         android:id="@+id/facebookImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:padding="8dp"
         android:src="@drawable/ic_facebook"
-        android:tint="@color/disable"
+        android:tint="@color/secondaryText"
         android:contentDescription="@string/app_name"
-        app:layout_constraintTop_toTopOf="@+id/favoriteImageView"
-        app:layout_constraintStart_toStartOf="@+id/facebookTextView"
-        app:layout_constraintEnd_toEndOf="@+id/facebookTextView"/>
-
-    <TextView
-        android:id="@+id/facebookTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/facebook"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/facebookImageView"
-        app:layout_constraintStart_toEndOf="@+id/youtubeTextView"
-        app:layout_constraintEnd_toStartOf="@+id/favoriteTextView"
-        app:layout_constraintWidth_percent="0.33"/>
+        android:elevation="2dp"
+        app:layout_constraintStart_toEndOf="@+id/favoriteImageView"
+        app:layout_constraintEnd_toStartOf="@+id/youtubeImageView"
+        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
 
     <ImageView
         android:id="@+id/favoriteImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:padding="8dp"
         android:src="@drawable/ic_favorite"
-        android:tint="@color/disable"
-        android:layout_marginTop="12dp"
+        android:tint="@color/secondaryText"
         android:contentDescription="@string/app_name"
-        app:layout_constraintTop_toBottomOf="@+id/genreTextView"
-        app:layout_constraintStart_toStartOf="@+id/favoriteTextView"
-        app:layout_constraintEnd_toEndOf="@+id/favoriteTextView"/>
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="@+id/detailView"
+        app:layout_constraintEnd_toStartOf="@+id/facebookImageView"
+        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
 
-    <TextView
-        android:id="@+id/favoriteTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteImageView"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintWidth_percent="0.33"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

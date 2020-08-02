@@ -11,6 +11,7 @@
     <string name="all">Todos</string>
     <string name="virtual">Virtuales</string>
     <string name="concerts">Conciertos</string>
+    <string name="recommended">Recomendados</string>
 
     <!-- Messages -->
     <string name="buy_tickets">Comprar Entradas</string>
