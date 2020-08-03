@@ -17,7 +17,7 @@
         <Constraint
             android:id="@id/dividerView"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="32dp"
             app:layout_constraintTop_toBottomOf="@+id/concertImageView"
             app:layout_constraintBottom_toBottomOf="@+id/concertImageView">
         </Constraint>
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/primaryDark"
-            android:alpha="0"
+            android:alpha="0.1"
             app:layout_constraintTop_toTopOf="@+id/concertImageView"
             app:layout_constraintBottom_toBottomOf="@+id/concertImageView" >
         </Constraint>
@@ -36,7 +36,7 @@
         <Constraint
             android:id="@id/dividerView"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="32dp"
             app:layout_constraintTop_toBottomOf="@+id/closeImageView">
         </Constraint>
         <Constraint
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/primaryDark"
-            android:alpha="1"
+            android:alpha="0.5"
             app:layout_constraintTop_toTopOf="@+id/concertImageView"
             app:layout_constraintBottom_toBottomOf="@+id/concertImageView" >
         </Constraint>

@@ -22,36 +22,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/primaryDark"
-        android:alpha="0"
+        android:alpha="0.1"
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
 
     <ImageView
         android:id="@+id/closeImageView"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/ic_back"
         android:contentDescription="@string/app_name"
-        android:padding="24dp"
-        android:tint="@android:color/white"
+        android:padding="16dp"
+        android:tint="@color/background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-
-    <ImageView
-        android:id="@+id/favoriteImageView"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:src="@drawable/ic_favorite"
-        android:contentDescription="@string/app_name"
-        android:padding="24dp"
-        android:tint="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="32dp"
         app:layout_constraintTop_toBottomOf="@+id/concertImageView"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView"/>
 
@@ -59,20 +48,21 @@
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_rounded_32dp_top"
+        android:background="@drawable/shape_rectangle_rounded_16dp_top"
         app:layout_constraintTop_toTopOf="@+id/dividerView"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <ImageView
-        android:id="@+id/trailerImageView"
+    <com.yesferal.hornsapp.app.util.CheckBoxImageView
+        android:id="@+id/favoriteImageView"
         android:contentDescription="@string/app_name"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:padding="12dp"
         android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:src="@drawable/ic_trailer"
+        android:src="@drawable/ic_favorite"
         app:layout_constraintTop_toTopOf="@id/contentLayout"
         app:layout_constraintBottom_toTopOf="@id/contentLayout"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:elevation="2dp"/>
 

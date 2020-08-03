@@ -35,6 +35,10 @@ class ConcertActivity : BaseActivity() {
         }
 
         concertImageView.load(concert.posterImage)
+        favoriteImageView.isChecked = concert.isFavorite
+        favoriteImageView.setOnCheckedChangeListener { isChecked ->
+            concert.isFavorite = isChecked
+        }
 
         closeImageView.setOnClickListener {
             finish()

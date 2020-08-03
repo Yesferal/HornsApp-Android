@@ -2,14 +2,8 @@
     <string name="app_name">HornsApp</string>
 
     <!-- Words -->
-    <string name="favorite">Favorito</string>
-    <string name="add">Agregar</string>
-    <string name="trailer">Trailer</string>
     <string name="genre">Rock / Metal</string>
-    <string name="facebook">Facebook</string>
     <string name="lima">Lima</string>
-    <string name="all">Todos</string>
-    <string name="virtual">Virtuales</string>
     <string name="concerts">Conciertos</string>
     <string name="recommended">Recomendados</string>
 
@@ -17,7 +11,7 @@
     <string name="buy_tickets">Comprar Entradas</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
-    <string name="default_error">Ha occurrido un error, vuelva a intentarlo.</string>
+    <string name="default_error">Ha ocurrido un error, vuelva a intentarlo.</string>
 
     <string name="facebook_package">com.facebook.katana</string>
 </resources>

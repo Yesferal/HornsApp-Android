@@ -3,11 +3,6 @@
     <solid
         android:color="@color/background"/>
 
-    <padding android:left="16dp"
-        android:top="16dp"
-        android:right="16dp"
-        android:bottom="16dp" />
-
     <corners android:bottomRightRadius="16dp"
         android:bottomLeftRadius="16dp"
         android:topLeftRadius="16dp"
