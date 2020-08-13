@@ -47,11 +47,8 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        concertImageView.visibility = View.INVISIBLE
-
-        concertAdapter = initConcertAdapter()
+        concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
         concertsViewPager.also {
-            it.visibility = View.INVISIBLE
             it.adapter = concertAdapter
             it.setPageTransformer(PageTransformation())
         }
@@ -64,7 +61,7 @@ class ConcertsFragment
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        categoryAdapter = initCategoryAdapter()
+        categoryAdapter = CategoryAdapter(instanceCategoryAdapterListener())
         categoryRecyclerView.also {
             it.adapter = categoryAdapter
             it.layoutManager = viewManager
@@ -76,16 +73,17 @@ class ConcertsFragment
 
     fun showProgress() {
         progressBar.fadeIn()
+        progressBarBackground.fadeIn()
     }
 
     fun hideProgress() {
         progressBar.fadeOut()
+        progressBarBackground.fadeOut()
     }
 
     fun show(concerts: List<Concert>) {
         concertAdapter.setItem(concerts)
 
-        concertsViewPager.fadeIn()
         concertsViewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -100,7 +98,6 @@ class ConcertsFragment
 
     fun showCategories(categories: List<Category>) {
         categoryAdapter.setItem(categories)
-        categoryRecyclerView.fadeIn()
     }
 
     fun show(adView: AdView) {
@@ -113,8 +110,8 @@ class ConcertsFragment
     }
 }
 
-private fun ConcertsFragment.initConcertAdapter() =
-    ConcertAdapter(object : ConcertAdapter.Listener {
+private fun ConcertsFragment.instanceConcertAdapterListener() =
+    object : ConcertAdapter.Listener {
         override fun onConcertItemClick(concert: Concert) {
             activity?.let {
                 val intent = Intent(
@@ -157,11 +154,11 @@ private fun ConcertsFragment.initConcertAdapter() =
         override fun onFavoriteButtonClick(concert: Concert) {
             actionListener.onFavoriteButtonClick(concert)
         }
-    })
+    }
 
-private fun ConcertsFragment.initCategoryAdapter() =
-    CategoryAdapter(object : CategoryAdapter.Listener {
+private fun ConcertsFragment.instanceCategoryAdapterListener() =
+    object : CategoryAdapter.Listener {
         override fun openCategory(id: String) {
             showToast(R.string.app_name, Toast.LENGTH_LONG)
         }
-    })
+    }

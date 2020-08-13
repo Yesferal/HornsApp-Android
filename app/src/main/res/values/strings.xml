@@ -8,7 +8,7 @@
     <string name="recommended">Recomendados</string>
 
     <!-- Messages -->
-    <string name="buy_tickets">Comprar Entradas</string>
+    <string name="go_to_concert">Ir al concierto</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
     <string name="default_error">Ha ocurrido un error, vuelva a intentarlo.</string>

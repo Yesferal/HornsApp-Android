@@ -2,12 +2,12 @@
 <resources>
     <color name="primaryDark">#060408</color>
     <color name="primary">@color/primaryDark</color>
-    <color name="accent">#170670</color>
+    <color name="accent">#190A9F</color>
 
     <color name="primaryText">@color/primaryDark</color>
     <color name="secondaryText">#A2A39E</color>
 
     <color name="background">#F9F9F9</color>
     <color name="divider">@color/secondaryText</color>
-    <color name="disable">#32170670</color>
+    <color name="disable">#32190A9F</color>
 </resources>

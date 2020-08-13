@@ -8,46 +8,82 @@
         app:constraintSetEnd="@+id/end"
         app:duration="500">
         <OnSwipe
-            app:touchAnchorId="@id/contentLayout"
+            app:touchAnchorId="@id/fragmentContainerLayout"
             app:touchAnchorSide="top"
             app:dragDirection="dragUp" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
+            android:id="@+id/gradientTopView"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:background="@drawable/shape_rectangle_gradient_top"
+            android:alpha="0"
+            app:layout_constraintTop_toTopOf="@id/fragmentContainerLayout"
+            app:layout_constraintStart_toStartOf="@+id/fragmentContainerLayout"
+            app:layout_constraintEnd_toEndOf="@id/fragmentContainerLayout"/>
+        <Constraint
             android:id="@id/dividerView"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             app:layout_constraintTop_toBottomOf="@+id/concertImageView"
-            app:layout_constraintBottom_toBottomOf="@+id/concertImageView">
-        </Constraint>
+            app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
         <Constraint
             android:id="@+id/concertForegroundImageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/primaryDark"
-            android:alpha="0.1"
+            android:alpha="0.15"
             app:layout_constraintTop_toTopOf="@+id/concertImageView"
-            app:layout_constraintBottom_toBottomOf="@+id/concertImageView" >
-        </Constraint>
+            app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
+        <Constraint
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toTopOf="@+id/backgroundView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"/>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
+            android:id="@+id/gradientTopView"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:background="@drawable/shape_rectangle_gradient_top"
+            android:alpha="1"
+            app:layout_constraintTop_toTopOf="@id/fragmentContainerLayout"
+            app:layout_constraintStart_toStartOf="@+id/fragmentContainerLayout"
+            app:layout_constraintEnd_toEndOf="@id/fragmentContainerLayout"/>
+        <Constraint
             android:id="@id/dividerView"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/closeImageView">
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@+id/closeImageView" />
         <Constraint
             android:id="@+id/concertForegroundImageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/primaryDark"
-            android:alpha="0.5"
+            android:alpha="1"
             app:layout_constraintTop_toTopOf="@+id/concertImageView"
-            app:layout_constraintBottom_toBottomOf="@+id/concertImageView" >
-        </Constraint>
+            app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
+        <Constraint
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="4dp"
+            android:alpha="0"
+            android:gravity="center_vertical"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toTopOf="@+id/closeImageView"
+            app:layout_constraintStart_toEndOf="@+id/closeImageView"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/closeImageView"/>
     </ConstraintSet>
 
 </MotionScene>

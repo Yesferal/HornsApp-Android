@@ -61,12 +61,12 @@
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:src="@drawable/ic_calendar"
-        android:tint="@color/secondaryText"
         android:contentDescription="@string/app_name"
         android:elevation="2dp"
         app:layout_constraintTop_toTopOf="@+id/timeTextView"
         app:layout_constraintStart_toStartOf="@id/titleTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/timeTextView"/>
+        app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
+        app:tint="@color/secondaryText" />
 
     <TextView
         android:id="@+id/timeTextView"
@@ -95,12 +95,12 @@
         android:layout_height="36dp"
         android:padding="8dp"
         android:src="@drawable/ic_trailer"
-        android:tint="@color/secondaryText"
         android:contentDescription="@string/app_name"
         android:elevation="2dp"
         app:layout_constraintStart_toEndOf="@+id/facebookImageView"
         app:layout_constraintEnd_toEndOf="@+id/descriptionContainerView"
-        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
+        app:layout_constraintBottom_toBottomOf="@id/containerView"
+        app:tint="@color/secondaryText" />
 
     <ImageView
         android:id="@+id/facebookImageView"
@@ -108,12 +108,12 @@
         android:layout_height="36dp"
         android:padding="8dp"
         android:src="@drawable/ic_facebook"
-        android:tint="@color/secondaryText"
         android:contentDescription="@string/app_name"
         android:elevation="2dp"
         app:layout_constraintStart_toEndOf="@+id/favoriteImageView"
         app:layout_constraintEnd_toStartOf="@+id/trailerImageView"
-        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
+        app:layout_constraintBottom_toBottomOf="@id/containerView"
+        app:tint="@color/secondaryText" />
 
     <com.yesferal.hornsapp.app.util.CheckBoxImageView
         android:id="@+id/favoriteImageView"

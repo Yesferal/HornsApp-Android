@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.util.setUpWith
@@ -17,6 +18,11 @@ class ConcertFragment
 
     override val actionListener by lazy {
         getContainer().resolve<ConcertPresenter>()
+    }
+
+    var listener: Listener? = null
+    interface Listener {
+        fun show(adView: AdView)
     }
 
     override fun onCreateView(
@@ -43,7 +49,6 @@ class ConcertFragment
         }
 
         actionListener.onViewCreated(concert.id)
-        titleTextView.setUpWith(concert.name)
     }
 
     fun show(concert: Concert) {
@@ -63,6 +68,10 @@ class ConcertFragment
                 +concert.bands.toString()
                 +concert.bands.toString()
         )
+    }
+
+    fun show(adView: AdView) {
+        listener?.show(adView)
     }
 
     companion object {
