@@ -1,8 +1,8 @@
 package com.yesferal.hornsapp.domain.entity
 
-class Band (
+data class Local (
     val _id: String,
     val name: String?,
-    val membersImage: String?,
-    val logoImage: String?
+    val latitude: String?,
+    val longitude: String?
 )

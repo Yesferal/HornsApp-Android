@@ -10,6 +10,7 @@ import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
 import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.domain.entity.Local
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concert.*
 
@@ -23,6 +24,7 @@ class ConcertFragment
     var listener: Listener? = null
     interface Listener {
         fun show(adView: AdView)
+        fun show(local: Local)
     }
 
     override fun onCreateView(
@@ -68,6 +70,9 @@ class ConcertFragment
                 +concert.bands.toString()
                 +concert.bands.toString()
         )
+        concert.local?.let {
+            listener?.show(it)
+        }
     }
 
     fun show(adView: AdView) {

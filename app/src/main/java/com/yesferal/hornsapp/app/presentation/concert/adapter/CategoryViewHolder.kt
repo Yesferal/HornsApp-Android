@@ -31,7 +31,7 @@ class CategoryViewHolder (
         itemView.categoryImageView.load(category.imageUrl)
 
         itemView.containerView.setOnClickListener {
-            listener.openCategory(category.id)
+            listener.openCategory(category._id)
         }
     }
 }

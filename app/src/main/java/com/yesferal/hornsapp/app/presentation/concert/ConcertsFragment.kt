@@ -129,26 +129,15 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
         }
 
         override fun onFacebookButtonClick(uri: URI) {
-            val androidUri = try {
-                activity?.packageManager?.getPackageInfo(
-                    getString(R.string.facebook_package),
-                    0
-                )
-                val event = uri.path.replace("/events", "event")
-                Uri.parse("fb://$event")
-            } catch (e: Exception) {
-                Uri.parse(uri.toString())
+            val event = uri.path.replace("/events", "event")
+            val fbUri = Uri.parse("fb://$event")
+            startExternalActivity(fbUri, getString(R.string.facebook_package)) {
+                startExternalActivity(uri)
             }
-            startExternalActivity(androidUri)
         }
 
         override fun onYoutubeButtonClick(uri: URI) {
-            startExternalActivity(Uri.parse(uri.toString()))
-        }
-
-        private fun startExternalActivity(uri: Uri) {
-            val intent = Intent(Intent.ACTION_VIEW,  uri)
-            startActivity(intent)
+            startExternalActivity(uri)
         }
 
         override fun onFavoriteButtonClick(concert: Concert) {
