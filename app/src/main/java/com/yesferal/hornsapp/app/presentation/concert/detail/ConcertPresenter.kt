@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.concert.detail
 
+import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.ViewState
@@ -19,6 +20,7 @@ class ConcertPresenter(
                 render(state = success)
             },
             onError = {
+                render(ViewState.Error(R.string.default_error))
                 //TODO("Not yet implemented")
             }
         )
@@ -29,8 +31,15 @@ class ConcertPresenter(
     ) {
         when(state) {
             is ViewState.Success -> {
+                view?.hideProgress()
                 view?.show(concert = state.viewData.concert)
                 view?.show(adView = adManager.concertsAdView())
+            }
+            is ViewState.Progress -> {
+                view?.showProgress()
+            }
+            is ViewState.Error-> {
+                view?.hideProgress()
             }
         }
     }

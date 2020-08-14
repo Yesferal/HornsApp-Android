@@ -21,6 +21,7 @@ import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
+import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
 import java.net.URI
 
@@ -72,13 +73,11 @@ class ConcertsFragment
     }
 
     fun showProgress() {
-        progressBar.fadeIn()
-        progressBarBackground.fadeIn()
+        customProgressBar.fadeIn()
     }
 
     fun hideProgress() {
-        progressBar.fadeOut()
-        progressBarBackground.fadeOut()
+        customProgressBar.fadeOut()
     }
 
     fun show(concerts: List<Concert>) {

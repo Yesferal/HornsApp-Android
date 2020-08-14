@@ -7,10 +7,14 @@ import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
 import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
+import com.yesferal.hornsapp.app.util.fadeIn
+import com.yesferal.hornsapp.app.util.fadeOut
 import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.util.setUpWith
+import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.entity.Local
 import kotlinx.android.synthetic.main.activity_concert.*
+import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
@@ -64,13 +68,26 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
             adContainerLayout.addView(adView)
         }
 
-        override fun show(local: Local) {
+        override fun show(concert: Concert) {
+            concert.local?.let { show(it) }
+        }
+
+        private fun show(local: Local) {
             locationImageView.visibility = View.VISIBLE
             locationImageView.setOnClickListener {
                 val latitude = local.latitude
                 val longitude = local.longitude
                 val uri = Uri.parse("geo:${latitude},${longitude}?q=${Uri.encode(local.name)}")
+
                 startExternalActivity(uri, getString(R.string.maps_package))
             }
+        }
+
+        override fun showProgress() {
+            customProgressBar.fadeIn()
+        }
+
+        override fun hideProgress() {
+            customProgressBar.fadeOut()
         }
     }
