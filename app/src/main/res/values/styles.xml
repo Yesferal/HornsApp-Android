@@ -6,7 +6,7 @@
         <item name="colorAccent">@color/accent</item>
 
         <item name="android:textColor">@color/secondaryText</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="HornsApp.TextView.Title" parent="@android:style/TextAppearance">

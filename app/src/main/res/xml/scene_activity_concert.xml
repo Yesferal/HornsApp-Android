@@ -15,15 +15,6 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/gradientTopView"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:background="@drawable/shape_rectangle_gradient_top"
-            android:alpha="0"
-            app:layout_constraintTop_toTopOf="@id/fragmentContainerLayout"
-            app:layout_constraintStart_toStartOf="@+id/fragmentContainerLayout"
-            app:layout_constraintEnd_toEndOf="@id/fragmentContainerLayout"/>
-        <Constraint
             android:id="@id/dividerView"
             android:layout_width="match_parent"
             android:layout_height="32dp"
@@ -40,26 +31,38 @@
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:gravity="center_vertical"
             style="@style/HornsApp.TextView.Title"
-            app:layout_constraintTop_toTopOf="@+id/backgroundView"
+            app:layout_constraintTop_toBottomOf="@+id/locationImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <Constraint
+            android:id="@+id/backgroundButtonsView"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="2dp"
+            android:background="@drawable/shape_rectangle_rounded_16dp"
+            app:layout_constraintBottom_toTopOf="@id/adContainerLayout"/>
+        <Constraint
+            android:id="@+id/buyTicketsButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/go_now"
+            android:background="@drawable/shape_rectangle_rounded_16dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/accent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/trailerImageView"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundButtonsView"
+            app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
+            app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"/>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint
-            android:id="@+id/gradientTopView"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:background="@drawable/shape_rectangle_gradient_top"
-            android:alpha="1"
-            app:layout_constraintTop_toTopOf="@id/fragmentContainerLayout"
-            app:layout_constraintStart_toStartOf="@+id/fragmentContainerLayout"
-            app:layout_constraintEnd_toEndOf="@id/fragmentContainerLayout"/>
         <Constraint
             android:id="@id/dividerView"
             android:layout_width="match_parent"
@@ -76,14 +79,36 @@
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="4dp"
             android:alpha="0"
             android:gravity="center_vertical"
             style="@style/HornsApp.TextView.Title"
             app:layout_constraintTop_toTopOf="@+id/closeImageView"
             app:layout_constraintStart_toEndOf="@+id/closeImageView"
-            app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"
+            app:layout_constraintEnd_toStartOf="@+id/locationImageView"
             app:layout_constraintBottom_toBottomOf="@+id/closeImageView"/>
+        <Constraint
+            android:id="@+id/backgroundButtonsView"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="2dp"
+            android:background="@drawable/shape_rectangle_rounded_16dp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/adContainerLayout"/>
+        <Constraint
+            android:id="@+id/buyTicketsButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/go_now"
+            android:background="@drawable/shape_rectangle_rounded_16dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/accent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/backgroundButtonsView"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundButtonsView"
+            app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
+            app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"/>
     </ConstraintSet>
-
 </MotionScene>

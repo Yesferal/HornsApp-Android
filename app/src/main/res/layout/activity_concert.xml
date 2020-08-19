@@ -45,32 +45,31 @@
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView"/>
 
     <View
-        android:id="@+id/backgroundView"
+        android:id="@+id/containerBackgroundView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/shape_rectangle_rounded_16dp_top"
         app:layout_constraintTop_toTopOf="@+id/dividerView"
-        app:layout_constraintBottom_toTopOf="@id/buyTicketsButton"/>
+        app:layout_constraintBottom_toTopOf="@id/adContainerLayout"/>
 
-    <com.yesferal.hornsapp.app.util.CheckBoxImageView
-        android:id="@+id/favoriteImageView"
+    <ImageView
+        android:id="@+id/locationImageView"
         android:contentDescription="@string/app_name"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="16dp"
         android:padding="12dp"
         android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:src="@drawable/ic_favorite"
+        android:src="@drawable/ic_map"
         android:elevation="2dp"
-        app:layout_constraintTop_toTopOf="@id/backgroundView"
+        app:layout_constraintTop_toTopOf="@id/containerBackgroundView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/backgroundView"/>
+        app:layout_constraintBottom_toTopOf="@id/containerBackgroundView"/>
 
     <TextView
         android:id="@+id/titleToolbarTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="4dp"
         android:textColor="@android:color/white"
         android:gravity="center_vertical"
         style="@style/HornsApp.TextView.Title"
@@ -83,70 +82,111 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:gravity="center_vertical"
         style="@style/HornsApp.TextView.Title"
-        app:layout_constraintTop_toTopOf="@+id/backgroundView"
+        app:layout_constraintTop_toBottomOf="@+id/locationImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <FrameLayout
         android:id="@+id/fragmentContainerLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintBottom_toBottomOf="@id/backgroundView"/>
+        app:layout_constraintBottom_toBottomOf="@id/containerBackgroundView"/>
 
     <View
-        android:id="@+id/gradientTopView"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
-        android:background="@drawable/shape_rectangle_gradient_top"
-        android:alpha="0"
-        app:layout_constraintTop_toTopOf="@id/fragmentContainerLayout"
-        app:layout_constraintStart_toStartOf="@+id/fragmentContainerLayout"
-        app:layout_constraintEnd_toEndOf="@id/fragmentContainerLayout"/>
+        android:id="@+id/markBackgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp_top"
+        app:layout_constraintTop_toTopOf="@+id/containerBackgroundView"/>
+
+    <View
+        android:id="@+id/markView"
+        android:layout_width="32dp"
+        android:layout_height="4dp"
+        android:layout_margin="6dp"
+        android:background="@color/divider"
+        app:layout_constraintTop_toTopOf="@+id/containerBackgroundView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:id="@+id/gradientBottomView"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:background="@drawable/shape_rectangle_gradient_bottom"
-        app:layout_constraintBottom_toBottomOf="@id/fragmentContainerLayout"/>
+        app:layout_constraintBottom_toBottomOf="@id/containerBackgroundView"/>
 
-    <ImageView
-        android:id="@+id/locationImageView"
+    <View
+        android:id="@+id/backgroundButtonsView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        app:layout_constraintBottom_toTopOf="@id/adContainerLayout"/>
+
+    <com.yesferal.hornsapp.app.util.CheckBoxImageView
+        android:id="@+id/favoriteImageView"
         android:contentDescription="@string/app_name"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:src="@drawable/ic_map"
+        android:src="@drawable/ic_favorite"
+        android:padding="12dp"
+        android:layout_marginStart="8dp"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundButtonsView"
+        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
+        app:tint="@color/secondaryText" />
+
+    <ImageView
+        android:id="@+id/facebookImageView"
+        android:contentDescription="@string/app_name"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:src="@drawable/ic_facebook"
         android:padding="12dp"
         android:elevation="2dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"/>
+        app:layout_constraintStart_toEndOf="@+id/favoriteImageView"
+        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
+        app:tint="@color/secondaryText" />
+
+    <ImageView
+        android:id="@+id/trailerImageView"
+        android:contentDescription="@string/app_name"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:src="@drawable/ic_trailer"
+        android:padding="12dp"
+        android:elevation="2dp"
+        app:layout_constraintStart_toEndOf="@+id/facebookImageView"
+        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
+        app:tint="@color/secondaryText" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buyTicketsButton"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:text="@string/go_to_concert"
+        android:text="@string/go_now"
         android:background="@drawable/shape_rectangle_rounded_16dp"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/accent"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintStart_toEndOf="@+id/locationImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"/>
+        app:layout_constraintStart_toEndOf="@+id/trailerImageView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundButtonsView"
+        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"/>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"

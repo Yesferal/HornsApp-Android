@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
+import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_concert.*
@@ -16,8 +19,10 @@ import kotlinx.android.synthetic.main.fragment_concert.*
 class ConcertFragment
     : BaseFragment() {
 
+    private lateinit var bandAdapter: BaseAdapter
+
     override val actionListener by lazy {
-        getContainer().resolve<ConcertPresenter>()
+        container.resolve<ConcertPresenter>()
     }
 
     var listener: Listener? = null
@@ -51,27 +56,27 @@ class ConcertFragment
             return
         }
 
+        bandAdapter = BaseAdapter(instanceBaseAdapterListener())
+        bandRecyclerView.also {
+            it.adapter = bandAdapter
+            it.layoutManager = linearLayoutManager
+            it.addItemDecoration(RecyclerViewDecorator(padding = 8))
+        }
+
         actionListener.onViewCreated(concert.id)
     }
 
     fun show(concert: Concert) {
         listener?.show(concert)
-        //TODO("Implement new view")
+
         descriptionTextView.setUpWith(concert.description)
-        descriptionTextView.setUpWith(
-            concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-                +concert.bands.toString()
-        )
+        localTextView.setUpWith(concert.local?.name)
+        timeTextView.setUpWith(concert.time)
+
+        val items = concert.bands?.map {
+            it.mapToBaseItem()
+        }
+        bandAdapter.setItem(items)
     }
 
     fun show(adView: AdView) {
@@ -99,3 +104,10 @@ class ConcertFragment
         }
     }
 }
+
+private fun ConcertFragment.instanceBaseAdapterListener() =
+    object : BaseAdapter.Listener {
+        override fun onClick(id: String) {
+            showToast(R.string.app_name)
+        }
+    }

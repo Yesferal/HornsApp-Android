@@ -73,11 +73,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="@string/genre"
         android:elevation="2dp"
         app:layout_constraintStart_toEndOf="@id/timeImageView"
         app:layout_constraintEnd_toEndOf="@id/containerView"
-        app:layout_constraintBottom_toTopOf="@id/favoriteImageView"/>
+        app:layout_constraintBottom_toTopOf="@id/dividerView"/>
 
     <View
         android:id="@+id/dividerView"

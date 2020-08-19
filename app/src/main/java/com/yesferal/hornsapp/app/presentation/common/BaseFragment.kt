@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.HornsApp
 import java.net.URI
@@ -17,7 +18,17 @@ abstract class BaseFragment
 
     abstract val actionListener: BaseContract.ActionListener?
 
-    protected fun getContainer() = (activity?.application as HornsApp).container
+    protected val container by lazy {
+        (activity?.application as HornsApp).container
+    }
+
+    protected val linearLayoutManager by lazy {
+        LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

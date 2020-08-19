@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.concert.adapter.CategoryAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
@@ -29,10 +28,10 @@ class ConcertsFragment
     : BaseFragment() {
 
     private lateinit var concertAdapter: ConcertAdapter
-    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var categoryAdapter: BaseAdapter
 
     override val actionListener by lazy {
-        getContainer().resolve<ConcertsPresenter>()
+        container.resolve<ConcertsPresenter>()
     }
 
     override fun onCreateView(
@@ -57,16 +56,11 @@ class ConcertsFragment
         TabLayoutMediator(tabLayout, concertsViewPager) { _,_ -> }
             .attach()
 
-        val viewManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        categoryAdapter = CategoryAdapter(instanceCategoryAdapterListener())
+        categoryAdapter = BaseAdapter(instanceBaseAdapterListener())
         categoryRecyclerView.also {
             it.adapter = categoryAdapter
-            it.layoutManager = viewManager
-            it.addItemDecoration(RecyclerViewDecorator(context))
+            it.layoutManager = linearLayoutManager
+            it.addItemDecoration(RecyclerViewDecorator())
         }
 
         actionListener.onViewCreated()
@@ -96,7 +90,9 @@ class ConcertsFragment
     }
 
     fun showCategories(categories: List<Category>) {
-        categoryAdapter.setItem(categories)
+        //TODO("Move to presenter")
+        val items = categories.map { it.mapToBaseItem() }
+        categoryAdapter.setItem(items)
     }
 
     fun show(adView: AdView) {
@@ -144,9 +140,9 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
         }
     }
 
-private fun ConcertsFragment.instanceCategoryAdapterListener() =
-    object : CategoryAdapter.Listener {
-        override fun openCategory(id: String) {
-            showToast(R.string.app_name, Toast.LENGTH_LONG)
+private fun ConcertsFragment.instanceBaseAdapterListener() =
+    object : BaseAdapter.Listener {
+        override fun onClick(id: String) {
+            showToast(R.string.app_name)
         }
     }

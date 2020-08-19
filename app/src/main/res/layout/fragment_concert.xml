@@ -9,6 +9,85 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/localImageView"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_map"
+            android:contentDescription="@string/app_name"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@+id/localTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/localTextView"
+            app:tint="@color/secondaryText" />
+
+        <TextView
+            android:id="@+id/localTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/localImageView"/>
+
+        <ImageView
+            android:id="@+id/timeImageView"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_calendar"
+            android:contentDescription="@string/app_name"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@+id/timeTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
+            app:tint="@color/secondaryText"/>
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/localTextView"
+            app:layout_constraintStart_toEndOf="@+id/timeImageView"/>
+
+        <ImageView
+            android:id="@+id/genreImageView"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_hornsapp"
+            android:contentDescription="@string/app_name"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@+id/genreTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/genreTextView"
+            app:tint="@color/secondaryText"/>
+
+        <TextView
+            android:id="@+id/genreTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/default_genre"
+            app:layout_constraintTop_toBottomOf="@+id/timeTextView"
+            app:layout_constraintStart_toEndOf="@+id/genreImageView"/>
+
+        <TextView
+            android:id="@+id/bandsLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bands"
+            android:layout_margin="16dp"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toBottomOf="@+id/genreTextView"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bandRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/bandsLabelTextView"
+            app:layout_constraintDimensionRatio="2.4:1"/>
+
         <TextView
             android:id="@+id/dayTextView"
             android:layout_width="wrap_content"
@@ -41,20 +120,30 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/descriptionLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/about_concert"
+            android:layout_margin="16dp"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toBottomOf="@+id/bandRecyclerView"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionLabelTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

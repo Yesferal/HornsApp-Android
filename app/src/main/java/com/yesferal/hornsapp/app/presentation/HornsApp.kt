@@ -13,7 +13,7 @@ import com.yesferal.hornsapp.hada.container.register
 import com.yesferal.hornsapp.hada.dependency.Singleton
 
 class HornsApp: Application() {
-    val container: Container = Hada()
+    val container: Container by lazy { Hada() }
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate() {
