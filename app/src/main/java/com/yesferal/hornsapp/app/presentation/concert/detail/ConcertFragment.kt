@@ -70,8 +70,21 @@ class ConcertFragment
         listener?.show(concert)
 
         descriptionTextView.setUpWith(concert.description)
-        localTextView.setUpWith(concert.local?.name)
-        timeTextView.setUpWith(concert.datetime)
+
+        localTextView.apply {
+            setImageView(R.drawable.ic_map)
+            setText(concert.local?.name)
+        }
+
+        datetimeTextView.apply {
+            setImageView(R.drawable.ic_calendar)
+            setText(concert.datetime)
+        }
+
+        genreTextView.apply {
+            setImageView(R.drawable.ic_hornsapp)
+            setText(getString(R.string.default_genre))
+        }
 
         val items = concert.bands?.map {
             it.mapToBaseItem()

@@ -56,27 +56,17 @@
         app:layout_constraintEnd_toEndOf="@id/descriptionContainerView"
         app:layout_constraintBottom_toTopOf="@+id/timeTextView"/>
 
-    <ImageView
-        android:id="@+id/timeImageView"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:src="@drawable/ic_calendar"
-        android:contentDescription="@string/app_name"
-        android:elevation="2dp"
-        app:layout_constraintTop_toTopOf="@+id/timeTextView"
-        app:layout_constraintStart_toStartOf="@id/titleTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
-        app:tint="@color/secondaryText" />
-
-    <TextView
+    <com.yesferal.hornsapp.app.util.ImageTextView
         android:id="@+id/timeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
         android:elevation="2dp"
-        app:layout_constraintStart_toEndOf="@id/timeImageView"
-        app:layout_constraintEnd_toEndOf="@id/containerView"
-        app:layout_constraintBottom_toTopOf="@id/dividerView"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="@+id/descriptionContainerView"
+        app:layout_constraintEnd_toEndOf="@+id/descriptionContainerView"
+        app:layout_constraintBottom_toTopOf="@+id/dividerView"/>
 
     <View
         android:id="@+id/dividerView"

@@ -9,66 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/localImageView"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ic_map"
-            android:contentDescription="@string/app_name"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="@+id/localTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/localTextView"
-            app:tint="@color/secondaryText" />
-
-        <TextView
+        <com.yesferal.hornsapp.app.util.ImageTextView
             android:id="@+id/localTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/localImageView"/>
-
-        <ImageView
-            android:id="@+id/timeImageView"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ic_calendar"
-            android:contentDescription="@string/app_name"
             android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="@+id/timeTextView"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
-            app:tint="@color/secondaryText"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/timeTextView"
+        <com.yesferal.hornsapp.app.util.ImageTextView
+            android:id="@+id/datetimeTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/localTextView"
-            app:layout_constraintStart_toEndOf="@+id/timeImageView"/>
-
-        <ImageView
-            android:id="@+id/genreImageView"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ic_hornsapp"
-            android:contentDescription="@string/app_name"
             android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="@+id/genreTextView"
+            app:layout_constraintTop_toBottomOf="@+id/localTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/genreTextView"
-            app:tint="@color/secondaryText"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
+        <com.yesferal.hornsapp.app.util.ImageTextView
             android:id="@+id/genreTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/default_genre"
-            app:layout_constraintTop_toBottomOf="@+id/timeTextView"
-            app:layout_constraintStart_toEndOf="@+id/genreImageView"/>
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/bandsLabelTextView"
