@@ -1,12 +1,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
-import com.yesferal.hornsapp.domain.entity.Band
-import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.entity.Local
-import com.yesferal.hornsapp.domain.entity.State
-import com.yesferal.hornsapp.domain.util.day
-import com.yesferal.hornsapp.domain.util.month
-import com.yesferal.hornsapp.domain.util.timeFormatted
+import com.yesferal.hornsapp.domain.entity.*
+import com.yesferal.hornsapp.domain.util.datetimeFormatted
 import com.yesferal.hornsapp.domain.util.toSafeUri
 import java.util.*
 
@@ -25,17 +20,9 @@ data class GetConcert(
 )
 
 fun GetConcert.mapToConcert(): Concert {
-    val day = this
+    val datetime = this
         .dateTime
-        ?.day()
-
-    val month = this
-        .dateTime
-        ?.month()
-
-    val time = this
-        .dateTime
-        ?.timeFormatted()
+        ?.datetimeFormatted()
 
     val facebookUrl = socialNetworks?.first()
 
@@ -47,9 +34,7 @@ fun GetConcert.mapToConcert(): Concert {
         this.description,
         this.posterImage,
         this.headlinerImage,
-        day,
-        month,
-        time,
+        datetime,
         this.trailerUrl?.toSafeUri(),
         facebookUrl?.toSafeUri(),
         isFavorite,

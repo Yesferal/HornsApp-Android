@@ -14,7 +14,7 @@
     <string name="default_error">Ha ocurrido un error, vuelva a intentarlo.</string>
     <string name="app_not_found">No tienes la aplicación instalada</string>
     <string name="about_concert">Acerca del Concierto</string>
-    <string name="default_genre">Rock / Metal</string>
+    <string name="default_genre">Rock | Metal</string>
 
     <string name="facebook_package">com.facebook.katana</string>
     <string name="maps_package">com.google.android.apps.maps</string>

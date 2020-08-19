@@ -28,7 +28,7 @@ class ConcertViewHolder constructor(
 
     fun bind(concert: Concert) {
         itemView.titleTextView.setUpWith(concert.name)
-        itemView.timeTextView.setUpWith(concert.time)
+        itemView.timeTextView.setUpWith(concert.datetime)
 
         itemView.concertImageView.setAllCornersRounded(dp = 16)
         itemView.concertImageView.load(concert.posterImage)

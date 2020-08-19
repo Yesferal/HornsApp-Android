@@ -71,7 +71,7 @@ class ConcertFragment
 
         descriptionTextView.setUpWith(concert.description)
         localTextView.setUpWith(concert.local?.name)
-        timeTextView.setUpWith(concert.time)
+        timeTextView.setUpWith(concert.datetime)
 
         val items = concert.bands?.map {
             it.mapToBaseItem()

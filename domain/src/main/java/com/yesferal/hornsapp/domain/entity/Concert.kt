@@ -8,12 +8,11 @@ data class Concert (
     val description: String?,
     val posterImage: String?,
     val headlinerImage: String?,
-    val day: String?,
-    val month: String?,
-    val time: String?,
+    val datetime: String?,
     val trailerUrl: URI?,
     val facebookUrl: URI?,
     var isFavorite: Boolean,
+    // Details
     val state: String? = null,
     val local: Local? = null,
     val bands: List<Band>? = null
