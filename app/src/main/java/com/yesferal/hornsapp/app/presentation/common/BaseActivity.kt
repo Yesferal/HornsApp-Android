@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.yesferal.hornsapp.app.R
+import java.net.URI
 
 abstract class BaseActivity: AppCompatActivity() {
 
@@ -31,14 +32,25 @@ abstract class BaseActivity: AppCompatActivity() {
     }
 
     fun startExternalActivity(
-        uri: Uri,
+        uri: URI?,
         externalPackage: String,
         onError: () -> Unit = { showToast(R.string.app_not_found) }
     ) {
-        val intent = Intent(Intent.ACTION_VIEW,  uri)
+        if (uri == null) return
+
+        val androidUri = Uri.parse(uri.toString())
+        val intent = Intent(Intent.ACTION_VIEW,  androidUri)
+
         intent.setPackage(externalPackage)
         intent.resolveActivity(packageManager)?.let {
             startActivity(intent)
         }?: kotlin.run { onError() }
+    }
+
+    fun startExternalActivity(uri: URI?) {
+        if (uri == null) return
+
+        val androidUri = Uri.parse(uri.toString())
+        startActivity(Intent(Intent.ACTION_VIEW, androidUri))
     }
 }

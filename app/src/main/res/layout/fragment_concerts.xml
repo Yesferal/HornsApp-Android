@@ -28,9 +28,11 @@
 
     <View
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:background="@drawable/shape_rectangle_gradient_right"
+        app:layout_constraintTop_toTopOf="@+id/concertImageView"
         app:layout_constraintStart_toStartOf="@+id/concertImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
         app:layout_constraintWidth_percent="0.6"/>
 
     <View

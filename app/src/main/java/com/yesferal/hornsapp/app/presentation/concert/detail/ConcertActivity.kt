@@ -15,6 +15,7 @@ import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.entity.Local
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
+import java.net.URI
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
@@ -69,18 +70,68 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
         }
 
         override fun show(concert: Concert) {
-            concert.local?.let { show(it) }
+            show(local = concert.local)
+            showFacebook(concert.facebookUrl)
+            showYoutube(concert.trailerUrl)
         }
 
-        private fun show(local: Local) {
-            locationImageView.visibility = View.VISIBLE
-            locationImageView.setOnClickListener {
-                val latitude = local.latitude
-                val longitude = local.longitude
-                val uri = Uri.parse("geo:${latitude},${longitude}?q=${Uri.encode(local.name)}")
+        private fun show(local: Local?) {
+            local?.let {
+                locationImageView.motionVisibility(View.VISIBLE)
+                locationImageView.setOnClickListener {
+                    val latitude = local.latitude
+                    val longitude = local.longitude
+                    // TODO("Move to mapper")
+                    val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(local.name)}")
 
-                startExternalActivity(uri, getString(R.string.maps_package))
+                    startExternalActivity(uri, getString(R.string.maps_package))
+                }
+            }?: kotlin.run {
+                locationImageView.motionVisibility(View.INVISIBLE)
             }
+        }
+
+        private fun showFacebook(facebookUrl: URI?) {
+            facebookUrl?.let {
+                facebookImageView.motionVisibility(View.VISIBLE)
+                facebookImageView.setOnClickListener {
+                    // TODO ("Move to Mapper")
+                    val event = facebookUrl.path.replace("/events", "event")
+                    val fbUri = URI("fb://$event")
+
+                    startExternalActivity(fbUri, getString(R.string.facebook_package)) {
+                        startExternalActivity(facebookUrl)
+                    }
+                }
+            }?: kotlin.run {
+                facebookImageView.motionVisibility(View.GONE)
+            }
+        }
+
+        private fun showYoutube(youtubeTrailer: URI?) {
+            youtubeTrailer?.let {
+                trailerImageView.motionVisibility(View.VISIBLE)
+                trailerImageView.setOnClickListener {
+                    startExternalActivity(youtubeTrailer)
+                }
+            }?: kotlin.run {
+                trailerImageView.motionVisibility(View.GONE)
+            }
+        }
+
+        /**
+         * Adds a new [visibility] to this view.
+         * and will update it
+         * in the ConstraintSet (R.id.start, R.id.end)
+         * of MotionLayout.
+         */
+        private fun View.motionVisibility(
+            visibility: Int
+        ) {
+            containerLayout.getConstraintSet(R.id.start)
+                .setVisibility(id, visibility)
+            containerLayout.getConstraintSet(R.id.end)
+                .setVisibility(id, visibility)
         }
 
         override fun showProgress() {

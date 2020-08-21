@@ -32,6 +32,5 @@ class ImageTextView @JvmOverloads constructor(
             visibility = View.VISIBLE
             itemTextView.text = text
         } ?: kotlin.run { visibility = View.GONE }
-
     }
 }

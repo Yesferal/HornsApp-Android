@@ -65,7 +65,9 @@ abstract class BaseFragment
         }
     }
 
-    fun startExternalActivity(uri: URI) {
+    fun startExternalActivity(uri: URI?) {
+        if (uri == null) return
+
         val androidUri = Uri.parse(uri.toString())
         startActivity(Intent(Intent.ACTION_VIEW, androidUri))
     }
