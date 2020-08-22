@@ -14,12 +14,6 @@ fun Date.formattedWith(pattern: String): String? {
     }
 }
 
-fun Date.formatted(): String? {
-    return "${formattedWith("dd")}" +
-            " de" +
-            " ${formattedWith("MMMM, yyyy")}"
-}
-
-fun Date.timeFormatted(): String? {
-    return formattedWith("HH:mm a")
+fun Date.datetimeFormatted(): String? {
+    return formattedWith("dd MMM | HH:mm a")
 }

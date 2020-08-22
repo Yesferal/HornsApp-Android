@@ -18,7 +18,8 @@ fun Container.registerPresentationModule() {
 
     this register Factory<ConcertPresenter> {
         ConcertPresenter(
-            getConcertUseCase = resolve()
+            getConcertUseCase = resolve(),
+            adManager = resolve()
         )
     }
 }

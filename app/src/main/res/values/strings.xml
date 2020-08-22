@@ -1,15 +1,21 @@
 <resources>
     <string name="app_name">HornsApp</string>
-    <string name="buy_tickets">Comprar Entradas</string>
 
-    <string name="favorite">Favorito</string>
-    <string name="add">Agregar</string>
-    <string name="trailer">Trailer</string>
-    <string name="genre">Rock / Metal</string>
-    <string name="facebook">Facebook</string>
+    <!-- Words -->
+    <string name="lima">Lima</string>
+    <string name="concerts">Conciertos</string>
+    <string name="recommended">Recomendados</string>
+    <string name="bands">Bandas</string>
 
+    <!-- Messages -->
+    <string name="go_now">Ir ahora</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
+    <string name="default_error">Ha ocurrido un error, vuelva a intentarlo.</string>
+    <string name="app_not_found">No tienes la aplicación instalada</string>
+    <string name="about_concert">Acerca del Concierto</string>
+    <string name="default_genre">Rock | Metal</string>
 
     <string name="facebook_package">com.facebook.katana</string>
+    <string name="maps_package">com.google.android.apps.maps</string>
 </resources>

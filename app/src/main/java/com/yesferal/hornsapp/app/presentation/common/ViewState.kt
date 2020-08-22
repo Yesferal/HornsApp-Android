@@ -2,7 +2,7 @@ package com.yesferal.hornsapp.app.presentation.common
 
 open class ViewData
 
-sealed class ViewState<VIEW_DATA: ViewData> {
+sealed class ViewState<out VIEW_DATA: ViewData> {
 
     data class Success<VIEW_DATA: ViewData>(
         val viewData: VIEW_DATA

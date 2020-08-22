@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concert.adapter
+package com.yesferal.hornsapp.app.util
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2

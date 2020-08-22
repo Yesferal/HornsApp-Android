@@ -1,17 +1,56 @@
 package com.yesferal.hornsapp.app.presentation.common
 
-import android.graphics.Color
-import android.view.View
-import android.view.WindowManager
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.yesferal.hornsapp.app.R
+import java.net.URI
 
 abstract class BaseActivity: AppCompatActivity() {
-    fun transparentStateBar() {
-        window.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = Color.TRANSPARENT
-        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setBackgroundColor()
+    }
+
+    private fun setBackgroundColor() {
+        window.decorView.setBackgroundColor(getColor(R.color.background))
+    }
+
+    fun showToast(
+        @StringRes id: Int,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
+        Toast.makeText(
+            this,
+            getString(id),
+            duration
+        ).show()
+    }
+
+    fun startExternalActivity(
+        uri: URI?,
+        externalPackage: String,
+        onError: () -> Unit = { showToast(R.string.app_not_found) }
+    ) {
+        if (uri == null) return
+
+        val androidUri = Uri.parse(uri.toString())
+        val intent = Intent(Intent.ACTION_VIEW,  androidUri)
+
+        intent.setPackage(externalPackage)
+        intent.resolveActivity(packageManager)?.let {
+            startActivity(intent)
+        }?: kotlin.run { onError() }
+    }
+
+    fun startExternalActivity(uri: URI?) {
+        if (uri == null) return
+
+        val androidUri = Uri.parse(uri.toString())
+        startActivity(Intent(Intent.ACTION_VIEW, androidUri))
     }
 }
