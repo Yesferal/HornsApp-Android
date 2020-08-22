@@ -4,5 +4,5 @@ class Band (
     val _id: String,
     val name: String?,
     val membersImage: String?,
-    val logoImage: String?
+    var isFavorite: Boolean
 )

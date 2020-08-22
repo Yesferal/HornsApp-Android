@@ -8,9 +8,10 @@ import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.HornsAppItem
 import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.util.setUpWith
-import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
+import com.yesferal.hornsapp.app.presentation.concert.ItemParcelable
 import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
@@ -47,11 +48,11 @@ class ConcertFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val concert = arguments?.getParcelable<ConcertParcelable>(
+        val item = arguments?.getParcelable<ItemParcelable>(
             EXTRA_PARAM_PARCELABLE
         )
 
-        if (concert == null) {
+        if (item == null) {
             activity?.finish()
             return
         }
@@ -63,7 +64,12 @@ class ConcertFragment
             it.addItemDecoration(RecyclerViewDecorator(padding = 8))
         }
 
-        actionListener.onViewCreated(concert.id)
+        actionListener.onViewCreated(item.id)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     fun show(concert: Concert) {
@@ -106,10 +112,10 @@ class ConcertFragment
 
     companion object {
         fun newInstance(
-            concert: ConcertParcelable
+            item: ItemParcelable
         ) : ConcertFragment {
             val bundle = Bundle()
-            bundle.putParcelable(EXTRA_PARAM_PARCELABLE, concert)
+            bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)
 
             return ConcertFragment().apply {
                 arguments = bundle
@@ -120,7 +126,7 @@ class ConcertFragment
 
 private fun ConcertFragment.instanceBaseAdapterListener() =
     object : BaseAdapter.Listener {
-        override fun onClick(id: String) {
+        override fun onClick(item: HornsAppItem) {
             showToast(R.string.app_name)
         }
     }

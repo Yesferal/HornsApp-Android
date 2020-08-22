@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 class BaseAdapter (
     private val listener: Listener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
-    private var list: List<BaseItem> = listOf()
+    private var list: List<HornsAppItem> = listOf()
 
     interface Listener {
-        fun onClick(id: String)
+        fun onClick(item: HornsAppItem)
     }
 
     override fun onCreateViewHolder(
@@ -19,7 +19,7 @@ class BaseAdapter (
         return BaseViewHolder(parent, listener)
     }
 
-    fun setItem(list: List<BaseItem>?) {
+    fun setItem(list: List<HornsAppItem>?) {
         this.list = list?: listOf()
         notifyDataSetChanged()
     }

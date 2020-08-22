@@ -10,8 +10,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.category.HornsAppBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.HornsAppItem
 import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
@@ -142,7 +144,14 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
 
 private fun ConcertsFragment.instanceBaseAdapterListener() =
     object : BaseAdapter.Listener {
-        override fun onClick(id: String) {
-            showToast(R.string.app_name)
+        override fun onClick(item: HornsAppItem) {
+            childFragmentManager.let {
+                val bundle = Bundle()
+                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())
+
+                HornsAppBottomSheetFragment.newInstance(bundle).apply {
+                    show(it, tag)
+                }
+            }
         }
     }

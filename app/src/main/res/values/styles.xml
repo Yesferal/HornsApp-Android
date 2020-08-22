@@ -7,6 +7,8 @@
 
         <item name="android:textColor">@color/secondaryText</item>
         <item name="android:textSize">14sp</item>
+
+        <item name="bottomSheetDialogTheme">@style/HornsApp.BottomSheetDialogTheme</item>
     </style>
 
     <style name="HornsApp.TextView.Title" parent="@android:style/TextAppearance">
@@ -25,4 +27,12 @@
         <item name="android:windowBackground">@drawable/layer_list_splash</item>
     </style>
 
+    <style name="HornsApp.BottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/HornsApp.ModalStyle</item>
+    </style>
+
+    <style name="HornsApp.ModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/shape_rectangle_rounded_16dp_top</item>
+    </style>
 </resources>

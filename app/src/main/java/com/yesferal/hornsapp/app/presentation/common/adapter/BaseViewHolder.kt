@@ -24,13 +24,13 @@ class BaseViewHolder (
         listener
     )
 
-    fun bind(item: BaseItem) {
+    fun bind(item: HornsAppItem) {
         itemView.itemTextView.text = item.name
         itemView.itemImageView.setTopCornersRounded(dp = 16)
         itemView.itemImageView.load(item.imageUrl)
 
         itemView.containerView.setOnClickListener {
-            listener.onClick(item.id)
+            listener.onClick(item)
         }
     }
 }

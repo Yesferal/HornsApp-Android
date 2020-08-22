@@ -6,7 +6,7 @@ import android.view.View
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
-import com.yesferal.hornsapp.app.presentation.concert.ConcertParcelable
+import com.yesferal.hornsapp.app.presentation.concert.ItemParcelable
 import com.yesferal.hornsapp.app.util.fadeIn
 import com.yesferal.hornsapp.app.util.fadeOut
 import com.yesferal.hornsapp.app.util.load
@@ -25,17 +25,17 @@ class ConcertActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
 
-        val concert = intent?.extras?.getParcelable<ConcertParcelable>(
+        val item = intent?.extras?.getParcelable<ItemParcelable>(
             EXTRA_PARAM_PARCELABLE
         )
 
-        if (concert == null) {
-            this.finish()
+        if (item == null) {
+            finish()
             return
         }
 
         if (savedInstanceState == null) {
-            val concertFragment = ConcertFragment.newInstance(concert).apply {
+            val concertFragment = ConcertFragment.newInstance(item).apply {
                 listener = instanceConcertFragmentListener()
             }
             supportFragmentManager
@@ -47,14 +47,14 @@ class ConcertActivity : BaseActivity() {
                 .commit()
         }
 
-        concertImageView.load(concert.posterImage)
-        favoriteImageView.isChecked = concert.isFavorite
+        concertImageView.load(item.posterImage)
+        favoriteImageView.isChecked = item.isFavorite
         favoriteImageView.setOnCheckedChangeListener { isChecked ->
-            concert.isFavorite = isChecked
+            item.isFavorite = isChecked
         }
 
-        titleTextView.setUpWith(concert.name)
-        titleToolbarTextView.setUpWith(concert.name)
+        titleTextView.setUpWith(item.name)
+        titleToolbarTextView.setUpWith(item.name)
 
         closeImageView.setOnClickListener {
             finish()

@@ -3,14 +3,15 @@ package com.yesferal.hornsapp.app.presentation.common.adapter
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Category
 
-data class BaseItem (
+data class HornsAppItem (
     val id: String,
     val name: String?,
-    val imageUrl: String?
+    val imageUrl: String?,
+    var isFavorite: Boolean
 )
 
 fun Category.mapToBaseItem() =
-    BaseItem(_id, name, imageUrl)
+    HornsAppItem(_id, name, imageUrl, isFavorite = false)
 
 fun Band.mapToBaseItem() =
-    BaseItem(_id, name, membersImage)
+    HornsAppItem(_id, name, membersImage, isFavorite)
