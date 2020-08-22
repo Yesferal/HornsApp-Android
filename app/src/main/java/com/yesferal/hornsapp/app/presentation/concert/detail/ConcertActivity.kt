@@ -6,7 +6,7 @@ import android.view.View
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
-import com.yesferal.hornsapp.app.presentation.concert.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
 import com.yesferal.hornsapp.app.util.fadeIn
 import com.yesferal.hornsapp.app.util.fadeOut
 import com.yesferal.hornsapp.app.util.load

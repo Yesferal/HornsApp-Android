@@ -18,6 +18,7 @@ import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
+import com.yesferal.hornsapp.app.presentation.common.asParcelable
 import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert

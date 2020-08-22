@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.concert
+package com.yesferal.hornsapp.app.presentation.common
 
 import android.os.Parcelable
 import com.yesferal.hornsapp.app.presentation.item.adapter.Item

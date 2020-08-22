@@ -11,7 +11,7 @@ import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
 import com.yesferal.hornsapp.app.presentation.item.adapter.Item
 import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.util.setUpWith
-import com.yesferal.hornsapp.app.presentation.concert.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
 import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve

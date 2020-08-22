@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.asParcelable
 import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
 import com.yesferal.hornsapp.app.presentation.item.adapter.Item
-import com.yesferal.hornsapp.app.presentation.concert.*
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
