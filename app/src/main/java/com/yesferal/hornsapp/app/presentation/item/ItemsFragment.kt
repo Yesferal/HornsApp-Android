@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.item.adapter.HornsAppItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.Item
 import com.yesferal.hornsapp.app.presentation.concert.*
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
@@ -45,19 +45,19 @@ class ItemsFragment
 
         titleTextView.text = item.name
 
-        itemAdapter = ItemAdapter(instanceBaseAdapterListener())
+        itemAdapter = ItemAdapter(instanceAdapterListener())
         itemsRecyclerView.also {
             it.adapter = itemAdapter
             it.layoutManager = linearLayoutManager
             it.addItemDecoration(RecyclerViewDecorator())
         }
         itemAdapter.setItem(listOf(
-            HornsAppItem("1", "Item 1", "", true),
-            HornsAppItem("2", "Item 2", "", true),
-            HornsAppItem("3", "Item 3", "", true),
-            HornsAppItem("4", "Item 4", "", true),
-            HornsAppItem("5", "Item 5", "", true),
-            HornsAppItem("6", "Item 6", "", true)
+            Item("1", "Item 1", "", true),
+            Item("2", "Item 2", "", true),
+            Item("3", "Item 3", "", true),
+            Item("4", "Item 4", "", true),
+            Item("5", "Item 5", "", true),
+            Item("6", "Item 6", "", true)
         ))
     }
 
@@ -72,9 +72,9 @@ class ItemsFragment
     }
 }
 
-private fun ItemsFragment.instanceBaseAdapterListener() =
+private fun ItemsFragment.instanceAdapterListener() =
     object : ItemAdapter.Listener {
-        override fun onClick(item: HornsAppItem) {
+        override fun onClick(item: Item) {
             activity?.let {
                 val intent = Intent(
                     it,

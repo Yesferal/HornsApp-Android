@@ -13,7 +13,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.util.HornsAppBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.item.adapter.HornsAppItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.Item
 import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
@@ -58,7 +58,7 @@ class ConcertsFragment
         TabLayoutMediator(tabLayout, concertsViewPager) { _,_ -> }
             .attach()
 
-        categoryAdapter = ItemAdapter(instanceBaseAdapterListener())
+        categoryAdapter = ItemAdapter(instanceItemAdapterListener())
         categoryRecyclerView.also {
             it.adapter = categoryAdapter
             it.layoutManager = linearLayoutManager
@@ -142,9 +142,9 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
         }
     }
 
-private fun ConcertsFragment.instanceBaseAdapterListener() =
+private fun ConcertsFragment.instanceItemAdapterListener() =
     object : ItemAdapter.Listener {
-        override fun onClick(item: HornsAppItem) {
+        override fun onClick(item: Item) {
             childFragmentManager.let {
                 val bundle = Bundle()
                 bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())

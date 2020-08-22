@@ -8,7 +8,7 @@ import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.item.adapter.HornsAppItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.Item
 import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.concert.ItemParcelable
@@ -57,7 +57,7 @@ class ConcertFragment
             return
         }
 
-        bandAdapter = ItemAdapter(instanceBaseAdapterListener())
+        bandAdapter = ItemAdapter(instanceItemAdapterListener())
         bandRecyclerView.also {
             it.adapter = bandAdapter
             it.layoutManager = linearLayoutManager
@@ -124,9 +124,9 @@ class ConcertFragment
     }
 }
 
-private fun ConcertFragment.instanceBaseAdapterListener() =
+private fun ConcertFragment.instanceItemAdapterListener() =
     object : ItemAdapter.Listener {
-        override fun onClick(item: HornsAppItem) {
+        override fun onClick(item: Item) {
             showToast(R.string.app_name)
         }
     }

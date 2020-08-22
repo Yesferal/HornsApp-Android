@@ -24,7 +24,7 @@ class ItemViewHolder (
         listener
     )
 
-    fun bind(item: HornsAppItem) {
+    fun bind(item: Item) {
         itemView.itemTextView.text = item.name
         itemView.itemImageView.setTopCornersRounded(dp = 16)
         itemView.itemImageView.load(item.imageUrl)
