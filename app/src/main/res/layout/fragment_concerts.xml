@@ -110,7 +110,7 @@
         android:id="@+id/categoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/recommended"
+        android:text="@string/categories"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintStart_toStartOf="@id/titleTextView"
         app:layout_constraintBottom_toTopOf="@+id/categoryRecyclerView"/>
@@ -120,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"
-        app:layout_constraintHeight_percent="0.25"/>
+        app:layout_constraintHeight_percent="0.2"/>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"

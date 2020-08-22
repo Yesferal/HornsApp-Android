@@ -8,6 +8,10 @@ interface ConcertRepository {
         onError: (t: Throwable) -> Unit
     )
 
+    fun insertConcerts(concerts: List<Concert>?)
+
+    fun getConcertsFromStorage(): List<Concert>?
+
     fun getConcert(
         id: String,
         onSuccess: (concert: Concert) -> Unit,

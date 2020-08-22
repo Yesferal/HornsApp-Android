@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
+import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.util.*
 import java.util.*
@@ -12,7 +13,8 @@ data class GetConcerts(
     val trailerUrl: String?,
     val socialNetworks: List<String>?,
     val headlinerImage: String?,
-    val dateTime: Date?
+    val dateTime: Date?,
+    val category: String?
 )
 
 fun GetConcerts.mapToConcert(): Concert {
@@ -33,6 +35,7 @@ fun GetConcerts.mapToConcert(): Concert {
         datetime,
         this.trailerUrl?.toSafeUri(),
         facebookUrl?.toSafeUri(),
-        isFavorite
+        isFavorite,
+        category?: CategoryKey.LIVE.toString()
     )
 }

@@ -2,6 +2,7 @@ package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.concert.ConcertsPresenter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertPresenter
+import com.yesferal.hornsapp.app.presentation.item.ItemsPresenter
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.container.register
 import com.yesferal.hornsapp.hada.container.resolve
@@ -20,6 +21,12 @@ fun Container.registerPresentationModule() {
         ConcertPresenter(
             getConcertUseCase = resolve(),
             adManager = resolve()
+        )
+    }
+
+    this register Factory<ItemsPresenter> {
+        ItemsPresenter(
+            getConcertsByCategoryUseCase = resolve()
         )
     }
 }
