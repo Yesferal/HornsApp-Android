@@ -10,11 +10,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.category.HornsAppBottomSheetFragment
+import com.yesferal.hornsapp.app.util.HornsAppBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
-import com.yesferal.hornsapp.app.presentation.common.adapter.HornsAppItem
-import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
+import com.yesferal.hornsapp.app.presentation.item.adapter.HornsAppItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
@@ -30,7 +30,7 @@ class ConcertsFragment
     : BaseFragment() {
 
     private lateinit var concertAdapter: ConcertAdapter
-    private lateinit var categoryAdapter: BaseAdapter
+    private lateinit var categoryAdapter: ItemAdapter
 
     override val actionListener by lazy {
         container.resolve<ConcertsPresenter>()
@@ -58,7 +58,7 @@ class ConcertsFragment
         TabLayoutMediator(tabLayout, concertsViewPager) { _,_ -> }
             .attach()
 
-        categoryAdapter = BaseAdapter(instanceBaseAdapterListener())
+        categoryAdapter = ItemAdapter(instanceBaseAdapterListener())
         categoryRecyclerView.also {
             it.adapter = categoryAdapter
             it.layoutManager = linearLayoutManager
@@ -143,7 +143,7 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
     }
 
 private fun ConcertsFragment.instanceBaseAdapterListener() =
-    object : BaseAdapter.Listener {
+    object : ItemAdapter.Listener {
         override fun onClick(item: HornsAppItem) {
             childFragmentManager.let {
                 val bundle = Bundle()

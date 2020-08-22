@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.adapter
+package com.yesferal.hornsapp.app.presentation.item.adapter
 
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Category

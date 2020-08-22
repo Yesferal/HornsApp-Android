@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.category
+package com.yesferal.hornsapp.app.presentation.item
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
-import com.yesferal.hornsapp.app.presentation.common.adapter.HornsAppItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
+import com.yesferal.hornsapp.app.presentation.item.adapter.HornsAppItem
 import com.yesferal.hornsapp.app.presentation.concert.*
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_items.*
 class ItemsFragment
     : BaseFragment() {
 
-    private lateinit var itemAdapter: BaseAdapter
+    private lateinit var itemAdapter: ItemAdapter
 
     override val actionListener by lazy {
         null
@@ -45,7 +45,7 @@ class ItemsFragment
 
         titleTextView.text = item.name
 
-        itemAdapter = BaseAdapter(instanceBaseAdapterListener())
+        itemAdapter = ItemAdapter(instanceBaseAdapterListener())
         itemsRecyclerView.also {
             it.adapter = itemAdapter
             it.layoutManager = linearLayoutManager
@@ -73,7 +73,7 @@ class ItemsFragment
 }
 
 private fun ItemsFragment.instanceBaseAdapterListener() =
-    object : BaseAdapter.Listener {
+    object : ItemAdapter.Listener {
         override fun onClick(item: HornsAppItem) {
             activity?.let {
                 val intent = Intent(

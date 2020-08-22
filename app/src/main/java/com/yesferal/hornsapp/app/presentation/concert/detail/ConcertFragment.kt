@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.adapter.BaseAdapter
-import com.yesferal.hornsapp.app.presentation.common.adapter.HornsAppItem
-import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
+import com.yesferal.hornsapp.app.presentation.item.adapter.HornsAppItem
+import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.concert.ItemParcelable
 import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_concert.*
 class ConcertFragment
     : BaseFragment() {
 
-    private lateinit var bandAdapter: BaseAdapter
+    private lateinit var bandAdapter: ItemAdapter
 
     override val actionListener by lazy {
         container.resolve<ConcertPresenter>()
@@ -57,7 +57,7 @@ class ConcertFragment
             return
         }
 
-        bandAdapter = BaseAdapter(instanceBaseAdapterListener())
+        bandAdapter = ItemAdapter(instanceBaseAdapterListener())
         bandRecyclerView.also {
             it.adapter = bandAdapter
             it.layoutManager = linearLayoutManager
@@ -125,7 +125,7 @@ class ConcertFragment
 }
 
 private fun ConcertFragment.instanceBaseAdapterListener() =
-    object : BaseAdapter.Listener {
+    object : ItemAdapter.Listener {
         override fun onClick(item: HornsAppItem) {
             showToast(R.string.app_name)
         }

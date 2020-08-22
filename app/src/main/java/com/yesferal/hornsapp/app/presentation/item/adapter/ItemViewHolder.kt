@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.adapter
+package com.yesferal.hornsapp.app.presentation.item.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +9,14 @@ import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.util.setTopCornersRounded
 import kotlinx.android.synthetic.main.item_base.view.*
 
-class BaseViewHolder (
+class ItemViewHolder (
     itemView: View,
-    private val listener: BaseAdapter.Listener
+    private val listener: ItemAdapter.Listener
 ) : RecyclerView.ViewHolder(itemView)  {
 
     constructor(
         parent: ViewGroup,
-        listener: BaseAdapter.Listener
+        listener: ItemAdapter.Listener
     ) : this(
         LayoutInflater
             .from(parent.context)

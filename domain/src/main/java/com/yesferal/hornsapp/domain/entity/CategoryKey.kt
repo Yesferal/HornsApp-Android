@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.category
+package com.yesferal.hornsapp.domain.entity
 
 
 enum class CategoryKey {

@@ -1,11 +1,11 @@
-package com.yesferal.hornsapp.app.presentation.common.adapter
+package com.yesferal.hornsapp.app.presentation.item.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class BaseAdapter (
+class ItemAdapter (
     private val listener: Listener
-) : RecyclerView.Adapter<BaseViewHolder>() {
+) : RecyclerView.Adapter<ItemViewHolder>() {
     private var list: List<HornsAppItem> = listOf()
 
     interface Listener {
@@ -15,8 +15,8 @@ class BaseAdapter (
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseViewHolder {
-        return BaseViewHolder(parent, listener)
+    ): ItemViewHolder {
+        return ItemViewHolder(parent, listener)
     }
 
     fun setItem(list: List<HornsAppItem>?) {
@@ -27,7 +27,7 @@ class BaseAdapter (
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(
-        holder: BaseViewHolder,
+        holder: ItemViewHolder,
         position: Int
     ) {
         holder.bind(list[position])
