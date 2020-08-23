@@ -24,6 +24,14 @@ class ConcertRepositoryImpl(
         )
     }
 
+    override fun insertConcerts(concerts: List<Concert>?) {
+        storageDataSource.insertConcerts(concerts)
+    }
+
+    override fun getConcertsFromStorage(): List<Concert>?  {
+        return storageDataSource.getConcerts()
+    }
+
     override fun getConcert(
         id: String,
         onSuccess: (concert: Concert) -> Unit,

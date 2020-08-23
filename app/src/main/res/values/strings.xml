@@ -4,18 +4,25 @@
     <!-- Words -->
     <string name="lima">Lima</string>
     <string name="concerts">Conciertos</string>
-    <string name="recommended">Recomendados</string>
+    <string name="categories">Categorias</string>
     <string name="bands">Bandas</string>
 
     <!-- Messages -->
     <string name="go_now">Ir ahora</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
-    <string name="default_error">Ha ocurrido un error, vuelva a intentarlo.</string>
-    <string name="app_not_found">No tienes la aplicación instalada</string>
     <string name="about_concert">Acerca del Concierto</string>
     <string name="default_genre">Rock | Metal</string>
+    <string name="try_again">Reintentar</string>
 
+    <!-- Error Messages -->
+    <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
+    <string name="error_no_items">Por ahora no tenemos elementos para esta categoría.</string>
+    <string name="error_no_favorite_yet">Aun no haz seleccionado ningun concierto como favorito.</string>
+    <string name="error_app_not_found">No tienes la aplicación instalada.</string>
+    <string name="error_no_tickets">No esta activa la venta de entradas.</string>
+
+    <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>
     <string name="maps_package">com.google.android.apps.maps</string>
 </resources>

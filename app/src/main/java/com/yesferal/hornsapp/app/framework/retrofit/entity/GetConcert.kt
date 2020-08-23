@@ -15,8 +15,10 @@ data class GetConcert(
     val headlinerImage: String?,
     val dateTime: Date?,
     val state: State?,
+    val category: String?,
     val local: Local,
-    val bands: List<Band>?
+    val bands: List<Band>?,
+    val ticketingUrl: String?
 )
 
 fun GetConcert.mapToConcert(): Concert {
@@ -38,8 +40,10 @@ fun GetConcert.mapToConcert(): Concert {
         this.trailerUrl?.toSafeUri(),
         facebookUrl?.toSafeUri(),
         isFavorite,
+        category?: CategoryKey.LIVE.toString(),
         this.state?.name,
         this.local,
-        this.bands
+        this.bands,
+        this.ticketingUrl?.toSafeUri()
     )
 }

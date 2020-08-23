@@ -7,10 +7,7 @@ import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
-import com.yesferal.hornsapp.app.util.fadeIn
-import com.yesferal.hornsapp.app.util.fadeOut
-import com.yesferal.hornsapp.app.util.load
-import com.yesferal.hornsapp.app.util.setUpWith
+import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.entity.Local
 import kotlinx.android.synthetic.main.activity_concert.*
@@ -70,9 +67,23 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
         }
 
         override fun show(concert: Concert) {
+            enableTicketPurchase(concert.ticketingUrl)
             show(local = concert.local)
             showFacebook(concert.facebookUrl)
             showYoutube(concert.trailerUrl)
+        }
+
+        private fun enableTicketPurchase(ticketingUrl: URI?) {
+            ticketingUrl?.let {
+                buyTicketsImageView.setOnClickListener {
+                    startExternalActivity(ticketingUrl)
+                }
+            }?: kotlin.run {
+                buyTicketsImageView.alpha = 0.2F
+                buyTicketsImageView.setOnClickListener {
+                    showToast(R.string.error_no_tickets)
+                }
+            }
         }
 
         private fun show(local: Local?) {

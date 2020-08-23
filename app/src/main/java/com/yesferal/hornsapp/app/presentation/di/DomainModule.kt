@@ -1,6 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
+import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
 import com.yesferal.hornsapp.hada.container.Container
@@ -17,6 +18,12 @@ fun Container.registerDomainModule() {
 
     this register Factory<GetConcertUseCase> {
         GetConcertUseCase(
+            concertRepository = resolve()
+        )
+    }
+
+    this register Factory<GetConcertsByCategoryUseCase> {
+        GetConcertsByCategoryUseCase(
             concertRepository = resolve()
         )
     }

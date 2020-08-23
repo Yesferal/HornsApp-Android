@@ -9,9 +9,9 @@ fun View.fadeIn() {
     visibility = View.VISIBLE
 
     animate()
-            .alpha(1f)
-            .setDuration(500)
-            .setListener(null)
+        .alpha(1f)
+        .setDuration(500)
+        .setListener(null)
 }
 
 fun View.fadeOut() {

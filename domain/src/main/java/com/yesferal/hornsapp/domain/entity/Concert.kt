@@ -12,8 +12,10 @@ data class Concert (
     val trailerUrl: URI?,
     val facebookUrl: URI?,
     var isFavorite: Boolean,
+    val category: String,
     // Details
     val state: String? = null,
     val local: Local? = null,
-    val bands: List<Band>? = null
+    val bands: List<Band>? = null,
+    val ticketingUrl: URI? = null
 )

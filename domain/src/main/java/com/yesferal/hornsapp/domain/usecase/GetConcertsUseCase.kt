@@ -14,7 +14,6 @@ class GetConcertsUseCase(
 
         concertRepository.getConcerts(
             onSuccess = { concerts ->
-
                 favouriteConcertsIds?.let { favorites ->
                     concerts.forEach { concert ->
                         if (favorites.contains(concert.id)) {
@@ -24,6 +23,7 @@ class GetConcertsUseCase(
                 }
 
                 onSuccess(concerts)
+                concertRepository.insertConcerts(concerts)
             },
             onError = {
                 onError(it)

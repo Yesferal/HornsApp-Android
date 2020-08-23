@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
@@ -14,6 +15,11 @@ import com.yesferal.hornsapp.app.presentation.item.adapter.Item
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
+import com.yesferal.hornsapp.app.util.fadeIn
+import com.yesferal.hornsapp.app.util.fadeOut
+import com.yesferal.hornsapp.hada.container.resolve
+import kotlinx.android.synthetic.main.custom_error.*
+import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_items.*
 
 class ItemsFragment
@@ -22,7 +28,7 @@ class ItemsFragment
     private lateinit var itemAdapter: ItemAdapter
 
     override val actionListener by lazy {
-        null
+        container.resolve<ItemsPresenter>()
     }
 
     override fun onCreateView(
@@ -52,14 +58,25 @@ class ItemsFragment
             it.layoutManager = linearLayoutManager
             it.addItemDecoration(RecyclerViewDecorator())
         }
-        itemAdapter.setItem(listOf(
-            Item("1", "Item 1", "", true),
-            Item("2", "Item 2", "", true),
-            Item("3", "Item 3", "", true),
-            Item("4", "Item 4", "", true),
-            Item("5", "Item 5", "", true),
-            Item("6", "Item 6", "", true)
-        ))
+
+        actionListener.onViewCreated(item.id)
+    }
+
+    fun showProgress() {
+        customProgressBar.fadeIn()
+    }
+
+    fun hideProgress() {
+        customProgressBar.fadeOut()
+    }
+
+    fun show(items: List<Item>) {
+        itemAdapter.setItem(items)
+    }
+
+    fun show(@StringRes error: Int) {
+        stubView.visibility = View.VISIBLE
+        errorTextView.text = getString(error)
     }
 
     companion object {

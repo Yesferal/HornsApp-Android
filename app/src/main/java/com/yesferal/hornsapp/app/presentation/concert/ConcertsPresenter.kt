@@ -17,6 +17,15 @@ class ConcertsPresenter(
 ) : BasePresenter<ConcertsFragment, ConcertsViewData>() {
 
     fun onViewCreated() {
+        getConcerts()
+    }
+
+    fun onRefresh() {
+        render(ViewState.Progress)
+        getConcerts()
+    }
+
+    private fun getConcerts() {
         getConcertsUseCase(
             onSuccess = { list ->
                 val viewData = ConcertsViewData(list)
@@ -24,7 +33,7 @@ class ConcertsPresenter(
                 render(state = success)
             },
             onError = {
-                render(ViewState.Error(R.string.default_error))
+                render(ViewState.Error(R.string.error_default))
                 // TODO("Implement ErrorHandler")
             }
         )
@@ -34,8 +43,10 @@ class ConcertsPresenter(
         when(state) {
             is ViewState.Success -> {
                 view?.hideProgress()
+                view?.hideError()
                 view?.show(concerts = state.viewData.concerts)
                 view?.show(adView = adManager.concertsAdView())
+                // TODO ("Create GetCategoryUseCase(...)")
                 val categories = listOf(
                     Category(CategoryKey.FAVORITE.toString(), "Favoritos", "https://c4.wallpaperflare.com/wallpaper/850/581/197/hands-people-heavy-metal-concerts-wallpaper-preview.jpg"),
                     Category(CategoryKey.LIVE.toString(), "Presencial", "https://media.altpress.com/uploads/2020/03/concert-crowd.jpeg"),
@@ -48,6 +59,7 @@ class ConcertsPresenter(
             }
             is ViewState.Error-> {
                 view?.hideProgress()
+                view?.showError(messageId =  state.message)
             }
         }
     }

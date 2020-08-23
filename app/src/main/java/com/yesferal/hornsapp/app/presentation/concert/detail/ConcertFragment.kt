@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
@@ -15,6 +16,7 @@ import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
 import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
+import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.fragment_concert.*
 
 class ConcertFragment
@@ -108,6 +110,11 @@ class ConcertFragment
 
     fun hideProgress() {
         listener?.hideProgress()
+    }
+
+    fun show(@StringRes error: Int) {
+        stubView.visibility = View.VISIBLE
+        errorTextView.text = getString(error)
     }
 
     companion object {
