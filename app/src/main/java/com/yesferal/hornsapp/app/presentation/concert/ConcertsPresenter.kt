@@ -33,7 +33,7 @@ class ConcertsPresenter(
                 render(state = success)
             },
             onError = {
-                render(ViewState.Error(R.string.default_error))
+                render(ViewState.Error(R.string.error_default))
                 // TODO("Implement ErrorHandler")
             }
         )

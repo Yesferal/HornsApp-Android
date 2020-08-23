@@ -23,9 +23,9 @@ class ItemsPresenter(
             onError = {
                 val error = when(categoryKey) {
                     CategoryKey.FAVORITE.toString() -> {
-                        R.string.no_favorite_yet_error
+                        R.string.error_no_favorite_yet
                     }
-                    else -> { R.string.no_items_error }
+                    else -> { R.string.error_no_items }
                 }
                 render(ViewState.Error(error))
                 // TODO("Implement ErrorHandler")

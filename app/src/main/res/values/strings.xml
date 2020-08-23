@@ -16,11 +16,11 @@
     <string name="try_again">Reintentar</string>
 
     <!-- Error Messages -->
-    <string name="default_error">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
-    <string name="no_items_error">Por ahora no tenemos elementos para esta categoría.</string>
-    <string name="no_favorite_yet_error">Aun no haz seleccionado ningun concierto como favorito.</string>
-    <string name="app_not_found_error">No tienes la aplicación instalada</string>
-    <string name="no_tickets_error">No esta activa la venta de entradas</string>
+    <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
+    <string name="error_no_items">Por ahora no tenemos elementos para esta categoría.</string>
+    <string name="error_no_favorite_yet">Aun no haz seleccionado ningun concierto como favorito.</string>
+    <string name="error_app_not_found">No tienes la aplicación instalada</string>
+    <string name="error_no_tickets">No esta activa la venta de entradas</string>
 
     <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>

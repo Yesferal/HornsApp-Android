@@ -54,7 +54,7 @@ abstract class BaseFragment
     fun startExternalActivity(
         uri: Uri,
         externalPackage: String,
-        onError: () -> Unit = { showToast(R.string.app_not_found_error) }
+        onError: () -> Unit = { showToast(R.string.error_app_not_found) }
     ) {
         val intent = Intent(Intent.ACTION_VIEW,  uri)
         intent.setPackage(externalPackage)

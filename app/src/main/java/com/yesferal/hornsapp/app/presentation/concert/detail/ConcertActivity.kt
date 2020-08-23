@@ -81,7 +81,7 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
             }?: kotlin.run {
                 buyTicketsImageView.alpha = 0.3F
                 buyTicketsImageView.setOnClickListener {
-                    showToast(R.string.no_tickets_error)
+                    showToast(R.string.error_no_tickets)
                 }
             }
         }
