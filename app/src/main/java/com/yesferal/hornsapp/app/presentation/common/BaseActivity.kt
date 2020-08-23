@@ -34,7 +34,7 @@ abstract class BaseActivity: AppCompatActivity() {
     fun startExternalActivity(
         uri: URI?,
         externalPackage: String,
-        onError: () -> Unit = { showToast(R.string.app_not_found) }
+        onError: () -> Unit = { showToast(R.string.app_not_found_error) }
     ) {
         if (uri == null) return
 

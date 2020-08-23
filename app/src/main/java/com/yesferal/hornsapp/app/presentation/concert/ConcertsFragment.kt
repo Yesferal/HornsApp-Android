@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,6 +24,7 @@ import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
+import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
 import java.net.URI
@@ -32,6 +34,7 @@ class ConcertsFragment
 
     private lateinit var concertAdapter: ConcertAdapter
     private lateinit var categoryAdapter: ItemAdapter
+    private lateinit var stubViewInflated: View
 
     override val actionListener by lazy {
         container.resolve<ConcertsPresenter>()
@@ -101,6 +104,25 @@ class ConcertsFragment
     fun show(adView: AdView) {
         adContainerLayout.removeAllViews()
         adContainerLayout.addView(adView)
+    }
+
+    fun showError(@StringRes messageId: Int) {
+        if (!::stubViewInflated.isInitialized) {
+            stubViewInflated = stubView.inflate()
+        }
+        stubViewInflated.visibility = View.VISIBLE
+        errorTextView.text = getString(messageId)
+        tryAgainTextView.visibility = View.VISIBLE
+        tryAgainTextView.setOnClickListener {
+            actionListener.onRefresh()
+            tryAgainTextView.visibility = View.GONE
+        }
+    }
+
+    fun hideError() {
+        if (::stubViewInflated.isInitialized) {
+            stubViewInflated.visibility = View.GONE
+        }
     }
 
     companion object {

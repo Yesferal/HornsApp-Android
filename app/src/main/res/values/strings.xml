@@ -11,11 +11,17 @@
     <string name="go_now">Ir ahora</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
-    <string name="default_error">Ha ocurrido un error, vuelva a intentarlo.</string>
-    <string name="app_not_found">No tienes la aplicación instalada</string>
     <string name="about_concert">Acerca del Concierto</string>
     <string name="default_genre">Rock | Metal</string>
+    <string name="try_again">Reintentar</string>
 
+    <!-- Error Messages -->
+    <string name="default_error">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
+    <string name="no_items_error">Por ahora no tenemos elementos para esta categoría.</string>
+    <string name="no_favorite_yet_error">Aun no haz seleccionado ningun concierto como favorito.</string>
+    <string name="app_not_found_error">No tienes la aplicación instalada</string>
+
+    <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>
     <string name="maps_package">com.google.android.apps.maps</string>
 </resources>

@@ -4,6 +4,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.ViewState
 import com.yesferal.hornsapp.app.presentation.item.adapter.mapToItem
+import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
 
 class ItemsPresenter(
@@ -20,7 +21,13 @@ class ItemsPresenter(
                 render(state = success)
             },
             onError = {
-                render(ViewState.Error(R.string.default_error))
+                val error = when(categoryKey) {
+                    CategoryKey.FAVORITE.toString() -> {
+                        R.string.no_favorite_yet_error
+                    }
+                    else -> { R.string.no_items_error }
+                }
+                render(ViewState.Error(error))
                 // TODO("Implement ErrorHandler")
             }
         )
@@ -37,6 +44,7 @@ class ItemsPresenter(
             }
             is ViewState.Error-> {
                 view?.hideProgress()
+                view?.show(error = state.message)
             }
         }
     }

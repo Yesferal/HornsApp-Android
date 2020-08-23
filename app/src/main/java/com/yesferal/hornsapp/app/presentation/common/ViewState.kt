@@ -1,5 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.common
 
+import androidx.annotation.StringRes
+
 open class ViewData
 
 sealed class ViewState<out VIEW_DATA: ViewData> {
@@ -11,6 +13,6 @@ sealed class ViewState<out VIEW_DATA: ViewData> {
     object Progress: ViewState<Nothing>()
 
     data class Error(
-        val message: Int
+        @StringRes val message: Int
     ): ViewState<Nothing>()
 }

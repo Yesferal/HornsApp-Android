@@ -31,7 +31,7 @@ class GetConcertsByCategoryUseCase(
             else -> { null }
         }
 
-        if (concerts == null) {
+        if (concerts == null || concerts.isEmpty()) {
             onError(Exception())
         } else {
             onSuccess(concerts)

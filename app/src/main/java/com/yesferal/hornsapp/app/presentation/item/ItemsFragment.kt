@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
@@ -17,6 +18,7 @@ import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
 import com.yesferal.hornsapp.app.util.fadeIn
 import com.yesferal.hornsapp.app.util.fadeOut
 import com.yesferal.hornsapp.hada.container.resolve
+import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_items.*
 
@@ -70,6 +72,11 @@ class ItemsFragment
 
     fun show(items: List<Item>) {
         itemAdapter.setItem(items)
+    }
+
+    fun show(@StringRes error: Int) {
+        stubView.visibility = View.VISIBLE
+        errorTextView.text = getString(error)
     }
 
     companion object {

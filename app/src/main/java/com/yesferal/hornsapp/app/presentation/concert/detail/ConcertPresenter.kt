@@ -40,6 +40,7 @@ class ConcertPresenter(
             }
             is ViewState.Error-> {
                 view?.hideProgress()
+                view?.show(error = state.message)
             }
         }
     }
