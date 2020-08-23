@@ -79,7 +79,7 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
                     startExternalActivity(ticketingUrl)
                 }
             }?: kotlin.run {
-                buyTicketsImageView.alpha = 0.3F
+                buyTicketsImageView.alpha = 0.2F
                 buyTicketsImageView.setOnClickListener {
                     showToast(R.string.error_no_tickets)
                 }

@@ -1,12 +1,12 @@
-package com.yesferal.hornsapp.app.util
+package com.yesferal.hornsapp.app.presentation.item
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.item.ItemsFragment
+import com.yesferal.hornsapp.app.util.BottomSheetFragment
 
-class HornsAppBottomSheetFragment: BottomSheetFragment() {
+class ItemBottomSheetFragment: BottomSheetFragment() {
 
     override fun initFragment(item: ItemParcelable): Fragment {
         val bundle = Bundle()
@@ -19,7 +19,8 @@ class HornsAppBottomSheetFragment: BottomSheetFragment() {
         fun newInstance(
             bundle: Bundle
         ): BottomSheetFragment {
-            return HornsAppBottomSheetFragment().apply {
+            return ItemBottomSheetFragment()
+                .apply {
                 arguments = bundle
             }
         }

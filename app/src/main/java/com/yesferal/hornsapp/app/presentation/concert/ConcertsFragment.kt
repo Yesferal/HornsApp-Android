@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.util.HornsAppBottomSheetFragment
+import com.yesferal.hornsapp.app.presentation.item.ItemBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
 import com.yesferal.hornsapp.app.presentation.item.adapter.Item
@@ -172,7 +172,7 @@ private fun ConcertsFragment.instanceItemAdapterListener() =
                 val bundle = Bundle()
                 bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())
 
-                HornsAppBottomSheetFragment.newInstance(bundle).apply {
+                ItemBottomSheetFragment.newInstance(bundle).apply {
                     show(it, tag)
                 }
             }
