@@ -6,7 +6,8 @@ fun URI.isSafe(): Boolean {
     val allowedHosts = listOf(
         "www.facebook.com",
         "www.joinnus.com",
-        "www.youtube.com"
+        "www.youtube.com",
+        "www.teleticket.com.pe"
     )
     val allowedScheme = "https"
 

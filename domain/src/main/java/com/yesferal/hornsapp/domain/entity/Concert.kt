@@ -16,5 +16,6 @@ data class Concert (
     // Details
     val state: String? = null,
     val local: Local? = null,
-    val bands: List<Band>? = null
+    val bands: List<Band>? = null,
+    val ticketingUrl: URI? = null
 )

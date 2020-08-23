@@ -20,6 +20,7 @@
     <string name="no_items_error">Por ahora no tenemos elementos para esta categoría.</string>
     <string name="no_favorite_yet_error">Aun no haz seleccionado ningun concierto como favorito.</string>
     <string name="app_not_found_error">No tienes la aplicación instalada</string>
+    <string name="no_tickets_error">No esta activa la venta de entradas</string>
 
     <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>
