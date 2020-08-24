@@ -28,7 +28,7 @@ class ConcertsPresenter(
     private fun getConcerts() {
         getConcertsUseCase(
             onSuccess = { list ->
-                val viewData = ConcertsViewData(list)
+                val viewData = ConcertsViewData(list.take(6))
                 val success = ViewState.Success(viewData)
                 render(state = success)
             },

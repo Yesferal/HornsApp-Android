@@ -56,6 +56,9 @@ captures/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+# Metadata
+output-metadata.json
+
 # Freeline
 freeline.py
 freeline/

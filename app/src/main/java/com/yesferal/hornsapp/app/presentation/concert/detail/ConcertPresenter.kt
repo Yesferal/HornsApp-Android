@@ -33,7 +33,7 @@ class ConcertPresenter(
             is ViewState.Success -> {
                 view?.hideProgress()
                 view?.show(concert = state.viewData.concert)
-                view?.show(adView = adManager.concertsAdView())
+                view?.show(adView = adManager.concertDetailAdView())
             }
             is ViewState.Progress -> {
                 view?.showProgress()

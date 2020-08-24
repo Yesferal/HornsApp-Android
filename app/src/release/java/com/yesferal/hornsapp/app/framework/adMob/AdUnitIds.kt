@@ -9,4 +9,5 @@ class AdUnitIds {
     }
 
     external fun concertsBannerAdUnitId(): String
+    external fun concertDetailBannerAdUnitId(): String
 }
