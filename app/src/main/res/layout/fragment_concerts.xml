@@ -1,54 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.concerts.ConcertsFragment">
+    tools:context=".presentation.concert.ConcertsFragment">
 
     <ImageView
         android:id="@+id/concertImageView"
         android:contentDescription="@string/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/backgroundView"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_gradient"
-        app:layout_constraintHeight_percent="0.10"
-        app:layout_constraintBottom_toTopOf="@id/backgroundView"/>
-
-    <View
-        android:id="@+id/backgroundView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        app:layout_constraintHeight_percent="0.55"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <Button
-        android:id="@+id/buyTicketsButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/buy_tickets"
-        android:layout_marginBottom="16dp"
-        android:background="@color/accent"
-        android:textColor="@android:color/white"
-        app:layout_constraintWidth_percent="0.65"
-        app:layout_constraintHeight_percent="0.10"
-        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintDimensionRatio="1.6:1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_gradient_top"
+        app:layout_constraintTop_toTopOf="@+id/concertImageView"
+        app:layout_constraintHeight_percent="0.25"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_gradient_right"
+        app:layout_constraintTop_toTopOf="@+id/concertImageView"
+        app:layout_constraintStart_toStartOf="@+id/concertImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
+        app:layout_constraintWidth_percent="0.6"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_gradient_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
+        app:layout_constraintHeight_percent="0.25"/>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/concerts"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_menu"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="@id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+        app:tint="@color/primaryText" />
+
+    <ImageView
+        android:id="@+id/locationImageView"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_map"
+        app:layout_constraintTop_toTopOf="@+id/locationTextView"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
+        app:tint="@color/secondaryText" />
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lima"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toEndOf="@+id/locationImageView"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.55"
-        app:layout_constraintBottom_toTopOf="@+id/buyTicketsButton"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/locationTextView"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginBottom="16dp"
+        app:tabBackground="@drawable/selector_dot_indicator"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/categoryTextView"
+        app:layout_constraintWidth_percent="0.15"/>
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/categories"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/categoryRecyclerView"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"
+        app:layout_constraintHeight_percent="0.2"/>
+
+    <FrameLayout
+        android:id="@+id/adContainerLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ViewStub
+        android:id="@+id/stubView"
+        android:inflatedId="@+id/inflatedStubView"
+        android:layout="@layout/custom_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <include
+        layout="@layout/custom_view_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

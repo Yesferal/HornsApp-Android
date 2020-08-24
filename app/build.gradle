@@ -1,34 +1,41 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.firebase.crashlytics'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.yesferal.hornsapp"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
-        versionName "0.1.0"
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
-            cmake {
-                cppFlags ""
-            }
+            cmake { cppFlags "" }
         }
+        manifestPlaceholders = [AD_MOB_APP_ID: AD_MOB_APP_ID]
     }
     buildTypes {
+        debug {
+            debuggable true
+        }
+
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-            version "3.10.2"
         }
     }
     compileOptions {
@@ -46,15 +53,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Library
-    implementation"org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
-    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-    implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
-    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-    implementation "com.yesferal.hornsapp:hada:${versions.hada}"
-    implementation "androidx.viewpager2:viewpager2:${versions.viewpager2}"
-    implementation "com.squareup.picasso:picasso:${versions.picasso}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation 'com.yesferal.hornsapp:hada:0.2.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
+    implementation 'com.google.android.gms:play-services-ads:19.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 
     // Module
     implementation project(hornsAppModules.domain)

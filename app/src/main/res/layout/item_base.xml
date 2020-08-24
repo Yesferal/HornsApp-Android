@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+    <View
+        android:id="@+id/containerView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintDimensionRatio="1.6:1" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/itemImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:background="@color/background"
+        app:layout_constraintTop_toTopOf="@+id/containerView"
+        app:layout_constraintStart_toStartOf="@id/containerView"
+        app:layout_constraintEnd_toEndOf="@+id/containerView"
+        app:layout_constraintBottom_toTopOf="@+id/itemTextView"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp_bottom"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="@+id/itemTextView"
+        app:layout_constraintStart_toStartOf="@id/containerView"
+        app:layout_constraintEnd_toEndOf="@id/containerView"
+        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
+
+    <TextView
+        android:id="@+id/itemTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:elevation="2dp"
+        android:padding="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:textAlignment="center"
+        style="@style/HornsApp.TextView.ViewHolderTitle"
+        app:layout_constraintStart_toStartOf="@id/containerView"
+        app:layout_constraintEnd_toEndOf="@id/containerView"
+        app:layout_constraintBottom_toBottomOf="@id/containerView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

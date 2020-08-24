@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.yesferal.hornsapp.app.util.ImageTextView
+            android:id="@+id/localTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.yesferal.hornsapp.app.util.ImageTextView
+            android:id="@+id/datetimeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/localTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.yesferal.hornsapp.app.util.ImageTextView
+            android:id="@+id/genreTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/bandsLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bands"
+            android:layout_margin="16dp"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toBottomOf="@+id/genreTextView"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bandRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/bandsLabelTextView"
+            app:layout_constraintDimensionRatio="2.4:1"/>
+
+        <TextView
+            android:id="@+id/dayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingTop="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/shape_rectangle_rounded_16dp_top"
+            android:backgroundTint="@color/disable"
+            android:textColor="@color/accent"
+            android:textAlignment="center"
+            style="@style/HornsApp.TextView.Title"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/monthTextView"/>
+
+        <TextView
+            android:id="@+id/monthTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:background="@drawable/shape_rectangle_rounded_16dp_bottom"
+            android:backgroundTint="@color/disable"
+            android:textColor="@color/accent"
+            android:textAlignment="center"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/dayTextView"
+            app:layout_constraintEnd_toEndOf="@id/dayTextView"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/descriptionLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_concert"
+            android:layout_margin="16dp"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toBottomOf="@+id/bandRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionLabelTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"/>
+
+        <ViewStub
+            android:id="@+id/stubView"
+            android:inflatedId="@+id/inflatedStubView"
+            android:layout="@layout/custom_error"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/descriptionTextView"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
