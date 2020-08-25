@@ -8,7 +8,6 @@
     <string name="bands">Bandas</string>
 
     <!-- Messages -->
-    <string name="go_now">Ir ahora</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
     <string name="about_concert">Acerca del Concierto</string>

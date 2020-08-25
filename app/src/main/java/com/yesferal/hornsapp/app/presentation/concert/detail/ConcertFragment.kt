@@ -90,7 +90,7 @@ class ConcertFragment
         }
 
         genreTextView.apply {
-            setImageView(R.drawable.ic_hornsapp)
+            setImageView(R.drawable.ic_music_note)
             setText(getString(R.string.default_genre))
         }
 

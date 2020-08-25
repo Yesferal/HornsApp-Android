@@ -186,7 +186,7 @@
         android:backgroundTint="@color/accent"
         android:src="@drawable/ic_ticket"
         android:elevation="2dp"
-        android:padding="4dp"
+        android:padding="8dp"
         app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
         app:layout_constraintStart_toEndOf="@+id/trailerImageView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundButtonsView"
