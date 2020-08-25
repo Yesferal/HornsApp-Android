@@ -14,8 +14,10 @@ data class Concert (
     var isFavorite: Boolean,
     val category: String,
     // Details
+    val genres: String? = null,
     val state: String? = null,
     val local: Local? = null,
     val bands: List<Band>? = null,
+    val ticketingHost: String? = null,
     val ticketingUrl: URI? = null
 )

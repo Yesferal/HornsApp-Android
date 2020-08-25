@@ -67,20 +67,26 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
         }
 
         override fun show(concert: Concert) {
-            enableTicketPurchase(concert.ticketingUrl)
+            enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
             show(local = concert.local)
             showFacebook(concert.facebookUrl)
             showYoutube(concert.trailerUrl)
         }
 
-        private fun enableTicketPurchase(ticketingUrl: URI?) {
+        private fun enableTicketPurchase(
+            ticketingHost: String?,
+            ticketingUrl: URI?
+        ) {
             ticketingUrl?.let {
-                buyTicketsImageView.setOnClickListener {
+                buyTicketsButton.text = ticketingHost
+                    ?: getString(R.string.go_now)
+                buyTicketsButton.setOnClickListener {
                     startExternalActivity(ticketingUrl)
                 }
             }?: kotlin.run {
-                buyTicketsImageView.alpha = 0.2F
-                buyTicketsImageView.setOnClickListener {
+                buyTicketsButton.text = getString(R.string.go_now)
+                buyTicketsButton.alpha = 0.2F
+                buyTicketsButton.setOnClickListener {
                     showToast(R.string.error_no_tickets)
                 }
             }
