@@ -28,7 +28,7 @@ class ConcertsPresenter(
     private fun getConcerts() {
         getConcertsUseCase(
             onSuccess = { list ->
-                val viewData = ConcertsViewData(list.take(6))
+                val viewData = ConcertsViewData(list.take(5))
                 val success = ViewState.Success(viewData)
                 render(state = success)
             },
@@ -49,8 +49,8 @@ class ConcertsPresenter(
                 // TODO ("Create GetCategoryUseCase(...)")
                 val categories = listOf(
                     Category(CategoryKey.FAVORITE.toString(), "Favoritos", "https://c4.wallpaperflare.com/wallpaper/850/581/197/hands-people-heavy-metal-concerts-wallpaper-preview.jpg"),
-                    Category(CategoryKey.LIVE.toString(), "Presencial", "https://media.altpress.com/uploads/2020/03/concert-crowd.jpeg"),
-                    Category(CategoryKey.VIRTUAL.toString(), "Virtual", "https://www.fmpalihue.com/inicio/wp-content/uploads/2020/06/conciertos-streaming.jpg")
+                    Category(CategoryKey.LIVE.toString(), "Presenciales", "https://media.altpress.com/uploads/2020/03/concert-crowd.jpeg"),
+                    Category(CategoryKey.VIRTUAL.toString(), "Virtuales", "https://www.fmpalihue.com/inicio/wp-content/uploads/2020/06/conciertos-streaming.jpg")
                 )
                 view?.showCategories(categories)
             }

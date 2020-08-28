@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:background="@drawable/shape_rectangle_gradient_top"
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintHeight_percent="0.25"/>
+        app:layout_constraintHeight_percent="0.35"/>
 
     <View
         android:layout_width="0dp"
@@ -33,23 +33,23 @@
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
         app:layout_constraintStart_toStartOf="@+id/concertImageView"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
-        app:layout_constraintWidth_percent="0.6"/>
+        app:layout_constraintWidth_percent="0.7"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/shape_rectangle_gradient_bottom"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
-        app:layout_constraintHeight_percent="0.25"/>
+        app:layout_constraintHeight_percent="0.35"/>
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/concerts"
+        android:text="@string/app_name"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        style="@style/HornsApp.TextView.Title"
+        android:layout_marginTop="16dp"
+        style="@style/HornsApp.TextView.ActivityTitle"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
@@ -111,7 +111,7 @@
         android:id="@+id/categoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/categories"
+        android:text="@string/concerts"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintStart_toStartOf="@id/titleTextView"
         app:layout_constraintBottom_toTopOf="@+id/categoryRecyclerView"/>
@@ -121,7 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"
-        app:layout_constraintHeight_percent="0.2"/>
+        app:layout_constraintHeight_percent="0.25"/>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"

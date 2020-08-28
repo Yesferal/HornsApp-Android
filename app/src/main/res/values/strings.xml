@@ -4,7 +4,6 @@
     <!-- Words -->
     <string name="lima">Lima</string>
     <string name="concerts">Conciertos</string>
-    <string name="categories">Categorias</string>
     <string name="bands">Bandas</string>
 
     <!-- Messages -->
@@ -12,7 +11,6 @@
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
     <string name="about_concert">Acerca del Concierto</string>
-    <string name="default_genre">Rock | Metal</string>
     <string name="try_again">Reintentar</string>
 
     <!-- Error Messages -->

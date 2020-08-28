@@ -55,37 +55,6 @@
             app:layout_constraintDimensionRatio="2.4:1"/>
 
         <TextView
-            android:id="@+id/dayTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:paddingTop="8dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:background="@drawable/shape_rectangle_rounded_16dp_top"
-            android:backgroundTint="@color/disable"
-            android:textColor="@color/accent"
-            android:textAlignment="center"
-            style="@style/HornsApp.TextView.Title"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/monthTextView"/>
-
-        <TextView
-            android:id="@+id/monthTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:background="@drawable/shape_rectangle_rounded_16dp_bottom"
-            android:backgroundTint="@color/disable"
-            android:textColor="@color/accent"
-            android:textAlignment="center"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/dayTextView"
-            app:layout_constraintEnd_toEndOf="@id/dayTextView"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
             android:id="@+id/descriptionLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
