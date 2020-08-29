@@ -90,8 +90,8 @@ class ConcertFragment
         }
 
         genreTextView.apply {
-            setImageView(R.drawable.ic_hornsapp)
-            setText(getString(R.string.default_genre))
+            setImageView(R.drawable.ic_music_note)
+            setText(concert.genres)
         }
 
         val items = concert.bands?.map {

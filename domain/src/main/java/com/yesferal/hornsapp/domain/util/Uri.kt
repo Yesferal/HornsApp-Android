@@ -7,7 +7,8 @@ fun URI.isSafe(): Boolean {
         "www.facebook.com",
         "www.joinnus.com",
         "www.youtube.com",
-        "www.teleticket.com.pe"
+        "www.teleticket.com.pe",
+        "www.fuzzpass.com"
     )
     val allowedScheme = "https"
 

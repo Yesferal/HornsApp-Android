@@ -11,16 +11,20 @@
         <item name="bottomSheetDialogTheme">@style/HornsApp.BottomSheetDialogTheme</item>
     </style>
 
-    <style name="HornsApp.TextView.Title" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/primaryText</item>
+    <style name="HornsApp.TextView.ActivityTitle" parent="HornsApp.TextView.Title">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="HornsApp.TextView.Title" parent="HornsApp.TextView.ViewHolderTitle">
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="HornsApp.TextView.ViewHolderTitle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryText</item>
         <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
-    </style>
-
-    <style name="HornsApp.TextView.ViewHolderTitle" parent="HornsApp.TextView.Title">
-        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="HornsApp.Splash" parent="HornsApp.AppTheme">

@@ -16,9 +16,10 @@ data class GetConcert(
     val dateTime: Date?,
     val state: State?,
     val category: String?,
-    val local: Local,
+    val local: Local?,
     val bands: List<Band>?,
-    val ticketingUrl: String?
+    val ticketingUrl: String?,
+    val ticketingHost: String?
 )
 
 fun GetConcert.mapToConcert(): Concert {
@@ -29,6 +30,10 @@ fun GetConcert.mapToConcert(): Concert {
     val facebookUrl = socialNetworks?.first()
 
     val isFavorite = false
+
+    val genres = this.bands?.map {
+        it.genre
+    }?.joinToString(" | ")
 
     return Concert(
         this._id,
@@ -41,9 +46,11 @@ fun GetConcert.mapToConcert(): Concert {
         facebookUrl?.toSafeUri(),
         isFavorite,
         category?: CategoryKey.LIVE.toString(),
-        this.state?.name,
-        this.local,
-        this.bands,
-        this.ticketingUrl?.toSafeUri()
+        genres = genres.toString(),
+        state = this.state?.name,
+        local = this.local,
+        bands = this.bands,
+        ticketingUrl = this.ticketingUrl?.toSafeUri(),
+        ticketingHost = this.ticketingHost
     )
 }
