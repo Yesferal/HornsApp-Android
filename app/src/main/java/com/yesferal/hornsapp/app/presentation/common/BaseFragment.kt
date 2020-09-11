@@ -30,6 +30,14 @@ abstract class BaseFragment
         )
     }
 
+    protected val linearLayoutManagerVertical by lazy {
+        LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?

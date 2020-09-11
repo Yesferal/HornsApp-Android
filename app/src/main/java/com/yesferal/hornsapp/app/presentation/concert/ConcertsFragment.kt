@@ -1,39 +1,29 @@
 package com.yesferal.hornsapp.app.presentation.concert
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdView
-import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.item.ItemBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.item.adapter.Item
-import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.asParcelable
 import com.yesferal.hornsapp.app.util.*
-import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
-import java.net.URI
 
 class ConcertsFragment
     : BaseFragment() {
 
     private lateinit var concertAdapter: ConcertAdapter
-    private lateinit var categoryAdapter: ItemAdapter
     private lateinit var stubViewInflated: View
 
     override val actionListener by lazy {
@@ -54,19 +44,11 @@ class ConcertsFragment
         super.onViewCreated(view, savedInstanceState)
 
         concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
-        concertsViewPager.also {
+
+        concertsRecyclerView.also {
             it.adapter = concertAdapter
-            it.setPageTransformer(PageTransformation())
-        }
-
-        TabLayoutMediator(tabLayout, concertsViewPager) { _,_ -> }
-            .attach()
-
-        categoryAdapter = ItemAdapter(instanceItemAdapterListener())
-        categoryRecyclerView.also {
-            it.adapter = categoryAdapter
-            it.layoutManager = linearLayoutManager
-            it.addItemDecoration(RecyclerViewDecorator())
+            it.layoutManager = linearLayoutManagerVertical
+            it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
         actionListener.onViewCreated()
@@ -82,23 +64,6 @@ class ConcertsFragment
 
     fun show(concerts: List<Concert>) {
         concertAdapter.setItem(concerts)
-
-        concertsViewPager.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    val concert = concerts[position]
-                    concertImageView.load(concert.headlinerImage)
-                    concertImageView.fadeIn()
-                }
-            }
-        )
-    }
-
-    fun showCategories(categories: List<Category>) {
-        //TODO("Move to presenter")
-        val items = categories.map { it.mapToBaseItem() }
-        categoryAdapter.setItem(items)
     }
 
     fun show(adView: AdView) {
@@ -145,36 +110,6 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
                 )
 
                 startActivity(intent)
-            }
-        }
-
-        override fun onFacebookButtonClick(uri: URI) {
-            val event = uri.path.replace("/events", "event")
-            val fbUri = Uri.parse("fb://$event")
-            startExternalActivity(fbUri, getString(R.string.facebook_package)) {
-                startExternalActivity(uri)
-            }
-        }
-
-        override fun onYoutubeButtonClick(uri: URI) {
-            startExternalActivity(uri)
-        }
-
-        override fun onFavoriteButtonClick(concert: Concert) {
-            actionListener.onFavoriteButtonClick(concert)
-        }
-    }
-
-private fun ConcertsFragment.instanceItemAdapterListener() =
-    object : ItemAdapter.Listener {
-        override fun onClick(item: Item) {
-            childFragmentManager.let {
-                val bundle = Bundle()
-                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())
-
-                ItemBottomSheetFragment.newInstance(bundle).apply {
-                    show(it, tag)
-                }
             }
         }
     }

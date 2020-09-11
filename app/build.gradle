@@ -25,12 +25,14 @@ android {
     buildTypes {
         debug {
             debuggable true
+            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
         }
     }
     externalNativeBuild {

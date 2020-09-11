@@ -6,21 +6,20 @@
         <item name="colorAccent">@color/accent</item>
 
         <item name="android:textColor">@color/secondaryText</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/small_text</item>
 
         <item name="bottomSheetDialogTheme">@style/HornsApp.BottomSheetDialogTheme</item>
     </style>
 
     <style name="HornsApp.TextView.ActivityTitle" parent="HornsApp.TextView.Title">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">@dimen/big_text</item>
     </style>
 
     <style name="HornsApp.TextView.Title" parent="HornsApp.TextView.ViewHolderTitle">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/medium_text</item>
     </style>
 
     <style name="HornsApp.TextView.ViewHolderTitle" parent="@android:style/TextAppearance">
-        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/primaryText</item>
         <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">end</item>

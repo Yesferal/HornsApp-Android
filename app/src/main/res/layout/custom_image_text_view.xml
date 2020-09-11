@@ -7,19 +7,21 @@
 
     <ImageView
         android:id="@+id/itemImageView"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/app_name"
+        android:padding="@dimen/small_margin"
         app:layout_constraintTop_toTopOf="@+id/itemTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/itemTextView"
+        app:layout_constraintDimensionRatio="1:1"
         app:tint="@color/secondaryText" />
 
     <TextView
         android:id="@+id/itemTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="@dimen/medium_margin"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintTop_toTopOf="parent"

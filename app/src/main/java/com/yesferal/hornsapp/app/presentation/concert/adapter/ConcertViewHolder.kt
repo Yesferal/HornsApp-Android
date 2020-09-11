@@ -33,47 +33,11 @@ class ConcertViewHolder constructor(
             setText(concert.datetime)
         }
 
-        itemView.concertImageView.setAllCornersRounded(dp = 16)
+        itemView.concertImageView.setAllCornersRounded()
         itemView.concertImageView.load(concert.posterImage)
 
-        itemView.containerView.setOnClickListener {
+        itemView.containerLayout.setOnClickListener {
             listener.onConcertItemClick(concert)
-        }
-
-        initFacebookButton(concert)
-        itemView.facebookImageView.setOnClickListener {
-            concert.facebookUrl?.let {
-                listener.onFacebookButtonClick(it)
-            }
-        }
-
-        initTrailerButton(concert)
-        itemView.trailerImageView.setOnClickListener {
-            concert.trailerUrl?.let {
-                listener.onYoutubeButtonClick(it)
-            }
-        }
-
-        itemView.favoriteImageView.isChecked = concert.isFavorite
-        itemView.favoriteImageView.setOnCheckedChangeListener { isChecked ->
-            concert.isFavorite = isChecked
-            listener.onFavoriteButtonClick(concert)
-        }
-    }
-
-    private fun initFacebookButton(concert: Concert) {
-        concert.facebookUrl?.let {
-            itemView.facebookImageView.visibility = View.VISIBLE
-        }?: kotlin.run {
-            itemView.facebookImageView.visibility = View.GONE
-        }
-    }
-
-    private fun initTrailerButton(concert: Concert) {
-        concert.trailerUrl?.let {
-            itemView.trailerImageView.visibility = View.VISIBLE
-        }?: kotlin.run {
-            itemView.trailerImageView.visibility = View.GONE
         }
     }
 }
