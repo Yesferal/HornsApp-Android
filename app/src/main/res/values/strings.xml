@@ -4,6 +4,7 @@
     <!-- Words -->
     <string name="lima">Lima</string>
     <string name="bands">Bandas</string>
+    <string name="description">Descripción</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>

@@ -7,53 +7,59 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_menu"
-        android:layout_marginStart="@dimen/big_margin"
-        android:padding="@dimen/medium_margin"
-        app:layout_constraintTop_toTopOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
-        app:layout_constraintDimensionRatio="1:1"/>
-
-    <TextView
-        android:id="@+id/titleTextView"
+    <View
+        android:id="@+id/toolbarBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:layout_margin="@dimen/big_margin"
-        android:textAlignment="center"
-        style="@style/HornsApp.TextView.ActivityTitle"
+        android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/app_name"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_menu"
+        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/big_margin"
+        app:layout_constraintTop_toTopOf="@id/toolbarBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"
+        app:layout_constraintDimensionRatio="1:1"/>
+
+    <TextView
+        android:id="@+id/activityTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        style="@style/HornsApp.TextView.ActivityTitle"
+        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
         android:src="@drawable/ic_search"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:padding="@dimen/medium_margin"
-        app:layout_constraintTop_toTopOf="@id/titleTextView"
+        android:padding="@dimen/big_margin"
+        android:layout_margin="@dimen/small_margin"
+        app:layout_constraintTop_toTopOf="@id/toolbarBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"
         app:layout_constraintDimensionRatio="1:1"/>
 
     <FrameLayout
         android:id="@+id/categoriesLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/big_margin"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintHeight_percent="0.2"/>
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBackground"
+        app:layout_constraintHeight_percent="0.25"/>
 
     <FrameLayout
         android:id="@+id/concertsLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@+id/categoriesLayout"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

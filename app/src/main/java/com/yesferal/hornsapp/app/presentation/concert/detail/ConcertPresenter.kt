@@ -4,11 +4,14 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.ViewState
+import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
+import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
 
 class ConcertPresenter(
     private val getConcertUseCase: GetConcertUseCase,
-    private val adManager: AdManager
+    private val adManager: AdManager,
+    private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : BasePresenter<ConcertFragment, ConcertViewData>() {
 
     fun onViewCreated(id: String) {
@@ -21,7 +24,6 @@ class ConcertPresenter(
             },
             onError = {
                 render(ViewState.Error(R.string.error_default))
-                //TODO("Not yet implemented")
             }
         )
     }
@@ -31,17 +33,31 @@ class ConcertPresenter(
     ) {
         when(state) {
             is ViewState.Success -> {
-                view?.hideProgress()
                 view?.show(concert = state.viewData.concert)
                 view?.show(adView = adManager.concertDetailAdView())
+                view?.hideProgress()
             }
             is ViewState.Progress -> {
                 view?.showProgress()
             }
             is ViewState.Error-> {
-                view?.hideProgress()
                 view?.show(error = state.message)
+                view?.hideProgress()
             }
         }
+    }
+
+    fun onFavoriteImageViewClick(
+        concert: Concert,
+        isChecked: Boolean
+    ) {
+        concert.isFavorite = isChecked
+        updateFavoriteConcertUseCase(
+            concert,
+            onInsert = {
+                view?.showToast(R.string.add_to_favorite)
+            },
+            onRemove = {}
+        )
     }
 }

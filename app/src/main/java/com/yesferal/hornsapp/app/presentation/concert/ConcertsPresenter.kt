@@ -36,17 +36,17 @@ class ConcertsPresenter(
     override fun render(state: ViewState<ConcertsViewData>) {
         when(state) {
             is ViewState.Success -> {
-                view?.hideProgress()
-                view?.hideError()
                 view?.show(concerts = state.viewData.concerts)
                 view?.show(adView = adManager.concertsAdView())
+                view?.hideError()
+                view?.hideProgress()
             }
             is ViewState.Progress -> {
                 view?.showProgress()
             }
             is ViewState.Error-> {
-                view?.hideProgress()
                 view?.showError(messageId =  state.message)
+                view?.hideProgress()
             }
         }
     }

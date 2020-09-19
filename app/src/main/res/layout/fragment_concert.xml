@@ -1,93 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Button
+        android:id="@+id/buyTicketsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:backgroundTint="@color/accent"
+        android:textColor="@android:color/white"
+        android:layout_margin="@dimen/big_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/about_concert"
+        android:layout_margin="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toBottomOf="@+id/buyTicketsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"/>
+
+    <com.yesferal.hornsapp.app.util.CheckBoxImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintTop_toTopOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+        app:layout_constraintDimensionRatio="1:1"/>
+
+    <com.yesferal.hornsapp.app.util.ImageTextView
+        android:id="@+id/localTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.yesferal.hornsapp.app.util.ImageTextView
+        android:id="@+id/datetimeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/localTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.yesferal.hornsapp.app.util.ImageTextView
+        android:id="@+id/genreTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/bandsLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bands"
+        android:layout_margin="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toBottomOf="@+id/genreTextView"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bandRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/bandsLabelTextView"
+        app:layout_constraintDimensionRatio="2.4:1"/>
 
-        <com.yesferal.hornsapp.app.util.ImageTextView
-            android:id="@+id/localTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/descriptionLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:layout_margin="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toBottomOf="@+id/bandRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.yesferal.hornsapp.app.util.ImageTextView
-            android:id="@+id/datetimeTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/localTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:lineSpacingExtra="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionLabelTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.yesferal.hornsapp.app.util.ImageTextView
-            android:id="@+id/genreTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <!-- layout_height="66dp": This is equals to Ad size-->
+    <View
+        android:id="@+id/bottomView"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"/>
 
-        <TextView
-            android:id="@+id/bandsLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bands"
-            android:layout_margin="16dp"
-            style="@style/HornsApp.TextView.Title"
-            app:layout_constraintTop_toBottomOf="@+id/genreTextView"
-            app:layout_constraintStart_toStartOf="parent"/>
+    <ViewStub
+        android:id="@+id/stubView"
+        android:inflatedId="@+id/inflatedStubView"
+        android:layout="@layout/custom_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomView"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bandRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/bandsLabelTextView"
-            app:layout_constraintDimensionRatio="2.4:1"/>
+    <include
+        layout="@layout/custom_view_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"/>
 
-        <TextView
-            android:id="@+id/descriptionLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/about_concert"
-            android:layout_margin="16dp"
-            style="@style/HornsApp.TextView.Title"
-            app:layout_constraintTop_toBottomOf="@+id/bandRecyclerView"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionLabelTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"/>
-
-        <ViewStub
-            android:id="@+id/stubView"
-            android:inflatedId="@+id/inflatedStubView"
-            android:layout="@layout/custom_error"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/descriptionTextView"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.concert.detail
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,15 @@ import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
 import com.yesferal.hornsapp.app.presentation.item.adapter.Item
 import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
-import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
-import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
+import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.domain.entity.Local
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
+import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concert.*
+import java.net.URI
 
 class ConcertFragment
     : BaseFragment() {
@@ -31,9 +34,6 @@ class ConcertFragment
     var listener: Listener? = null
     interface Listener {
         fun show(adView: AdView)
-        fun show(concert: Concert)
-        fun showProgress()
-        fun hideProgress()
     }
 
     override fun onCreateView(
@@ -66,6 +66,7 @@ class ConcertFragment
             it.addItemDecoration(RecyclerViewDecorator(padding = 8))
         }
 
+        favoriteImageView.isChecked = item.isFavorite
         actionListener.onViewCreated(item.id)
     }
 
@@ -75,7 +76,9 @@ class ConcertFragment
     }
 
     fun show(concert: Concert) {
-        listener?.show(concert)
+        favoriteImageView.setOnCheckedChangeListener { isChecked ->
+            actionListener.onFavoriteImageViewClick(concert, isChecked)
+        }
 
         descriptionTextView.setUpWith(concert.description)
 
@@ -98,6 +101,65 @@ class ConcertFragment
             it.mapToBaseItem()
         }
         bandAdapter.setItem(items)
+
+        enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
+        show(local = concert.local)
+    }
+
+    private fun enableTicketPurchase(
+        ticketingHost: String?,
+        ticketingUrl: URI?
+    ) {
+        ticketingUrl?.let {
+            buyTicketsButton.setUpWith(ticketingHost
+                ?: getString(R.string.go_now))
+            buyTicketsButton.setOnClickListener {
+                startExternalActivity(ticketingUrl)
+            }
+        }?: kotlin.run {
+            buyTicketsButton.visibility = View.GONE
+        }
+    }
+
+    private fun show(local: Local?) {
+        local?.let {
+            localTextView.setOnClickListener {
+                val latitude = local.latitude
+                val longitude = local.longitude
+                // TODO("Move to mapper")
+                val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(local.name)}")
+
+                startExternalActivity(uri, getString(R.string.maps_package))
+            }
+        }
+    }
+
+    private fun showFacebook(facebookUrl: URI?) {
+        /*facebookUrl?.let {
+            facebookImageView.visibility = (View.VISIBLE)
+            facebookImageView.setOnClickListener {
+                // TODO ("Move to Mapper")
+                val event = facebookUrl.path.replace("/events", "event")
+                val fbUri = URI("fb://$event")
+
+                startExternalActivity(fbUri, getString(R.string.facebook_package)) {
+                    startExternalActivity(facebookUrl)
+                }
+            }
+        }?: kotlin.run {
+            facebookImageView.visibility = (View.GONE)
+        }*/
+    }
+
+    private fun showYoutube(youtubeTrailer: URI?) {
+        /*youtubeTrailer?.let {
+            trailerImageView.visibility = (View.VISIBLE)
+            trailerImageView.setOnClickListener {
+                startExternalActivity(youtubeTrailer)
+            }
+        }?: kotlin.run {
+            trailerImageView.visibility = (View.GONE)
+        }*/
     }
 
     fun show(adView: AdView) {
@@ -105,11 +167,11 @@ class ConcertFragment
     }
 
     fun showProgress() {
-        listener?.showProgress()
+        customProgressBar.fadeIn()
     }
 
     fun hideProgress() {
-        listener?.hideProgress()
+        customProgressBar.fadeOut()
     }
 
     fun show(@StringRes error: Int) {

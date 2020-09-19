@@ -15,7 +15,7 @@ class GetConcertsByCategoryUseCase(
     ) {
         val concerts = when (categoryKey) {
             CategoryKey.LIVE.toString(),
-            CategoryKey.VIRTUAL.toString() -> {
+            CategoryKey.ONLINE.toString() -> {
                 concertRepository.getConcertsFromStorage()
                     ?.filter { it.category == categoryKey }
             }

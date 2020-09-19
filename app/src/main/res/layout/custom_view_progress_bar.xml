@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="2dp"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:padding="@dimen/big_margin">
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="top|center_horizontal"
         style="?android:progressBarStyleLarge"/>
+
 </FrameLayout>

@@ -9,7 +9,7 @@
         android:id="@+id/itemImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/app_name"
+        android:contentDescription="@null"
         android:padding="@dimen/small_margin"
         app:layout_constraintTop_toTopOf="@+id/itemTextView"
         app:layout_constraintStart_toStartOf="parent"

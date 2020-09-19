@@ -33,7 +33,7 @@ class ConcertViewHolder constructor(
             setText(concert.datetime)
         }
 
-        itemView.concertImageView.setAllCornersRounded()
+        itemView.concertImageView.setAllCornersRounded(dp = 8)
         itemView.concertImageView.load(concert.posterImage)
 
         itemView.containerLayout.setOnClickListener {

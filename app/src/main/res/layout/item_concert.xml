@@ -5,21 +5,23 @@
     android:id="@+id/containerLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/medium_margin"
-    android:layout_marginStart="@dimen/big_margin"
-    android:layout_marginEnd="@dimen/big_margin"
-    android:layout_marginBottom="@dimen/medium_margin">
+    android:paddingTop="@dimen/medium_margin"
+    android:paddingStart="@dimen/big_margin"
+    android:paddingEnd="@dimen/big_margin"
+    android:paddingBottom="@dimen/medium_margin">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/concertImageView"
-        android:contentDescription="@string/app_name"
+        android:contentDescription="@null"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
+        android:elevation="2dp"
+        android:padding="@dimen/small_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintDimensionRatio="1.6:1"
-        app:layout_constraintWidth_percent="0.3"/>
+        app:layout_constraintDimensionRatio="0.65:1"
+        app:layout_constraintWidth_percent="0.25"/>
 
     <View
         android:id="@+id/dividerView"

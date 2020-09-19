@@ -2,5 +2,5 @@ package com.yesferal.hornsapp.domain.entity
 
 
 enum class CategoryKey {
-    FAVORITE, LIVE, VIRTUAL, METAL, ROCK
+    FAVORITE, LIVE, ONLINE, METAL, ROCK
 }
