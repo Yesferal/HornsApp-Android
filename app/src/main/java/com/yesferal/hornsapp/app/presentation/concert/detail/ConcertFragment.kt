@@ -15,7 +15,7 @@ import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
 import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.entity.Local
+import com.yesferal.hornsapp.domain.entity.Venue
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -82,19 +82,14 @@ class ConcertFragment
 
         descriptionTextView.setUpWith(concert.description)
 
-        localTextView.apply {
-            setImageView(R.drawable.ic_map)
-            setText(concert.local?.name)
-        }
-
         datetimeTextView.apply {
             setImageView(R.drawable.ic_calendar)
-            setText(concert.datetime)
+            setText(concert.dateTime, concert.time)
         }
 
         genreTextView.apply {
             setImageView(R.drawable.ic_music_note)
-            setText(concert.genres)
+            setText(concert.subGenres)
         }
 
         val items = concert.bands?.map {
@@ -103,7 +98,9 @@ class ConcertFragment
         bandAdapter.setItem(items)
 
         enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
-        show(local = concert.local)
+        showVenue(concert.venue)
+        showYoutube(concert.trailerUrl)
+        showFacebook(concert.facebookUrl)
     }
 
     private fun enableTicketPurchase(
@@ -121,23 +118,29 @@ class ConcertFragment
         }
     }
 
-    private fun show(local: Local?) {
-        local?.let {
-            localTextView.setOnClickListener {
-                val latitude = local.latitude
-                val longitude = local.longitude
+    private fun showVenue(venue: Venue?) {
+        venue?.let {
+            venueTextView.setImageView(R.drawable.ic_map)
+            venueTextView.setText(venue.name, getString(R.string.go_to_map))
+            venueTextView.setOnClickListener {
+                val latitude = venue.latitude
+                val longitude = venue.longitude
                 // TODO("Move to mapper")
-                val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(local.name)}")
+                val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(venue.name)}")
 
                 startExternalActivity(uri, getString(R.string.maps_package))
             }
+        }?: kotlin.run {
+            venueTextView.visibility = View.GONE
         }
     }
 
     private fun showFacebook(facebookUrl: URI?) {
-        /*facebookUrl?.let {
-            facebookImageView.visibility = (View.VISIBLE)
-            facebookImageView.setOnClickListener {
+        facebookUrl?.let {
+            facebookTextView.setImageView(R.drawable.ic_facebook)
+            facebookTextView.setText(getString(R.string.fan_page), getString(R.string.go_to_event))
+            facebookTextView.visibility = View.VISIBLE
+            facebookTextView.setOnClickListener {
                 // TODO ("Move to Mapper")
                 val event = facebookUrl.path.replace("/events", "event")
                 val fbUri = URI("fb://$event")
@@ -147,22 +150,24 @@ class ConcertFragment
                 }
             }
         }?: kotlin.run {
-            facebookImageView.visibility = (View.GONE)
-        }*/
+            facebookTextView.visibility = View.GONE
+        }
     }
 
     private fun showYoutube(youtubeTrailer: URI?) {
-        /*youtubeTrailer?.let {
-            trailerImageView.visibility = (View.VISIBLE)
-            trailerImageView.setOnClickListener {
+        youtubeTrailer?.let {
+            youtubeTextView.setImageView(R.drawable.ic_youtube)
+            youtubeTextView.setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
+            youtubeTextView.visibility = View.VISIBLE
+            youtubeTextView.setOnClickListener {
                 startExternalActivity(youtubeTrailer)
             }
         }?: kotlin.run {
-            trailerImageView.visibility = (View.GONE)
-        }*/
+            youtubeTextView.visibility = View.GONE
+        }
     }
 
-    fun show(adView: AdView) {
+    fun showAd(adView: AdView) {
         listener?.show(adView)
     }
 
@@ -174,9 +179,9 @@ class ConcertFragment
         customProgressBar.fadeOut()
     }
 
-    fun show(@StringRes error: Int) {
+    fun showError(@StringRes messageId: Int) {
         stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(error)
+        errorTextView.text = getString(messageId)
     }
 
     companion object {

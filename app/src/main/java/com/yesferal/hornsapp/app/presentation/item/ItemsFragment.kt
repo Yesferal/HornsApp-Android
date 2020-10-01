@@ -74,9 +74,9 @@ class ItemsFragment
         itemAdapter.setItem(items)
     }
 
-    fun show(@StringRes error: Int) {
+    fun showError(@StringRes messageId: Int) {
         stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(error)
+        errorTextView.text = getString(messageId)
     }
 
     companion object {

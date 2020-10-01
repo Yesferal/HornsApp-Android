@@ -17,8 +17,7 @@ class ItemsPresenter(
             onSuccess = { concerts ->
                 val items = concerts.map { it.mapToItem() }
                 val viewData = ItemsViewData(items)
-                val success = ViewState.Success(viewData)
-                render(state = success)
+                render(viewData)
             },
             onError = {
                 val error = when(categoryKey) {
@@ -27,25 +26,26 @@ class ItemsPresenter(
                     }
                     else -> { R.string.error_no_items }
                 }
-                render(ViewState.Error(error))
-                // TODO("Implement ErrorHandler")
+                render(ItemsViewData(errorMessage = error))
             }
         )
     }
 
-    override fun render(state: ViewState<ItemsViewData>) {
-        when(state) {
-            is ViewState.Success -> {
-                view?.hideProgress()
-                view?.show(items = state.viewData.concerts)
-            }
-            is ViewState.Progress -> {
-                view?.showProgress()
-            }
-            is ViewState.Error-> {
-                view?.hideProgress()
-                view?.show(error = state.message)
-            }
+    override fun render(viewData: ItemsViewData) {
+        viewData.concerts?.let {
+            view?.show(items = viewData.concerts)
+        }
+
+        viewData.errorMessage?.let {
+            view?.showError(
+                messageId =  viewData.errorMessage
+            )
+        }
+
+        if (viewData.isLoading) {
+            view?.showProgress()
+        } else {
+            view?.hideProgress()
         }
     }
 }

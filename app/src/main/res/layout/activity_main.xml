@@ -1,66 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.motion.widget.MotionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_main_scene"
     tools:context=".presentation.MainActivity">
 
     <View
-        android:id="@+id/toolbarBackground"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@+id/backgroundView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.3"/>
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/menuImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_menu"
-        android:layout_margin="@dimen/small_margin"
-        android:padding="@dimen/big_margin"
-        app:layout_constraintTop_toTopOf="@id/toolbarBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"
-        app:layout_constraintDimensionRatio="1:1"/>
+        android:padding="@dimen/medium_margin"
+        android:layout_margin="@dimen/medium_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
-        android:id="@+id/activityTitleTextView"
+    <View
+        android:id="@+id/dividerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        style="@style/HornsApp.TextView.ActivityTitle"
-        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_search"
-        android:padding="@dimen/big_margin"
-        android:layout_margin="@dimen/small_margin"
-        app:layout_constraintTop_toTopOf="@id/toolbarBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"
-        app:layout_constraintDimensionRatio="1:1"/>
-
-    <FrameLayout
-        android:id="@+id/categoriesLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarBackground"
-        app:layout_constraintHeight_percent="0.25"/>
+        android:layout_height="@dimen/big_margin"
+        app:layout_constraintTop_toBottomOf="@id/menuImageView"/>
 
     <FrameLayout
         android:id="@+id/concertsLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@+id/categoriesLayout"
+        app:layout_constraintTop_toBottomOf="@+id/dividerView"
+        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"/>
+
+    <FrameLayout
+        android:id="@+id/adContainerLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

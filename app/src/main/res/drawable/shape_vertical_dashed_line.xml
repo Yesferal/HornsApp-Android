@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Why 450 ?
+    Since the line is first drawn horizontally and then rotated,
+    we need enough space horizontally to draw it.
+    Using -450dp on both sides, you can draw 900dp horizontally and then it will be rotated.
+    In my case 900dp is more then enough -->
+    <item
+        android:left="-450dp"
+        android:right="-450dp">
+        <rotate
+            android:fromDegrees="90"
+            android:toDegrees="90"
+            android:drawable="@drawable/shape_horizontal_dashed_line"/>
+    </item>
+</layer-list>

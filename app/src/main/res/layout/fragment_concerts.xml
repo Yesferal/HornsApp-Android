@@ -7,29 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".presentation.concert.ConcertsFragment">
 
-    <FrameLayout
-        android:id="@+id/adContainerLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/concertsTextView"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriesRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/discover"
-        android:layout_margin="@dimen/big_margin"
-        style="@style/HornsApp.TextView.Title"
-        app:layout_constraintTop_toBottomOf="@+id/adContainerLayout"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintTop_toBottomOf="@+id/menuImageView"/>
+
+    <View
+        android:id="@+id/dateBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        app:layout_constraintTop_toTopOf="@+id/concertsRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/concertsRecyclerView"
+        app:layout_constraintWidth_percent="0.15"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="software"
+        android:background="@drawable/shape_vertical_dashed_line"
+        app:layout_constraintTop_toTopOf="@id/dateBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@id/dateBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/dateBackgroundView"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/concertsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/concertsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesRecyclerView"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ViewStub
@@ -37,11 +47,15 @@
         android:inflatedId="@+id/inflatedStubView"
         android:layout="@layout/custom_error"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include
         layout="@layout/custom_view_progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,24 +32,31 @@
 
         <Constraint
             android:id="@+id/concertImageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:padding="@dimen/big_margin"
-            android:contentDescription="@null"
-            android:scaleX="0.45"
-            android:scaleY="0.45"
+            android:layout_width="match_parent"
             android:alpha="0"
-            app:layout_constraintTop_toTopOf="@+id/parent"
-            app:layout_constraintStart_toEndOf="@+id/closeImageView"
-            app:layout_constraintEnd_toStartOf="@+id/shareImageView"
-            app:layout_constraintDimensionRatio="0.65:1" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1.4" />
+
+        <Constraint
+            android:id="@+id/activityTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/big_margin"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:textAlignment="center"
+            android:scaleX="0.1"
+            android:scaleY="0.1"
+            android:alpha="0"
+            style="@style/HornsApp.TextView.ActivityTitle"
+            app:layout_constraintTop_toTopOf="@+id/concertImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/concertImageView"/>
 
         <Constraint
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:elevation="4dp"
             app:layout_constraintTop_toBottomOf="@+id/toolbarBackground"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </ConstraintSet>

@@ -40,8 +40,8 @@ class ConcertActivity : BaseActivity() {
         }
 
         titleTextView.setUpWith(item.name)
+        activityTitleTextView.setUpWith(item.name)
         concertImageView.load(item.posterImage)
-        concertImageView.setAllCornersRounded()
 
         closeImageView.setOnClickListener {
             finish()

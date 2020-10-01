@@ -12,7 +12,8 @@
         android:background="@drawable/shape_rectangle_rounded_16dp"
         android:backgroundTint="@color/accent"
         android:textColor="@android:color/white"
-        android:layout_margin="@dimen/big_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -22,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/about_concert"
-        android:layout_margin="@dimen/medium_margin"
+        android:layout_margin="@dimen/big_margin"
         android:padding="@dimen/medium_margin"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintTop_toBottomOf="@+id/buyTicketsButton"
@@ -42,7 +43,7 @@
         app:layout_constraintDimensionRatio="1:1"/>
 
     <com.yesferal.hornsapp.app.util.ImageTextView
-        android:id="@+id/localTextView"
+        android:id="@+id/venueTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium_margin"
@@ -59,7 +60,29 @@
         android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@+id/localTextView"
+        app:layout_constraintTop_toBottomOf="@+id/venueTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.yesferal.hornsapp.app.util.ImageTextView
+        android:id="@+id/facebookTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.yesferal.hornsapp.app.util.ImageTextView
+        android:id="@+id/youtubeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@+id/facebookTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -70,7 +93,7 @@
         android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/youtubeTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -115,7 +138,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- layout_height="66dp": This is equals to Ad size-->
+    <!-- layout_height="66dp": This is equals to Ad size (50 + 16) -->
     <View
         android:id="@+id/bottomView"
         android:layout_width="match_parent"

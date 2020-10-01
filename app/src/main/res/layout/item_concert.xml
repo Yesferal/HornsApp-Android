@@ -4,11 +4,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/containerLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/medium_margin"
-    android:paddingStart="@dimen/big_margin"
-    android:paddingEnd="@dimen/big_margin"
-    android:paddingBottom="@dimen/medium_margin">
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/dateBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:layout_marginStart="@dimen/big_margin"
+        app:layout_constraintTop_toTopOf="@id/dayTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/monthTextView"
+        app:layout_constraintWidth_percent="0.15"/>
+
+    <TextView
+        android:id="@+id/dayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/accent"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/big_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/dateBackgroundView"/>
+
+    <TextView
+        android:id="@+id/monthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryText"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/dayTextView"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/dateBackgroundView"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/concertImageView"
@@ -17,35 +46,86 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:elevation="2dp"
-        android:padding="@dimen/small_margin"
+        android:padding="@dimen/big_margin"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintDimensionRatio="0.65:1"
-        app:layout_constraintWidth_percent="0.25"/>
+        app:layout_constraintStart_toEndOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="1.6:1"/>
 
     <View
-        android:id="@+id/dividerView"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:id="@+id/concertImageForegroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:backgroundTint="@color/primary"
+        android:alpha="0.4"
+        android:elevation="2dp"
+        android:layout_margin="@dimen/big_margin"
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"/>
+        app:layout_constraintStart_toStartOf="@+id/concertImageView"
+        app:layout_constraintEnd_toEndOf="@+id/concertImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
-        style="@style/HornsApp.TextView.ViewHolderTitle"
-        app:layout_constraintStart_toEndOf="@id/concertImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/dividerView"/>
+        android:layout_marginEnd="@dimen/big_margin"
+        android:elevation="2dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
+        app:layout_constraintEnd_toEndOf="@id/concertImageForegroundView"
+        app:layout_constraintBottom_toTopOf="@id/genreImageView"/>
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <ImageView
+        android:id="@+id/timeImageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_clock"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageForegroundView"
+        app:tint="@android:color/white" />
+
+    <TextView
         android:id="@+id/timeTextView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/dividerView"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/titleTextView"/>
+        android:textColor="@android:color/white"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="@+id/timeImageView"
+        app:layout_constraintStart_toEndOf="@id/timeImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/timeImageView"/>
+
+    <ImageView
+        android:id="@+id/genreImageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_music_note"
+        android:layout_margin="@dimen/medium_margin"
+        android:padding="@dimen/medium_margin"
+        android:elevation="2dp"
+        app:layout_constraintStart_toEndOf="@id/timeTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageForegroundView"
+        app:tint="@android:color/white" />
+
+    <TextView
+        android:id="@+id/genreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="@+id/genreImageView"
+        app:layout_constraintStart_toEndOf="@id/genreImageView"
+        app:layout_constraintEnd_toEndOf="@+id/concertImageForegroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/genreImageView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

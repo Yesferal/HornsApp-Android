@@ -13,7 +13,9 @@ import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.asParcelable
+import com.yesferal.hornsapp.app.presentation.concert.adapter.CategoryAdapter
 import com.yesferal.hornsapp.app.util.*
+import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
@@ -23,11 +25,17 @@ import kotlinx.android.synthetic.main.fragment_concerts.*
 class ConcertsFragment
     : BaseFragment() {
 
+    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var concertAdapter: ConcertAdapter
     private lateinit var stubViewInflated: View
 
     override val actionListener by lazy {
         container.resolve<ConcertsPresenter>()
+    }
+
+    var listener: Listener? = null
+    interface Listener {
+        fun show(adView: AdView)
     }
 
     override fun onCreateView(
@@ -43,12 +51,18 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        categoryAdapter = CategoryAdapter(instanceItemAdapterListener())
+        categoriesRecyclerView.also {
+            it.adapter = categoryAdapter
+            it.layoutManager = linearLayoutManager
+            it.addItemDecoration(RecyclerViewDecorator())
+        }
+
         concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
 
         concertsRecyclerView.also {
             it.adapter = concertAdapter
             it.layoutManager = linearLayoutManagerVertical
-            it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
         actionListener.onViewCreated()
@@ -62,22 +76,34 @@ class ConcertsFragment
         customProgressBar.fadeOut()
     }
 
-    fun show(concerts: List<Concert>) {
+    fun showConcerts(concerts: List<Concert>) {
         concertAdapter.setItem(concerts)
     }
 
-    fun show(adView: AdView) {
-        adContainerLayout.removeAllViews()
-        adContainerLayout.addView(adView)
+    fun showCategorySelected(category: Category) {
+        categoryAdapter.setCategoryId(category._id)
     }
 
-    fun showError(@StringRes messageId: Int) {
+    fun showCategories(categories: List<Category>) {
+        categoryAdapter.setItems(categories)
+    }
+
+    fun showAd(adView: AdView) {
+        listener?.show(adView)
+    }
+
+    fun showError(
+        @StringRes messageId: Int,
+        allowRetry: Boolean
+    ) {
         if (!::stubViewInflated.isInitialized) {
             stubViewInflated = stubView.inflate()
         }
         stubViewInflated.visibility = View.VISIBLE
         errorTextView.text = getString(messageId)
-        tryAgainTextView.visibility = View.VISIBLE
+        if (allowRetry) {
+            tryAgainTextView.visibility = View.VISIBLE
+        }
         tryAgainTextView.setOnClickListener {
             actionListener.onRefresh()
             tryAgainTextView.visibility = View.GONE
@@ -111,5 +137,12 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
 
                 startActivity(intent)
             }
+        }
+    }
+
+private fun ConcertsFragment.instanceItemAdapterListener() =
+    object : CategoryAdapter.Listener {
+        override fun onClick(category: Category) {
+            actionListener.onCategoryClick(category)
         }
     }

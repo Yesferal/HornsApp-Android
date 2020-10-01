@@ -18,32 +18,39 @@ class ConcertPresenter(
         getConcertUseCase(
             id,
             onSuccess = {
-                val viewData = ConcertViewData(it)
-                val success = ViewState.Success(viewData)
-                render(state = success)
+                val viewData = ConcertViewData(
+                    concert = it,
+                    adView = adManager.concertDetailAdView()
+                )
+                render(viewData)
             },
             onError = {
-                render(ViewState.Error(R.string.error_default))
+                render(ConcertViewData(errorMessage = R.string.error_default))
             }
         )
     }
 
     override fun render(
-        state: ViewState<ConcertViewData>
+        viewData: ConcertViewData
     ) {
-        when(state) {
-            is ViewState.Success -> {
-                view?.show(concert = state.viewData.concert)
-                view?.show(adView = adManager.concertDetailAdView())
-                view?.hideProgress()
-            }
-            is ViewState.Progress -> {
-                view?.showProgress()
-            }
-            is ViewState.Error-> {
-                view?.show(error = state.message)
-                view?.hideProgress()
-            }
+        viewData.concert?.let {
+            view?.show(concert = it)
+        }
+
+        viewData.adView?.let {
+            view?.showAd(it)
+        }
+
+        viewData.errorMessage?.let {
+            view?.showError(
+                messageId =  it
+            )
+        }
+
+        if (viewData.isLoading) {
+            view?.showProgress()
+        } else {
+            view?.hideProgress()
         }
     }
 

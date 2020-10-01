@@ -14,10 +14,8 @@ class GetConcertsByCategoryUseCase(
         onError: (t: Throwable) -> Unit
     ) {
         val concerts = when (categoryKey) {
-            CategoryKey.LIVE.toString(),
-            CategoryKey.ONLINE.toString() -> {
+            CategoryKey.ALL.toString() -> {
                 concertRepository.getConcertsFromStorage()
-                    ?.filter { it.category == categoryKey }
             }
             CategoryKey.FAVORITE.toString() -> {
                 val favouriteConcertsIds = concertRepository.getFavoriteConcert()
@@ -28,7 +26,10 @@ class GetConcertsByCategoryUseCase(
                         }
                 }
             }
-            else -> { null }
+            else -> {
+                concertRepository.getConcertsFromStorage()
+                    ?.filter { it.tags?.contains(categoryKey) == true }
+            }
         }
 
         if (concerts == null || concerts.isEmpty()) {

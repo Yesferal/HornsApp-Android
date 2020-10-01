@@ -28,13 +28,14 @@ class ConcertViewHolder constructor(
 
     fun bind(concert: Concert) {
         itemView.titleTextView.setUpWith(concert.name)
-        itemView.timeTextView.apply {
-            setImageView(R.drawable.ic_calendar)
-            setText(concert.datetime)
-        }
+        itemView.dayTextView.setUpWith(concert.day)
+        itemView.monthTextView.setUpWith(concert.month)
 
-        itemView.concertImageView.setAllCornersRounded(dp = 8)
+        itemView.concertImageView.setAllCornersRounded()
         itemView.concertImageView.load(concert.posterImage)
+
+        itemView.timeTextView.setUpWith(concert.time)
+        itemView.genreTextView.setUpWith(concert.genre)
 
         itemView.containerLayout.setOnClickListener {
             listener.onConcertItemClick(concert)

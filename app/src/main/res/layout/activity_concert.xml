@@ -53,34 +53,41 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"
         app:layout_constraintDimensionRatio="1:1"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/concertImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:padding="@dimen/big_margin"
+        android:layout_margin="@dimen/big_margin"
         android:contentDescription="@null"
-        android:elevation="4dp"
         app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
         app:layout_constraintStart_toEndOf="@+id/closeImageView"
         app:layout_constraintEnd_toStartOf="@+id/shareImageView"
-        app:layout_constraintDimensionRatio="0.65:1" />
+        app:layout_constraintDimensionRatio="1:1.4" />
+
+    <TextView
+        android:id="@+id/activityTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/big_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:textAlignment="center"
+        style="@style/HornsApp.TextView.ActivityTitle"
+        app:layout_constraintTop_toBottomOf="@+id/concertImageView"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:elevation="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/concertImageView"
+        app:layout_constraintTop_toBottomOf="@+id/activityTitleTextView"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout
             android:id="@+id/fragmentContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"/>
+            android:descendantFocusability="blocksDescendants"/>
 
     </androidx.core.widget.NestedScrollView>
 
@@ -88,7 +95,6 @@
         android:id="@+id/adContainerLayout"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
