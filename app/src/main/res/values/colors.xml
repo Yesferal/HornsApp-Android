@@ -8,6 +8,4 @@
     <color name="secondaryText">#616E91</color>
 
     <color name="background">#f5f8fd</color>
-    <color name="divider">@color/secondaryText</color>
-    <color name="disable">#32d8412f</color>
 </resources>
