@@ -3,7 +3,7 @@
 buildscript {
     ext.versions = [
             'jvmTarget': '1.8',
-            'kotlin': '1.3.72'
+            'kotlin': '1.4.10'
     ]
 
     ext.hornsAppModules = [

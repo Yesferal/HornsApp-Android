@@ -9,7 +9,6 @@ import kotlinx.android.parcel.Parcelize
 class ItemParcelable(
     val id: String,
     val name: String?,
-    val posterImage: String?,
     var isFavorite: Boolean
 ) : Parcelable
 
@@ -17,7 +16,6 @@ fun Concert.asParcelable(): ItemParcelable {
     return ItemParcelable(
         id,
         name,
-        headlinerImage,
         isFavorite
     )
 }
@@ -26,7 +24,6 @@ fun Item.asParcelable(): ItemParcelable {
     return ItemParcelable(
         id,
         name,
-        imageUrl,
         isFavorite
     )
 }

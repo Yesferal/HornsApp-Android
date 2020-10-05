@@ -2,7 +2,6 @@ package com.yesferal.hornsapp.app.presentation.item
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
-import com.yesferal.hornsapp.app.presentation.common.ViewState
 import com.yesferal.hornsapp.app.presentation.item.adapter.mapToItem
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase

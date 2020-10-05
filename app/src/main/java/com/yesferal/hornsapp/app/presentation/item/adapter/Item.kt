@@ -1,7 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.item.adapter
 
 import com.yesferal.hornsapp.domain.entity.Band
-import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert
 
 data class Item (

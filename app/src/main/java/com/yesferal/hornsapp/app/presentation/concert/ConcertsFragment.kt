@@ -63,6 +63,7 @@ class ConcertsFragment
         concertsRecyclerView.also {
             it.adapter = concertAdapter
             it.layoutManager = linearLayoutManagerVertical
+            it.addItemDecoration(RecyclerViewVerticalDecorator(8))
         }
 
         actionListener.onViewCreated()

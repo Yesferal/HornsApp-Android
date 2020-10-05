@@ -2,18 +2,12 @@
     <string name="app_name">HornsApp</string>
 
     <!-- Words -->
-    <string name="lima">Lima</string>
-    <string name="bands">Bandas</string>
     <string name="try_again">Reintentar</string>
-    <string name="categories">Categorías</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
-    <string name="remove_from_favorite">Se removió de tus favoritos</string>
     <string name="about_concert">Acerca del concierto</string>
-    <string name="discover">Descubre lo nuevo</string>
-    <string name="upcoming">Próximos conciertos</string>
     <string name="go_to_maps">Ir a Google Map</string>
     <string name="fan_page">Página oficial</string>
     <string name="go_to_event">Ir a Facebook</string>
@@ -27,7 +21,6 @@
     <string name="error_no_items">Por ahora no tenemos elementos para esta categoría.</string>
     <string name="error_no_favorite_yet">Aun no haz seleccionado ningun concierto como favorito.</string>
     <string name="error_app_not_found">No tienes la aplicación instalada.</string>
-    <string name="error_no_tickets">No esta activa la venta de entradas.</string>
 
     <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>
