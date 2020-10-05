@@ -2,10 +2,10 @@
 <resources>
     <color name="primaryDark">#29303e</color>
     <color name="primary">@color/primaryDark</color>
-    <color name="accent">#d8412f</color>
+    <color name="accent">#d1150c</color>
 
     <color name="primaryText">@color/primaryDark</color>
-    <color name="secondaryText">#8d9aa6</color>
+    <color name="secondaryText">#616E91</color>
 
     <color name="background">#f5f8fd</color>
     <color name="divider">@color/secondaryText</color>

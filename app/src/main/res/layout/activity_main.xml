@@ -16,21 +16,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.3"/>
 
+    <View
+        android:id="@+id/toolbarBackground"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
         android:id="@+id/menuImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/margin_big"
+        android:layout_height="@dimen/margin_big"
         android:contentDescription="@null"
         android:src="@drawable/ic_menu"
-        android:padding="@dimen/medium_margin"
-        android:layout_margin="@dimen/medium_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginStart="@dimen/margin_big"
+        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
 
     <View
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/big_margin"
+        android:layout_height="@dimen/margin_big"
         app:layout_constraintTop_toBottomOf="@id/menuImageView"/>
 
     <FrameLayout

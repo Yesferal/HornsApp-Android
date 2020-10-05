@@ -9,6 +9,7 @@ import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.util.setAllCornersRounded
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.domain.entity.Concert
+import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_concert.view.*
 
 class ConcertViewHolder constructor(
@@ -32,7 +33,7 @@ class ConcertViewHolder constructor(
         itemView.monthTextView.setUpWith(concert.month)
 
         itemView.concertImageView.setAllCornersRounded()
-        itemView.concertImageView.load(concert.posterImage)
+        itemView.concertImageView.load(concert.headlinerImage)
 
         itemView.timeTextView.setUpWith(concert.time)
         itemView.genreTextView.setUpWith(concert.genre)

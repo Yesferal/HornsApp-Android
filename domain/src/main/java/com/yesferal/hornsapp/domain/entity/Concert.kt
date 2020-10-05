@@ -1,13 +1,14 @@
 package com.yesferal.hornsapp.domain.entity
 
 import java.net.URI
+import java.util.*
 
 data class Concert (
     val id: String,
     val name: String?,
     val description: String?,
-    val posterImage: String?,
     val headlinerImage: String?,
+    val date: Date?,
     val dateTime: String?,
     val day: String?,
     val month: String?,

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="small_margin">4dp</dimen>
-    <dimen name="medium_margin">8dp</dimen>
-    <dimen name="big_margin">16dp</dimen>
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_big">24dp</dimen>
 
+    <dimen name="text_tiny">13sp</dimen>
     <dimen name="text_small">16sp</dimen>
     <dimen name="text_medium">20sp</dimen>
-    <dimen name="text_big">24sp</dimen>
+    <dimen name="text_big">25sp</dimen>
 </resources>

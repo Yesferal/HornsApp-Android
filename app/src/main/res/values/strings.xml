@@ -4,7 +4,6 @@
     <!-- Words -->
     <string name="lima">Lima</string>
     <string name="bands">Bandas</string>
-    <string name="description">Descripción</string>
     <string name="try_again">Reintentar</string>
     <string name="categories">Categorías</string>
 
@@ -12,14 +11,16 @@
     <string name="go_now">Ir Ahora</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="remove_from_favorite">Se removió de tus favoritos</string>
-    <string name="about_concert">Acerca del Concierto</string>
+    <string name="about_concert">Acerca del concierto</string>
     <string name="discover">Descubre lo nuevo</string>
     <string name="upcoming">Próximos conciertos</string>
-    <string name="go_to_map">Ir al Mapa</string>
-    <string name="fan_page">Página Oficial</string>
-    <string name="go_to_event">Ir al Evento</string>
-    <string name="official_video">Video Oficial</string>
+    <string name="go_to_maps">Ir a Google Map</string>
+    <string name="fan_page">Página oficial</string>
+    <string name="go_to_event">Ir a Facebook</string>
+    <string name="official_video">Video oficial</string>
     <string name="go_to_youtube">Ir a Youtube</string>
+    <string name="add_to_calendar">"Añadir al Calendario"</string>
+    <string name="available_in">Disponible en</string>
 
     <!-- Error Messages -->
     <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
@@ -31,4 +32,5 @@
     <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>
     <string name="maps_package">com.google.android.apps.maps</string>
+    <string name="calendar_action_type">vnd.android.cursor.item/event</string>
 </resources>

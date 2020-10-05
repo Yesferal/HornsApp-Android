@@ -39,14 +39,16 @@ class ConcertActivity : BaseActivity() {
                 .commit()
         }
 
-        titleTextView.setUpWith(item.name)
         activityTitleTextView.setUpWith(item.name)
-        concertImageView.load(item.posterImage)
 
         closeImageView.setOnClickListener {
             finish()
         }
 
+        addTransitionListener()
+    }
+
+    private fun addTransitionListener() {
         containerLayout.addTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
 

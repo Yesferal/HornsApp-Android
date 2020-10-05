@@ -18,46 +18,23 @@
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/titleTextView"
+            android:id="@+id/activityTitleTextView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/medium_margin"
-            android:textAlignment="center"
-            android:alpha="1"
+            android:layout_height="0dp"
+            android:padding="0dp"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             style="@style/HornsApp.TextView.Title"
             app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
             app:layout_constraintStart_toEndOf="@+id/closeImageView"
-            app:layout_constraintEnd_toStartOf="@+id/shareImageView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/toolbarBackground"/>
 
         <Constraint
-            android:id="@+id/concertImageView"
-            android:layout_width="match_parent"
-            android:alpha="0"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintDimensionRatio="1:1.4" />
-
-        <Constraint
-            android:id="@+id/activityTitleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/big_margin"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:textAlignment="center"
-            android:scaleX="0.1"
-            android:scaleY="0.1"
-            android:alpha="0"
-            style="@style/HornsApp.TextView.ActivityTitle"
-            app:layout_constraintTop_toTopOf="@+id/concertImageView"
-            app:layout_constraintBottom_toBottomOf="@+id/concertImageView"/>
-
-        <Constraint
-            android:id="@+id/nestedScrollView"
+            android:id="@+id/dividerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarBackground"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
     </ConstraintSet>
 </MotionScene>

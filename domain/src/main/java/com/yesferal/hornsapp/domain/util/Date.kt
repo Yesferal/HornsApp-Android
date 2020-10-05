@@ -15,7 +15,7 @@ fun Date.formattedWith(pattern: String): String? {
 }
 
 fun Date.dateTimeFormatted(): String? {
-    return formattedWith("EE dd MMM, HH:mm a")
+    return formattedWith("EEEE dd, MMMM (HH:mm)")
 }
 
 fun Date.dayFormatted(): String? {

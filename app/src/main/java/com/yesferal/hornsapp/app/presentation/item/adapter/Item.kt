@@ -11,11 +11,8 @@ data class Item (
     var isFavorite: Boolean
 )
 
-fun Category.mapToBaseItem() =
-    Item(_id, name, imageUrl, isFavorite = false)
-
 fun Band.mapToBaseItem() =
     Item(_id, name, membersImage, isFavorite)
 
 fun Concert.mapToItem() =
-    Item(id, name, posterImage, isFavorite)
+    Item(id, name, headlinerImage, isFavorite)

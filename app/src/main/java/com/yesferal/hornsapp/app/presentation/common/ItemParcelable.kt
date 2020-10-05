@@ -17,7 +17,7 @@ fun Concert.asParcelable(): ItemParcelable {
     return ItemParcelable(
         id,
         name,
-        posterImage,
+        headlinerImage,
         isFavorite
     )
 }

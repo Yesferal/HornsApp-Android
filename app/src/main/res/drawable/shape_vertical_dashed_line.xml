@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Why 450 ?
+    <!-- Why 600dp ?
     Since the line is first drawn horizontally and then rotated,
     we need enough space horizontally to draw it.
-    Using -450dp on both sides, you can draw 900dp horizontally and then it will be rotated.
-    In my case 900dp is more then enough -->
+    Using -600dp on both sides, you can draw 1200dp horizontally and then it will be rotated.
+    In my case 1200dp is more then enough -->
     <item
-        android:left="-450dp"
-        android:right="-450dp">
+        android:left="-600dp"
+        android:right="-600dp">
         <rotate
             android:fromDegrees="90"
             android:toDegrees="90"

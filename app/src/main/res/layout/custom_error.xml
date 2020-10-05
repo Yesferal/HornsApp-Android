@@ -6,13 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
 
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.3"/>
+
     <ImageView
         android:id="@+id/errorImageView"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_music_note"
-        android:layout_margin="@dimen/big_margin"
+        android:layout_margin="@dimen/margin_big"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +32,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/error_default"
-        android:layout_margin="@dimen/big_margin"
+        android:layout_margin="@dimen/margin_big"
         app:layout_constraintTop_toBottomOf="@id/errorImageView"/>
 
     <TextView
@@ -33,8 +41,8 @@
         android:layout_height="wrap_content"
         android:text="@string/try_again"
         android:textColor="@color/accent"
-        android:padding="@dimen/big_margin"
-        android:layout_margin="@dimen/big_margin"
+        android:padding="@dimen/margin_big"
+        android:layout_margin="@dimen/margin_big"
         android:visibility="gone"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintTop_toBottomOf="@+id/errorTextView"
