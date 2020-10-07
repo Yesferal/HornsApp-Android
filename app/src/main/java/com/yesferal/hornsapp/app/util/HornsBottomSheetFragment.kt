@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
-import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 
 abstract class HornsBottomSheetFragment: BottomSheetDialogFragment() {
 
