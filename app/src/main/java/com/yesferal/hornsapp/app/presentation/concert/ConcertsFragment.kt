@@ -55,7 +55,7 @@ class ConcertsFragment
         categoriesRecyclerView.also {
             it.adapter = categoryAdapter
             it.layoutManager = linearLayoutManager
-            it.addItemDecoration(RecyclerViewDecorator(16))
+            it.addItemDecoration(RecyclerViewHorizontalDecorator(16))
         }
 
         concertAdapter = ConcertAdapter(instanceConcertAdapterListener())

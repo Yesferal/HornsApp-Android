@@ -4,7 +4,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewDecorator (
+class RecyclerViewHorizontalDecorator (
     private val padding: Int = 8
 ): RecyclerView.ItemDecoration() {
 
