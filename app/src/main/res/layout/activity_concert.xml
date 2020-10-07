@@ -40,6 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
         android:gravity="center_vertical"
         style="@style/HornsApp.TextView.ActivityTitle"
         app:layout_constraintTop_toBottomOf="@id/toolbarBackground"
