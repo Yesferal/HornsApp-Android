@@ -48,6 +48,11 @@ class ConcertActivity : BaseActivity() {
         addTransitionListener()
     }
 
+    /**
+     * To Fix Motion Layout bug:
+     * When user scroll down
+     * out of nestedScrollView region
+     */
     private fun addTransitionListener() {
         containerLayout.addTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}

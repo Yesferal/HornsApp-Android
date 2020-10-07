@@ -40,20 +40,21 @@
         android:id="@+id/ticketTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/buyTicketsButton"
+        app:layout_constraintTop_toTopOf="@+id/buyTicketsTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/buyTicketsButton"/>
+        app:layout_constraintBottom_toBottomOf="@+id/buyTicketsTextView"/>
 
-    <Button
-        android:id="@+id/buyTicketsButton"
+    <TextView
+        android:id="@+id/buyTicketsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_rectangle_rounded_16dp"
         android:backgroundTint="@color/accent"
         android:textColor="@android:color/white"
-        android:padding="@dimen/margin_small"
+        android:padding="@dimen/margin_medium"
         android:layout_margin="@dimen/margin_big"
+        style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -62,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/buyTicketsButton"
+        app:layout_constraintTop_toBottomOf="@+id/buyTicketsTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

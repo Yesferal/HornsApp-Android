@@ -9,5 +9,5 @@ data class ConcertViewData(
     val concert: Concert? = null,
     val adView: AdView? = null,
     val isLoading: Boolean = false,
-    @StringRes val errorMessage: Int? = null
+    @StringRes val errorMessageId: Int? = null
 ) : ViewData()

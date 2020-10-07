@@ -12,11 +12,13 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.item.adapter.Item
-import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
+import com.yesferal.hornsapp.app.presentation.common.adapter.ItemAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.Item
+import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.asParcelable
 import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
@@ -65,8 +67,6 @@ class ConcertFragment
         }
 
         setUpBandsViewPager()
-        favoriteImageView.isChecked = item.isFavorite
-        buyTicketsButton.visibility = View.GONE
 
         actionListener.onViewCreated(item.id)
     }
@@ -101,20 +101,19 @@ class ConcertFragment
     }
 
     fun show(concert: Concert) {
-        favoriteImageView.setOnCheckedChangeListener { isChecked ->
-            actionListener.onFavoriteImageViewClick(concert, isChecked)
-        }
 
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
 
-        datetimeTextView.apply {
-            setImageView(R.drawable.ic_calendar)
-            setText(concert.dateTime, getString(R.string.add_to_calendar))
-            setOnClickListener {
-                actionListener.onDateClick(concert)
-            }
+        favoriteImageView.isChecked = concert.isFavorite
+        favoriteImageView.setOnCheckedChangeListener { isChecked ->
+            actionListener.onFavoriteImageViewClick(concert, isChecked)
         }
+
+        val items = concert.bands?.map { it.mapToBaseItem() }
+        bandAdapter.setItem(items)
+
+        enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
 
         venueTextView.apply {
             setImageView(R.drawable.ic_map)
@@ -124,16 +123,18 @@ class ConcertFragment
             }
         }
 
+        datetimeTextView.apply {
+            setImageView(R.drawable.ic_calendar)
+            setText(concert.dateTime, getString(R.string.add_to_calendar))
+            setOnClickListener {
+                actionListener.onDateClick(concert)
+            }
+        }
+
         descriptionTextView.apply {
             setImageView(R.drawable.ic_information)
             setText(getString(R.string.about_concert), concert.description)
         }
-        val items = concert.bands?.map {
-            it.mapToBaseItem()
-        }
-        bandAdapter.setItem(items)
-
-        enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
 
         showYoutube(concert.trailerUrl)
         showFacebook(concert.facebookUrl)
@@ -148,14 +149,13 @@ class ConcertFragment
                 setImageView(R.drawable.ic_ticket)
                 setText(getString(R.string.available_in))
             }
-            buyTicketsButton.setUpWith(ticketingHost ?: getString(R.string.go_now))
-            buyTicketsButton.visibility = View.VISIBLE
-            buyTicketsButton.setOnClickListener {
+            buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
+            buyTicketsTextView.setOnClickListener {
                 startExternalActivity(ticketingUrl)
             }
         }?: kotlin.run {
             ticketTextView.visibility = View.GONE
-            buyTicketsButton.visibility = View.GONE
+            buyTicketsTextView.visibility = View.GONE
         }
     }
 
@@ -164,7 +164,6 @@ class ConcertFragment
             facebookTextView.apply {
                 setImageView(R.drawable.ic_facebook)
                 setText(getString(R.string.fan_page), getString(R.string.go_to_event))
-                visibility = View.VISIBLE
                 setOnClickListener {
                     actionListener.onFacebookClick(facebookUrl)
                 }
@@ -179,7 +178,6 @@ class ConcertFragment
             youtubeTextView.apply {
                 setImageView(R.drawable.ic_youtube)
                 setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
-                visibility = View.VISIBLE
                 setOnClickListener {
                     startExternalActivity(youtubeTrailer)
                 }
@@ -250,6 +248,13 @@ class ConcertFragment
 private fun ConcertFragment.instanceItemAdapterListener() =
     object : ItemAdapter.Listener {
         override fun onClick(item: Item) {
-            showToast(R.string.app_name)
+            childFragmentManager.let {
+                val bundle = Bundle()
+                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())
+
+                BandBottomSheetFragment.newInstance(bundle).apply {
+                    show(it, tag)
+                }
+            }
         }
     }

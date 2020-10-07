@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.domain.entity.Category
 
 class CategoryAdapter (
     private val listener: Listener,
-    private var list: MutableList<Category> = mutableListOf(),
+    private var list: List<Category> = listOf(),
     private var selectedCategoryId: String = ""
 ) : RecyclerView.Adapter<CategoryViewHolder>() {
 
@@ -24,8 +24,7 @@ class CategoryAdapter (
     fun setItems(
         list: List<Category>
     ) {
-        this.list.clear()
-        this.list.addAll(list)
+        this.list = list
     }
 
     fun setCategoryId(

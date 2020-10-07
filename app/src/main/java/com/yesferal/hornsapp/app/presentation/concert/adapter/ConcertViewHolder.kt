@@ -31,13 +31,12 @@ class ConcertViewHolder constructor(
         itemView.titleTextView.setUpWith(concert.name)
         itemView.dayTextView.setUpWith(concert.day)
         itemView.monthTextView.setUpWith(concert.month)
-
-        itemView.concertImageView.setAllCornersRounded()
-        itemView.concertImageView.load(concert.headlinerImage)
-
         itemView.timeTextView.setUpWith(concert.time)
         itemView.genreTextView.setUpWith(concert.genre)
 
+        itemView.concertImageView.setAllCornersRounded()
+        itemView.concertImageView.load(concert.headlinerImage)
+        
         itemView.containerLayout.setOnClickListener {
             listener.onConcertItemClick(concert)
         }

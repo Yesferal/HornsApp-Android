@@ -28,7 +28,7 @@ class ConcertPresenter(
                 render(viewData)
             },
             onError = {
-                render(ConcertViewData(errorMessage = R.string.error_default))
+                render(ConcertViewData(errorMessageId = R.string.error_default))
             }
         )
     }
@@ -44,10 +44,8 @@ class ConcertPresenter(
             view?.showAd(it)
         }
 
-        viewData.errorMessage?.let {
-            view?.showError(
-                messageId =  it
-            )
+        viewData.errorMessageId?.let {
+            view?.showError(messageId =  it)
         }
 
         if (viewData.isLoading) {
