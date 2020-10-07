@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="100">
+        <OnSwipe
+            app:touchAnchorId="@id/nestedScrollView"
+            app:dragDirection="dragUp"
+            app:touchAnchorSide="top"/>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/activityTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            style="@style/HornsApp.TextView.Title"
+            app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+            app:layout_constraintStart_toEndOf="@+id/closeImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/toolbarBackground"/>
+
+        <Constraint
+            android:id="@+id/dividerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
+    </ConstraintSet>
+</MotionScene>

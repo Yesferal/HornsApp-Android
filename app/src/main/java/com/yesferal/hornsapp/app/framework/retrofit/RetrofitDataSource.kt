@@ -1,9 +1,8 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcert
-import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcerts
-import com.yesferal.hornsapp.app.framework.retrofit.entity.mapToConcert
+import com.yesferal.hornsapp.app.framework.retrofit.entity.*
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
+import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,13 +17,6 @@ class RetrofitDataSource(
     ) {
         val call = service.getConcerts()
         call.enqueue(object : Callback<List<GetConcerts>> {
-            override fun onFailure(
-                call: Call<List<GetConcerts>>,
-                t: Throwable
-            ) {
-                onError(t)
-            }
-
             override fun onResponse(
                 call: Call<List<GetConcerts>>,
                 response: Response<List<GetConcerts>>
@@ -34,6 +26,13 @@ class RetrofitDataSource(
                     it.mapToConcert()
                 }
                 onSuccess(concerts)
+            }
+
+            override fun onFailure(
+                call: Call<List<GetConcerts>>,
+                t: Throwable
+            ) {
+                onError(t)
             }
         })
     }
@@ -45,13 +44,6 @@ class RetrofitDataSource(
     ) {
         val call = service.getConcertBy(id)
         call.enqueue(object : Callback<GetConcert> {
-            override fun onFailure(
-                call: Call<GetConcert>,
-                t: Throwable
-            ) {
-                onError(t)
-            }
-
             override fun onResponse(
                 call: Call<GetConcert>,
                 response: Response<GetConcert>
@@ -60,6 +52,39 @@ class RetrofitDataSource(
                 data?.let {
                     onSuccess(it.mapToConcert())
                 }
+            }
+
+            override fun onFailure(
+                call: Call<GetConcert>,
+                t: Throwable
+            ) {
+                onError(t)
+            }
+        })
+    }
+
+    override fun getBand(
+        id: String,
+        onSuccess: (entity: Band) -> Unit,
+        onError: (t: Throwable) -> Unit
+    ) {
+        val call = service.getBandBy(id)
+        call.enqueue(object : Callback<GetBand> {
+            override fun onResponse(
+                call: Call<GetBand>,
+                response: Response<GetBand>
+            ) {
+                val data = response.body()
+                data?.let {
+                    onSuccess(it.mapToBand())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<GetBand>,
+                t: Throwable
+            ) {
+                onError(t)
             }
         })
     }

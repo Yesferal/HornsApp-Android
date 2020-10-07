@@ -7,129 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".presentation.concert.ConcertsFragment">
 
-    <ImageView
-        android:id="@+id/concertImageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1.6:1"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_gradient_top"
-        app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintHeight_percent="0.35"/>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_gradient_right"
-        app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintStart_toStartOf="@+id/concertImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
-        app:layout_constraintWidth_percent="0.7"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_gradient_bottom"
-        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"
-        app:layout_constraintHeight_percent="0.35"/>
-
-    <TextView
-        android:id="@+id/titleTextView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        style="@style/HornsApp.TextView.ActivityTitle"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@+id/menuImageView"/>
 
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:padding="8dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_menu"
-        android:contentDescription="@string/app_name"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/titleTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
-        app:tint="@color/primaryText" />
-
-    <ImageView
-        android:id="@+id/locationImageView"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_map"
-        app:layout_constraintTop_toTopOf="@+id/locationTextView"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
-        app:tint="@color/secondaryText" />
-
-    <TextView
-        android:id="@+id/locationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lima"
-        android:padding="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintStart_toEndOf="@+id/locationImageView"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/concertsViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/locationTextView"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+    <View
+        android:id="@+id/dateBackgroundView"
         android:layout_width="0dp"
-        android:layout_height="8dp"
-        android:layout_marginBottom="16dp"
-        app:tabBackground="@drawable/selector_dot_indicator"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toTopOf="@+id/concertsRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/categoryTextView"
-        app:layout_constraintWidth_percent="0.25"/>
+        app:layout_constraintBottom_toBottomOf="@+id/concertsRecyclerView"
+        app:layout_constraintWidth_percent="0.2"/>
 
-    <TextView
-        android:id="@+id/categoryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/concerts"
-        style="@style/HornsApp.TextView.Title"
-        app:layout_constraintStart_toStartOf="@id/titleTextView"
-        app:layout_constraintBottom_toTopOf="@+id/categoryRecyclerView"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="software"
+        android:background="@drawable/shape_vertical_dashed_line"
+        app:layout_constraintTop_toTopOf="@id/dateBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@id/dateBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/dateBackgroundView"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoryRecyclerView"
+        android:id="@+id/concertsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"
-        app:layout_constraintHeight_percent="0.25"/>
-
-    <FrameLayout
-        android:id="@+id/adContainerLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/categoriesRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ViewStub
         android:id="@+id/stubView"
@@ -137,13 +48,14 @@
         android:layout="@layout/custom_error"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesRecyclerView"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include
         layout="@layout/custom_view_progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/categoriesRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,6 +30,14 @@ abstract class BaseFragment
         )
     }
 
+    protected val linearLayoutManagerVertical by lazy {
+        LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -55,11 +63,15 @@ abstract class BaseFragment
     }
 
     fun startExternalActivity(
-        uri: Uri,
+        uri: URI?,
         externalPackage: String,
         onError: () -> Unit = { showToast(R.string.error_app_not_found) }
     ) {
-        val intent = Intent(Intent.ACTION_VIEW,  uri)
+        if (uri == null) return
+
+        val androidUri = Uri.parse(uri.toString())
+        val intent = Intent(Intent.ACTION_VIEW,  androidUri)
+
         intent.setPackage(externalPackage)
         activity?.let {
             intent.resolveActivity(it.packageManager)?.let {

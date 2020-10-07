@@ -1,8 +1,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.domain.entity.*
-import com.yesferal.hornsapp.domain.util.datetimeFormatted
-import com.yesferal.hornsapp.domain.util.toSafeUri
+import com.yesferal.hornsapp.domain.util.*
 import java.util.*
 
 data class GetConcert(
@@ -15,40 +14,57 @@ data class GetConcert(
     val headlinerImage: String?,
     val dateTime: Date?,
     val state: State?,
-    val category: String?,
-    val local: Local?,
+    val genre: String?,
+    val tags: List<String>?,
+    val venue: Venue?,
     val bands: List<Band>?,
     val ticketingUrl: String?,
     val ticketingHost: String?
 )
 
 fun GetConcert.mapToConcert(): Concert {
-    val datetime = this
+    val dateTime = this
         .dateTime
-        ?.datetimeFormatted()
+        ?.dateTimeFormatted()
+
+    val day = this
+        .dateTime
+        ?.dayFormatted()
+
+    val month = this
+        .dateTime
+        ?.monthFormatted()
+
+    val time = this
+        .dateTime
+        ?.timeFormatted()
 
     val facebookUrl = socialNetworks?.first()
 
     val isFavorite = false
 
-    val genres = this.bands?.map {
+    val subGenres = this.bands?.map {
         it.genre
     }?.joinToString(" | ")
 
     return Concert(
-        this._id,
-        this.name,
-        this.description,
-        this.posterImage,
-        this.headlinerImage,
-        datetime,
-        this.trailerUrl?.toSafeUri(),
-        facebookUrl?.toSafeUri(),
-        isFavorite,
-        category?: CategoryKey.LIVE.toString(),
-        genres = genres.toString(),
+        id = this._id,
+        name = this.name,
+        description = this.description,
+        headlinerImage = this.headlinerImage,
+        date = this.dateTime,
+        dateTime = dateTime,
+        day = day,
+        month = month,
+        time = time,
+        trailerUrl = this.trailerUrl?.toSafeUri(),
+        facebookUrl = facebookUrl?.toSafeUri(),
+        isFavorite = isFavorite,
+        genre = this.genre,
+        tags = this.tags,
+        subGenres = subGenres.toString(),
         state = this.state?.name,
-        local = this.local,
+        venue = this.venue,
         bands = this.bands,
         ticketingUrl = this.ticketingUrl?.toSafeUri(),
         ticketingHost = this.ticketingHost

@@ -18,7 +18,7 @@ class CheckBoxImageView @JvmOverloads constructor(
                 tintWith(R.color.accent)
             } else {
                 setImageResource(R.drawable.ic_favorite)
-                tintWith(R.color.secondaryText)
+                tintWith(R.color.primaryText)
             }
             field = value
         }

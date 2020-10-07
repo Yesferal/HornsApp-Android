@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 
-abstract class BottomSheetFragment: BottomSheetDialogFragment() {
+abstract class HornsBottomSheetFragment: BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,17 +30,13 @@ abstract class BottomSheetFragment: BottomSheetDialogFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<ItemParcelable>(
-            EXTRA_PARAM_PARCELABLE
-        )
-
-        if (item == null) {
-            dismiss()
-            return
-        }
-
         if (savedInstanceState == null) {
-            val fragment = initFragment(item)
+            val fragment = initFragment(arguments)
+            if (fragment == null) {
+                dismiss()
+                return
+            }
+
             childFragmentManager
                 .beginTransaction()
                 .replace(
@@ -51,5 +47,5 @@ abstract class BottomSheetFragment: BottomSheetDialogFragment() {
         }
     }
 
-    abstract fun initFragment(item: ItemParcelable): Fragment
+    protected abstract fun initFragment(bundle: Bundle?): Fragment?
 }

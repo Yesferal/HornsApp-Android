@@ -6,186 +6,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/containerLayout"
-    app:layoutDescription="@xml/scene_activity_concert"
+    app:layoutDescription="@xml/activity_concert_scene"
     tools:context=".presentation.concert.detail.ConcertActivity">
 
-    <ImageView
-        android:id="@+id/concertImageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintDimensionRatio="1.6:1" />
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.3"/>
 
     <View
-        android:id="@+id/concertForegroundImageView"
+        android:id="@+id/toolbarBackground"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/primaryDark"
-        android:alpha="0.15"
-        app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/closeImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="@null"
         android:src="@drawable/ic_back"
-        android:contentDescription="@string/app_name"
-        android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/background" />
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
+
+    <TextView
+        android:id="@+id/activityTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:gravity="center_vertical"
+        style="@style/HornsApp.TextView.ActivityTitle"
+        app:layout_constraintTop_toBottomOf="@id/toolbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/closeImageView"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/concertImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/concertImageView"/>
+        android:layout_height="@dimen/margin_big"
+        app:layout_constraintTop_toBottomOf="@id/activityTitleTextView" />
 
     <View
-        android:id="@+id/containerBackgroundView"
+        android:id="@+id/dateBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@+id/dividerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.2"/>
+
+    <View
+        android:id="@+id/dashedLineView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="software"
+        android:background="@drawable/shape_vertical_dashed_line"
+        app:layout_constraintTop_toTopOf="@id/dateBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@id/dateBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/dateBackgroundView"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_rounded_16dp_top"
-        app:layout_constraintTop_toTopOf="@+id/dividerView"
-        app:layout_constraintBottom_toTopOf="@id/adContainerLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/dividerView"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <ImageView
-        android:id="@+id/locationImageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="16dp"
-        android:padding="16dp"
-        android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:src="@drawable/ic_map"
-        android:elevation="2dp"
-        app:layout_constraintTop_toTopOf="@id/containerBackgroundView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/containerBackgroundView"
-        app:tint="@color/secondaryText"/>
+        <FrameLayout
+            android:id="@+id/fragmentContainerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"/>
 
-    <TextView
-        android:id="@+id/titleToolbarTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@android:color/white"
-        android:gravity="center_vertical"
-        style="@style/HornsApp.TextView.ActivityTitle"
-        app:layout_constraintTop_toTopOf="@+id/titleTextView"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/titleTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"/>
-
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="center_vertical"
-        style="@style/HornsApp.TextView.ActivityTitle"
-        app:layout_constraintTop_toBottomOf="@+id/locationImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <FrameLayout
-        android:id="@+id/fragmentContainerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintBottom_toBottomOf="@id/containerBackgroundView"/>
-
-    <View
-        android:id="@+id/markBackgroundView"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:background="@drawable/shape_rectangle_rounded_16dp_top"
-        app:layout_constraintTop_toTopOf="@+id/containerBackgroundView"/>
-
-    <View
-        android:id="@+id/markView"
-        android:layout_width="32dp"
-        android:layout_height="4dp"
-        android:layout_margin="6dp"
-        android:background="@color/divider"
-        app:layout_constraintTop_toTopOf="@+id/containerBackgroundView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <View
-        android:id="@+id/backgroundButtonsView"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="16dp"
-        android:elevation="2dp"
-        android:background="@drawable/shape_rectangle_rounded_16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/adContainerLayout"/>
-
-    <com.yesferal.hornsapp.app.util.CheckBoxImageView
-        android:id="@+id/favoriteImageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_favorite"
-        android:padding="16dp"
-        android:layout_marginStart="8dp"
-        android:elevation="2dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
-        app:layout_constraintStart_toStartOf="@+id/backgroundButtonsView"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
-        app:tint="@color/secondaryText" />
-
-    <ImageView
-        android:id="@+id/facebookImageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_facebook"
-        android:padding="16dp"
-        android:elevation="2dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toEndOf="@+id/favoriteImageView"
-        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
-        app:tint="@color/secondaryText" />
-
-    <ImageView
-        android:id="@+id/trailerImageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_trailer"
-        android:padding="16dp"
-        android:elevation="2dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toEndOf="@+id/facebookImageView"
-        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
-        app:tint="@color/secondaryText" />
-
-    <Button
-        android:id="@+id/buyTicketsButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:backgroundTint="@color/accent"
-        android:elevation="2dp"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        app:layout_constraintDimensionRatio="2:1"
-        app:layout_constraintTop_toTopOf="@+id/backgroundButtonsView"
-        app:layout_constraintStart_toEndOf="@+id/trailerImageView"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundButtonsView"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundButtonsView"
-        app:tint="@android:color/white" />
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"
@@ -193,13 +95,6 @@
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <include
-        layout="@layout/custom_view_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/fragmentContainerLayout"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

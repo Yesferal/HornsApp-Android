@@ -9,6 +9,7 @@ import com.yesferal.hornsapp.app.util.load
 import com.yesferal.hornsapp.app.util.setAllCornersRounded
 import com.yesferal.hornsapp.app.util.setUpWith
 import com.yesferal.hornsapp.domain.entity.Concert
+import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_concert.view.*
 
 class ConcertViewHolder constructor(
@@ -28,52 +29,16 @@ class ConcertViewHolder constructor(
 
     fun bind(concert: Concert) {
         itemView.titleTextView.setUpWith(concert.name)
-        itemView.timeTextView.apply {
-            setImageView(R.drawable.ic_calendar)
-            setText(concert.datetime)
-        }
+        itemView.dayTextView.setUpWith(concert.day)
+        itemView.monthTextView.setUpWith(concert.month)
+        itemView.timeTextView.setUpWith(concert.time)
+        itemView.genreTextView.setUpWith(concert.genre)
 
-        itemView.concertImageView.setAllCornersRounded(dp = 16)
-        itemView.concertImageView.load(concert.posterImage)
-
-        itemView.containerView.setOnClickListener {
+        itemView.concertImageView.setAllCornersRounded()
+        itemView.concertImageView.load(concert.headlinerImage)
+        
+        itemView.containerLayout.setOnClickListener {
             listener.onConcertItemClick(concert)
-        }
-
-        initFacebookButton(concert)
-        itemView.facebookImageView.setOnClickListener {
-            concert.facebookUrl?.let {
-                listener.onFacebookButtonClick(it)
-            }
-        }
-
-        initTrailerButton(concert)
-        itemView.trailerImageView.setOnClickListener {
-            concert.trailerUrl?.let {
-                listener.onYoutubeButtonClick(it)
-            }
-        }
-
-        itemView.favoriteImageView.isChecked = concert.isFavorite
-        itemView.favoriteImageView.setOnCheckedChangeListener { isChecked ->
-            concert.isFavorite = isChecked
-            listener.onFavoriteButtonClick(concert)
-        }
-    }
-
-    private fun initFacebookButton(concert: Concert) {
-        concert.facebookUrl?.let {
-            itemView.facebookImageView.visibility = View.VISIBLE
-        }?: kotlin.run {
-            itemView.facebookImageView.visibility = View.GONE
-        }
-    }
-
-    private fun initTrailerButton(concert: Concert) {
-        concert.trailerUrl?.let {
-            itemView.trailerImageView.visibility = View.VISIBLE
-        }?: kotlin.run {
-            itemView.trailerImageView.visibility = View.GONE
         }
     }
 }
