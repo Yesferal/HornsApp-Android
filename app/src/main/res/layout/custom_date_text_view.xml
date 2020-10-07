@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/dateBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toTopOf="@id/dayTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/monthTextView" />
+
+    <TextView
+        android:id="@+id/dayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/accent"
+        style="@style/HornsApp.TextView.Subtitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/dateBackgroundView"/>
+
+    <TextView
+        android:id="@+id/monthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        style="@style/HornsApp.TextView.Subtitle"
+        app:layout_constraintTop_toBottomOf="@+id/dayTextView"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/dateBackgroundView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

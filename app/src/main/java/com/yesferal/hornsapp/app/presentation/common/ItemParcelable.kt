@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.common
 
 import android.os.Parcelable
-import com.yesferal.hornsapp.app.presentation.item.adapter.Item
+import com.yesferal.hornsapp.app.presentation.common.adapter.Item
 import com.yesferal.hornsapp.domain.entity.Concert
 import kotlinx.android.parcel.Parcelize
 
@@ -9,16 +9,14 @@ import kotlinx.android.parcel.Parcelize
 class ItemParcelable(
     val id: String,
     val name: String?,
-    val posterImage: String?,
-    var isFavorite: Boolean
+    val imageUrl: String?
 ) : Parcelable
 
 fun Concert.asParcelable(): ItemParcelable {
     return ItemParcelable(
         id,
         name,
-        posterImage,
-        isFavorite
+        headlinerImage
     )
 }
 
@@ -26,7 +24,6 @@ fun Item.asParcelable(): ItemParcelable {
     return ItemParcelable(
         id,
         name,
-        imageUrl,
-        isFavorite
+        imageUrl
     )
 }

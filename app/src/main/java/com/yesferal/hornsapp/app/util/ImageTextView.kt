@@ -21,16 +21,33 @@ class ImageTextView @JvmOverloads constructor(
                     Context.LAYOUT_INFLATER_SERVICE
                 ) as LayoutInflater
         inflater.inflate(R.layout.custom_image_text_view, this, true)
+
+        itemImageView.visibility = View.GONE
+        subtitleTextView.visibility = View.GONE
     }
 
     fun setImageView(@DrawableRes id: Int) {
+        itemImageView.visibility = View.VISIBLE
         itemImageView.setImageResource(id)
     }
 
-    fun setText(text: String?) {
-        text?.let {
+    fun setText(title: String?) {
+        title?.let {
             visibility = View.VISIBLE
-            itemTextView.text = text
+            titleTextView.text = it
         } ?: kotlin.run { visibility = View.GONE }
+    }
+
+    fun setText(
+        title: String?,
+        description: String?
+    ) {
+        setText(title)
+        description?.let {
+            subtitleTextView.visibility = View.VISIBLE
+            subtitleTextView.text = description
+        } ?: kotlin.run {
+            subtitleTextView.visibility = View.GONE
+        }
     }
 }

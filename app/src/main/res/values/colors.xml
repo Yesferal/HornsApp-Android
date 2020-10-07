@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryDark">#060408</color>
+    <color name="primaryDark">#29303e</color>
     <color name="primary">@color/primaryDark</color>
-    <color name="accent">#190A9F</color>
+    <color name="accent">#d1150c</color>
 
     <color name="primaryText">@color/primaryDark</color>
-    <color name="secondaryText">#A2A39E</color>
+    <color name="secondaryText">#616E91</color>
 
-    <color name="background">#F9F9F9</color>
-    <color name="divider">@color/secondaryText</color>
-    <color name="disable">#32190A9F</color>
+    <color name="background">#f5f8fd</color>
 </resources>

@@ -26,7 +26,7 @@ fun ImageView.tintWith(color: Int) {
     )
 }
 
-fun ShapeableImageView.setAllCornersRounded(dp: Int) {
+fun ShapeableImageView.setAllCornersRounded(dp: Int = 16) {
 
     val cornerSize = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
@@ -40,7 +40,8 @@ fun ShapeableImageView.setAllCornersRounded(dp: Int) {
         .build()
 }
 
-fun ShapeableImageView.setTopCornersRounded(dp: Int) {
+fun ShapeableImageView.setTopCornersRounded(dp: Int = 16) {
+
     val cornerSize = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         dp.toFloat(),

@@ -5,25 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/imageBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toTopOf="@id/itemImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/itemImageView"
+        app:layout_constraintWidth_percent="0.2"/>
+
     <ImageView
         android:id="@+id/itemImageView"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintTop_toTopOf="@+id/itemTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/itemTextView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_tiny"
+        app:layout_constraintTop_toTopOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="@+id/imageBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/imageBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
         app:tint="@color/secondaryText" />
 
     <TextView
-        android:id="@+id/itemTextView"
+        android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:paddingTop="@dimen/margin_tiny"
+        android:paddingBottom="@dimen/margin_tiny"
+        android:layout_marginEnd="@dimen/margin_big"
         android:ellipsize="end"
         android:maxLines="1"
+        style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/itemImageView"
+        app:layout_constraintStart_toEndOf="@+id/imageBackgroundView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/subtitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_big"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </merge>

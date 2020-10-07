@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_tiny"
+    android:layout_margin="@dimen/margin_tiny">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondaryText"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toTopOf="@+id/titleSelectedTextView"
+        app:layout_constraintStart_toStartOf="@+id/titleSelectedTextView"
+        app:layout_constraintEnd_toEndOf="@+id/titleSelectedTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/titleSelectedTextView"/>
+
+    <TextView
+        android:id="@+id/titleSelectedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/HornsApp.TextView.ActivityTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    
+    <View
+        android:id="@+id/dotSelectedView"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:background="@drawable/shape_selected_dot"
+        android:layout_margin="@dimen/margin_tiny"
+        app:layout_constraintTop_toTopOf="@+id/titleSelectedTextView"
+        app:layout_constraintStart_toEndOf="@+id/titleSelectedTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/titleSelectedTextView"/>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

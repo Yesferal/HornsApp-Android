@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
+import com.yesferal.hornsapp.app.framework.retrofit.entity.GetBand
 import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcert
 import com.yesferal.hornsapp.app.framework.retrofit.entity.GetConcerts
 import retrofit2.Call
@@ -14,4 +15,9 @@ interface Service {
     fun getConcertBy(
         @Path("id") id: String
     ): Call<GetConcert>
+
+    @GET("/band/{id}")
+    fun getBandBy(
+        @Path("id") id: String
+    ): Call<GetBand>
 }

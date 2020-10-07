@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/membersImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="1.6:1"/>
+
+    <View
+        android:id="@+id/logoBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        app:layout_constraintTop_toBottomOf="@+id/membersImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/membersImageView"
+        app:layout_constraintWidth_percent="0.33"
+        app:layout_constraintDimensionRatio="1.6:1"/>
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/margin_tiny"
+        android:scaleType="fitXY"
+        android:contentDescription="@null"
+        android:background="@android:color/black"
+        app:layout_constraintTop_toTopOf="@+id/logoBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/logoBackgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/logoBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/logoBackgroundView"/>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_big"
+        android:layout_marginEnd="@dimen/margin_big"
+        style="@style/HornsApp.TextView.ActivityTitle"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/genreTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginStart="@dimen/margin_big"
+        android:layout_marginEnd="@dimen/margin_big"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/countryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginStart="@dimen/margin_big"
+        android:layout_marginEnd="@dimen/margin_big"
+        style="@style/HornsApp.TextView.Subtitle"
+        app:layout_constraintTop_toBottomOf="@+id/genreTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/countryTextView"/>
+
+    <ViewStub
+        android:id="@+id/stubView"
+        android:inflatedId="@+id/inflatedStubView"
+        android:layout="@layout/custom_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/logoBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionTextView"/>
+
+    <include
+        layout="@layout/custom_view_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/logoBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@id/descriptionTextView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

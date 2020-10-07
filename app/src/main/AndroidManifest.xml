@@ -20,6 +20,10 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${AD_MOB_APP_ID}" />
 
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}" />
+
         <activity
             android:name=".presentation.SplashActivity"
             android:theme="@style/HornsApp.Splash"

@@ -10,7 +10,6 @@ import com.yesferal.hornsapp.data.abstraction.StorageDataSource
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.container.register
 import com.yesferal.hornsapp.hada.container.resolve
-import com.yesferal.hornsapp.hada.dependency.Factory
 import com.yesferal.hornsapp.hada.dependency.Singleton
 
 fun Container.registerFrameworkModule() {
@@ -26,7 +25,7 @@ fun Container.registerFrameworkModule() {
         RetrofitDataSource(service)
     }
 
-    this register Factory<AdManager> {
+    this register Singleton<AdManager> {
         AdManager(
             adUnitIds = AdUnitIds(),
             context = resolve()

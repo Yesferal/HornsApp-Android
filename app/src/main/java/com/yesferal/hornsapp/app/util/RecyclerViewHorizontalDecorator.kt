@@ -4,8 +4,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewDecorator (
-    private val padding: Int = 16
+class RecyclerViewHorizontalDecorator (
+    private val padding: Int = 8
 ): RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

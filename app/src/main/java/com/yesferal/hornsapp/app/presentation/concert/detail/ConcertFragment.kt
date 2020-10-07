@@ -1,23 +1,33 @@
 package com.yesferal.hornsapp.app.presentation.concert.detail
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.CalendarContract
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.item.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.item.adapter.Item
-import com.yesferal.hornsapp.app.presentation.item.adapter.mapToBaseItem
-import com.yesferal.hornsapp.app.util.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.adapter.ItemAdapter
+import com.yesferal.hornsapp.app.presentation.common.adapter.Item
+import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
 import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
-import com.yesferal.hornsapp.app.util.RecyclerViewDecorator
+import com.yesferal.hornsapp.app.presentation.common.asParcelable
+import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
+import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
+import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concert.*
+import java.net.URI
+import java.util.*
 
 class ConcertFragment
     : BaseFragment() {
@@ -31,9 +41,6 @@ class ConcertFragment
     var listener: Listener? = null
     interface Listener {
         fun show(adView: AdView)
-        fun show(concert: Concert)
-        fun showProgress()
-        fun hideProgress()
     }
 
     override fun onCreateView(
@@ -59,12 +66,7 @@ class ConcertFragment
             return
         }
 
-        bandAdapter = ItemAdapter(instanceItemAdapterListener())
-        bandRecyclerView.also {
-            it.adapter = bandAdapter
-            it.layoutManager = linearLayoutManager
-            it.addItemDecoration(RecyclerViewDecorator(padding = 8))
-        }
+        setUpBandsViewPager()
 
         actionListener.onViewCreated(item.id)
     }
@@ -74,47 +76,159 @@ class ConcertFragment
         listener = null
     }
 
+    private fun setUpBandsViewPager() {
+        bandAdapter = ItemAdapter(instanceItemAdapterListener())
+
+        val bigMargin = 24F
+        val dpWidth = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            bigMargin,
+            context?.resources?.displayMetrics
+        ).toInt()
+
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(dpWidth/2))
+        compositePageTransformer.addTransformer(ScalePageTransformation())
+
+        bandsViewPager.also {
+            it.adapter = bandAdapter
+            it.clipToPadding = false
+            it.clipChildren = false
+            it.offscreenPageLimit = 3
+            it.setPageTransformer(compositePageTransformer)
+            it.setPadding(0, 0, dpWidth, 0)
+        }
+    }
+
     fun show(concert: Concert) {
-        listener?.show(concert)
 
-        descriptionTextView.setUpWith(concert.description)
+        dayTextView.setUpWith(concert.day)
+        monthTextView.setUpWith(concert.month)
 
-        localTextView.apply {
+        favoriteImageView.isChecked = concert.isFavorite
+        favoriteImageView.setOnCheckedChangeListener { isChecked ->
+            actionListener.onFavoriteImageViewClick(concert, isChecked)
+        }
+
+        val items = concert.bands?.map { it.mapToBaseItem() }
+        bandAdapter.setItem(items)
+
+        enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
+
+        venueTextView.apply {
             setImageView(R.drawable.ic_map)
-            setText(concert.local?.name)
+            setText(concert.venue?.name, getString(R.string.go_to_maps))
+            setOnClickListener {
+                actionListener.onVenueClick(concert.venue)
+            }
         }
 
         datetimeTextView.apply {
             setImageView(R.drawable.ic_calendar)
-            setText(concert.datetime)
+            setText(concert.dateTime, getString(R.string.add_to_calendar))
+            setOnClickListener {
+                actionListener.onDateClick(concert)
+            }
         }
 
-        genreTextView.apply {
-            setImageView(R.drawable.ic_music_note)
-            setText(concert.genres)
+        descriptionTextView.apply {
+            setImageView(R.drawable.ic_information)
+            setText(getString(R.string.about_concert), concert.description)
         }
 
-        val items = concert.bands?.map {
-            it.mapToBaseItem()
-        }
-        bandAdapter.setItem(items)
+        showYoutube(concert.trailerUrl)
+        showFacebook(concert.facebookUrl)
     }
 
-    fun show(adView: AdView) {
+    private fun enableTicketPurchase(
+        ticketingHost: String?,
+        ticketingUrl: URI?
+    ) {
+        ticketingUrl?.let {
+            ticketTextView.apply {
+                setImageView(R.drawable.ic_ticket)
+                setText(getString(R.string.available_in))
+            }
+            buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
+            buyTicketsTextView.setOnClickListener {
+                startExternalActivity(ticketingUrl)
+            }
+        }?: kotlin.run {
+            ticketTextView.visibility = View.GONE
+            buyTicketsTextView.visibility = View.GONE
+        }
+    }
+
+    private fun showFacebook(facebookUrl: URI?) {
+        facebookUrl?.let {
+            facebookTextView.apply {
+                setImageView(R.drawable.ic_facebook)
+                setText(getString(R.string.fan_page), getString(R.string.go_to_event))
+                setOnClickListener {
+                    actionListener.onFacebookClick(facebookUrl)
+                }
+            }
+        }?: kotlin.run {
+            facebookTextView.visibility = View.GONE
+        }
+    }
+
+    private fun showYoutube(youtubeTrailer: URI?) {
+        youtubeTrailer?.let {
+            youtubeTextView.apply {
+                setImageView(R.drawable.ic_youtube)
+                setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
+                setOnClickListener {
+                    startExternalActivity(youtubeTrailer)
+                }
+            }
+        }?: kotlin.run {
+            youtubeTextView.visibility = View.GONE
+        }
+    }
+
+    fun showAd(adView: AdView) {
         listener?.show(adView)
     }
 
     fun showProgress() {
-        listener?.showProgress()
+        customProgressBar.fadeIn()
     }
 
     fun hideProgress() {
-        listener?.hideProgress()
+        customProgressBar.fadeOut()
     }
 
-    fun show(@StringRes error: Int) {
+    fun showError(@StringRes messageId: Int) {
         stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(error)
+        errorTextView.text = getString(messageId)
+    }
+
+    fun openFacebook(facebookUri: URI, facebookAppUri: URI) {
+        startExternalActivity(
+            facebookAppUri,
+            getString(R.string.facebook_package),
+            onError = {
+                startExternalActivity(facebookUri)
+            })
+    }
+
+    fun openGoogleMaps(uri: URI) {
+        startExternalActivity(uri, getString(R.string.maps_package))
+    }
+
+    fun openCalendar(
+        concert: Concert,
+        calendar: Calendar
+    ) {
+        val intent = Intent(Intent.ACTION_EDIT)
+        intent.type = getString(R.string.calendar_action_type)
+        intent.putExtra(CalendarContract.Events.TITLE, concert.name)
+        intent.putExtra("beginTime", calendar.timeInMillis)
+        intent.putExtra("endTime", calendar.timeInMillis + 180 * 60 * 1000)
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, concert.description)
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concert.venue?.name)
+        startActivity(intent)
     }
 
     companion object {
@@ -134,6 +248,13 @@ class ConcertFragment
 private fun ConcertFragment.instanceItemAdapterListener() =
     object : ItemAdapter.Listener {
         override fun onClick(item: Item) {
-            showToast(R.string.app_name)
+            childFragmentManager.let {
+                val bundle = Bundle()
+                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())
+
+                BandBottomSheetFragment.newInstance(bundle).apply {
+                    show(it, tag)
+                }
+            }
         }
     }
