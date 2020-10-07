@@ -8,8 +8,11 @@ import com.yesferal.hornsapp.app.util.HornsBottomSheetFragment
 
 class BandBottomSheetFragment: HornsBottomSheetFragment() {
 
-    override fun initFragment(item: ItemParcelable): Fragment {
-        val bundle = Bundle()
+    override fun initFragment(bundle: Bundle?): Fragment? {
+        val item = bundle?.getParcelable<ItemParcelable>(
+            EXTRA_PARAM_PARCELABLE
+        ) ?: return null
+
         bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)
 
         return BandFragment.newInstance(bundle)

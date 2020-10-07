@@ -25,11 +25,12 @@
 
     <ImageView
         android:id="@+id/closeImageView"
-        android:layout_width="@dimen/margin_big"
-        android:layout_height="@dimen/margin_big"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_back"
-        android:layout_marginStart="@dimen/margin_big"
+        android:padding="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
@@ -39,6 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        android:gravity="center_vertical"
         style="@style/HornsApp.TextView.ActivityTitle"
         app:layout_constraintTop_toBottomOf="@id/toolbarBackground"
         app:layout_constraintStart_toStartOf="@+id/closeImageView"

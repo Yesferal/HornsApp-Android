@@ -5,6 +5,7 @@ import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
 import com.yesferal.hornsapp.app.presentation.concert.ConcertsFragment
+import com.yesferal.hornsapp.app.presentation.setting.SettingBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -21,6 +22,14 @@ class MainActivity : BaseActivity() {
                 .beginTransaction()
                 .replace(R.id.concertsLayout, concertsFragment)
                 .commit()
+        }
+
+        menuImageView.setOnClickListener {
+            supportFragmentManager.let {
+                SettingBottomSheetFragment.newInstance(Bundle()).apply {
+                    show(it, tag)
+                }
+            }
         }
     }
 }

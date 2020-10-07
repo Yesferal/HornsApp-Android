@@ -21,7 +21,7 @@
             android:id="@+id/activityTitleTextView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="0dp"
+            android:layout_marginTop="0dp"
             android:scaleX="0.75"
             android:scaleY="0.75"
             style="@style/HornsApp.TextView.Title"

@@ -2,7 +2,8 @@
     <string name="app_name">HornsApp</string>
 
     <!-- Words -->
-    <string name="try_again">Reintentar</string>
+    <string name="version">Versión</string>
+    <string name="setting">Configuración</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>
@@ -15,6 +16,7 @@
     <string name="go_to_youtube">Ir a Youtube</string>
     <string name="add_to_calendar">"Añadir al Calendario"</string>
     <string name="available_in">Disponible en</string>
+    <string name="try_again">Volver a intentar</string>
 
     <!-- Error Messages -->
     <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>

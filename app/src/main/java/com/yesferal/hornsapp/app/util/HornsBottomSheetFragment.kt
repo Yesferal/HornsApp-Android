@@ -30,17 +30,13 @@ abstract class HornsBottomSheetFragment: BottomSheetDialogFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<ItemParcelable>(
-            EXTRA_PARAM_PARCELABLE
-        )
-
-        if (item == null) {
-            dismiss()
-            return
-        }
-
         if (savedInstanceState == null) {
-            val fragment = initFragment(item)
+            val fragment = initFragment(arguments)
+            if (fragment == null) {
+                dismiss()
+                return
+            }
+
             childFragmentManager
                 .beginTransaction()
                 .replace(
@@ -51,5 +47,5 @@ abstract class HornsBottomSheetFragment: BottomSheetDialogFragment() {
         }
     }
 
-    protected abstract fun initFragment(item: ItemParcelable): Fragment
+    protected abstract fun initFragment(bundle: Bundle?): Fragment?
 }

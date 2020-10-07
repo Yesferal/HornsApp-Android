@@ -29,7 +29,7 @@ class ConcertsPresenter(
                 val categories = listOf(
                     Category(CategoryKey.ALL.toString(), "Todos"),
                     Category(CategoryKey.FAVORITE.toString(), "Favoritos"),
-                    Category(CategoryKey.LIMA.toString(), "Lima"),
+                    Category(CategoryKey.LIVE.toString(), "Lima"),
                     Category(CategoryKey.ONLINE.toString(), "Online"),
                     Category(CategoryKey.METAL.toString(), "Metal"),
                     Category(CategoryKey.ROCK.toString(), "Rock")
