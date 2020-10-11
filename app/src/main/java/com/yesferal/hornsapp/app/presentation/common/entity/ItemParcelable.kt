@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common
+package com.yesferal.hornsapp.app.presentation.common.entity
 
 import android.os.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.adapter.Item

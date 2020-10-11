@@ -6,34 +6,18 @@ import com.yesferal.hornsapp.domain.usecase.GetBandUseCase
 
 class BandPresenter(
     private val getBandUseCase: GetBandUseCase
-) : BasePresenter<BandFragment, BandViewData>(){
+) : BasePresenter<BandFragment>(){
 
     fun onViewCreated(id: String) {
         getBandUseCase(
             id,
             onSuccess = {
-                val viewData = BandViewData(band = it)
-                render(viewData)
+                val viewState = BandViewState(band = it)
+                view?.render(viewState)
             },
             onError = {
-                render(BandViewData(errorMessageId = R.string.error_default))
+                view?.render(BandViewState(errorMessageId = R.string.error_default))
             }
         )
-    }
-
-    override fun render(viewData: BandViewData) {
-        viewData.band?.let {
-            view?.show(band = it)
-        }
-
-        viewData.errorMessageId?.let {
-            view?.showError(messageId = it)
-        }
-
-        if (viewData.isLoading) {
-            view?.showProgress()
-        } else {
-            view?.hideProgress()
-        }
     }
 }

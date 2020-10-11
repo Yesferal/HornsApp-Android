@@ -5,7 +5,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
-import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
 import com.yesferal.hornsapp.app.util.*
 import kotlinx.android.synthetic.main.activity_concert.*
 

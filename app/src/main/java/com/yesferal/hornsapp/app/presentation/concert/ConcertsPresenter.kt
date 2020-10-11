@@ -12,14 +12,14 @@ class ConcertsPresenter(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase,
     private val adManager: AdManager
-) : BasePresenter<ConcertsFragment, ConcertsViewData>() {
+) : BasePresenter<ConcertsFragment>() {
 
     fun onViewCreated() {
         getConcerts()
     }
 
     fun onRefresh() {
-        render(ConcertsViewData(isLoading = true))
+        view?.render(ConcertsViewState(isLoading = true))
         getConcerts()
     }
 
@@ -35,15 +35,18 @@ class ConcertsPresenter(
                     Category(CategoryKey.ROCK.toString(), "Rock")
                 )
 
-                val viewData = ConcertsViewData(concerts, categories, categories[0], adManager.concertsAdView())
-                render(viewData)
+                val viewState = ConcertsViewState(
+                    concerts = concerts.take(20),
+                    categories = categories,
+                    adView = adManager.concertsAdView())
+                view?.render(viewState)
             },
             onError = {
-                val viewData = ConcertsViewData(
+                val viewState = ConcertsViewState(
                     errorMessage = R.string.error_default,
                     allowRetry = true
                 )
-                render(viewData)
+                view?.render(viewState)
             }
         )
     }
@@ -52,45 +55,17 @@ class ConcertsPresenter(
         getConcertsByCategoryUseCase(
             categoryKey = category._id,
             onSuccess = {
-                val viewData = ConcertsViewData(
+                val viewState = ConcertsViewState(
                     concerts = it,
                     selectedCategory = category)
-                render(viewData)
+                view?.render(viewState)
             },
             onError = {
-                val viewData = ConcertsViewData(
+                val viewState = ConcertsViewState(
                     errorMessage = R.string.error_no_items,
                     selectedCategory = category)
-                render(viewData)
+                view?.render(viewState)
             }
         )
-    }
-
-    override fun render(viewData: ConcertsViewData) {
-        viewData.categories?.let { categories ->
-            view?.showCategories(categories = categories)
-        }
-        viewData.selectedCategory?.let { category ->
-            view?.showCategorySelected(category)
-        }
-        viewData.concerts?.let { concerts ->
-            view?.showConcerts(concerts.take(20))
-        }
-        viewData.adView?.let { adView ->
-            view?.showAd(adView)
-        }
-
-        viewData.errorMessage?.let {
-            view?.showError(
-                messageId =  viewData.errorMessage,
-                allowRetry = viewData.allowRetry
-            )
-        }?: kotlin.run { view?.hideError() }
-
-        if (viewData.isLoading) {
-            view?.showProgress()
-        } else {
-            view?.hideProgress()
-        }
     }
 }

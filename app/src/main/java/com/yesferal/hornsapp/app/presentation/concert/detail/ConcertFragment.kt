@@ -1,6 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.concert.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.TypedValue
@@ -13,12 +14,12 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.band.BandBottomSheetFragment
-import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.*
 import com.yesferal.hornsapp.app.presentation.common.adapter.ItemAdapter
 import com.yesferal.hornsapp.app.presentation.common.adapter.Item
 import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
-import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
-import com.yesferal.hornsapp.app.presentation.common.asParcelable
+import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
 import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
@@ -30,7 +31,8 @@ import java.net.URI
 import java.util.*
 
 class ConcertFragment
-    : BaseFragment() {
+    : BaseFragment<ConcertViewState>(),
+    RenderEffect {
 
     private lateinit var bandAdapter: ItemAdapter
 
@@ -100,7 +102,29 @@ class ConcertFragment
         }
     }
 
-    fun show(concert: Concert) {
+    override fun render(
+        viewState: ConcertViewState
+    ) {
+        viewState.concert?.let {
+            show(concert = it)
+        }
+
+        viewState.adView?.let {
+            showAd(it)
+        }
+
+        viewState.errorMessageId?.let {
+            showError(messageId =  it)
+        }
+
+        if (viewState.isLoading) {
+            showProgress()
+        } else {
+            hideProgress()
+        }
+    }
+
+    private fun show(concert: Concert) {
 
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
@@ -118,17 +142,24 @@ class ConcertFragment
         venueTextView.apply {
             setImageView(R.drawable.ic_map)
             setText(concert.venue?.name, getString(R.string.go_to_maps))
-            setOnClickListener {
-                actionListener.onVenueClick(concert.venue)
-            }
+            setOnClickListener { concert.venue?.let {
+                val latitude = it.latitude
+                val longitude = it.longitude
+                val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(it.name)}")
+
+                startGoogleMaps(uri)
+            }}
         }
 
         datetimeTextView.apply {
             setImageView(R.drawable.ic_calendar)
             setText(concert.dateTime, getString(R.string.add_to_calendar))
-            setOnClickListener {
-                actionListener.onDateClick(concert)
-            }
+            setOnClickListener { concert.date?.let { date ->
+                val calendar = Calendar.getInstance()
+                calendar.time = date
+
+                startCalendar(concert, calendar)
+            }}
         }
 
         descriptionTextView.apply {
@@ -165,7 +196,10 @@ class ConcertFragment
                 setImageView(R.drawable.ic_facebook)
                 setText(getString(R.string.fan_page), getString(R.string.go_to_event))
                 setOnClickListener {
-                    actionListener.onFacebookClick(facebookUrl)
+                    val event = facebookUrl.path.replace("/events", "event")
+                    val facebookAppUri = URI("fb://$event")
+
+                    startFacebook(facebookUrl, facebookAppUri)
                 }
             }
         }?: kotlin.run {
@@ -187,24 +221,24 @@ class ConcertFragment
         }
     }
 
-    fun showAd(adView: AdView) {
+    private fun showAd(adView: AdView) {
         listener?.show(adView)
     }
 
-    fun showProgress() {
+    private fun showProgress() {
         customProgressBar.fadeIn()
     }
 
-    fun hideProgress() {
+    private fun hideProgress() {
         customProgressBar.fadeOut()
     }
 
-    fun showError(@StringRes messageId: Int) {
+    private fun showError(@StringRes messageId: Int) {
         stubView.visibility = View.VISIBLE
         errorTextView.text = getString(messageId)
     }
 
-    fun openFacebook(facebookUri: URI, facebookAppUri: URI) {
+    private fun startFacebook(facebookUri: URI, facebookAppUri: URI) {
         startExternalActivity(
             facebookAppUri,
             getString(R.string.facebook_package),
@@ -213,11 +247,11 @@ class ConcertFragment
             })
     }
 
-    fun openGoogleMaps(uri: URI) {
+    private fun startGoogleMaps(uri: URI) {
         startExternalActivity(uri, getString(R.string.maps_package))
     }
 
-    fun openCalendar(
+    private fun startCalendar(
         concert: Concert,
         calendar: Calendar
     ) {
@@ -229,6 +263,14 @@ class ConcertFragment
         intent.putExtra(CalendarContract.Events.DESCRIPTION, concert.description)
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concert.venue?.name)
         startActivity(intent)
+    }
+
+    override fun render(effect: ViewEffect) {
+        when(effect) {
+            is ViewEffect.Toast -> {
+                showToast(effect.errorMessageId)
+            }
+        }
     }
 
     companion object {

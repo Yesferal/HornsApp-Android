@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.HornsApp
 import java.net.URI
 
-abstract class BaseFragment
+abstract class BaseFragment<VIEW_STATE: ViewState>
     : Fragment(),
     BaseContract.View {
 
@@ -21,6 +21,8 @@ abstract class BaseFragment
     protected val container by lazy {
         (activity?.application as HornsApp).container
     }
+
+    abstract fun render(viewState: VIEW_STATE)
 
     protected val linearLayoutManager by lazy {
         LinearLayoutManager(
@@ -51,7 +53,7 @@ abstract class BaseFragment
         super.onDestroyView()
     }
 
-    fun showToast(
+    protected fun showToast(
         @StringRes id: Int,
         duration: Int = Toast.LENGTH_SHORT
     ) {
@@ -62,7 +64,7 @@ abstract class BaseFragment
         ).show()
     }
 
-    fun startExternalActivity(
+    protected fun startExternalActivity(
         uri: URI?,
         externalPackage: String,
         onError: () -> Unit = { showToast(R.string.error_app_not_found) }
@@ -80,7 +82,7 @@ abstract class BaseFragment
         }
     }
 
-    fun startExternalActivity(uri: URI?) {
+    protected fun startExternalActivity(uri: URI?) {
         if (uri == null) return
 
         val androidUri = Uri.parse(uri.toString())

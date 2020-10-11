@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Band
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_band.*
 
 class BandFragment
-    : BaseFragment() {
+    : BaseFragment<BandViewState>() {
 
     override val actionListener by lazy {
         container.resolve<BandPresenter>()
@@ -49,22 +49,38 @@ class BandFragment
         actionListener.onViewCreated(item.id)
     }
 
-    fun show(band: Band) {
+    override fun render(viewState: BandViewState) {
+        viewState.band?.let {
+            show(band = it)
+        }
+
+        viewState.errorMessageId?.let {
+            showError(messageId = it)
+        }
+
+        if (viewState.isLoading) {
+            showProgress()
+        } else {
+            hideProgress()
+        }
+    }
+
+    private fun show(band: Band) {
         logoImageView.load(band.logoImage)
         genreTextView.setUpWith(band.genre)
         countryTextView.setUpWith(band.country)
         descriptionTextView.setUpWith(band.description)
     }
 
-    fun showProgress() {
+    private fun showProgress() {
         customProgressBar.fadeIn()
     }
 
-    fun hideProgress() {
+    private fun hideProgress() {
         customProgressBar.fadeOut()
     }
 
-    fun showError(@StringRes messageId: Int) {
+    private fun showError(@StringRes messageId: Int) {
         stubView.visibility = View.VISIBLE
         errorTextView.text = getString(messageId)
     }

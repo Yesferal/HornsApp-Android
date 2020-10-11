@@ -25,6 +25,8 @@ class CategoryAdapter (
         list: List<Category>
     ) {
         this.list = list
+        this.selectedCategoryId = list[0]._id
+        notifyDataSetChanged()
     }
 
     fun setCategoryId(

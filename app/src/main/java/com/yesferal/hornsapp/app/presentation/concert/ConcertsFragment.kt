@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.asParcelable
+import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
 import com.yesferal.hornsapp.app.presentation.concert.adapter.CategoryAdapter
 import com.yesferal.hornsapp.app.util.*
 import com.yesferal.hornsapp.domain.entity.Category
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
 
 class ConcertsFragment
-    : BaseFragment() {
+    : BaseFragment<ConcertsViewState>() {
 
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var concertAdapter: ConcertAdapter
@@ -69,31 +69,59 @@ class ConcertsFragment
         actionListener.onViewCreated()
     }
 
-    fun showProgress() {
+    override fun render(viewState: ConcertsViewState) {
+        viewState.categories?.let { categories ->
+            showCategories(categories = categories)
+        }
+        viewState.selectedCategory?.let { category ->
+            showCategorySelected(category)
+        }
+        viewState.concerts?.let { concerts ->
+            showConcerts(concerts)
+        }
+        viewState.adView?.let { adView ->
+            showAd(adView)
+        }
+
+        viewState.errorMessage?.let {
+            showError(
+                messageId =  viewState.errorMessage,
+                allowRetry = viewState.allowRetry
+            )
+        }?: kotlin.run { hideError() }
+
+        if (viewState.isLoading) {
+            showProgress()
+        } else {
+            hideProgress()
+        }
+    }
+
+    private fun showProgress() {
         customProgressBar.fadeIn()
     }
 
-    fun hideProgress() {
+    private fun hideProgress() {
         customProgressBar.fadeOut()
     }
 
-    fun showConcerts(concerts: List<Concert>) {
+    private fun showConcerts(concerts: List<Concert>) {
         concertAdapter.setItem(concerts)
     }
 
-    fun showCategorySelected(category: Category) {
+    private fun showCategorySelected(category: Category) {
         categoryAdapter.setCategoryId(category._id)
     }
 
-    fun showCategories(categories: List<Category>) {
+    private fun showCategories(categories: List<Category>) {
         categoryAdapter.setItems(categories)
     }
 
-    fun showAd(adView: AdView) {
+    private fun showAd(adView: AdView) {
         listener?.show(adView)
     }
 
-    fun showError(
+    private fun showError(
         @StringRes messageId: Int,
         allowRetry: Boolean
     ) {
@@ -111,7 +139,7 @@ class ConcertsFragment
         }
     }
 
-    fun hideError() {
+    private fun hideError() {
         if (::stubViewInflated.isInitialized) {
             stubViewInflated.visibility = View.GONE
         }
