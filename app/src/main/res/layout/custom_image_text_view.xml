@@ -9,7 +9,7 @@
         android:id="@+id/imageBackgroundView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/white"
+        android:background="@color/background"
         android:layout_marginStart="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="@id/itemImageView"
         app:layout_constraintStart_toStartOf="parent"

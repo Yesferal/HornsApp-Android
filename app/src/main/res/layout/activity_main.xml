@@ -9,14 +9,6 @@
     tools:context=".presentation.MainActivity">
 
     <View
-        android:id="@+id/backgroundView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.3"/>
-
-    <View
         android:id="@+id/toolbarBackground"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

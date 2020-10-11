@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:contentDescription="@null"
         android:padding="@dimen/margin_small"
-        android:background="@android:color/white"
+        android:background="@color/background"
         app:layout_constraintTop_toBottomOf="@+id/custom_date_text_view"
         app:layout_constraintStart_toStartOf="@+id/custom_date_text_view"
         app:layout_constraintEnd_toEndOf="@+id/custom_date_text_view"
