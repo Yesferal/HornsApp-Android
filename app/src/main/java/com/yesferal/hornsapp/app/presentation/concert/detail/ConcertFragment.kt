@@ -12,6 +12,7 @@ import androidx.annotation.StringRes
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.android.gms.ads.AdView
+import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.*
@@ -100,6 +101,9 @@ class ConcertFragment
             it.setPageTransformer(compositePageTransformer)
             it.setPadding(0, 0, dpWidth, 0)
         }
+
+        TabLayoutMediator(tabLayout, bandsViewPager) { _,_ -> }
+            .attach()
     }
 
     override fun render(
