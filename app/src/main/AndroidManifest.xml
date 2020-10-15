@@ -25,7 +25,7 @@
             android:value="${crashlyticsCollectionEnabled}" />
 
         <activity
-            android:name=".presentation.SplashActivity"
+            android:name=".presentation.ui.SplashActivity"
             android:theme="@style/HornsApp.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,11 +35,11 @@
         </activity>
 
         <activity
-            android:name=".presentation.concert.detail.ConcertActivity"
+            android:name="com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presentation.home.MainActivity"
+            android:name="com.yesferal.hornsapp.app.presentation.ui.home.MainActivity"
             android:screenOrientation="portrait"/>
     </application>
 

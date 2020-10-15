@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context=".presentation.home.MainActivity">
+    tools:context=".presentation.ui.home.MainActivity">
 
     <View
         android:id="@+id/toolbarBackground"
@@ -24,6 +24,18 @@
         android:layout_marginStart="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
+
+    <ImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_favorite"
+        android:padding="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
 
     <FrameLayout
