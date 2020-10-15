@@ -2,40 +2,34 @@ package com.yesferal.hornsapp.app.presentation.concert
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.concert.adapter.CategoryAdapter
 import com.yesferal.hornsapp.app.util.*
-import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
+import kotlinx.android.synthetic.main.fragment_concerts.stubView
+
+const val EXTRA_PARAM_ID = "EXTRA_PARAM_ID"
 
 class ConcertsFragment
     : BaseFragment<ConcertsViewState>() {
 
-    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var concertAdapter: ConcertAdapter
-    private lateinit var stubViewInflated: View
 
     override val actionListener by lazy {
         container.resolve<ConcertsPresenter>()
-    }
-
-    var listener: Listener? = null
-    interface Listener {
-        fun show(adView: AdView)
     }
 
     override fun onCreateView(
@@ -51,11 +45,11 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        categoryAdapter = CategoryAdapter(instanceItemAdapterListener())
-        categoriesRecyclerView.also {
-            it.adapter = categoryAdapter
-            it.layoutManager = linearLayoutManager
-            it.addItemDecoration(RecyclerViewHorizontalDecorator(16))
+        val categoryId = arguments?.getString(EXTRA_PARAM_ID)
+
+        if (categoryId == null) {
+            showError(R.string.error_default)
+            return
         }
 
         concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
@@ -66,29 +60,20 @@ class ConcertsFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        actionListener.onViewCreated()
+        val handler = Handler()
+        handler.postDelayed({
+            actionListener.onViewCreated(categoryId)
+        }, 500)
     }
 
     override fun render(viewState: ConcertsViewState) {
-        viewState.categories?.let { categories ->
-            showCategories(categories = categories)
-        }
-        viewState.selectedCategory?.let { category ->
-            showCategorySelected(category)
-        }
         viewState.concerts?.let { concerts ->
             showConcerts(concerts)
         }
-        viewState.adView?.let { adView ->
-            showAd(adView)
-        }
 
         viewState.errorMessage?.let {
-            showError(
-                messageId =  viewState.errorMessage,
-                allowRetry = viewState.allowRetry
-            )
-        }?: kotlin.run { hideError() }
+            showError(messageId =  viewState.errorMessage)
+        }
 
         if (viewState.isLoading) {
             showProgress()
@@ -109,44 +94,22 @@ class ConcertsFragment
         concertAdapter.setItem(concerts)
     }
 
-    private fun showCategorySelected(category: Category) {
-        categoryAdapter.setCategoryId(category._id)
-    }
-
-    private fun showCategories(categories: List<Category>) {
-        categoryAdapter.setItems(categories)
-    }
-
-    private fun showAd(adView: AdView) {
-        listener?.show(adView)
-    }
-
     private fun showError(
-        @StringRes messageId: Int,
-        allowRetry: Boolean
+        @StringRes messageId: Int
     ) {
-        if (!::stubViewInflated.isInitialized) {
-            stubViewInflated = stubView.inflate()
-        }
-        stubViewInflated.visibility = View.VISIBLE
+        stubView.visibility = View.VISIBLE
         errorTextView.text = getString(messageId)
-        if (allowRetry) {
-            tryAgainTextView.visibility = View.VISIBLE
-        }
-        tryAgainTextView.setOnClickListener {
-            actionListener.onRefresh()
-            tryAgainTextView.visibility = View.GONE
-        }
-    }
-
-    private fun hideError() {
-        if (::stubViewInflated.isInitialized) {
-            stubViewInflated.visibility = View.GONE
-        }
     }
 
     companion object {
-        fun newInstance() = ConcertsFragment()
+        fun newInstance(categoryId: String): ConcertsFragment {
+            val bundle = Bundle()
+            bundle.putString(EXTRA_PARAM_ID, categoryId)
+
+            return ConcertsFragment().apply {
+                arguments = bundle
+            }
+        }
     }
 }
 
@@ -166,12 +129,5 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
 
                 startActivity(intent)
             }
-        }
-    }
-
-private fun ConcertsFragment.instanceItemAdapterListener() =
-    object : CategoryAdapter.Listener {
-        override fun onClick(category: Category) {
-            actionListener.onCategoryClick(category)
         }
     }

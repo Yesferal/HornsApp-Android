@@ -1,10 +1,8 @@
-package com.yesferal.hornsapp.app.presentation
+package com.yesferal.hornsapp.app.presentation.home
 
 import android.os.Bundle
-import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
-import com.yesferal.hornsapp.app.presentation.concert.ConcertsFragment
 import com.yesferal.hornsapp.app.presentation.setting.SettingBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,9 +13,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            val concertsFragment = ConcertsFragment.newInstance().apply {
-                listener = instanceConcertsFragmentListener()
-            }
+            val concertsFragment = HomeFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.concertsLayout, concertsFragment)
@@ -33,11 +29,3 @@ class MainActivity : BaseActivity() {
         }
     }
 }
-
-private fun MainActivity.instanceConcertsFragmentListener() =
-    object : ConcertsFragment.Listener {
-        override fun show(adView: AdView) {
-            adContainerLayout.removeAllViews()
-            adContainerLayout.addView(adView)
-        }
-    }

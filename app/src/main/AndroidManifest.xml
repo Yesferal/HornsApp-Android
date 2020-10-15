@@ -39,7 +39,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.home.MainActivity"
             android:screenOrientation="portrait"/>
     </application>
 

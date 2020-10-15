@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.home.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -13,6 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+
         finish()
     }
 }
