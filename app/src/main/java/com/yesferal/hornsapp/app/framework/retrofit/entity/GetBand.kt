@@ -6,10 +6,10 @@ data class GetBand(
     val _id: String,
     val name: String?,
     val description: String?,
-    val logoImage: String?,
     val membersImage: String?,
-    val genre: String?,
-    val country: String?
+    val logoImage: String?,
+    val country: String?,
+    val genre: String?
 )
 
 fun GetBand.mapToBand(): Band {

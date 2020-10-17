@@ -6,14 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
 
-    <View
-        android:id="@+id/backgroundView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.3"/>
-
     <ImageView
         android:id="@+id/errorImageView"
         android:layout_width="56dp"

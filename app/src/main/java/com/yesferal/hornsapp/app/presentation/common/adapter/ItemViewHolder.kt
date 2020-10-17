@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.util.load
-import com.yesferal.hornsapp.app.util.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.custom.load
+import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import kotlinx.android.synthetic.main.item_base.view.*
 
 class ItemViewHolder (

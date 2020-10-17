@@ -5,13 +5,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.yesferal.hornsapp.app.util.CheckBoxImageView
+    <com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
         android:id="@+id/favoriteImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@null"
+        android:layout_marginTop="@dimen/margin_tiny"
         android:padding="@dimen/margin_small"
-        android:background="@android:color/white"
+        android:background="@color/background"
         app:layout_constraintTop_toBottomOf="@+id/custom_date_text_view"
         app:layout_constraintStart_toStartOf="@+id/custom_date_text_view"
         app:layout_constraintEnd_toEndOf="@+id/custom_date_text_view"
@@ -31,12 +32,26 @@
         android:id="@+id/bandsViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:nestedScrollingEnabled="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/custom_date_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1" />
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_medium"
+        app:tabBackground="@drawable/selector_dot_indicator"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:layout_constraintStart_toStartOf="@+id/bandsViewPager"
+        app:layout_constraintEnd_toEndOf="@+id/bandsViewPager"
+        app:layout_constraintBottom_toBottomOf="@+id/bandsViewPager"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/ticketTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -58,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/venueTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -67,7 +82,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/datetimeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -76,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/facebookTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -85,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/youtubeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -94,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.util.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

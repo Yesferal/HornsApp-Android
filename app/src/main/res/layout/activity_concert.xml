@@ -7,15 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/containerLayout"
     app:layoutDescription="@xml/activity_concert_scene"
-    tools:context=".presentation.concert.detail.ConcertActivity">
-
-    <View
-        android:id="@+id/backgroundView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.3"/>
+    tools:context=".presentation.ui.concert.detail.ConcertActivity">
 
     <View
         android:id="@+id/toolbarBackground"

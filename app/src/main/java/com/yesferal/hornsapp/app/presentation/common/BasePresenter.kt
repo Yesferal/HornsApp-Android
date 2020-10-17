@@ -1,11 +1,9 @@
 package com.yesferal.hornsapp.app.presentation.common
 
 @Suppress("UNCHECKED_CAST")
-abstract class BasePresenter<VIEW: BaseContract.View, VIEW_DATA: ViewData>
+abstract class BasePresenter<VIEW: BaseContract.View>
     : BaseContract.ActionListener {
     var view: VIEW? = null
-
-    protected abstract fun render(viewData: VIEW_DATA)
 
     override fun attach(view: BaseContract.View) {
         this.view = view as VIEW

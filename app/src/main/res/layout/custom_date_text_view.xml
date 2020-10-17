@@ -9,7 +9,7 @@
         android:id="@+id/dateBackgroundView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/white"
+        android:background="@color/background"
         app:layout_constraintTop_toTopOf="@id/dayTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

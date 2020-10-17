@@ -9,28 +9,15 @@
     <ConstraintSet android:id="@+id/end">
 
         <Constraint
-            android:id="@+id/menuImageView"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_menu"
-            android:padding="@dimen/margin_medium"
-            android:layout_marginStart="@dimen/margin_small"
-            android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
-
-        <Constraint
-            android:id="@+id/dividerView"
+            android:id="@+id/toolbarBackground"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_big"
+            android:layout_height="?attr/actionBarSize"
             app:layout_constraintBottom_toTopOf="parent"/>
 
     </ConstraintSet>
 
     <Transition
-        app:constraintSetEnd="@id/end"
+        app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@+id/start" >
 
         <OnSwipe
