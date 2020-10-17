@@ -45,29 +45,7 @@ class ConcertActivity : BaseActivity() {
             finish()
         }
 
-        addTransitionListener()
-    }
-
-    /**
-     * To Fix Motion Layout bug:
-     * When user scroll down
-     * out of nestedScrollView region
-     */
-    private fun addTransitionListener() {
-        containerLayout.addTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
-
-            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
-
-            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
-
-            override fun onTransitionCompleted(p0: MotionLayout?, transitionId: Int) {
-                val startId = R.id.start
-                if (transitionId == startId) {
-                    nestedScrollView.smoothScrollTo(0, 0)
-                }
-            }
-        })
+        containerLayout.addTransitionListener(instanceTransitionListener())
     }
 }
 
@@ -78,3 +56,23 @@ private fun ConcertActivity.instanceConcertFragmentListener() =
             adContainerLayout.addView(adView)
         }
     }
+
+/**
+ * To Fix Motion Layout bug:
+ * When user scroll down
+ * out of nestedScrollView region
+ */
+private fun ConcertActivity.instanceTransitionListener() = object : MotionLayout.TransitionListener {
+    override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
+
+    override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
+
+    override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
+
+    override fun onTransitionCompleted(p0: MotionLayout?, transitionId: Int) {
+        val startId = R.id.start
+        if (transitionId == startId) {
+            nestedScrollView.smoothScrollTo(0, 0)
+        }
+    }
+}

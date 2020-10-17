@@ -41,25 +41,9 @@ class HomeFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpTabLayout()
+        tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
         actionListener.onViewCreated()
-    }
-
-    private fun setUpTabLayout() {
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.customView = null
-                tab?.setCustomView(R.layout.custom_tab_layout_selected)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.customView = null
-                tab?.setCustomView(R.layout.custom_tab_layout)
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
     }
 
     override fun render(viewState: HomeViewState) {
@@ -152,4 +136,18 @@ private class ScreenSlidePagerAdapter(
         val categoryId = categories[position]._id
         return ConcertsFragment.newInstance(categoryId)
     }
+}
+
+private fun instanceOnTabSelectedListener() = object : TabLayout.OnTabSelectedListener {
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        tab?.customView = null
+        tab?.setCustomView(R.layout.custom_tab_layout_selected)
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+        tab?.customView = null
+        tab?.setCustomView(R.layout.custom_tab_layout)
+    }
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
 }
