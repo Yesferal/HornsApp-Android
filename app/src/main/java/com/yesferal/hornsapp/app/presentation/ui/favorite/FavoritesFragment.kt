@@ -1,42 +1,41 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert
+package com.yesferal.hornsapp.app.presentation.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
+import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
+import com.yesferal.hornsapp.app.presentation.ui.concert.ConcertsViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
-import kotlinx.android.synthetic.main.fragment_concerts.stubView
 
-const val EXTRA_PARAM_ID = "EXTRA_PARAM_ID"
-
-class ConcertsFragment
+class FavoritesFragment
     : BaseFragment<ConcertsViewState>() {
 
     private lateinit var concertAdapter: ConcertAdapter
 
     override val actionListener by lazy {
-        container.resolve<ConcertsPresenter>()
+        container.resolve<FavoritesPresenter>()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_concerts, container, false)
+        return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
     override fun onViewCreated(
@@ -44,13 +43,6 @@ class ConcertsFragment
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-
-        val categoryId = arguments?.getString(EXTRA_PARAM_ID)
-
-        if (categoryId == null) {
-            showError(R.string.error_default)
-            return
-        }
 
         concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
 
@@ -60,10 +52,7 @@ class ConcertsFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        val handler = Handler()
-        handler.postDelayed({
-            actionListener.onViewCreated(categoryId)
-        }, 333)
+        actionListener.onViewCreated()
     }
 
     override fun render(viewState: ConcertsViewState) {
@@ -102,18 +91,11 @@ class ConcertsFragment
     }
 
     companion object {
-        fun newInstance(categoryId: String): ConcertsFragment {
-            val bundle = Bundle()
-            bundle.putString(EXTRA_PARAM_ID, categoryId)
-
-            return ConcertsFragment().apply {
-                arguments = bundle
-            }
-        }
+        fun newInstance() = FavoritesFragment()
     }
 }
 
-private fun ConcertsFragment.instanceConcertAdapterListener() =
+private fun FavoritesFragment.instanceConcertAdapterListener() =
     object : ConcertAdapter.Listener {
         override fun onConcertItemClick(concert: Concert) {
             val intent = Intent(

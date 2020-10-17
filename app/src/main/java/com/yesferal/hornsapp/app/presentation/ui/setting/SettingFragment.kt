@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.ui.setting
 
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoriteActivity
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment
@@ -24,6 +26,17 @@ class SettingFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpVersion()
+
+        favoriteTextView.setImageView(R.drawable.ic_favorite)
+        favoriteTextView.setText(getString(R.string.favorites))
+        favoriteTextView.setOnClickListener {
+            val intent = Intent(activity, FavoriteActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setUpVersion() {
         activity?.let {
             val packageInfo: PackageInfo = it
                 .packageManager
@@ -33,7 +46,8 @@ class SettingFragment
             val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
 
             val version = "$versionName.$versionCode"
-            versionTextView.text = version
+            versionTextView.setImageView(R.drawable.ic_information)
+            versionTextView.setText(getString(R.string.version), version)
         }
     }
 
