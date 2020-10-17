@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/containerLayout"
     app:layoutDescription="@xml/activity_concert_scene"
-    tools:context=".presentation.concert.detail.ConcertActivity">
+    tools:context=".presentation.ui.concert.detail.ConcertActivity">
 
     <View
         android:id="@+id/toolbarBackground"

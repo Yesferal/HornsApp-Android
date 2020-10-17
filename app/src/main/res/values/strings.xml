@@ -4,6 +4,7 @@
     <!-- Words -->
     <string name="version">Versión</string>
     <string name="setting">Configuración</string>
+    <string name="favorites">Favoritos</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>
@@ -22,6 +23,7 @@
     <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
     <string name="error_no_items">Por ahora no tenemos elementos para esta categoría.</string>
     <string name="error_app_not_found">No tienes la aplicación instalada.</string>
+    <string name="error_no_favorite_yet">Aun no haz seleccionado ningun concierto como favorito.</string>
 
     <!-- Packages -->
     <string name="facebook_package">com.facebook.katana</string>
