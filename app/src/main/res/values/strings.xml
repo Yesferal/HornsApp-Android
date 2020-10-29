@@ -3,8 +3,9 @@
 
     <!-- Words -->
     <string name="version">Versión</string>
-    <string name="setting">Configuración</string>
+    <string name="profile">Perfil</string>
     <string name="favorites">Favoritos</string>
+    <string name="upcoming">Próximos</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>

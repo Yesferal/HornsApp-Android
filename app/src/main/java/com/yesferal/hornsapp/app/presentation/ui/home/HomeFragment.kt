@@ -13,9 +13,10 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.ConcertsFragment
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.domain.entity.Category
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
@@ -134,7 +135,12 @@ private class ScreenSlidePagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         val categoryId = categories[position]._id
-        return ConcertsFragment.newInstance(categoryId)
+
+        if (position == 1) {
+            return UpcomingFragment.newInstance()
+        } else {
+            return ConcertsFragment.newInstance(categoryId)
+        }
     }
 }
 

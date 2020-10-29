@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.content.Intent
 import android.os.Bundle

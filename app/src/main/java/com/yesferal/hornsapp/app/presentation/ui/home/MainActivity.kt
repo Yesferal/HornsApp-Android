@@ -3,7 +3,7 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 import android.os.Bundle
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseActivity
-import com.yesferal.hornsapp.app.presentation.ui.setting.SettingBottomSheetFragment
+import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -22,7 +22,7 @@ class MainActivity : BaseActivity() {
 
         menuImageView.setOnClickListener {
             supportFragmentManager.let {
-                SettingBottomSheetFragment.newInstance(Bundle()).apply {
+                ProfileBottomSheetFragment.newInstance(Bundle()).apply {
                     show(it, tag)
                 }
             }

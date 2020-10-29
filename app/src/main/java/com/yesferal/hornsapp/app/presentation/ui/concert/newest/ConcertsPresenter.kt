@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter

@@ -62,11 +62,11 @@ fun GetConcert.mapToConcert(): Concert {
         isFavorite = isFavorite,
         genre = this.genre,
         tags = this.tags,
+        ticketingUrl = this.ticketingUrl?.toSafeUri(),
+        ticketingHost = this.ticketingHost,
         subGenres = subGenres.toString(),
         state = this.state?.name,
         venue = this.venue,
-        bands = this.bands,
-        ticketingUrl = this.ticketingUrl?.toSafeUri(),
-        ticketingHost = this.ticketingHost
+        bands = this.bands
     )
 }

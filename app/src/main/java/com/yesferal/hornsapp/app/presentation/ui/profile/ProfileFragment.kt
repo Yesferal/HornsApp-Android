@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.setting
+package com.yesferal.hornsapp.app.presentation.ui.profile
 
 import android.content.Intent
 import android.content.pm.PackageInfo
@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoriteActivity
 import kotlinx.android.synthetic.main.fragment_setting.*
 
-class SettingFragment
+class ProfileFragment
     : Fragment() {
 
     override fun onCreateView(
@@ -52,8 +52,8 @@ class SettingFragment
     }
 
     companion object {
-        fun newInstance() : SettingFragment {
-            return SettingFragment()
+        fun newInstance() : ProfileFragment {
+            return ProfileFragment()
         }
     }
 }

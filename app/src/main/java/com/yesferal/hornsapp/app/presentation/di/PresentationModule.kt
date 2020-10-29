@@ -1,8 +1,9 @@
 package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.ui.band.BandPresenter
-import com.yesferal.hornsapp.app.presentation.ui.concert.ConcertsPresenter
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsPresenter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertPresenter
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingPresenter
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesPresenter
 import com.yesferal.hornsapp.app.presentation.ui.home.HomePresenter
 import com.yesferal.hornsapp.hada.container.Container
@@ -20,6 +21,12 @@ fun Container.registerPresentationModule() {
 
     this register Factory<ConcertsPresenter> {
         ConcertsPresenter(
+            getConcertsByCategoryUseCase = resolve()
+        )
+    }
+
+    this register Factory<UpcomingPresenter> {
+        UpcomingPresenter(
             getConcertsByCategoryUseCase = resolve()
         )
     }

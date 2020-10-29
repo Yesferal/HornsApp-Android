@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVertical
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.ui.concert.ConcertsViewState
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
