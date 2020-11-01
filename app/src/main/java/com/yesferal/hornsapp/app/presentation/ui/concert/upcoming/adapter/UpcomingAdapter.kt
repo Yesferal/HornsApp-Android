@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.presentation.common.TitleViewData
 import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
-import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertViewHolder
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.*
 
 class UpcomingAdapter (

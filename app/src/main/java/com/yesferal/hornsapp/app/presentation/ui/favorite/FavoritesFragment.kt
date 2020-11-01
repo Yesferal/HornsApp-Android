@@ -13,11 +13,11 @@ import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVertical
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsViewState
-import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertsViewState
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*

@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.newest
+package com.yesferal.hornsapp.app.presentation.ui.concert.search
 
 import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.domain.entity.Concert

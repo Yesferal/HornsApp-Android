@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.ui.band.BandPresenter
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsPresenter
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertsPresenter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertPresenter
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingPresenter
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesPresenter

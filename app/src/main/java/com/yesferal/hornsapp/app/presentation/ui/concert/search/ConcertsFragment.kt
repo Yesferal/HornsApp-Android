@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.newest
+package com.yesferal.hornsapp.app.presentation.ui.concert.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable

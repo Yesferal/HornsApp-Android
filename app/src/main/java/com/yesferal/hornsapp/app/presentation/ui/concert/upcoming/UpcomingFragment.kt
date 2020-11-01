@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingAdapter
@@ -90,7 +90,7 @@ class UpcomingFragment
 
 private fun UpcomingFragment.instanceUpcomingAdapterListener() =
     object : ConcertAdapter.Listener {
-        override fun onConcertClick(concert: ViewData) {
+        override fun onConcertClick(viewData: ViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -98,7 +98,7 @@ private fun UpcomingFragment.instanceUpcomingAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                concert.asParcelable()
+                viewData.asParcelable()
             )
 
             startActivity(intent)

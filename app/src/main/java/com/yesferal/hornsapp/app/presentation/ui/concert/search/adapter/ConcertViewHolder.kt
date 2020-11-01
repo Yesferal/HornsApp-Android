@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_concert.view.*
 

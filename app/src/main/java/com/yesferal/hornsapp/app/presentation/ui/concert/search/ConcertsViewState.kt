@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.newest
+package com.yesferal.hornsapp.app.presentation.ui.concert.search
 
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.presentation.common.ViewState

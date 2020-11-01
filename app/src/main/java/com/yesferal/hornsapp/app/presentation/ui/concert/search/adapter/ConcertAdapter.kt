@@ -1,9 +1,9 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 
 class ConcertAdapter (
     private val listener: Listener,
@@ -11,7 +11,7 @@ class ConcertAdapter (
 ) : RecyclerView.Adapter<ConcertViewHolder>() {
 
     interface Listener {
-        fun onConcertClick(concert: ViewData)
+        fun onConcertClick(viewData: ViewData)
     }
 
     override fun onCreateViewHolder(
