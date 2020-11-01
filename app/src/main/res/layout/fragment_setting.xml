@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/favoriteTextView"
+        android:id="@+id/shareTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/shareTextView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

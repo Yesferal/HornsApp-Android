@@ -38,9 +38,6 @@
         <activity
             android:name=".presentation.ui.home.MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.ui.favorite.FavoriteActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
