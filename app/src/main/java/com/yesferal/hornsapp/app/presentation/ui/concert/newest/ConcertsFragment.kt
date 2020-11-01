@@ -9,19 +9,17 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concerts.*
 import kotlinx.android.synthetic.main.fragment_concerts.stubView
-
-const val EXTRA_PARAM_ID = "EXTRA_PARAM_ID"
 
 class ConcertsFragment
     : BaseFragment<ConcertsViewState>() {
@@ -45,13 +43,6 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoryId = arguments?.getString(EXTRA_PARAM_ID)
-
-        if (categoryId == null) {
-            showError(R.string.error_default)
-            return
-        }
-
         concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
 
         concertsRecyclerView.also {
@@ -62,7 +53,7 @@ class ConcertsFragment
 
         val handler = Handler()
         handler.postDelayed({
-            actionListener.onViewCreated(categoryId)
+            actionListener.onViewCreated()
         }, 333)
     }
 
@@ -90,7 +81,7 @@ class ConcertsFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showConcerts(concerts: List<Concert>) {
+    private fun showConcerts(concerts: List<ConcertViewData>) {
         concertAdapter.setItem(concerts)
     }
 
@@ -102,20 +93,13 @@ class ConcertsFragment
     }
 
     companion object {
-        fun newInstance(categoryId: String): ConcertsFragment {
-            val bundle = Bundle()
-            bundle.putString(EXTRA_PARAM_ID, categoryId)
-
-            return ConcertsFragment().apply {
-                arguments = bundle
-            }
-        }
+        fun newInstance() = ConcertsFragment()
     }
 }
 
 private fun ConcertsFragment.instanceConcertAdapterListener() =
     object : ConcertAdapter.Listener {
-        override fun onConcertItemClick(concert: Concert) {
+        override fun onConcertClick(concert: ViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java

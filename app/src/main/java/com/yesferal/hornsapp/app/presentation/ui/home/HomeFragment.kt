@@ -17,7 +17,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
-import com.yesferal.hornsapp.domain.entity.Category
+import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -48,8 +48,8 @@ class HomeFragment
     }
 
     override fun render(viewState: HomeViewState) {
-        viewState.categories?.let { categories ->
-            showCategories(categories)
+        viewState.fragmentTitles?.let { titles ->
+            showFragments(titles)
         }
 
         viewState.adView?.let { adView ->
@@ -70,16 +70,16 @@ class HomeFragment
         }
     }
 
-    private fun showCategories(categories: List<Category>) {
+    private fun showFragments(titles: List<String>) {
         activity?.let {
-            val pagerAdapter = ScreenSlidePagerAdapter(it, categories)
+            val pagerAdapter = ScreenSlidePagerAdapter(it, titles)
             concertsViewPager.adapter = pagerAdapter
         }
 
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
-            tab.text = categories[position].name
+            tab.text = titles[position]
         }.attach()
     }
 
@@ -129,17 +129,22 @@ class HomeFragment
 
 private class ScreenSlidePagerAdapter(
     fragmentActivity: FragmentActivity,
-    val categories: List<Category>
+    private val fragments: List<String>
 ) : FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int = categories.size
+
+    override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment {
-        val categoryId = categories[position]._id
-
-        if (position == 1) {
-            return UpcomingFragment.newInstance()
-        } else {
-            return ConcertsFragment.newInstance(categoryId)
+        return when (position) {
+            0 -> {
+                UpcomingFragment.newInstance()
+            }
+            1 -> {
+                ConcertsFragment.newInstance()
+            }
+            else -> {
+                FavoritesFragment.newInstance()
+            }
         }
     }
 }

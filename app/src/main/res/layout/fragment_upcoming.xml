@@ -5,33 +5,29 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/item_concert"
-        layout="@layout/item_concert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/dateBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.2"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/ticketTextView"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="software"
+        android:background="@drawable/shape_vertical_dashed_line"
+        app:layout_constraintTop_toTopOf="@id/dateBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
+        app:layout_constraintEnd_toEndOf="@id/dateBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/dateBackgroundView"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/upcomingRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/buyTicketsTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/buyTicketsTextView"/>
-
-    <TextView
-        android:id="@+id/buyTicketsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:backgroundTint="@color/accent"
-        android:textColor="@android:color/white"
-        android:padding="@dimen/margin_medium"
-        android:layout_margin="@dimen/margin_big"
-        style="@style/HornsApp.TextView.Subtitle"
-        app:layout_constraintTop_toBottomOf="@+id/item_concert"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_height="match_parent"/>
 
     <ViewStub
         android:id="@+id/stubView"

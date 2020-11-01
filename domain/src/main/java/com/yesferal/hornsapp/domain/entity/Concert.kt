@@ -12,6 +12,7 @@ data class Concert (
     val dateTime: String?,
     val day: String?,
     val month: String?,
+    val year: Int?,
     val time: String?,
     val trailerUrl: URI?,
     val facebookUrl: URI?,

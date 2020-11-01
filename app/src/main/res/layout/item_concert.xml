@@ -50,6 +50,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
 
     <TextView
+        android:id="@+id/tagTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
+        app:layout_constraintBottom_toTopOf="@+id/titleTextView" />
+
+    <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

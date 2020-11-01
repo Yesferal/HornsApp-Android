@@ -8,7 +8,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_concert.view.*
 
@@ -27,18 +27,21 @@ class ConcertViewHolder constructor(
         listener
     )
 
-    fun bind(concert: Concert) {
-        itemView.titleTextView.setUpWith(concert.name)
-        itemView.dayTextView.setUpWith(concert.day)
-        itemView.monthTextView.setUpWith(concert.month)
-        itemView.timeTextView.setUpWith(concert.time)
-        itemView.genreTextView.setUpWith(concert.genre)
+    fun bind(viewData: ConcertViewData) {
+        viewData.year?.let {
+            itemView.tagTextView.setUpWith("#$it")
+        }
+        itemView.titleTextView.setUpWith(viewData.name)
+        itemView.dayTextView.setUpWith(viewData.day)
+        itemView.monthTextView.setUpWith(viewData.month)
+        itemView.timeTextView.setUpWith(viewData.time)
+        itemView.genreTextView.setUpWith(viewData.genre)
 
         itemView.concertImageView.setAllCornersRounded()
-        itemView.concertImageView.load(concert.headlinerImage)
+        itemView.concertImageView.load(viewData.image)
         
         itemView.containerLayout.setOnClickListener {
-            listener.onConcertItemClick(concert)
+            listener.onConcertClick(viewData)
         }
     }
 }

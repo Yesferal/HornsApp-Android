@@ -35,6 +35,10 @@ fun GetConcert.mapToConcert(): Concert {
         .dateTime
         ?.monthFormatted()
 
+    val year = this
+        .dateTime
+        ?.yearFormatted()?.toInt()
+
     val time = this
         .dateTime
         ?.timeFormatted()
@@ -56,6 +60,7 @@ fun GetConcert.mapToConcert(): Concert {
         dateTime = dateTime,
         day = day,
         month = month,
+        year = year,
         time = time,
         trailerUrl = this.trailerUrl?.toSafeUri(),
         facebookUrl = facebookUrl?.toSafeUri(),

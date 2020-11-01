@@ -26,6 +26,10 @@ fun Date.monthFormatted(): String? {
     return formattedWith("MMM")?.substring(0,3)
 }
 
+fun Date.yearFormatted(): String? {
+    return formattedWith("YYYY")
+}
+
 fun Date.timeFormatted(): String? {
     return formattedWith("HH:mm a")
 }

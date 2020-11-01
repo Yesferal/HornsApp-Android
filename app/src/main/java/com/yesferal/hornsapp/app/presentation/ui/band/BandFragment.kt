@@ -44,7 +44,6 @@ class BandFragment
 
         titleTextView.text = item.name
         membersImageView.setTopCornersRounded()
-        membersImageView.load(item.imageUrl)
 
         actionListener.onViewCreated(item.id)
     }
@@ -66,6 +65,7 @@ class BandFragment
     }
 
     private fun show(band: Band) {
+        membersImageView.load(band.membersImage)
         logoImageView.load(band.logoImage)
         genreTextView.setUpWith(band.genre)
         countryTextView.setUpWith(band.country)

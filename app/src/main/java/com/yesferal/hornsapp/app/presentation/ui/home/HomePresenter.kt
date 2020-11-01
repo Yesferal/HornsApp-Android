@@ -24,16 +24,10 @@ class HomePresenter(
     private fun getConcerts() {
         getConcertsUseCase(
             onSuccess = {
-                val categories = listOf(
-                    Category(CategoryKey.ALL.toString(), "Todos"),
-                    Category(CategoryKey.LIVE.toString(), "Lima"),
-                    Category(CategoryKey.ONLINE.toString(), "Online"),
-                    Category(CategoryKey.METAL.toString(), "Metal"),
-                    Category(CategoryKey.ROCK.toString(), "Rock")
-                )
+                val titles = listOf("Novedades", "Buscar", "Favoritos")
 
                 val viewState = HomeViewState(
-                    categories = categories,
+                    fragmentTitles = titles,
                     adView = adManager.concertsAdView())
 
                 view?.render(viewState)

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
@@ -16,7 +17,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertsViewStat
 import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -51,7 +52,10 @@ class FavoritesFragment
             it.layoutManager = linearLayoutManagerVertical
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         actionListener.onViewCreated()
     }
 
@@ -79,7 +83,7 @@ class FavoritesFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showConcerts(concerts: List<Concert>) {
+    private fun showConcerts(concerts: List<ConcertViewData>) {
         concertAdapter.setItem(concerts)
     }
 
@@ -97,7 +101,7 @@ class FavoritesFragment
 
 private fun FavoritesFragment.instanceConcertAdapterListener() =
     object : ConcertAdapter.Listener {
-        override fun onConcertItemClick(concert: Concert) {
+        override fun onConcertClick(viewData: ViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -105,7 +109,7 @@ private fun FavoritesFragment.instanceConcertAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                concert.asParcelable()
+                viewData.asParcelable()
             )
 
             startActivity(intent)

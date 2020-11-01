@@ -2,15 +2,16 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.app.presentation.common.ViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ConcertViewData
 
 class ConcertAdapter (
-    private val listener: Listener
+    private val listener: Listener,
+    private val list: MutableList<ConcertViewData> = mutableListOf()
 ) : RecyclerView.Adapter<ConcertViewHolder>() {
-    private var list: List<Concert> = listOf()
 
     interface Listener {
-        fun onConcertItemClick(concert: Concert)
+        fun onConcertClick(concert: ViewData)
     }
 
     override fun onCreateViewHolder(
@@ -27,8 +28,9 @@ class ConcertAdapter (
         holder.bind(list[position])
     }
 
-    fun setItem(list: List<Concert>) {
-        this.list = list
+    fun setItem(list: List<ConcertViewData>) {
+        this.list.clear()
+        this.list.addAll(list)
         notifyDataSetChanged()
     }
 
