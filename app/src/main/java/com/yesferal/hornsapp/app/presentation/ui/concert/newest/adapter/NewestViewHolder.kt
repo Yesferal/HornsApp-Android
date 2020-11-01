@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_upcoming.view.*
 
-class UpcomingViewHolder (
+class NewestViewHolder (
     itemView: View,
     private val listener: ConcertAdapter.Listener
 ) : RecyclerView.ViewHolder(itemView) {
@@ -26,7 +26,7 @@ class UpcomingViewHolder (
         listener
     )
 
-    fun bind(viewData: UpcomingViewData) {
+    fun bind(viewData: NewestViewData) {
         itemView.containerLayout.setOnClickListener {
             listener.onConcertClick(viewData)
         }

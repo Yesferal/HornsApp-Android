@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,20 +15,20 @@ import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingAdapter
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestAdapter
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 import kotlinx.android.synthetic.main.fragment_upcoming.stubView
 
-class UpcomingFragment
-    : BaseFragment<UpcomingViewState>() {
+class NewestFragment
+    : BaseFragment<NewestViewState>() {
 
-    private lateinit var upcomingAdapter: UpcomingAdapter
+    private lateinit var upcomingAdapter: NewestAdapter
 
     override val actionListener by lazy {
-        container.resolve<UpcomingPresenter>()
+        container.resolve<NewestPresenter>()
     }
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class UpcomingFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        upcomingAdapter = UpcomingAdapter(instanceUpcomingAdapterListener())
+        upcomingAdapter = NewestAdapter(instanceUpcomingAdapterListener())
 
         upcomingRecyclerView.also {
             it.adapter = upcomingAdapter
@@ -55,7 +55,7 @@ class UpcomingFragment
         }, 333)
     }
 
-    override fun render(viewState: UpcomingViewState) {
+    override fun render(viewState: NewestViewState) {
         viewState.concerts?.let { concerts ->
             showConcerts(concerts)
         }
@@ -84,11 +84,11 @@ class UpcomingFragment
     }
 
     companion object {
-        fun newInstance() = UpcomingFragment()
+        fun newInstance() = NewestFragment()
     }
 }
 
-private fun UpcomingFragment.instanceUpcomingAdapterListener() =
+private fun NewestFragment.instanceUpcomingAdapterListener() =
     object : ConcertAdapter.Listener {
         override fun onConcertClick(viewData: ViewData) {
             val intent = Intent(

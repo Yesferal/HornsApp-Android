@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import com.yesferal.hornsapp.app.presentation.common.TitleViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import kotlinx.android.synthetic.main.item_upcoming_title.view.*
 
-class UpcomingTitleViewHolder(
+class NewestTitleViewHolder(
     itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
     constructor(

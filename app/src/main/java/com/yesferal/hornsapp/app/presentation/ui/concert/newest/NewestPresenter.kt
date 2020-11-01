@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
@@ -10,9 +10,9 @@ import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
 import java.util.*
 
-class UpcomingPresenter(
+class NewestPresenter(
     private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase
-) : BasePresenter<UpcomingFragment>() {
+) : BasePresenter<NewestFragment>() {
 
     fun onViewCreated()  {
         getConcertsByCategoryUseCase(
@@ -28,12 +28,12 @@ class UpcomingPresenter(
                 val nextYear = thisYear + 1
                 views.insertElementByYear(concertReversed, nextYear)
 
-                val viewState = UpcomingViewState(views)
+                val viewState = NewestViewState(views)
 
                 view?.render(viewState)
             },
             onError = {
-                val viewState = UpcomingViewState(
+                val viewState = NewestViewState(
                     errorMessage = R.string.error_no_items,
                 )
 

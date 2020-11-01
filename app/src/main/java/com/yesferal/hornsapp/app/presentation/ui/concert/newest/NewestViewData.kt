@@ -1,9 +1,9 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.domain.entity.Concert
 
-class UpcomingViewData(
+class NewestViewData(
     id: String,
     name: String?,
     val day: String?,
@@ -12,7 +12,7 @@ class UpcomingViewData(
 ): ViewData(id, name)
 
 fun Concert.mapToUpcomingView() =
-    UpcomingViewData(
+    NewestViewData(
         id = this.id,
         day = this.day,
         month = this.month,

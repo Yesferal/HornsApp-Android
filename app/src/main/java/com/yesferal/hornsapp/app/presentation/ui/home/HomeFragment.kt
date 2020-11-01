@@ -16,7 +16,7 @@ import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertsFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
@@ -137,7 +137,7 @@ private class ScreenSlidePagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> {
-                UpcomingFragment.newInstance()
+                NewestFragment.newInstance()
             }
             1 -> {
                 ConcertsFragment.newInstance()

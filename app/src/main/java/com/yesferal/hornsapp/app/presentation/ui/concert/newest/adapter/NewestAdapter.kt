@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,9 +7,9 @@ import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.*
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.*
 
-class UpcomingAdapter (
+class NewestAdapter (
     private val listener: ConcertAdapter.Listener,
     private val list: MutableList<ViewData> = mutableListOf()
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,13 +24,13 @@ class UpcomingAdapter (
     ): RecyclerView.ViewHolder {
         return when (viewType) {
             TITLE -> {
-                UpcomingTitleViewHolder(parent)
+                NewestTitleViewHolder(parent)
             }
             MAIN -> {
                 ConcertViewHolder(parent, listener)
             }
             else -> {
-                UpcomingViewHolder(parent, listener)
+                NewestViewHolder(parent, listener)
             }
         }
     }
@@ -55,13 +55,13 @@ class UpcomingAdapter (
     ) {
         when (val view = list[position]) {
             is TitleViewData -> {
-                (holder as UpcomingTitleViewHolder).bind(view)
+                (holder as NewestTitleViewHolder).bind(view)
             }
             is ConcertViewData -> {
                 (holder as ConcertViewHolder).bind(view)
             }
-            is UpcomingViewData -> {
-                (holder as UpcomingViewHolder).bind(view)
+            is NewestViewData -> {
+                (holder as NewestViewHolder).bind(view)
             }
         }
     }
