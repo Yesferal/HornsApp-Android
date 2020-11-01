@@ -9,7 +9,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
-import kotlinx.android.synthetic.main.item_upcoming.view.*
+import kotlinx.android.synthetic.main.item_newest.view.*
 
 class NewestViewHolder (
     itemView: View,
@@ -22,7 +22,7 @@ class NewestViewHolder (
     ) : this(
         LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.item_upcoming, parent, false),
+            .inflate(R.layout.item_newest, parent, false),
         listener
     )
 

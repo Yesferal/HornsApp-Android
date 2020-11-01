@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/dateBackgroundView"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/upcomingRecyclerView"
+        android:id="@+id/newestRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

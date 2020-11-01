@@ -19,13 +19,13 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestAd
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_upcoming.*
-import kotlinx.android.synthetic.main.fragment_upcoming.stubView
+import kotlinx.android.synthetic.main.fragment_newest.*
+import kotlinx.android.synthetic.main.fragment_newest.stubView
 
 class NewestFragment
     : BaseFragment<NewestViewState>() {
 
-    private lateinit var upcomingAdapter: NewestAdapter
+    private lateinit var newestAdapter: NewestAdapter
 
     override val actionListener by lazy {
         container.resolve<NewestPresenter>()
@@ -35,16 +35,16 @@ class NewestFragment
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_upcoming, container, false)
+        return inflater.inflate(R.layout.fragment_newest, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        upcomingAdapter = NewestAdapter(instanceUpcomingAdapterListener())
+        newestAdapter = NewestAdapter(instanceNewestAdapterListener())
 
-        upcomingRecyclerView.also {
-            it.adapter = upcomingAdapter
+        newestRecyclerView.also {
+            it.adapter = newestAdapter
             it.layoutManager = linearLayoutManagerVertical
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
@@ -73,7 +73,7 @@ class NewestFragment
     }
 
     private fun showConcerts(concerts: List<ViewData>) {
-        upcomingAdapter.setItem(concerts)
+        newestAdapter.setItem(concerts)
     }
 
     private fun showError(
@@ -88,7 +88,7 @@ class NewestFragment
     }
 }
 
-private fun NewestFragment.instanceUpcomingAdapterListener() =
+private fun NewestFragment.instanceNewestAdapterListener() =
     object : ConcertAdapter.Listener {
         override fun onConcertClick(viewData: ViewData) {
             val intent = Intent(

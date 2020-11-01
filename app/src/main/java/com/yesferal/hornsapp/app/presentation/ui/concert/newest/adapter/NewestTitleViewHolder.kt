@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.TitleViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
-import kotlinx.android.synthetic.main.item_upcoming_title.view.*
+import kotlinx.android.synthetic.main.item_newest_title.view.*
 
 class NewestTitleViewHolder(
     itemView: View
@@ -17,7 +17,7 @@ class NewestTitleViewHolder(
     ) : this(
         LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.item_upcoming_title, parent, false)
+            .inflate(R.layout.item_newest_title, parent, false)
     )
 
     fun bind(viewData: TitleViewData) {

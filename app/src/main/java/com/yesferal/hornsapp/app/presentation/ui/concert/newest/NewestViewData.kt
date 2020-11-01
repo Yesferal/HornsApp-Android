@@ -11,7 +11,7 @@ class NewestViewData(
     val ticketingHostName: String?
 ): ViewData(id, name)
 
-fun Concert.mapToUpcomingView() =
+fun Concert.mapToNewestViewData() =
     NewestViewData(
         id = this.id,
         day = this.day,

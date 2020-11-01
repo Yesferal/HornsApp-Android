@@ -14,19 +14,21 @@ class NewestAdapter (
     private val list: MutableList<ViewData> = mutableListOf()
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val TITLE = 0
-    private val UPCOMING = 1
-    private val MAIN = 2
+    enum class Key(val value: Int) {
+        TITLE(1),
+        NEWEST(2),
+        MAIN(3)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
         return when (viewType) {
-            TITLE -> {
+            Key.TITLE.value -> {
                 NewestTitleViewHolder(parent)
             }
-            MAIN -> {
+            Key.MAIN.value -> {
                 ConcertViewHolder(parent, listener)
             }
             else -> {
@@ -38,13 +40,13 @@ class NewestAdapter (
     override fun getItemViewType(position: Int): Int {
         return when(list[position]) {
             is TitleViewData -> {
-                TITLE
+                Key.TITLE.value
             }
             is ConcertViewData -> {
-                MAIN
+                Key.MAIN.value
             }
             else -> {
-                UPCOMING
+                Key.NEWEST.value
             }
         }
     }

@@ -51,7 +51,7 @@ class NewestPresenter(
             .filter { year == it.year }
             .take(3)
             .map { concert ->
-                concert.mapToUpcomingView()
+                concert.mapToNewestViewData()
             }
         )
     }
