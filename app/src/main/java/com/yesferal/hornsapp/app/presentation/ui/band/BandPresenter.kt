@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.domain.usecase.GetBandUseCase
 
 class BandPresenter(
     private val getBandUseCase: GetBandUseCase
-) : BasePresenter<BandFragment>(){
+) : BasePresenter<BandFragment>() {
 
     fun onViewCreated(id: String) {
         getBandUseCase(

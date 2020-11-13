@@ -2,17 +2,19 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.presentation.common.TitleViewData
+import com.yesferal.hornsapp.app.presentation.common.TextViewData
 import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.*
 
 class NewestAdapter (
-    private val listener: ConcertAdapter.Listener,
+    private val listener: Listener,
     private val list: MutableList<ViewData> = mutableListOf()
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    interface Listener: NewestViewHolder.Listener,
+        ConcertViewHolder.Listener
 
     enum class Key(val value: Int) {
         TITLE(1),
@@ -39,7 +41,7 @@ class NewestAdapter (
 
     override fun getItemViewType(position: Int): Int {
         return when(list[position]) {
-            is TitleViewData -> {
+            is TextViewData -> {
                 Key.TITLE.value
             }
             is ConcertViewData -> {
@@ -56,7 +58,7 @@ class NewestAdapter (
         position: Int
     ) {
         when (val view = list[position]) {
-            is TitleViewData -> {
+            is TextViewData -> {
                 (holder as NewestTitleViewHolder).bind(view)
             }
             is ConcertViewData -> {

@@ -7,30 +7,66 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 
 class ConcertAdapter (
     private val listener: Listener,
-    private val list: MutableList<ConcertViewData> = mutableListOf()
-) : RecyclerView.Adapter<ConcertViewHolder>() {
+    private val list: MutableList<ViewData> = mutableListOf()
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    interface Listener {
-        fun onConcertClick(viewData: ViewData)
+    interface Listener :
+        FiltersViewHolder.Listener,
+        ConcertViewHolder.Listener
+
+    enum class Key(val value: Int) {
+        FILTERS(1),
+        CONCERT(2)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ConcertViewHolder {
-        return ConcertViewHolder(parent, listener)
+    ): RecyclerView.ViewHolder {
+        return when (viewType) {
+            Key.FILTERS.value -> {
+                FiltersViewHolder(parent, listener)
+            }
+            else -> {
+                ConcertViewHolder(parent, listener)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when(list[position]) {
+            is FiltersViewData -> {
+                Key.FILTERS.value
+            }
+            else -> {
+                Key.CONCERT.value
+            }
+        }
     }
 
     override fun onBindViewHolder(
-        holder: ConcertViewHolder,
+        holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        holder.bind(list[position])
+        when (val view = list[position]) {
+            is FiltersViewData -> {
+                (holder as FiltersViewHolder).bind(view)
+            }
+            is ConcertViewData -> {
+                (holder as ConcertViewHolder).bind(view)
+            }
+        }
     }
 
-    fun setItem(list: List<ConcertViewData>) {
-        this.list.clear()
+    fun setCategories(filtersViewData: FiltersViewData) {
+        this.list.removeAll(this.list.filterIsInstance<FiltersViewData>())
+        this.list.add(0, filtersViewData)
+    }
+
+    fun setConcerts(list: List<ConcertViewData>) {
+        this.list.removeAll(this.list.filterIsInstance<ConcertViewData>())
         this.list.addAll(list)
+
         notifyDataSetChanged()
     }
 

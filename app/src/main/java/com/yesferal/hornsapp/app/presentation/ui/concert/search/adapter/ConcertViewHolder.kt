@@ -12,14 +12,18 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_concert.view.*
 
-class ConcertViewHolder constructor(
+class ConcertViewHolder(
     itemView: View,
-    private val listener: ConcertAdapter.Listener
+    private val listener: Listener
 ) : RecyclerView.ViewHolder(itemView) {
+
+    interface Listener {
+        fun onClick(concertViewData: ConcertViewData)
+    }
 
     constructor(
         parent: ViewGroup,
-        listener: ConcertAdapter.Listener
+        listener: Listener
     ) : this(
         LayoutInflater
             .from(parent.context)
@@ -41,7 +45,7 @@ class ConcertViewHolder constructor(
         itemView.concertImageView.load(viewData.image)
         
         itemView.containerLayout.setOnClickListener {
-            listener.onConcertClick(viewData)
+            listener.onClick(viewData)
         }
     }
 }

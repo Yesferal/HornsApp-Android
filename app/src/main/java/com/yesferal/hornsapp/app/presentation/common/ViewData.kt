@@ -5,7 +5,7 @@ open class ViewData(
     val name: String?
 )
 
-class TitleViewData(
+class TextViewData(
     id: String,
     name: String?
 ): ViewData(id, name)

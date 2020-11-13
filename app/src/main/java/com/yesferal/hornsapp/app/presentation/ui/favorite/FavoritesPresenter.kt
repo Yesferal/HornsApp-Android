@@ -4,15 +4,13 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BasePresenter
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertsViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.mapToConcertViewData
-import com.yesferal.hornsapp.domain.entity.CategoryKey
-import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
+import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
 
 class FavoritesPresenter(
-    private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase
+    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
 ) : BasePresenter<FavoritesFragment>() {
     fun onViewCreated()  {
-        getConcertsByCategoryUseCase(
-            categoryKey = CategoryKey.FAVORITE.toString(),
+        getFavoriteConcertsUseCase(
             onSuccess = { concerts ->
                 val viewState = ConcertsViewState(concerts = concerts.map {
                     it.mapToConcertViewData()

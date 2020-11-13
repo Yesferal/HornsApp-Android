@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.FiltersViewData
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -58,6 +59,10 @@ class ConcertsFragment
     }
 
     override fun render(viewState: ConcertsViewState) {
+        viewState.categories?.let {
+            showCategories(it)
+        }
+
         viewState.concerts?.let { concerts ->
             showConcerts(concerts)
         }
@@ -81,8 +86,13 @@ class ConcertsFragment
         customProgressBar.fadeOut()
     }
 
+    private fun showCategories(filtersViewData: FiltersViewData) {
+        concertAdapter.setCategories(filtersViewData)
+    }
+
     private fun showConcerts(concerts: List<ConcertViewData>) {
-        concertAdapter.setItem(concerts)
+        concertAdapter.setConcerts(concerts)
+        concertsRecyclerView.scrollToPosition(1)
     }
 
     private fun showError(
@@ -99,7 +109,8 @@ class ConcertsFragment
 
 private fun ConcertsFragment.instanceConcertAdapterListener() =
     object : ConcertAdapter.Listener {
-        override fun onConcertClick(concert: ViewData) {
+
+        override fun onClick(concertViewData: ConcertViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -107,9 +118,13 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                concert.asParcelable()
+                concertViewData.asParcelable()
             )
 
             startActivity(intent)
+        }
+
+        override fun onClick(categoryViewData: CategoryViewData) {
+            actionListener.onFilterClick(categoryViewData)
         }
     }

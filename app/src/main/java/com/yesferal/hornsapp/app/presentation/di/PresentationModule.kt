@@ -33,7 +33,7 @@ fun Container.registerPresentationModule() {
 
     this register Factory<FavoritesPresenter> {
         FavoritesPresenter(
-            getConcertsByCategoryUseCase = resolve()
+            getFavoriteConcertsUseCase = resolve()
         )
     }
 

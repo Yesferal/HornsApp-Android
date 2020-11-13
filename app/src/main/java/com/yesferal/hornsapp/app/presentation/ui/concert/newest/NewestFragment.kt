@@ -12,10 +12,10 @@ import com.yesferal.hornsapp.app.presentation.common.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestAdapter
+import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -89,8 +89,16 @@ class NewestFragment
 }
 
 private fun NewestFragment.instanceNewestAdapterListener() =
-    object : ConcertAdapter.Listener {
-        override fun onConcertClick(viewData: ViewData) {
+    object : NewestAdapter.Listener {
+        override fun onClick(concertViewData: ConcertViewData) {
+            startConcertActivity(concertViewData)
+        }
+
+        override fun onClick(newestViewData: NewestViewData) {
+            startConcertActivity(newestViewData)
+        }
+
+        private fun startConcertActivity(viewData: ViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
