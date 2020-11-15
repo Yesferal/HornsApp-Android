@@ -2,7 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
-import com.yesferal.hornsapp.app.presentation.common.BasePresenter
+import com.yesferal.hornsapp.app.presentation.common.ui.BasePresenter
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 
 class HomePresenter(
@@ -22,7 +22,7 @@ class HomePresenter(
     private fun getConcerts() {
         getConcertsUseCase(
             onSuccess = {
-                val titles = listOf("Novedades", "Buscar", "Favoritos")
+                val titles = listOf("Novedades", "Proximos", "Favoritos")
 
                 val viewState = HomeViewState(
                     fragmentTitles = titles,

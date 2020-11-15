@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*

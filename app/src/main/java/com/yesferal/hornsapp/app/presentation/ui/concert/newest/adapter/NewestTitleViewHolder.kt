@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.TextViewData
-import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.setUpWith
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TextViewData
 import kotlinx.android.synthetic.main.item_newest_title.view.*
 
 class NewestTitleViewHolder(

@@ -2,7 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.BaseActivity
+import com.yesferal.hornsapp.app.presentation.common.ui.BaseActivity
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_main.*
 

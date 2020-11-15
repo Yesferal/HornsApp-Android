@@ -9,3 +9,18 @@ class NewestViewState(
     val isLoading: Boolean = false,
     @StringRes val errorMessage: Int? = null
 ) : ViewState()
+
+
+class TextViewData(
+    id: String,
+    name: String?
+): ViewData(id, name)
+
+
+class NewestViewData(
+    id: String,
+    name: String?,
+    val day: String?,
+    val month: String?,
+    val ticketingHostName: String?
+): ViewData(id, name)

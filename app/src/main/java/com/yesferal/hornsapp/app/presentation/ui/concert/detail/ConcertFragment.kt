@@ -16,12 +16,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.*
-import com.yesferal.hornsapp.app.presentation.common.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.common.adapter.Item
-import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
+import com.yesferal.hornsapp.app.presentation.common.ui.adapter.ItemAdapter
+import com.yesferal.hornsapp.app.presentation.common.entity.Item
 import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
-import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
+import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_date_text_view.*
@@ -138,7 +137,13 @@ class ConcertFragment
             actionListener.onFavoriteImageViewClick(concert, isChecked)
         }
 
-        val items = concert.bands?.map { it.mapToBaseItem() }
+        /**
+         * TODO("Move to Presenter")
+         */
+        val items = concert.bands?.map {
+            Item(it._id, it.name, it.membersImage)
+        }
+
         bandAdapter.setItem(items)
 
         enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)

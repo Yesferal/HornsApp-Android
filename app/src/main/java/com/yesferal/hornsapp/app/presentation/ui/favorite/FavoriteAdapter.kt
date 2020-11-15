@@ -2,8 +2,8 @@ package com.yesferal.hornsapp.app.presentation.ui.favorite
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.presentation.ui.concert.search.ConcertViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.search.adapter.ConcertViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ConcertViewHolder
 
 class FavoriteAdapter (
 private val listener: Listener,

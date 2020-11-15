@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.custom.HornsBottomSheetFragment
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsBottomSheetFragment
 
 class BandBottomSheetFragment: HornsBottomSheetFragment() {
 

@@ -1,25 +1,24 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TextViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ConcertViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.FiltersViewData
+import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
 
-class NewestAdapter (
+class UpcomingAdapter (
     private val listener: Listener,
     private val list: MutableList<ViewData> = mutableListOf()
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    interface Listener: NewestViewHolder.Listener,
+    interface Listener :
+        FiltersViewHolder.Listener,
         ConcertViewHolder.Listener
 
     enum class Key(val value: Int) {
-        TITLE(1),
-        NEWEST(2),
-        MAIN(3)
+        FILTERS(1),
+        CONCERT(2)
     }
 
     override fun onCreateViewHolder(
@@ -27,28 +26,22 @@ class NewestAdapter (
         viewType: Int
     ): RecyclerView.ViewHolder {
         return when (viewType) {
-            Key.TITLE.value -> {
-                NewestTitleViewHolder(parent)
-            }
-            Key.MAIN.value -> {
-                ConcertViewHolder(parent, listener)
+            Key.FILTERS.value -> {
+                FiltersViewHolder(parent, listener)
             }
             else -> {
-                NewestViewHolder(parent, listener)
+                ConcertViewHolder(parent, listener)
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when(list[position]) {
-            is TextViewData -> {
-                Key.TITLE.value
-            }
-            is ConcertViewData -> {
-                Key.MAIN.value
+            is FiltersViewData -> {
+                Key.FILTERS.value
             }
             else -> {
-                Key.NEWEST.value
+                Key.CONCERT.value
             }
         }
     }
@@ -58,23 +51,26 @@ class NewestAdapter (
         position: Int
     ) {
         when (val view = list[position]) {
-            is TextViewData -> {
-                (holder as NewestTitleViewHolder).bind(view)
+            is FiltersViewData -> {
+                (holder as FiltersViewHolder).bind(view)
             }
             is ConcertViewData -> {
                 (holder as ConcertViewHolder).bind(view)
             }
-            is NewestViewData -> {
-                (holder as NewestViewHolder).bind(view)
-            }
         }
     }
 
-    fun setItem(list: List<ViewData>) {
-        this.list.clear()
+    fun setCategories(filtersViewData: FiltersViewData) {
+        this.list.removeAll(this.list.filterIsInstance<FiltersViewData>())
+        this.list.add(0, filtersViewData)
+    }
+
+    fun setConcerts(list: List<ConcertViewData>) {
+        this.list.removeAll(this.list.filterIsInstance<ConcertViewData>())
         this.list.addAll(list)
+
         notifyDataSetChanged()
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount(): Int = list.size
 }

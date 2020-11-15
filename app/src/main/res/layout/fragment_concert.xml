@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.CheckBoxImageView
         android:id="@+id/favoriteImageView"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bandsViewPager"
         app:layout_constraintBottom_toBottomOf="@+id/bandsViewPager"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.ImageTextView
         android:id="@+id/ticketTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.ImageTextView
         android:id="@+id/venueTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.ImageTextView
         android:id="@+id/datetimeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.ImageTextView
         android:id="@+id/facebookTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.ImageTextView
         android:id="@+id/youtubeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+    <com.yesferal.hornsapp.app.presentation.common.ui.custom.ImageTextView
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.BaseActivity
+import com.yesferal.hornsapp.app.presentation.common.ui.BaseActivity
 import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
-import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
 import kotlinx.android.synthetic.main.activity_concert.*
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
