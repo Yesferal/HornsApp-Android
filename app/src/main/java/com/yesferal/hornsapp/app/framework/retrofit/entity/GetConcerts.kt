@@ -17,50 +17,50 @@ data class GetConcerts(
     val tags: List<String>?,
     val ticketingUrl: String?,
     val ticketingHost: String?
-)
+) {
+    fun mapToConcert(): Concert {
+        val dateTime = this
+            .dateTime
+            ?.dateTimeFormatted()
 
-fun GetConcerts.mapToConcert(): Concert {
-    val dateTime = this
-        .dateTime
-        ?.dateTimeFormatted()
+        val day = this
+            .dateTime
+            ?.dayFormatted()
 
-    val day = this
-        .dateTime
-        ?.dayFormatted()
+        val month = this
+            .dateTime
+            ?.monthFormatted()
 
-    val month = this
-        .dateTime
-        ?.monthFormatted()
+        val year = this
+            .dateTime
+            ?.yearFormatted()?.toInt()
 
-    val year = this
-        .dateTime
-        ?.yearFormatted()?.toInt()
+        val time = this
+            .dateTime
+            ?.timeFormatted()
 
-    val time = this
-        .dateTime
-        ?.timeFormatted()
+        val facebookUrl = socialNetworks?.first()
 
-    val facebookUrl = socialNetworks?.first()
+        val isFavorite = false
 
-    val isFavorite = false
-
-    return Concert(
-        id = this._id,
-        name = this.name,
-        description = this.description,
-        headlinerImage = this.headlinerImage,
-        date = this.dateTime,
-        dateTime = dateTime,
-        day = day,
-        month = month,
-        year = year,
-        time = time,
-        trailerUrl = this.trailerUrl?.toSafeUri(),
-        facebookUrl = facebookUrl?.toSafeUri(),
-        isFavorite = isFavorite,
-        genre = this.genre,
-        tags = this.tags,
-        ticketingUrl = this.ticketingUrl?.toSafeUri(),
-        ticketingHost = this.ticketingHost
-    )
+        return Concert(
+            id = this._id,
+            name = this.name,
+            description = this.description,
+            headlinerImage = this.headlinerImage,
+            date = this.dateTime,
+            dateTime = dateTime,
+            day = day,
+            month = month,
+            year = year,
+            time = time,
+            trailerUrl = this.trailerUrl?.toSafeUri(),
+            facebookUrl = facebookUrl?.toSafeUri(),
+            isFavorite = isFavorite,
+            genre = this.genre,
+            tags = this.tags,
+            ticketingUrl = this.ticketingUrl?.toSafeUri(),
+            ticketingHost = this.ticketingHost
+        )
+    }
 }
