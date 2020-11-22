@@ -14,11 +14,11 @@ import com.yesferal.hornsapp.app.presentation.common.ui.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_concerts.*
+import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class FavoritesFragment
     : BaseFragment<FavoritesViewState>() {
@@ -84,7 +84,7 @@ class FavoritesFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showConcerts(concerts: List<ConcertViewData>) {
+    private fun showConcerts(concerts: List<UpcomingViewData>) {
         favoriteAdapter.setItem(concerts)
     }
 
@@ -102,7 +102,7 @@ class FavoritesFragment
 
 private fun FavoritesFragment.instanceConcertAdapterListener() =
     object : FavoriteAdapter.Listener {
-        override fun onClick(concertViewData: ConcertViewData) {
+        override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -110,7 +110,7 @@ private fun FavoritesFragment.instanceConcertAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                concertViewData.asParcelable()
+                upcomingViewData.asParcelable()
             )
 
             startActivity(intent)

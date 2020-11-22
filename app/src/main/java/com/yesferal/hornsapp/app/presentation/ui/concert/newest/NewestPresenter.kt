@@ -3,7 +3,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ui.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
@@ -21,16 +21,16 @@ class NewestPresenter(
                 val concertReversed = it.reversed()
                 val firstConcert = concertReversed.first()
                 views.add(
-                    ConcertViewData(
-                    id = firstConcert.id,
-                    image = firstConcert.headlinerImage,
-                    day = firstConcert.day,
-                    month = firstConcert.month,
-                    year = firstConcert.year.toString(),
-                    name = firstConcert.name,
-                    time = firstConcert.time,
-                    genre = firstConcert.genre
-                )
+                    UpcomingViewData(
+                        id = firstConcert.id,
+                        image = firstConcert.headlinerImage,
+                        day = firstConcert.day,
+                        month = firstConcert.month,
+                        year = firstConcert.year.toString(),
+                        name = firstConcert.name,
+                        time = firstConcert.time,
+                        genre = firstConcert.genre
+                    )
                 )
 
                 val thisYear = Calendar.getInstance().get(Calendar.YEAR)

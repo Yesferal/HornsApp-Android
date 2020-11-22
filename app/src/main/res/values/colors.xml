@@ -7,5 +7,5 @@
     <color name="primaryText">@color/primaryDark</color>
     <color name="secondaryText">#616E91</color>
 
-    <color name="background">#f5f8fd</color>
+    <color name="background">#FFFFFF</color>
 </resources>

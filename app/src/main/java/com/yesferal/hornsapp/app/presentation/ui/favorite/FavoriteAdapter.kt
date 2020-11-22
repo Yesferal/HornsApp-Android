@@ -2,31 +2,31 @@ package com.yesferal.hornsapp.app.presentation.ui.favorite
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ConcertViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 
 class FavoriteAdapter (
 private val listener: Listener,
-private val list: MutableList<ConcertViewData> = mutableListOf()
-) : RecyclerView.Adapter<ConcertViewHolder>() {
+private val list: MutableList<UpcomingViewData> = mutableListOf()
+) : RecyclerView.Adapter<UpcomingViewHolder>() {
 
-    interface Listener: ConcertViewHolder.Listener
+    interface Listener: UpcomingViewHolder.Listener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ConcertViewHolder {
-        return ConcertViewHolder(parent, listener)
+    ): UpcomingViewHolder {
+        return UpcomingViewHolder(parent, listener)
     }
 
     override fun onBindViewHolder(
-        holder: ConcertViewHolder,
+        holder: UpcomingViewHolder,
         position: Int
     ) {
         holder.bind(list[position])
     }
 
-    fun setItem(list: List<ConcertViewData>) {
+    fun setItem(list: List<UpcomingViewData>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()

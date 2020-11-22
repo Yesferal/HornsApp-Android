@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui
+package com.yesferal.hornsapp.app.presentation.ui.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -1,13 +1,20 @@
 package com.yesferal.hornsapp.app.presentation.common
 
-import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 open class ViewData(
     val id: String,
     val name: String?
 ) {
-    fun asParcelable(): ItemParcelable {
-        return ItemParcelable(
+    @Parcelize
+    class Parcelabled(
+        val id: String,
+        val name: String?
+    ) : Parcelable
+
+    fun asParcelable(): Parcelabled {
+        return Parcelabled(
             id,
             name
         )

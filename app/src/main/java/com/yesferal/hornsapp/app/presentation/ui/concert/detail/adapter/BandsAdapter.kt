@@ -1,26 +1,26 @@
-package com.yesferal.hornsapp.app.presentation.common.ui.adapter
+package com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.presentation.common.entity.Item
+import com.yesferal.hornsapp.app.presentation.ui.concert.detail.BandViewData
 
-class ItemAdapter (
+class BandsAdapter (
     private val listener: Listener
-) : RecyclerView.Adapter<ItemViewHolder>() {
-    private var list: List<Item> = listOf()
+) : RecyclerView.Adapter<BandViewHolder>() {
+    private var list: List<BandViewData> = listOf()
 
     interface Listener {
-        fun onClick(item: Item)
+        fun onClick(bandViewData: BandViewData)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ItemViewHolder {
-        return ItemViewHolder(parent, listener)
+    ): BandViewHolder {
+        return BandViewHolder(parent, listener)
     }
 
-    fun setItem(list: List<Item>?) {
+    fun setItem(list: List<BandViewData>?) {
         this.list = list?: listOf()
         notifyDataSetChanged()
     }
@@ -28,7 +28,7 @@ class ItemAdapter (
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(
-        holder: ItemViewHolder,
+        holder: BandViewHolder,
         position: Int
     ) {
         holder.bind(list[position])

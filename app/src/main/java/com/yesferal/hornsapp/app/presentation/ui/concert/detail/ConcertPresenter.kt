@@ -18,8 +18,35 @@ class ConcertPresenter(
         getConcertUseCase(
             id,
             onSuccess = {
+                val concert = ConcertViewData(
+                    it.id,
+                    it.name,
+                    it.description,
+                    it.date,
+                    it.dateTime,
+                    it.day,
+                    it.month,
+                    it.trailerUrl,
+                    it.facebookUrl,
+                    it.isFavorite,
+                    it.genre,
+                    it.ticketingHost,
+                    it.ticketingUrl,
+                    it.venue
+                )
+
+                val bands = it.bands?.map { band ->
+                    BandViewData(
+                        band._id,
+                        it.name,
+                        band.membersImage,
+                        band.genre
+                    )
+                }
+
                 val viewState = ConcertViewState(
-                    concert = it,
+                    concert = concert,
+                    bands = bands,
                     adView = adManager.concertDetailAdView()
                 )
                 view?.render(viewState)
@@ -31,12 +58,13 @@ class ConcertPresenter(
     }
 
     fun onFavoriteImageViewClick(
-        concert: Concert,
+        concert: ConcertViewData,
         isChecked: Boolean
     ) {
         concert.isFavorite = isChecked
         updateFavoriteConcertUseCase(
-            concert,
+            concert.isFavorite,
+            concert.id,
             onInsert = {
                 view?.render(ViewEffect.Toast(R.string.add_to_favorite))
             },

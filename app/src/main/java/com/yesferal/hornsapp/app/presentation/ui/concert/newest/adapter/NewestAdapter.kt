@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TextViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ConcertViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 
 class NewestAdapter (
     private val listener: Listener,
@@ -14,7 +14,7 @@ class NewestAdapter (
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface Listener: NewestViewHolder.Listener,
-        ConcertViewHolder.Listener
+        UpcomingViewHolder.Listener
 
     enum class Key(val value: Int) {
         TITLE(1),
@@ -31,7 +31,7 @@ class NewestAdapter (
                 NewestTitleViewHolder(parent)
             }
             Key.MAIN.value -> {
-                ConcertViewHolder(parent, listener)
+                UpcomingViewHolder(parent, listener)
             }
             else -> {
                 NewestViewHolder(parent, listener)
@@ -44,7 +44,7 @@ class NewestAdapter (
             is TextViewData -> {
                 Key.TITLE.value
             }
-            is ConcertViewData -> {
+            is UpcomingViewData -> {
                 Key.MAIN.value
             }
             else -> {
@@ -61,8 +61,8 @@ class NewestAdapter (
             is TextViewData -> {
                 (holder as NewestTitleViewHolder).bind(view)
             }
-            is ConcertViewData -> {
-                (holder as ConcertViewHolder).bind(view)
+            is UpcomingViewData -> {
+                (holder as UpcomingViewHolder).bind(view)
             }
             is NewestViewData -> {
                 (holder as NewestViewHolder).bind(view)

@@ -23,7 +23,7 @@
             android:value="${crashlyticsCollectionEnabled}" />
 
         <activity
-            android:name=".presentation.ui.SplashActivity"
+            android:name=".presentation.ui.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HornsApp.Splash" >
             <intent-filter>

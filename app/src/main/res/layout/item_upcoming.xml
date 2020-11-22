@@ -5,8 +5,7 @@
     android:id="@+id/containerLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_medium"
-    android:layout_marginBottom="@dimen/margin_medium">
+    android:layout_marginVertical="@dimen/margin_small">
 
     <include
         android:id="@+id/custom_date_text_view"

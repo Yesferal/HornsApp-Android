@@ -8,17 +8,17 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.load
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.setUpWith
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
-import kotlinx.android.synthetic.main.item_concert.view.*
+import kotlinx.android.synthetic.main.item_upcoming.view.*
 
-class ConcertViewHolder(
+class UpcomingViewHolder(
     itemView: View,
     private val listener: Listener
 ) : RecyclerView.ViewHolder(itemView) {
 
     interface Listener {
-        fun onClick(concertViewData: ConcertViewData)
+        fun onClick(upcomingViewData: UpcomingViewData)
     }
 
     constructor(
@@ -27,25 +27,25 @@ class ConcertViewHolder(
     ) : this(
         LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.item_concert, parent, false),
+            .inflate(R.layout.item_upcoming, parent, false),
         listener
     )
 
-    fun bind(viewData: ConcertViewData) {
-        viewData.year?.let {
+    fun bind(upcomingViewData: UpcomingViewData) {
+        upcomingViewData.year?.let {
             itemView.tagTextView.setUpWith("#$it")
         }
-        itemView.titleTextView.setUpWith(viewData.name)
-        itemView.dayTextView.setUpWith(viewData.day)
-        itemView.monthTextView.setUpWith(viewData.month)
-        itemView.timeTextView.setUpWith(viewData.time)
-        itemView.genreTextView.setUpWith(viewData.genre)
+        itemView.titleTextView.setUpWith(upcomingViewData.name)
+        itemView.dayTextView.setUpWith(upcomingViewData.day)
+        itemView.monthTextView.setUpWith(upcomingViewData.month)
+        itemView.timeTextView.setUpWith(upcomingViewData.time)
+        itemView.genreTextView.setUpWith(upcomingViewData.genre)
 
         itemView.concertImageView.setAllCornersRounded()
-        itemView.concertImageView.load(viewData.image)
+        itemView.concertImageView.load(upcomingViewData.image)
         
         itemView.containerLayout.setOnClickListener {
-            listener.onClick(viewData)
+            listener.onClick(upcomingViewData)
         }
     }
 }

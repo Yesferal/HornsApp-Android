@@ -6,9 +6,9 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
@@ -16,10 +16,8 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARC
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.hada.container.resolve
-import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_concerts.*
-import kotlinx.android.synthetic.main.fragment_concerts.stubView
+import kotlinx.android.synthetic.main.fragment_upcoming.*
 
 class ConcertsFragment
     : BaseFragment<UpcomingViewState>() {
@@ -34,7 +32,7 @@ class ConcertsFragment
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_concerts, container, false)
+        return inflater.inflate(R.layout.fragment_upcoming, container, false)
     }
 
     override fun onViewCreated(
@@ -62,16 +60,9 @@ class ConcertsFragment
     }
 
     override fun render(viewState: UpcomingViewState) {
-        viewState.categories?.let {
-            showCategories(it)
-        }
 
-        viewState.concerts?.let { concerts ->
+        viewState.items?.let { concerts ->
             showConcerts(concerts)
-        }
-
-        viewState.errorMessage?.let {
-            showError(messageId =  viewState.errorMessage)
         }
 
         if (viewState.isLoading) {
@@ -89,20 +80,10 @@ class ConcertsFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showCategories(filtersViewData: FiltersViewData) {
-        concertAdapter.setCategories(filtersViewData)
-    }
-
-    private fun showConcerts(concerts: List<ConcertViewData>) {
-        concertAdapter.setConcerts(concerts)
-        concertsRecyclerView.scrollToPosition(1)
-    }
-
-    private fun showError(
-        @StringRes messageId: Int
+    private fun showConcerts(
+        concerts: List<ViewData>
     ) {
-        stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(messageId)
+        concertAdapter.setItems(concerts)
     }
 
     companion object {
@@ -113,7 +94,7 @@ class ConcertsFragment
 private fun ConcertsFragment.instanceConcertAdapterListener() =
     object : UpcomingAdapter.Listener {
 
-        override fun onClick(concertViewData: ConcertViewData) {
+        override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -121,7 +102,7 @@ private fun ConcertsFragment.instanceConcertAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                concertViewData.asParcelable()
+                upcomingViewData.asParcelable()
             )
 
             startActivity(intent)

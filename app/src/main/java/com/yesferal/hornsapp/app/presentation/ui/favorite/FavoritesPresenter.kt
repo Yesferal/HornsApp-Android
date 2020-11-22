@@ -2,8 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.favorite
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ui.BasePresenter
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewState
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
 
 class FavoritesPresenter(
@@ -13,7 +12,7 @@ class FavoritesPresenter(
         getFavoriteConcertsUseCase(
             onSuccess = { concerts ->
                 val viewState = FavoritesViewState(concerts = concerts.map {
-                    ConcertViewData(
+                    UpcomingViewData(
                         id = it.id,
                         image = it.headlinerImage,
                         day = it.day,
