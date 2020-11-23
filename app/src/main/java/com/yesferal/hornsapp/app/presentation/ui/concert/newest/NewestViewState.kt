@@ -2,6 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.common.ViewState
 
@@ -13,20 +14,27 @@ class NewestViewState(
 
 
 class TextViewData(
-    id: String,
-    name: String?
-): ViewHolderData(id, name) {
+    val id: String,
+    val name: String?
+): ViewHolderData {
     override fun getViewType() = R.layout.item_newest_title
 }
 
 
 class NewestViewData(
-    id: String,
-    name: String?,
+    val id: String,
+    val name: String?,
     val day: String?,
     val month: String?,
     val ticketingHostName: String?
-): ViewHolderData(id, name) {
+): ViewHolderData {
+
+    fun asParcelable(): ParcelableViewData {
+        return ParcelableViewData(
+            id,
+            name
+        )
+    }
 
     interface Listener: ViewHolderData.Listener {
         fun onClick(newestViewData: NewestViewData)

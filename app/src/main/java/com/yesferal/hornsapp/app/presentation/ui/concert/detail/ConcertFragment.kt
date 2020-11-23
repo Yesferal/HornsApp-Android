@@ -56,7 +56,7 @@ class ConcertFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<ViewData.Parcelabled>(
+        val item = arguments?.getParcelable<ParcelableViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 
@@ -280,7 +280,7 @@ class ConcertFragment
 
     companion object {
         fun newInstance(
-            item: ViewData.Parcelabled
+            item: ParcelableViewData
         ) : ConcertFragment {
             val bundle = Bundle()
             bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)

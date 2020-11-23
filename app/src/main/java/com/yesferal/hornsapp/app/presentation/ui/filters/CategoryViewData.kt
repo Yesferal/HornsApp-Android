@@ -5,6 +5,6 @@ import com.yesferal.hornsapp.domain.entity.CategoryKey
 
 class CategoryViewData(
     val categoryKey: CategoryKey,
-    name: String?,
+    val name: String?,
     val isSelected: Boolean = false
-): ViewData(categoryKey.toString(), name)
+): ViewData

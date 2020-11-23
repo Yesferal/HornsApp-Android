@@ -2,6 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
+import com.yesferal.hornsapp.app.presentation.common.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.common.ViewState
 import com.yesferal.hornsapp.domain.entity.Venue
@@ -16,9 +17,9 @@ data class ConcertViewState(
     @StringRes val errorMessageId: Int? = null
 ) : ViewState()
 
-class ConcertViewData(
-    id: String,
-    name: String?,
+data class ConcertViewData(
+    val id: String,
+    val name: String?,
     val description: String?,
     val date: Date?,
     val dateTime: String?,
@@ -31,11 +32,18 @@ class ConcertViewData(
     val ticketingHost: String? = null,
     val ticketingUrl: URI? = null,
     val venue: Venue? = null,
-) : ViewData(id, name)
+) : ViewData
 
-class BandViewData(
-    id: String,
-    name: String?,
+data class BandViewData(
+    val id: String,
+    val name: String?,
     val membersImage: String?,
     val genre: String?
-) : ViewData(id, name)
+) : ViewData {
+    fun asParcelable(): ParcelableViewData {
+        return ParcelableViewData(
+            id,
+            name
+        )
+    }
+}

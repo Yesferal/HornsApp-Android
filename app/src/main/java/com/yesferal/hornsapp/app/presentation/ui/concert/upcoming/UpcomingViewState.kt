@@ -12,16 +12,23 @@ data class UpcomingViewState(
     val error: ErrorViewData? = null
 ) : ViewState()
 
-class UpcomingViewData(
-    id: String,
-    name: String?,
+data class UpcomingViewData(
+    val id: String,
+    val name: String?,
     val image: String?,
     val day: String?,
     val month: String?,
     val year: String?,
     val time: String?,
     val genre: String?
-) : ViewHolderData(id, name) {
+) : ViewHolderData {
+
+    fun asParcelable(): ParcelableViewData {
+        return ParcelableViewData(
+            id,
+            name
+        )
+    }
 
     interface Listener: ViewHolderData.Listener {
         fun onClick(upcomingViewData: UpcomingViewData)
@@ -32,7 +39,7 @@ class UpcomingViewData(
 
 data class FiltersViewData(
     val categories: List<CategoryViewData>
-) : ViewHolderData(String(), String()) {
+) : ViewHolderData {
 
     interface Listener: ViewHolderData.Listener {
         fun onClick(categoryViewData: CategoryViewData)
@@ -44,7 +51,7 @@ data class FiltersViewData(
 data class ErrorViewData(
     @DrawableRes val imageId: Int,
     @StringRes val errorMessage: Int
-) : ViewHolderData(imageId.toString(), errorMessage.toString()) {
+) : ViewHolderData {
 
     override fun getViewType(): Int = R.layout.custom_error
 }

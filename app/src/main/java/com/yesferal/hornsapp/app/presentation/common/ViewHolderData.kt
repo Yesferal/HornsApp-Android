@@ -1,11 +1,8 @@
 package com.yesferal.hornsapp.app.presentation.common
 
-abstract class ViewHolderData(
-    id: String,
-    name: String?
-): ViewData(id, name) {
+interface ViewHolderData: ViewData {
 
     interface Listener
 
-    abstract fun getViewType(): Int
+    fun getViewType(): Int
 }

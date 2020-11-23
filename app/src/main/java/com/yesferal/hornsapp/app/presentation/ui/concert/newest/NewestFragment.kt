@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.ViewData
 import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
@@ -113,14 +113,14 @@ interface Listener:
 private fun NewestFragment.instanceAdapterListener() =
     object : Listener {
         override fun onClick(upcomingViewData: UpcomingViewData) {
-            startConcertActivity(upcomingViewData)
+            startConcertActivity(upcomingViewData.asParcelable())
         }
 
         override fun onClick(newestViewData: NewestViewData) {
-            startConcertActivity(newestViewData)
+            startConcertActivity(newestViewData.asParcelable())
         }
 
-        private fun startConcertActivity(viewData: ViewData) {
+        private fun startConcertActivity(parcelableViewData: ParcelableViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -128,7 +128,7 @@ private fun NewestFragment.instanceAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                viewData.asParcelable()
+                parcelableViewData
             )
 
             startActivity(intent)
