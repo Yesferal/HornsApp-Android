@@ -14,7 +14,10 @@ import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ErrorViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_upcoming.*
@@ -41,7 +44,17 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        hornsAdapter = HornsAdapter(instanceAdapterListener())
+        hornsAdapter = HornsAdapter(mapOf(
+            R.layout.item_upcoming to { itemView, listener ->
+                UpcomingViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+            },
+            R.layout.custom_error to { itemView, _ ->
+                ErrorViewHolder(itemView) as HornsViewHolder<ViewHolderData>
+            },
+            R.layout.item_filters to { itemView, listener ->
+                FiltersViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+            }
+        ), instanceAdapterListener())
 
         concertsRecyclerView.also {
             it.adapter = hornsAdapter
