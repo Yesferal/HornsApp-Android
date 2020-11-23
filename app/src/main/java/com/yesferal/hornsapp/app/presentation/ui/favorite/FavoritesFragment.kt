@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsAdapter
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.fadeOut
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 class FavoritesFragment
     : BaseFragment<FavoritesViewState>() {
 
-    private lateinit var favoriteAdapter: FavoriteAdapter
+    private lateinit var hornsAdapter: HornsAdapter
 
     override val actionListener by lazy {
         container.resolve<FavoritesPresenter>()
@@ -42,10 +43,10 @@ class FavoritesFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        favoriteAdapter = FavoriteAdapter(instanceConcertAdapterListener())
+        hornsAdapter = HornsAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
-            it.adapter = favoriteAdapter
+            it.adapter = hornsAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -85,7 +86,7 @@ class FavoritesFragment
     }
 
     private fun showConcerts(concerts: List<UpcomingViewData>) {
-        favoriteAdapter.setItem(concerts)
+        hornsAdapter.setItems(concerts)
     }
 
     private fun showError(
@@ -100,8 +101,11 @@ class FavoritesFragment
     }
 }
 
-private fun FavoritesFragment.instanceConcertAdapterListener() =
-    object : FavoriteAdapter.Listener {
+interface Listener:
+    UpcomingViewData.Listener
+
+private fun FavoritesFragment.instanceAdapterListener() =
+    object : Listener {
         override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(
                 activity,

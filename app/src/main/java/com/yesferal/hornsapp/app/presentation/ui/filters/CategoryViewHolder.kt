@@ -1,6 +1,5 @@
 package com.yesferal.hornsapp.app.presentation.ui.filters
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +18,6 @@ class CategoryViewHolder(
         fun onClick(textViewData: CategoryViewData)
     }
 
-    private var selectedColor: ColorStateList? = null
-    private var unselectedColor: ColorStateList? = null
-
     constructor(
         parent: ViewGroup,
         listener: Listener
@@ -30,18 +26,17 @@ class CategoryViewHolder(
             .from(parent.context)
             .inflate(R.layout.item_category, parent, false),
         listener
-    ) {
-        selectedColor = ContextCompat.getColorStateList(parent.context, R.color.accent)
-        unselectedColor = ContextCompat.getColorStateList(parent.context, R.color.secondaryText)
-    }
+    )
 
     fun bind(viewData: CategoryViewData) {
         itemView.nameTextView.setUpWith(viewData.name)
 
         if (viewData.isSelected) {
+            val selectedColor = ContextCompat.getColorStateList(itemView.nameTextView.context, R.color.accent)
             itemView.nameTextView.setTextColor(selectedColor)
             itemView.nameTextView.backgroundTintList = selectedColor
         } else {
+            val unselectedColor = ContextCompat.getColorStateList(itemView.nameTextView.context, R.color.secondaryText)
             itemView.nameTextView.setTextColor(unselectedColor)
             itemView.nameTextView.backgroundTintList = unselectedColor
         }

@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ViewData
+import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingAdapter
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_upcoming.*
 class ConcertsFragment
     : BaseFragment<UpcomingViewState>() {
 
-    private lateinit var concertAdapter: UpcomingAdapter
+    private lateinit var hornsAdapter: HornsAdapter
 
     override val actionListener by lazy {
         container.resolve<UpcomingPresenter>()
@@ -41,10 +41,10 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        concertAdapter = UpcomingAdapter(instanceConcertAdapterListener())
+        hornsAdapter = HornsAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
-            it.adapter = concertAdapter
+            it.adapter = hornsAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -81,9 +81,9 @@ class ConcertsFragment
     }
 
     private fun showConcerts(
-        concerts: List<ViewData>
+        concerts: List<ViewHolderData>
     ) {
-        concertAdapter.setItems(concerts)
+        hornsAdapter.setItems(concerts)
     }
 
     companion object {
@@ -91,8 +91,12 @@ class ConcertsFragment
     }
 }
 
-private fun ConcertsFragment.instanceConcertAdapterListener() =
-    object : UpcomingAdapter.Listener {
+interface Listener:
+    FiltersViewData.Listener,
+    UpcomingViewData.Listener
+
+private fun ConcertsFragment.instanceAdapterListener() =
+    object : Listener {
 
         override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(

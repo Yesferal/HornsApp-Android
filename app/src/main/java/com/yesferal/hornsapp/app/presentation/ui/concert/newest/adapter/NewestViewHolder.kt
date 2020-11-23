@@ -1,10 +1,8 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsViewHolder
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
@@ -12,26 +10,12 @@ import kotlinx.android.synthetic.main.item_newest.view.*
 
 class NewestViewHolder (
     itemView: View,
-    private val listener: Listener
-) : RecyclerView.ViewHolder(itemView) {
+    listener: ViewHolderData.Listener
+) : HornsViewHolder<NewestViewData>(itemView, listener) {
 
-    interface Listener {
-        fun onClick(newestViewData: NewestViewData)
-    }
-
-    constructor(
-        parent: ViewGroup,
-        listener: Listener
-    ) : this(
-        LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_newest, parent, false),
-        listener
-    )
-
-    fun bind(viewData: NewestViewData) {
+    override fun bind(viewData: NewestViewData) {
         itemView.containerLayout.setOnClickListener {
-            listener.onClick(viewData)
+            (listener as NewestViewData.Listener).onClick(viewData)
         }
 
         itemView.titleTextView.setUpWith(viewData.name)

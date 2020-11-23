@@ -3,7 +3,7 @@ package com.yesferal.hornsapp.app.presentation.common
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-open class ViewData(
+abstract class ViewData(
     val id: String,
     val name: String?
 ) {

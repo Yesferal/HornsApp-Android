@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ViewData
+import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.common.ui.BasePresenter
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
@@ -35,7 +35,7 @@ class UpcomingPresenter(
             categoryKey = categoryKey,
             onSuccess = { concerts ->
 
-                val items = mutableListOf<ViewData>().apply {
+                val items = mutableListOf<ViewHolderData>().apply {
                     add(FiltersViewData(categories))
                     addAll(
                         concerts.map {

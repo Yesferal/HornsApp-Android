@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ViewData
+import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsAdapter
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_newest.stubView
 class NewestFragment
     : BaseFragment<NewestViewState>() {
 
-    private lateinit var newestAdapter: NewestAdapter
+    private lateinit var hornsAdapter: HornsAdapter
 
     override val actionListener by lazy {
         container.resolve<NewestPresenter>()
@@ -41,10 +42,10 @@ class NewestFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        newestAdapter = NewestAdapter(instanceNewestAdapterListener())
+        hornsAdapter = HornsAdapter(instanceAdapterListener())
 
         newestRecyclerView.also {
-            it.adapter = newestAdapter
+            it.adapter = hornsAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -76,8 +77,8 @@ class NewestFragment
         }
     }
 
-    private fun showConcerts(concerts: List<ViewData>) {
-        newestAdapter.setItem(concerts)
+    private fun showConcerts(concerts: List<ViewHolderData>) {
+        hornsAdapter.setItems(concerts)
     }
 
     private fun showError(
@@ -92,8 +93,12 @@ class NewestFragment
     }
 }
 
-private fun NewestFragment.instanceNewestAdapterListener() =
-    object : NewestAdapter.Listener {
+interface Listener:
+    NewestViewData.Listener,
+    UpcomingViewData.Listener
+
+private fun NewestFragment.instanceAdapterListener() =
+    object : Listener {
         override fun onClick(upcomingViewData: UpcomingViewData) {
             startConcertActivity(upcomingViewData)
         }
