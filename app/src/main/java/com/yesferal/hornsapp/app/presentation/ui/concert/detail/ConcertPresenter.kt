@@ -4,7 +4,6 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.presentation.common.ui.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.ViewEffect
-import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
 
