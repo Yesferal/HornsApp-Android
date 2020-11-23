@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
 
 import android.view.View
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsViewHolder
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import kotlinx.android.synthetic.main.custom_error.view.*

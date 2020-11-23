@@ -2,8 +2,8 @@ package com.yesferal.hornsapp.app.presentation.ui.filters
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsViewHolder
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.RecyclerViewHorizontalDecorator
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.FiltersViewData
 import kotlinx.android.synthetic.main.item_filters.view.*

@@ -1,8 +1,8 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
 
 import android.view.View
-import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsViewHolder
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.load
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.setUpWith

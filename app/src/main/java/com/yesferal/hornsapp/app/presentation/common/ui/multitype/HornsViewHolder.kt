@@ -1,8 +1,7 @@
-package com.yesferal.hornsapp.app.presentation.common.ui.custom
+package com.yesferal.hornsapp.app.presentation.common.ui.multitype
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 
 abstract class HornsViewHolder<VIEW_DATA: ViewHolderData>(
     itemView: View,

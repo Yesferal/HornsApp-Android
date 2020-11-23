@@ -1,10 +1,16 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
+import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.*
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ErrorViewHolder
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
 
 data class UpcomingViewState(
     val items: List<ViewHolderData>? = null,
@@ -35,6 +41,14 @@ data class UpcomingViewData(
     }
 
     override fun getViewType(): Int = R.layout.item_upcoming
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getViewHolder(
+        itemView: View,
+        listener: ViewHolderData.Listener
+    ): HornsViewHolder<ViewHolderData> {
+        return UpcomingViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+    }
 }
 
 data class FiltersViewData(
@@ -46,6 +60,14 @@ data class FiltersViewData(
     }
 
     override fun getViewType(): Int = R.layout.item_filters
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getViewHolder(
+        itemView: View,
+        listener: ViewHolderData.Listener
+    ): HornsViewHolder<ViewHolderData> {
+        return FiltersViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+    }
 }
 
 data class ErrorViewData(
@@ -54,4 +76,12 @@ data class ErrorViewData(
 ) : ViewHolderData {
 
     override fun getViewType(): Int = R.layout.custom_error
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getViewHolder(
+        itemView: View,
+        listener: ViewHolderData.Listener
+    ): HornsViewHolder<ViewHolderData> {
+        return ErrorViewHolder(itemView) as HornsViewHolder<ViewHolderData>
+    }
 }

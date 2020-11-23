@@ -2,7 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.ui.BasePresenter
-import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert

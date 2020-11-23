@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
+import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -42,11 +41,7 @@ class FavoritesFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        hornsAdapter = HornsAdapter(mapOf(
-            R.layout.item_upcoming to { itemView, listener ->
-                UpcomingViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
-            }
-        ), instanceAdapterListener())
+        hornsAdapter = HornsAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
             it.adapter = hornsAdapter
