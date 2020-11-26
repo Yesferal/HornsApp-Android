@@ -28,7 +28,7 @@ class HornsAdapter (
     }
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].getViewType()
+        return list[position].layout
     }
 
     override fun onBindViewHolder(
@@ -42,7 +42,9 @@ class HornsAdapter (
         this.list.clear()
         list.forEach {
             this.list.add(it)
-            this.viewTypes[it.getViewType()] = { view, listener -> it.getViewHolder(view, listener) }
+            this.viewTypes[it.layout] = { view, listener ->
+                it.onCreateViewHolder(view, listener)
+            }
         }
 
         notifyDataSetChanged()

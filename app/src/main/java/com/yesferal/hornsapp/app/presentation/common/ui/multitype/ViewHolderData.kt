@@ -1,11 +1,13 @@
 package com.yesferal.hornsapp.app.presentation.common.ui.multitype
 
 import android.view.View
+import androidx.annotation.LayoutRes
 
 interface ViewHolderData {
 
     interface Listener
 
-    fun getViewType(): Int
-    fun getViewHolder(itemView: View, listener: Listener): HornsViewHolder<ViewHolderData>
+    @get:LayoutRes val layout: Int
+
+    fun onCreateViewHolder(itemView: View, listener: Listener): HornsViewHolder<ViewHolderData>
 }

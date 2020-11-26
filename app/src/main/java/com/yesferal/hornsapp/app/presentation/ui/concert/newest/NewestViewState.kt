@@ -17,14 +17,14 @@ class NewestViewState(
 ) : ViewState()
 
 
-class TextViewData(
+class NewestTitleViewData(
     val id: String,
     val name: String?
 ): ViewHolderData {
-    override fun getViewType() = R.layout.item_newest_title
+    override val layout = R.layout.item_newest_title
 
     @Suppress("UNCHECKED_CAST")
-    override fun getViewHolder(
+    override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderData.Listener
     ): HornsViewHolder<ViewHolderData> {
@@ -52,10 +52,10 @@ class NewestViewData(
         fun onClick(newestViewData: NewestViewData)
     }
 
-    override fun getViewType() = R.layout.item_newest
+    override val layout = R.layout.item_newest
 
     @Suppress("UNCHECKED_CAST")
-    override fun getViewHolder(
+    override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderData.Listener
     ): HornsViewHolder<ViewHolderData> {

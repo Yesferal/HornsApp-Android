@@ -57,7 +57,7 @@ class NewestPresenter(
         concerts: List<Concert>,
         year: Int
     ) {
-        this.add(TextViewData(year.toString(), "#$year"))
+        this.add(NewestTitleViewData(year.toString(), "#$year"))
         this.addAll(concerts
             .filter { year == it.year }
             .take(3)

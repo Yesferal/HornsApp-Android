@@ -40,10 +40,10 @@ data class UpcomingViewData(
         fun onClick(upcomingViewData: UpcomingViewData)
     }
 
-    override fun getViewType(): Int = R.layout.item_upcoming
+    override val layout = R.layout.item_upcoming
 
     @Suppress("UNCHECKED_CAST")
-    override fun getViewHolder(
+    override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderData.Listener
     ): HornsViewHolder<ViewHolderData> {
@@ -59,10 +59,10 @@ data class FiltersViewData(
         fun onClick(categoryViewData: CategoryViewData)
     }
 
-    override fun getViewType(): Int = R.layout.item_filters
+    override val layout = R.layout.item_filters
 
     @Suppress("UNCHECKED_CAST")
-    override fun getViewHolder(
+    override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderData.Listener
     ): HornsViewHolder<ViewHolderData> {
@@ -75,10 +75,10 @@ data class ErrorViewData(
     @StringRes val errorMessage: Int
 ) : ViewHolderData {
 
-    override fun getViewType(): Int = R.layout.custom_error
+    override val layout = R.layout.custom_error
 
     @Suppress("UNCHECKED_CAST")
-    override fun getViewHolder(
+    override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderData.Listener
     ): HornsViewHolder<ViewHolderData> {
