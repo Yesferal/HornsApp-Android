@@ -38,17 +38,19 @@ class UpcomingPresenter(
                 val items = mutableListOf<ViewHolderData>().apply {
                     add(FiltersViewData(categories))
                     addAll(
-                        concerts.map {
-                            UpcomingViewData(
-                                id = it.id,
-                                image = it.headlinerImage,
-                                day = it.day,
-                                month = it.month,
-                                year = it.year.toString(),
-                                name = it.name,
-                                time = it.time,
-                                genre = it.genre
-                            )
+                        concerts
+                            .sortedWith(compareBy { it.date?.time })
+                            .map {
+                                UpcomingViewData(
+                                    id = it.id,
+                                    image = it.headlinerImage,
+                                    day = it.day,
+                                    month = it.month,
+                                    year = it.year.toString(),
+                                    name = it.name,
+                                    time = it.time,
+                                    genre = it.genre
+                                )
                         }
                     )
                 }
