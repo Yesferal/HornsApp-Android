@@ -2,7 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
-import com.yesferal.hornsapp.app.presentation.common.ViewState
+import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 
 class HomeViewState(
     val fragmentTitles: List<String>? = null,

@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
-import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.multitype.HornsAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
+import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*

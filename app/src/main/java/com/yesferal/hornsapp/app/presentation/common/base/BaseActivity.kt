@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui
+package com.yesferal.hornsapp.app.presentation.common.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

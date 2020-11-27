@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui.multitype
+package com.yesferal.hornsapp.app.presentation.common.multitype
 
 import android.view.LayoutInflater
 import android.view.View

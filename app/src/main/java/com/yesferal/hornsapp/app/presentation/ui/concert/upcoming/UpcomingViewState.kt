@@ -4,9 +4,10 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.*
-import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsViewHolder
-import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.ViewState
+import com.yesferal.hornsapp.app.presentation.common.multitype.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ErrorViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData

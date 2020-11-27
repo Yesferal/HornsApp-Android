@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.load
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.custom.load
+import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.BandViewData
 import kotlinx.android.synthetic.main.item_band.view.*
 

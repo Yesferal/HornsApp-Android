@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryViewHolder(

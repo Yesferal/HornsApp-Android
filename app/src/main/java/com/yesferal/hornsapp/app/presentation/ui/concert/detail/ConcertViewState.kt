@@ -2,9 +2,9 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
-import com.yesferal.hornsapp.app.presentation.common.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.ViewData
-import com.yesferal.hornsapp.app.presentation.common.ViewState
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.ViewData
+import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 import com.yesferal.hornsapp.domain.entity.Venue
 import java.net.URI
 import java.util.*

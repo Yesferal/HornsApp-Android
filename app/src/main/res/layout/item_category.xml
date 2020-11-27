@@ -4,8 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/margin_small"
-    android:layout_marginHorizontal="@dimen/margin_tiny"
+    android:paddingVertical="@dimen/margin_small"
+    android:paddingHorizontal="@dimen/margin_tiny"
+    android:layout_marginBottom="@dimen/margin_small"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -15,10 +16,8 @@
         android:background="@drawable/shape_rectangle_border_rounded_16dp"
         android:backgroundTint="@color/secondaryText"
         android:textColor="@color/secondaryText"
-        android:paddingTop="@dimen/margin_small"
-        android:paddingStart="@dimen/margin_medium"
-        android:paddingEnd="@dimen/margin_medium"
-        android:paddingBottom="@dimen/margin_small"
+        android:paddingVertical="@dimen/margin_small"
+        android:paddingHorizontal="@dimen/margin_medium"
         style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

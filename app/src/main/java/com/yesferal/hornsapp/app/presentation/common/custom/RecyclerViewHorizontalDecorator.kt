@@ -1,10 +1,10 @@
-package com.yesferal.hornsapp.app.presentation.common.ui.custom
+package com.yesferal.hornsapp.app.presentation.common.custom
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewVerticalDecorator (
+class RecyclerViewHorizontalDecorator(
     private val padding: Int = 8
 ): RecyclerView.ItemDecoration() {
 
@@ -20,13 +20,13 @@ class RecyclerViewVerticalDecorator (
 
         if (itemPosition == 0) {
             val density = parent.context.resources.displayMetrics.density
-            outRect.top = (density * padding).toInt()
+            outRect.left = (density * padding).toInt()
         }
 
         val adapter = parent.adapter
         if (adapter != null && itemPosition == adapter.itemCount - 1) {
             val density = parent.context.resources.displayMetrics.density
-            outRect.bottom = (density * padding).toInt()
+            outRect.right = (density * padding).toInt()
         }
     }
 }

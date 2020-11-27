@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui
+package com.yesferal.hornsapp.app.presentation.common.base
 
 interface BaseContract {
     interface View

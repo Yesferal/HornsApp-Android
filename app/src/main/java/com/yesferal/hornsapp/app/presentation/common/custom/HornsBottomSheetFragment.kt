@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui.custom
+package com.yesferal.hornsapp.app.presentation.common.custom
 
 import android.os.Bundle
 import android.view.LayoutInflater

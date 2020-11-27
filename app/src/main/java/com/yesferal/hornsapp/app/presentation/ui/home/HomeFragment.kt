@@ -12,10 +12,10 @@ import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertsFragment
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.hada.container.resolve

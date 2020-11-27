@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui
+package com.yesferal.hornsapp.app.presentation.common.base
 
 abstract class BasePresenter<VIEW: BaseContract.View>
     : BaseContract.ActionListener {

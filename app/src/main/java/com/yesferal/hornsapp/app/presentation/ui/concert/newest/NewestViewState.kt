@@ -3,10 +3,10 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 import android.view.View
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.ui.multitype.ViewHolderData
-import com.yesferal.hornsapp.app.presentation.common.ViewState
-import com.yesferal.hornsapp.app.presentation.common.ui.multitype.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.base.ViewState
+import com.yesferal.hornsapp.app.presentation.common.multitype.HornsViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestTitleViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestViewHolder
 

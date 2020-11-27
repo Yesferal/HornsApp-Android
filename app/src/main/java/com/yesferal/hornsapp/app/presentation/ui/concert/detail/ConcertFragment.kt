@@ -15,9 +15,11 @@ import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
-import com.yesferal.hornsapp.app.presentation.common.*
-import com.yesferal.hornsapp.app.presentation.common.ui.custom.*
-import com.yesferal.hornsapp.app.presentation.common.ui.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
+import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter.BandsAdapter
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_date_text_view.*

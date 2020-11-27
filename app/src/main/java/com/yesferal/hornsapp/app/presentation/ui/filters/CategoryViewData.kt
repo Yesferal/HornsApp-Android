@@ -1,6 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.ui.filters
 
-import com.yesferal.hornsapp.app.presentation.common.ViewData
+import com.yesferal.hornsapp.app.presentation.common.base.ViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 
 class CategoryViewData(

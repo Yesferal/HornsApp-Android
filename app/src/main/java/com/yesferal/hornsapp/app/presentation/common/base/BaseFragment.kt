@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui
+package com.yesferal.hornsapp.app.presentation.common.base
 
 import android.content.Intent
 import android.net.Uri
@@ -9,8 +9,6 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.HornsApp
-import com.yesferal.hornsapp.app.presentation.common.RenderState
-import com.yesferal.hornsapp.app.presentation.common.ViewState
 import java.net.URI
 
 abstract class BaseFragment<VIEW_STATE: ViewState>

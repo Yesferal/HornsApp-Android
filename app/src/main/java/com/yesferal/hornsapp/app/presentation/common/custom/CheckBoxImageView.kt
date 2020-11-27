@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.ui.custom
+package com.yesferal.hornsapp.app.presentation.common.custom
 
 import android.content.Context
 import android.util.AttributeSet
