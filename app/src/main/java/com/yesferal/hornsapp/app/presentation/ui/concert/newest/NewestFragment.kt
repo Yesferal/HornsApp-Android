@@ -2,11 +2,9 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
@@ -18,10 +16,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARC
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.hada.container.resolve
-import kotlinx.android.synthetic.main.custom_error.*
-import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_newest.*
-import kotlinx.android.synthetic.main.fragment_newest.stubView
 
 class NewestFragment
     : BaseFragment<NewestViewState>() {
@@ -54,38 +49,17 @@ class NewestFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        val handler = Handler()
-        handler.postDelayed({
-            actionListener.onViewCreated()
-        }, 333)
+        actionListener.onViewCreated()
     }
 
     override fun render(viewState: NewestViewState) {
         viewState.concerts?.let { concerts ->
             showConcerts(concerts)
         }
-
-        viewState.errorMessage?.let {
-            showError(messageId =  viewState.errorMessage)
-        }
-
-        if (viewState.isLoading) {
-            customProgressBar.fadeIn()
-
-        } else {
-            customProgressBar.fadeOut()
-        }
     }
 
     private fun showConcerts(concerts: List<ViewHolderBinding>) {
         multiTypeAdapter.setItems(concerts)
-    }
-
-    private fun showError(
-        @StringRes messageId: Int
-    ) {
-        stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(messageId)
     }
 
     companion object {

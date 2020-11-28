@@ -29,16 +29,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <ViewStub
-        android:id="@+id/stubView"
-        android:inflatedId="@+id/inflatedStubView"
-        android:layout="@layout/custom_error"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <include
-        layout="@layout/custom_view_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
