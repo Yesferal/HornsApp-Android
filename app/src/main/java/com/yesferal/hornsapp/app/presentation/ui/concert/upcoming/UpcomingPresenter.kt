@@ -6,6 +6,10 @@ import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
+import com.yesferal.hornsapp.domain.util.dayFormatted
+import com.yesferal.hornsapp.domain.util.monthFormatted
+import com.yesferal.hornsapp.domain.util.timeFormatted
+import com.yesferal.hornsapp.domain.util.yearFormatted
 
 class UpcomingPresenter(
     private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase
@@ -39,16 +43,16 @@ class UpcomingPresenter(
                     add(FiltersViewData(categories))
                     addAll(
                         concerts
-                            .sortedWith(compareBy { it.date?.time })
+                            .sortedWith(compareBy { it.dateTime?.time })
                             .map {
                                 UpcomingViewData(
                                     id = it.id,
                                     image = it.headlinerImage,
-                                    day = it.day,
-                                    month = it.month,
-                                    year = it.year.toString(),
+                                    day = it.dateTime?.dayFormatted(),
+                                    month = it.dateTime?.monthFormatted(),
+                                    year = it.dateTime?.yearFormatted(),
                                     name = it.name,
-                                    time = it.time,
+                                    time = it.dateTime?.timeFormatted(),
                                     genre = it.genre
                                 )
                         }

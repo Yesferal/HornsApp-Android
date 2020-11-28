@@ -15,9 +15,8 @@ import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
 
 data class UpcomingViewState(
     val items: List<ViewHolderBinding>? = null,
-    val isLoading: Boolean = false,
-    val error: ErrorViewData? = null
-) : ViewState()
+    val isLoading: Boolean = false
+) : ViewState
 
 data class UpcomingViewData(
     val id: String,

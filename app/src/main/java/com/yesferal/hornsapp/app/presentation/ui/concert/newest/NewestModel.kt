@@ -10,17 +10,16 @@ import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestTitleViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestViewHolder
 
-class NewestViewState(
-    val concerts: List<ViewHolderBinding>? = null,
+data class NewestViewState(
+    val items: List<ViewHolderBinding>? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessage: Int? = null
-) : ViewState()
+) : ViewState
 
-
-class TitleViewData(
+data class TitleViewData(
     val id: String,
     val name: String?
-): ViewHolderBinding {
+) : ViewHolderBinding {
     override val layout = R.layout.item_newest_title
 
     @Suppress("UNCHECKED_CAST")
@@ -33,13 +32,13 @@ class TitleViewData(
 }
 
 
-class NewestViewData(
+data class NewestViewData(
     val id: String,
     val name: String?,
     val day: String?,
     val month: String?,
     val ticketingHostName: String?
-): ViewHolderBinding {
+) : ViewHolderBinding {
 
     fun asParcelable(): ParcelableViewData {
         return ParcelableViewData(

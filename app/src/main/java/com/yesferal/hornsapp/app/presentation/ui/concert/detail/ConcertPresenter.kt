@@ -6,6 +6,9 @@ import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
+import com.yesferal.hornsapp.domain.util.dateTimeFormatted
+import com.yesferal.hornsapp.domain.util.dayFormatted
+import com.yesferal.hornsapp.domain.util.monthFormatted
 
 class ConcertPresenter(
     private val getConcertUseCase: GetConcertUseCase,
@@ -21,10 +24,10 @@ class ConcertPresenter(
                     it.id,
                     it.name,
                     it.description,
-                    it.date,
-                    it.dateTime,
-                    it.day,
-                    it.month,
+                    it.dateTime?.time,
+                    it.dateTime?.dateTimeFormatted(),
+                    it.dateTime?.dayFormatted(),
+                    it.dateTime?.monthFormatted(),
                     it.trailerUrl,
                     it.facebookUrl,
                     it.isFavorite,

@@ -7,7 +7,6 @@ import com.yesferal.hornsapp.app.presentation.common.base.ViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 import com.yesferal.hornsapp.domain.entity.Venue
 import java.net.URI
-import java.util.*
 
 data class ConcertViewState(
     val concert: ConcertViewData? = null,
@@ -15,13 +14,13 @@ data class ConcertViewState(
     val adView: AdView? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessageId: Int? = null
-) : ViewState()
+) : ViewState
 
 data class ConcertViewData(
     val id: String,
     val name: String?,
     val description: String?,
-    val date: Date?,
+    val timeInMillis: Long?,
     val dateTime: String?,
     val day: String?,
     val month: String?,

@@ -4,8 +4,8 @@ import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 import com.yesferal.hornsapp.domain.entity.Band
 
-class BandViewState(
+data class BandViewState(
     val band: Band? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessageId: Int? = null
-) : ViewState()
+) : ViewState

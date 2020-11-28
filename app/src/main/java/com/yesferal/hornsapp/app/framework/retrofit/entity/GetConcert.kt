@@ -22,56 +22,27 @@ data class GetConcert(
     val ticketingHost: String?
 ) {
     fun mapToConcert(): Concert {
-        val dateTime = this
-            .dateTime
-            ?.dateTimeFormatted()
-
-        val day = this
-            .dateTime
-            ?.dayFormatted()
-
-        val month = this
-            .dateTime
-            ?.monthFormatted()
-
-        val year = this
-            .dateTime
-            ?.yearFormatted()?.toInt()
-
-        val time = this
-            .dateTime
-            ?.timeFormatted()
 
         val facebookUrl = socialNetworks?.first()
 
         val isFavorite = false
 
-        val subGenres = this.bands?.map {
-            it.genre
-        }?.joinToString(" | ")
-
         return Concert(
             id = this._id,
             name = this.name,
             description = this.description,
-            headlinerImage = this.headlinerImage,
-            date = this.dateTime,
-            dateTime = dateTime,
-            day = day,
-            month = month,
-            year = year,
-            time = time,
             trailerUrl = this.trailerUrl?.toSafeUri(),
             facebookUrl = facebookUrl?.toSafeUri(),
-            isFavorite = isFavorite,
+            headlinerImage = this.headlinerImage,
+            dateTime = this.dateTime,
+            state = this.state?.name,
             genre = this.genre,
             tags = this.tags,
+            venue = this.venue,
+            bands = this.bands,
             ticketingUrl = this.ticketingUrl?.toSafeUri(),
             ticketingHost = this.ticketingHost,
-            subGenres = subGenres.toString(),
-            state = this.state?.name,
-            venue = this.venue,
-            bands = this.bands
+            isFavorite = isFavorite
         )
     }
 }

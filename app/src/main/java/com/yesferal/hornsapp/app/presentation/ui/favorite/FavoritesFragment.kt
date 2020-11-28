@@ -5,17 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.hada.container.resolve
-import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
@@ -60,12 +59,8 @@ class FavoritesFragment
     }
 
     override fun render(viewState: FavoritesViewState) {
-        viewState.concerts?.let { concerts ->
-            showConcerts(concerts)
-        }
-
-        viewState.errorMessage?.let {
-            showError(messageId =  viewState.errorMessage)
+        viewState.items?.let { items ->
+            showItems(items)
         }
 
         if (viewState.isLoading) {
@@ -83,15 +78,8 @@ class FavoritesFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showConcerts(concerts: List<UpcomingViewData>) {
-        multiTypeAdapter.setItems(concerts)
-    }
-
-    private fun showError(
-        @StringRes messageId: Int
-    ) {
-        stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(messageId)
+    private fun showItems(items: List<ViewHolderBinding>) {
+        multiTypeAdapter.setItems(items)
     }
 
     companion object {

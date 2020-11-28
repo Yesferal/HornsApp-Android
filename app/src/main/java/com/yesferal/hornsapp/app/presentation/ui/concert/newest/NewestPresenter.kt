@@ -7,6 +7,10 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewDa
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
+import com.yesferal.hornsapp.domain.util.dayFormatted
+import com.yesferal.hornsapp.domain.util.monthFormatted
+import com.yesferal.hornsapp.domain.util.timeFormatted
+import com.yesferal.hornsapp.domain.util.yearFormatted
 import java.util.*
 
 class NewestPresenter(
@@ -24,11 +28,11 @@ class NewestPresenter(
                     UpcomingViewData(
                         id = firstConcert.id,
                         image = firstConcert.headlinerImage,
-                        day = firstConcert.day,
-                        month = firstConcert.month,
-                        year = firstConcert.year.toString(),
+                        day = firstConcert.dateTime?.dayFormatted(),
+                        month = firstConcert.dateTime?.monthFormatted(),
+                        year = firstConcert.dateTime?.yearFormatted(),
                         name = firstConcert.name,
-                        time = firstConcert.time,
+                        time = firstConcert.dateTime?.timeFormatted(),
                         genre = firstConcert.genre
                     )
                 )
@@ -59,13 +63,14 @@ class NewestPresenter(
     ) {
         this.add(TitleViewData(year.toString(), "#$year"))
         this.addAll(concerts
-            .filter { year == it.year }
+            .filter { year.toString() == it.dateTime?.yearFormatted() }
             .take(3)
+            .sortedWith(compareBy { it.dateTime?.time })
             .map { concert ->
                 NewestViewData(
                     id = concert.id,
-                    day = concert.day,
-                    month = concert.month,
+                    day = concert.dateTime?.dayFormatted(),
+                    month = concert.dateTime?.monthFormatted(),
                     name = concert.name,
                     ticketingHostName = concert.ticketingHost
                 )

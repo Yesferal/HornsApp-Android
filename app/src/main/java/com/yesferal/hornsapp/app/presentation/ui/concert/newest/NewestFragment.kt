@@ -53,13 +53,13 @@ class NewestFragment
     }
 
     override fun render(viewState: NewestViewState) {
-        viewState.concerts?.let { concerts ->
-            showConcerts(concerts)
+        viewState.items?.let { items ->
+            showItems(items)
         }
     }
 
-    private fun showConcerts(concerts: List<ViewHolderBinding>) {
-        multiTypeAdapter.setItems(concerts)
+    private fun showItems(items: List<ViewHolderBinding>) {
+        multiTypeAdapter.setItems(items)
     }
 
     companion object {

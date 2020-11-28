@@ -61,8 +61,8 @@ class ConcertsFragment
 
     override fun render(viewState: UpcomingViewState) {
 
-        viewState.items?.let { concerts ->
-            showConcerts(concerts)
+        viewState.items?.let { items ->
+            showItems(items)
         }
 
         if (viewState.isLoading) {
@@ -80,10 +80,10 @@ class ConcertsFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showConcerts(
-        concerts: List<ViewHolderBinding>
+    private fun showItems(
+        items: List<ViewHolderBinding>
     ) {
-        multiTypeAdapter.setItems(concerts)
+        multiTypeAdapter.setItems(items)
     }
 
     companion object {

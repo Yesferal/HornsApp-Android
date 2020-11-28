@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concert.*
 import java.net.URI
-import java.util.*
 
 class ConcertFragment
     : BaseFragment<ConcertViewState>(),
@@ -157,12 +156,9 @@ class ConcertFragment
         datetimeTextView.apply {
             setImageView(R.drawable.ic_calendar)
             setText(concert.dateTime, getString(R.string.add_to_calendar))
-            setOnClickListener { concert.date?.let { date ->
-                val calendar = Calendar.getInstance()
-                calendar.time = date
-
-                startCalendar(concert, calendar)
-            }}
+            setOnClickListener {
+                startCalendar(concert)
+            }
         }
 
         descriptionTextView.apply {
@@ -259,14 +255,13 @@ class ConcertFragment
     }
 
     private fun startCalendar(
-        concertViewData: ConcertViewData,
-        calendar: Calendar
+        concertViewData: ConcertViewData
     ) {
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = getString(R.string.calendar_action_type)
         intent.putExtra(CalendarContract.Events.TITLE, concertViewData.name)
-        intent.putExtra("beginTime", calendar.timeInMillis)
-        intent.putExtra("endTime", calendar.timeInMillis + 180 * 60 * 1000)
+        intent.putExtra("beginTime", concertViewData.timeInMillis)
+        intent.putExtra("endTime", concertViewData.timeInMillis?: 0 + 180 * 60 * 1000)
         intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.description)
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.venue?.name)
         startActivity(intent)
