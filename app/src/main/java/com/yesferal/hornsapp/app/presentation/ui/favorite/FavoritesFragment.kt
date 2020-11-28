@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 class FavoritesFragment
     : BaseFragment<FavoritesViewState>() {
 
-    private lateinit var hornsAdapter: HornsAdapter
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override val actionListener by lazy {
         container.resolve<FavoritesPresenter>()
@@ -41,10 +41,10 @@ class FavoritesFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        hornsAdapter = HornsAdapter(instanceAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
-            it.adapter = hornsAdapter
+            it.adapter = multiTypeAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -84,7 +84,7 @@ class FavoritesFragment
     }
 
     private fun showConcerts(concerts: List<UpcomingViewData>) {
-        hornsAdapter.setItems(concerts)
+        multiTypeAdapter.setItems(concerts)
     }
 
     private fun showError(

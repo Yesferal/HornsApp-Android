@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.HornsBottomSheetFrag
 
 class ProfileBottomSheetFragment: HornsBottomSheetFragment() {
 
-    override fun initFragment(bundle: Bundle?): Fragment? {
+    override fun initFragment(bundle: Bundle?): Fragment {
         return ProfileFragment.newInstance()
     }
 

@@ -2,7 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
@@ -17,7 +17,7 @@ class NewestPresenter(
         getConcertsByCategoryUseCase(
             categoryKey = CategoryKey.ALL,
             onSuccess = {
-                val views = mutableListOf<ViewHolderData>()
+                val views = mutableListOf<ViewHolderBinding>()
                 val concertReversed = it.reversed()
                 val firstConcert = concertReversed.first()
                 views.add(
@@ -53,11 +53,11 @@ class NewestPresenter(
         )
     }
 
-    private fun MutableList<ViewHolderData>.insertElementByYear(
+    private fun MutableList<ViewHolderBinding>.insertElementByYear(
         concerts: List<Concert>,
         year: Int
     ) {
-        this.add(NewestTitleViewData(year.toString(), "#$year"))
+        this.add(TitleViewData(year.toString(), "#$year"))
         this.addAll(concerts
             .filter { year == it.year }
             .take(3)

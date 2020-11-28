@@ -6,15 +6,15 @@ import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsViewHolder
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ErrorViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
 
 data class UpcomingViewState(
-    val items: List<ViewHolderData>? = null,
+    val items: List<ViewHolderBinding>? = null,
     val isLoading: Boolean = false,
     val error: ErrorViewData? = null
 ) : ViewState()
@@ -28,7 +28,7 @@ data class UpcomingViewData(
     val year: String?,
     val time: String?,
     val genre: String?
-) : ViewHolderData {
+) : ViewHolderBinding {
 
     fun asParcelable(): ParcelableViewData {
         return ParcelableViewData(
@@ -37,7 +37,7 @@ data class UpcomingViewData(
         )
     }
 
-    interface Listener: ViewHolderData.Listener {
+    interface Listener: ViewHolderBinding.Listener {
         fun onClick(upcomingViewData: UpcomingViewData)
     }
 
@@ -46,17 +46,17 @@ data class UpcomingViewData(
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
-        listener: ViewHolderData.Listener
-    ): HornsViewHolder<ViewHolderData> {
-        return UpcomingViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+        listener: ViewHolderBinding.Listener
+    ): BaseViewHolder<ViewHolderBinding> {
+        return UpcomingViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
     }
 }
 
 data class FiltersViewData(
     val categories: List<CategoryViewData>
-) : ViewHolderData {
+) : ViewHolderBinding {
 
-    interface Listener: ViewHolderData.Listener {
+    interface Listener: ViewHolderBinding.Listener {
         fun onClick(categoryViewData: CategoryViewData)
     }
 
@@ -65,24 +65,24 @@ data class FiltersViewData(
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
-        listener: ViewHolderData.Listener
-    ): HornsViewHolder<ViewHolderData> {
-        return FiltersViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+        listener: ViewHolderBinding.Listener
+    ): BaseViewHolder<ViewHolderBinding> {
+        return FiltersViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
     }
 }
 
 data class ErrorViewData(
     @DrawableRes val imageId: Int,
     @StringRes val errorMessage: Int
-) : ViewHolderData {
+) : ViewHolderBinding {
 
     override val layout = R.layout.custom_error
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
-        listener: ViewHolderData.Listener
-    ): HornsViewHolder<ViewHolderData> {
-        return ErrorViewHolder(itemView) as HornsViewHolder<ViewHolderData>
+        listener: ViewHolderBinding.Listener
+    ): BaseViewHolder<ViewHolderBinding> {
+        return ErrorViewHolder(itemView) as BaseViewHolder<ViewHolderBinding>
     }
 }

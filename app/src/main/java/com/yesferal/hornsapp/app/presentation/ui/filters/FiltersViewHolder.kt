@@ -2,16 +2,16 @@ package com.yesferal.hornsapp.app.presentation.ui.filters
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
+import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewHorizontalDecorator
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.FiltersViewData
 import kotlinx.android.synthetic.main.item_filters.view.*
 
 class FiltersViewHolder(
     itemView: View,
-    listener: ViewHolderData.Listener
-) : HornsViewHolder<FiltersViewData>(itemView, listener) {
+    listener: ViewHolderBinding.Listener
+) : BaseViewHolder<FiltersViewData>(itemView, listener) {
 
     private val filtersAdapter by lazy {
         CategoriesAdapter(instanceConcertsAdapterListener())

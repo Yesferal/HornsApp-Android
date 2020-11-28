@@ -6,25 +6,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import java.lang.Exception
 
-class HornsAdapter (
-    private val listener: ViewHolderData.Listener,
-    private val list: MutableList<ViewHolderData> = mutableListOf()
-) : RecyclerView.Adapter<HornsViewHolder<ViewHolderData>>() {
+class MultiTypeAdapter (
+    private val listener: ViewHolderBinding.Listener,
+    private val list: MutableList<ViewHolderBinding> = mutableListOf()
+) : RecyclerView.Adapter<BaseViewHolder<ViewHolderBinding>>() {
 
     private val viewTypes: HashMap<Int, (
         itemView: View,
-        listener: ViewHolderData.Listener
-    ) -> HornsViewHolder<ViewHolderData>> = hashMapOf()
+        listener: ViewHolderBinding.Listener
+    ) -> BaseViewHolder<ViewHolderBinding>> = hashMapOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): HornsViewHolder<ViewHolderData> {
+    ): BaseViewHolder<ViewHolderBinding> {
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(viewType, parent, false)
         return viewTypes[viewType]?.invoke(itemView, listener)
-            ?: throw Exception("${this::class.java} could not found viewType [$viewType] or layout")
+            ?: throw Exception("${this::class.java} could not found viewType or layout #$viewType")
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -32,13 +32,13 @@ class HornsAdapter (
     }
 
     override fun onBindViewHolder(
-        holder: HornsViewHolder<ViewHolderData>,
+        holder: BaseViewHolder<ViewHolderBinding>,
         position: Int
     ) {
         holder.bind(list[position])
     }
 
-    fun setItems(list: List<ViewHolderData>) {
+    fun setItems(list: List<ViewHolderBinding>) {
         this.list.clear()
         list.forEach {
             this.list.add(it)

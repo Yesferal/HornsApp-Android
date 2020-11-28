@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_upcoming.*
 class ConcertsFragment
     : BaseFragment<UpcomingViewState>() {
 
-    private lateinit var hornsAdapter: HornsAdapter
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override val actionListener by lazy {
         container.resolve<UpcomingPresenter>()
@@ -41,10 +41,10 @@ class ConcertsFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        hornsAdapter = HornsAdapter(instanceAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
-            it.adapter = hornsAdapter
+            it.adapter = multiTypeAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -81,9 +81,9 @@ class ConcertsFragment
     }
 
     private fun showConcerts(
-        concerts: List<ViewHolderData>
+        concerts: List<ViewHolderBinding>
     ) {
-        hornsAdapter.setItems(concerts)
+        multiTypeAdapter.setItems(concerts)
     }
 
     companion object {

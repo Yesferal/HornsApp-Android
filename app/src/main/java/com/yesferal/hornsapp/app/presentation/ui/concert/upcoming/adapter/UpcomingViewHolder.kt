@@ -1,8 +1,8 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter
 
 import android.view.View
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
+import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.item_upcoming.view.*
 
 class UpcomingViewHolder(
     itemView: View,
-    listener: ViewHolderData.Listener
-) : HornsViewHolder<UpcomingViewData>(itemView, listener) {
+    listener: ViewHolderBinding.Listener
+) : BaseViewHolder<UpcomingViewData>(itemView, listener) {
 
     override fun bind(viewData: UpcomingViewData) {
         viewData.year?.let {

@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_newest.stubView
 class NewestFragment
     : BaseFragment<NewestViewState>() {
 
-    private lateinit var hornsAdapter: HornsAdapter
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override val actionListener by lazy {
         container.resolve<NewestPresenter>()
@@ -42,10 +42,10 @@ class NewestFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        hornsAdapter = HornsAdapter(instanceAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
 
         newestRecyclerView.also {
-            it.adapter = hornsAdapter
+            it.adapter = multiTypeAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -77,8 +77,8 @@ class NewestFragment
         }
     }
 
-    private fun showConcerts(concerts: List<ViewHolderData>) {
-        hornsAdapter.setItems(concerts)
+    private fun showConcerts(concerts: List<ViewHolderBinding>) {
+        multiTypeAdapter.setItems(concerts)
     }
 
     private fun showError(

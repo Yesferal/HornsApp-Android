@@ -4,31 +4,31 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderData
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
-import com.yesferal.hornsapp.app.presentation.common.multitype.HornsViewHolder
+import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestTitleViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestViewHolder
 
 class NewestViewState(
-    val concerts: List<ViewHolderData>? = null,
+    val concerts: List<ViewHolderBinding>? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessage: Int? = null
 ) : ViewState()
 
 
-class NewestTitleViewData(
+class TitleViewData(
     val id: String,
     val name: String?
-): ViewHolderData {
+): ViewHolderBinding {
     override val layout = R.layout.item_newest_title
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
-        listener: ViewHolderData.Listener
-    ): HornsViewHolder<ViewHolderData> {
-        return NewestTitleViewHolder(itemView) as HornsViewHolder<ViewHolderData>
+        listener: ViewHolderBinding.Listener
+    ): BaseViewHolder<ViewHolderBinding> {
+        return NewestTitleViewHolder(itemView) as BaseViewHolder<ViewHolderBinding>
     }
 }
 
@@ -39,7 +39,7 @@ class NewestViewData(
     val day: String?,
     val month: String?,
     val ticketingHostName: String?
-): ViewHolderData {
+): ViewHolderBinding {
 
     fun asParcelable(): ParcelableViewData {
         return ParcelableViewData(
@@ -48,7 +48,7 @@ class NewestViewData(
         )
     }
 
-    interface Listener: ViewHolderData.Listener {
+    interface Listener: ViewHolderBinding.Listener {
         fun onClick(newestViewData: NewestViewData)
     }
 
@@ -57,8 +57,8 @@ class NewestViewData(
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
-        listener: ViewHolderData.Listener
-    ): HornsViewHolder<ViewHolderData> {
-        return NewestViewHolder(itemView, listener) as HornsViewHolder<ViewHolderData>
+        listener: ViewHolderBinding.Listener
+    ): BaseViewHolder<ViewHolderBinding> {
+        return NewestViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
     }
 }
