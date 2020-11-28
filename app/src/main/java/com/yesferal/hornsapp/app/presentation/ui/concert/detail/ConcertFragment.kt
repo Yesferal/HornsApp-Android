@@ -15,27 +15,24 @@ import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
-import com.yesferal.hornsapp.app.presentation.common.*
-import com.yesferal.hornsapp.app.presentation.common.adapter.ItemAdapter
-import com.yesferal.hornsapp.app.presentation.common.adapter.Item
-import com.yesferal.hornsapp.app.presentation.common.adapter.mapToBaseItem
-import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
-import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
+import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
+import com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter.BandsAdapter
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concert.*
 import java.net.URI
-import java.util.*
 
 class ConcertFragment
     : BaseFragment<ConcertViewState>(),
     RenderEffect {
 
-    private lateinit var bandAdapter: ItemAdapter
+    private lateinit var bandAdapter: BandsAdapter
 
     override val actionListener by lazy {
         container.resolve<ConcertPresenter>()
@@ -60,7 +57,7 @@ class ConcertFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<ItemParcelable>(
+        val item = arguments?.getParcelable<ParcelableViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 
@@ -80,7 +77,7 @@ class ConcertFragment
     }
 
     private fun setUpBandsViewPager() {
-        bandAdapter = ItemAdapter(instanceItemAdapterListener())
+        bandAdapter = BandsAdapter(instanceBandAdapterListener())
 
         val bigMargin = 24F
         val dpWidth = TypedValue.applyDimension(
@@ -113,6 +110,10 @@ class ConcertFragment
             show(concert = it)
         }
 
+        viewState.bands?.let {
+            show(bands = it)
+        }
+
         viewState.adView?.let {
             showAd(it)
         }
@@ -128,7 +129,7 @@ class ConcertFragment
         }
     }
 
-    private fun show(concert: Concert) {
+    private fun show(concert: ConcertViewData) {
 
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
@@ -137,9 +138,6 @@ class ConcertFragment
         favoriteImageView.setOnCheckedChangeListener { isChecked ->
             actionListener.onFavoriteImageViewClick(concert, isChecked)
         }
-
-        val items = concert.bands?.map { it.mapToBaseItem() }
-        bandAdapter.setItem(items)
 
         enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
 
@@ -158,12 +156,9 @@ class ConcertFragment
         datetimeTextView.apply {
             setImageView(R.drawable.ic_calendar)
             setText(concert.dateTime, getString(R.string.add_to_calendar))
-            setOnClickListener { concert.date?.let { date ->
-                val calendar = Calendar.getInstance()
-                calendar.time = date
-
-                startCalendar(concert, calendar)
-            }}
+            setOnClickListener {
+                startCalendar(concert)
+            }
         }
 
         descriptionTextView.apply {
@@ -173,6 +168,10 @@ class ConcertFragment
 
         showYoutube(concert.trailerUrl)
         showFacebook(concert.facebookUrl)
+    }
+
+    private fun show(bands: List<BandViewData>) {
+        bandAdapter.setItem(bands)
     }
 
     private fun enableTicketPurchase(
@@ -256,16 +255,15 @@ class ConcertFragment
     }
 
     private fun startCalendar(
-        concert: Concert,
-        calendar: Calendar
+        concertViewData: ConcertViewData
     ) {
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = getString(R.string.calendar_action_type)
-        intent.putExtra(CalendarContract.Events.TITLE, concert.name)
-        intent.putExtra("beginTime", calendar.timeInMillis)
-        intent.putExtra("endTime", calendar.timeInMillis + 180 * 60 * 1000)
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, concert.description)
-        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concert.venue?.name)
+        intent.putExtra(CalendarContract.Events.TITLE, concertViewData.name)
+        intent.putExtra("beginTime", concertViewData.timeInMillis)
+        intent.putExtra("endTime", concertViewData.timeInMillis?: 0 + 180 * 60 * 1000)
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.description)
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.venue?.name)
         startActivity(intent)
     }
 
@@ -279,7 +277,7 @@ class ConcertFragment
 
     companion object {
         fun newInstance(
-            item: ItemParcelable
+            item: ParcelableViewData
         ) : ConcertFragment {
             val bundle = Bundle()
             bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)
@@ -291,12 +289,12 @@ class ConcertFragment
     }
 }
 
-private fun ConcertFragment.instanceItemAdapterListener() =
-    object : ItemAdapter.Listener {
-        override fun onClick(item: Item) {
+private fun ConcertFragment.instanceBandAdapterListener() =
+    object : BandsAdapter.Listener {
+        override fun onClick(bandViewData: BandViewData) {
             childFragmentManager.let {
                 val bundle = Bundle()
-                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item.asParcelable())
+                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, bandViewData.asParcelable())
 
                 BandBottomSheetFragment.newInstance(bundle).apply {
                     show(it, tag)

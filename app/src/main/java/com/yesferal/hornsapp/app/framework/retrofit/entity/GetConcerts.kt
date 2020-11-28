@@ -14,44 +14,29 @@ data class GetConcerts(
     val headlinerImage: String?,
     val dateTime: Date?,
     val genre: String?,
-    val tags: List<String>?
-)
+    val tags: List<String>?,
+    val ticketingUrl: String?,
+    val ticketingHost: String?
+) {
+    fun mapToConcert(): Concert {
+        
+        val facebookUrl = socialNetworks?.first()
 
-fun GetConcerts.mapToConcert(): Concert {
-    val dateTime = this
-        .dateTime
-        ?.dateTimeFormatted()
+        val isFavorite = false
 
-    val day = this
-        .dateTime
-        ?.dayFormatted()
-
-    val month = this
-        .dateTime
-        ?.monthFormatted()
-
-    val time = this
-        .dateTime
-        ?.timeFormatted()
-
-    val facebookUrl = socialNetworks?.first()
-
-    val isFavorite = false
-
-    return Concert(
-        id = this._id,
-        name = this.name,
-        description = this.description,
-        headlinerImage = this.headlinerImage,
-        date = this.dateTime,
-        dateTime = dateTime,
-        day = day,
-        month = month,
-        time = time,
-        trailerUrl = this.trailerUrl?.toSafeUri(),
-        facebookUrl = facebookUrl?.toSafeUri(),
-        isFavorite = isFavorite,
-        genre = this.genre,
-        tags = this.tags
-    )
+        return Concert(
+            id = this._id,
+            name = this.name,
+            description = this.description,
+            trailerUrl = this.trailerUrl?.toSafeUri(),
+            facebookUrl = facebookUrl?.toSafeUri(),
+            headlinerImage = this.headlinerImage,
+            dateTime = this.dateTime,
+            genre = this.genre,
+            tags = this.tags,
+            ticketingUrl = this.ticketingUrl?.toSafeUri(),
+            ticketingHost = this.ticketingHost,
+            isFavorite = isFavorite
+        )
+    }
 }

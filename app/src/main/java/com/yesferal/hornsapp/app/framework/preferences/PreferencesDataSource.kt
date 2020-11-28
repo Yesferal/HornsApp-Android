@@ -21,13 +21,13 @@ class SharedPreferencesDataSource(
     }
 
     override fun insertFavoriteConcert(
-        concert: Concert,
+        concertId: String,
         onComplete: () -> Unit
     ) {
         val favoriteConcerts = getFavoriteConcerts()?: mutableListOf()
 
-        if (!favoriteConcerts.contains(concert.id)) {
-            favoriteConcerts.add(concert.id)
+        if (!favoriteConcerts.contains(concertId)) {
+            favoriteConcerts.add(concertId)
         }
 
         setFavoriteConcerts(favoriteConcerts)
@@ -35,13 +35,13 @@ class SharedPreferencesDataSource(
     }
 
     override fun removeFavoriteConcert(
-        concert: Concert,
+        concertId: String,
         onComplete: () -> Unit
     ) {
         val favoriteConcerts = getFavoriteConcerts()?: mutableListOf()
 
-        if (favoriteConcerts.contains(concert.id)) {
-            favoriteConcerts.remove(concert.id)
+        if (favoriteConcerts.contains(concertId)) {
+            favoriteConcerts.remove(concertId)
         } else {
             return
         }

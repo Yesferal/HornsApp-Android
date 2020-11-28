@@ -21,12 +21,12 @@ interface ConcertRepository {
     fun getFavoriteConcert(): List<String>?
 
     fun insertFavoriteConcert(
-        concert: Concert,
+        concertId: String,
         onComplete: () -> Unit
     )
 
     fun removeFavoriteConcert(
-        concert: Concert,
+        concertId: String,
         onComplete: () -> Unit
     )
 }

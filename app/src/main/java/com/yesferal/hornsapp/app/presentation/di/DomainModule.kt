@@ -25,6 +25,12 @@ fun Container.registerDomainModule() {
         )
     }
 
+    this register Factory<GetFavoriteConcertsUseCase> {
+        GetFavoriteConcertsUseCase(
+            concertRepository = resolve()
+        )
+    }
+
     this register Factory<UpdateFavoriteConcertUseCase> {
         UpdateFavoriteConcertUseCase(
             concertRepository = resolve()

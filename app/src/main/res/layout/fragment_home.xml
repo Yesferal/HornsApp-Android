@@ -9,6 +9,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/margin_small"
         app:tabIndicatorHeight="8dp"
         app:tabIndicator="@drawable/shape_selected_dot"
         app:tabMode="scrollable"
@@ -20,9 +21,8 @@
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_small"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:layout_constraintBottom_toTopOf="@+id/adContainerLayout"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"

@@ -53,19 +53,19 @@ class ConcertRepositoryImpl(
     }
 
     override fun insertFavoriteConcert(
-        concert: Concert,
+        concertId: String,
         onComplete: () -> Unit
     ) {
-        storageDataSource.insertFavoriteConcert(concert) {
+        storageDataSource.insertFavoriteConcert(concertId) {
             onComplete()
         }
     }
 
     override fun removeFavoriteConcert(
-        concert: Concert,
+        concertId: String,
         onComplete: () -> Unit
     ) {
-        storageDataSource.removeFavoriteConcert(concert) {
+        storageDataSource.removeFavoriteConcert(concertId) {
             onComplete()
         }
     }

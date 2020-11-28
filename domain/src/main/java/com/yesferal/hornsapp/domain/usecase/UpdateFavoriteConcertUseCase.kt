@@ -1,22 +1,22 @@
 package com.yesferal.hornsapp.domain.usecase
 
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
-import com.yesferal.hornsapp.domain.entity.Concert
 
 class UpdateFavoriteConcertUseCase(
     private val concertRepository: ConcertRepository
 ) {
     operator fun invoke(
-        concert: Concert,
+        isFavorite: Boolean,
+        concertId: String,
         onInsert: () -> Unit,
         onRemove: () -> Unit
     ) {
-        if (concert.isFavorite) {
-            concertRepository.insertFavoriteConcert(concert) {
+        if (isFavorite) {
+            concertRepository.insertFavoriteConcert(concertId) {
                 onInsert()
             }
         } else {
-            concertRepository.removeFavoriteConcert(concert) {
+            concertRepository.removeFavoriteConcert(concertId) {
                 onRemove()
             }
         }
