@@ -19,6 +19,7 @@
     <string name="try_again">Volver a intentar</string>
     <string name="share_with_friends">Compartir con amigos</string>
     <string name="share_hornsapp">Revisa nuestra app. HornsApp (Rock &amp; Metal): https://play.google.com/store/apps/details?id=com.yesferal.hornsapp</string>
+    <string name="see_your_apps">Ver tus apps</string>
 
     <!-- Error Messages -->
     <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>

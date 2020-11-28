@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
-import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment
     : Fragment() {
@@ -20,7 +19,7 @@ class ProfileFragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,8 +31,8 @@ class ProfileFragment
     }
 
     private fun setUpShare() {
-        shareTextView.setImageView(R.drawable.ic_information)
-        shareTextView.setText(getString(R.string.share_with_friends))
+        shareTextView.setImageView(R.drawable.ic_share)
+        shareTextView.setText(getString(R.string.share_with_friends), getString(R.string.see_your_apps))
         shareTextView.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
@@ -50,14 +49,11 @@ class ProfileFragment
                 .getPackageInfo(activityNonNull.packageName, 0)
 
             val versionName: String = packageInfo.versionName
+            val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
 
+            val version = "$versionName.$versionCode"
             versionTextView.setImageView(R.drawable.ic_information)
-            versionTextView.setText(getString(R.string.version), versionName)
-            versionTextView.setOnClickListener {
-                val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
-                Toast.makeText(activityNonNull, versionCode.toString(), Toast.LENGTH_SHORT)
-                    .show()
-            }
+            versionTextView.setText(getString(R.string.version), version)
         }
     }
 
