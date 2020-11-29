@@ -9,26 +9,17 @@ class GetConcertsByCategoryUseCase(
     private val concertRepository: ConcertRepository
 ) {
     operator fun invoke(
-        categoryKey: String,
+        categoryKey: CategoryKey,
         onSuccess: (response: List<Concert>) -> Unit,
         onError: (t: Throwable) -> Unit
     ) {
         val concerts = when (categoryKey) {
-            CategoryKey.ALL.toString() -> {
+            CategoryKey.ALL -> {
                 concertRepository.getConcertsFromStorage()
-            }
-            CategoryKey.FAVORITE.toString() -> {
-                val favouriteConcertsIds = concertRepository.getFavoriteConcert()
-                favouriteConcertsIds?.let { favorites ->
-                    concertRepository.getConcertsFromStorage()
-                        ?.filter {
-                            favorites.contains(it.id)
-                        }
-                }
             }
             else -> {
                 concertRepository.getConcertsFromStorage()
-                    ?.filter { it.tags?.contains(categoryKey) == true }
+                    ?.filter { it.tags?.contains(categoryKey.toString()) == true }
             }
         }
 

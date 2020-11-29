@@ -2,11 +2,13 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
-import com.yesferal.hornsapp.app.presentation.common.BasePresenter
-import com.yesferal.hornsapp.app.presentation.common.ViewEffect
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
+import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
+import com.yesferal.hornsapp.domain.util.dateTimeFormatted
+import com.yesferal.hornsapp.domain.util.dayFormatted
+import com.yesferal.hornsapp.domain.util.monthFormatted
 
 class ConcertPresenter(
     private val getConcertUseCase: GetConcertUseCase,
@@ -18,8 +20,35 @@ class ConcertPresenter(
         getConcertUseCase(
             id,
             onSuccess = {
+                val concert = ConcertViewData(
+                    it.id,
+                    it.name,
+                    it.description,
+                    it.dateTime?.time,
+                    it.dateTime?.dateTimeFormatted(),
+                    it.dateTime?.dayFormatted(),
+                    it.dateTime?.monthFormatted(),
+                    it.trailerUrl,
+                    it.facebookUrl,
+                    it.isFavorite,
+                    it.genre,
+                    it.ticketingHost,
+                    it.ticketingUrl,
+                    it.venue
+                )
+
+                val bands = it.bands?.map { band ->
+                    BandViewData(
+                        band._id,
+                        it.name,
+                        band.membersImage,
+                        band.genre
+                    )
+                }
+
                 val viewState = ConcertViewState(
-                    concert = it,
+                    concert = concert,
+                    bands = bands,
                     adView = adManager.concertDetailAdView()
                 )
                 view?.render(viewState)
@@ -31,12 +60,13 @@ class ConcertPresenter(
     }
 
     fun onFavoriteImageViewClick(
-        concert: Concert,
+        concert: ConcertViewData,
         isChecked: Boolean
     ) {
         concert.isFavorite = isChecked
         updateFavoriteConcertUseCase(
-            concert,
+            concert.isFavorite,
+            concert.id,
             onInsert = {
                 view?.render(ViewEffect.Toast(R.string.add_to_favorite))
             },

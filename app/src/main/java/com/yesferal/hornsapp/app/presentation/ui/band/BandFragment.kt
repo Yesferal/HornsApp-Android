@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.entity.ItemParcelable
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.domain.entity.Band
@@ -33,7 +33,7 @@ class BandFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = arguments?.getParcelable<ItemParcelable>(
+        val item = arguments?.getParcelable<ParcelableViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 
@@ -44,7 +44,6 @@ class BandFragment
 
         titleTextView.text = item.name
         membersImageView.setTopCornersRounded()
-        membersImageView.load(item.imageUrl)
 
         actionListener.onViewCreated(item.id)
     }
@@ -66,6 +65,7 @@ class BandFragment
     }
 
     private fun show(band: Band) {
+        membersImageView.load(band.membersImage)
         logoImageView.load(band.logoImage)
         genreTextView.setUpWith(band.genre)
         countryTextView.setUpWith(band.country)

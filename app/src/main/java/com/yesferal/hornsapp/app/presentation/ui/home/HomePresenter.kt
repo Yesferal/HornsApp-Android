@@ -2,9 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
-import com.yesferal.hornsapp.app.presentation.common.BasePresenter
-import com.yesferal.hornsapp.domain.entity.Category
-import com.yesferal.hornsapp.domain.entity.CategoryKey
+import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 
 class HomePresenter(
@@ -24,16 +22,10 @@ class HomePresenter(
     private fun getConcerts() {
         getConcertsUseCase(
             onSuccess = {
-                val categories = listOf(
-                    Category(CategoryKey.ALL.toString(), "Todos"),
-                    Category(CategoryKey.LIVE.toString(), "Lima"),
-                    Category(CategoryKey.ONLINE.toString(), "Online"),
-                    Category(CategoryKey.METAL.toString(), "Metal"),
-                    Category(CategoryKey.ROCK.toString(), "Rock")
-                )
+                val titles = listOf("Novedades", "Proximos", "Favoritos")
 
                 val viewState = HomeViewState(
-                    categories = categories,
+                    fragmentTitles = titles,
                     adView = adManager.concertsAdView())
 
                 view?.render(viewState)

@@ -5,27 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
-import com.yesferal.hornsapp.app.presentation.common.entity.asParcelable
-import com.yesferal.hornsapp.app.presentation.ui.concert.ConcertsViewState
-import com.yesferal.hornsapp.app.presentation.ui.concert.adapter.ConcertAdapter
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.hada.container.resolve
-import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_concerts.*
+import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class FavoritesFragment
-    : BaseFragment<ConcertsViewState>() {
+    : BaseFragment<FavoritesViewState>() {
 
-    private lateinit var concertAdapter: ConcertAdapter
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override val actionListener by lazy {
         container.resolve<FavoritesPresenter>()
@@ -44,24 +40,27 @@ class FavoritesFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        concertAdapter = ConcertAdapter(instanceConcertAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
-            it.adapter = concertAdapter
-            it.layoutManager = linearLayoutManagerVertical
+            it.adapter = multiTypeAdapter
+            it.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         actionListener.onViewCreated()
     }
 
-    override fun render(viewState: ConcertsViewState) {
-        viewState.concerts?.let { concerts ->
-            showConcerts(concerts)
-        }
-
-        viewState.errorMessage?.let {
-            showError(messageId =  viewState.errorMessage)
+    override fun render(viewState: FavoritesViewState) {
+        viewState.items?.let { items ->
+            showItems(items)
         }
 
         if (viewState.isLoading) {
@@ -79,15 +78,8 @@ class FavoritesFragment
         customProgressBar.fadeOut()
     }
 
-    private fun showConcerts(concerts: List<Concert>) {
-        concertAdapter.setItem(concerts)
-    }
-
-    private fun showError(
-        @StringRes messageId: Int
-    ) {
-        stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(messageId)
+    private fun showItems(items: List<ViewHolderBinding>) {
+        multiTypeAdapter.setItems(items)
     }
 
     companion object {
@@ -95,9 +87,12 @@ class FavoritesFragment
     }
 }
 
-private fun FavoritesFragment.instanceConcertAdapterListener() =
-    object : ConcertAdapter.Listener {
-        override fun onConcertItemClick(concert: Concert) {
+interface Listener:
+    UpcomingViewData.Listener
+
+private fun FavoritesFragment.instanceAdapterListener() =
+    object : Listener {
+        override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(
                 activity,
                 ConcertActivity::class.java
@@ -105,7 +100,7 @@ private fun FavoritesFragment.instanceConcertAdapterListener() =
 
             intent.putExtra(
                 EXTRA_PARAM_PARCELABLE,
-                concert.asParcelable()
+                upcomingViewData.asParcelable()
             )
 
             startActivity(intent)

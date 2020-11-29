@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/containerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_medium"
+    android:layout_marginBottom="@dimen/margin_medium"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/custom_date_text_view"
+        layout="@layout/custom_date_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.2"/>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:ellipsize="end"
+        android:maxLines="1"
+        style="@style/HornsApp.TextView.Subtitle"
+        app:layout_constraintTop_toTopOf="@+id/custom_date_text_view"
+        app:layout_constraintStart_toEndOf="@+id/custom_date_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/arrowView"
+        app:layout_constraintBottom_toTopOf="@+id/subtitleTextView"/>
+
+    <TextView
+        android:id="@+id/subtitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_big"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/custom_date_text_view"/>
+
+    <ImageView
+        android:id="@+id/arrowView"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:src="@drawable/ic_next"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="@+id/custom_date_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/custom_date_text_view"
+        app:tint="@color/secondaryText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

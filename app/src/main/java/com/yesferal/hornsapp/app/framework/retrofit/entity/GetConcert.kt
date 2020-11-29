@@ -20,53 +20,29 @@ data class GetConcert(
     val bands: List<Band>?,
     val ticketingUrl: String?,
     val ticketingHost: String?
-)
+) {
+    fun mapToConcert(): Concert {
 
-fun GetConcert.mapToConcert(): Concert {
-    val dateTime = this
-        .dateTime
-        ?.dateTimeFormatted()
+        val facebookUrl = socialNetworks?.first()
 
-    val day = this
-        .dateTime
-        ?.dayFormatted()
+        val isFavorite = false
 
-    val month = this
-        .dateTime
-        ?.monthFormatted()
-
-    val time = this
-        .dateTime
-        ?.timeFormatted()
-
-    val facebookUrl = socialNetworks?.first()
-
-    val isFavorite = false
-
-    val subGenres = this.bands?.map {
-        it.genre
-    }?.joinToString(" | ")
-
-    return Concert(
-        id = this._id,
-        name = this.name,
-        description = this.description,
-        headlinerImage = this.headlinerImage,
-        date = this.dateTime,
-        dateTime = dateTime,
-        day = day,
-        month = month,
-        time = time,
-        trailerUrl = this.trailerUrl?.toSafeUri(),
-        facebookUrl = facebookUrl?.toSafeUri(),
-        isFavorite = isFavorite,
-        genre = this.genre,
-        tags = this.tags,
-        subGenres = subGenres.toString(),
-        state = this.state?.name,
-        venue = this.venue,
-        bands = this.bands,
-        ticketingUrl = this.ticketingUrl?.toSafeUri(),
-        ticketingHost = this.ticketingHost
-    )
+        return Concert(
+            id = this._id,
+            name = this.name,
+            description = this.description,
+            trailerUrl = this.trailerUrl?.toSafeUri(),
+            facebookUrl = facebookUrl?.toSafeUri(),
+            headlinerImage = this.headlinerImage,
+            dateTime = this.dateTime,
+            state = this.state?.name,
+            genre = this.genre,
+            tags = this.tags,
+            venue = this.venue,
+            bands = this.bands,
+            ticketingUrl = this.ticketingUrl?.toSafeUri(),
+            ticketingHost = this.ticketingHost,
+            isFavorite = isFavorite
+        )
+    }
 }

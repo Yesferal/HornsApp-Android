@@ -10,16 +10,16 @@ data class GetBand(
     val logoImage: String?,
     val country: String?,
     val genre: String?
-)
-
-fun GetBand.mapToBand(): Band {
-    return Band(
-        _id = this._id,
-        name = this.name,
-        description = this.description,
-        membersImage = this.membersImage,
-        logoImage = this.logoImage,
-        country = this.country,
-        genre = this.genre
-    )
+) {
+    fun mapToBand(): Band {
+        return Band(
+            _id = this._id,
+            name = this.name,
+            description = this.description,
+            membersImage = this.membersImage,
+            logoImage = this.logoImage,
+            country = this.country,
+            genre = this.genre
+        )
+    }
 }

@@ -15,7 +15,7 @@ fun Date.formattedWith(pattern: String): String? {
 }
 
 fun Date.dateTimeFormatted(): String? {
-    return formattedWith("EEEE dd, MMMM (HH:mm)")
+    return formattedWith("EEE dd, MMMM YYYY")
 }
 
 fun Date.dayFormatted(): String? {
@@ -24,6 +24,10 @@ fun Date.dayFormatted(): String? {
 
 fun Date.monthFormatted(): String? {
     return formattedWith("MMM")?.substring(0,3)
+}
+
+fun Date.yearFormatted(): String? {
+    return formattedWith("YYYY")
 }
 
 fun Date.timeFormatted(): String? {
