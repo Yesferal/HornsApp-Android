@@ -5,6 +5,8 @@ import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitBuilder
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
 import com.yesferal.hornsapp.app.framework.preferences.SharedPreferencesDataSource
+import com.yesferal.hornsapp.app.framework.retrofit.RetrofitConstants
+import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
 import com.yesferal.hornsapp.data.abstraction.StorageDataSource
 import com.yesferal.hornsapp.hada.container.Container
@@ -20,9 +22,11 @@ fun Container.registerFrameworkModule() {
     }
 
     this register Singleton<ApiDataSource> {
-        val service = RetrofitBuilder()
-            .createService()
-        RetrofitDataSource(service)
+        val service = RetrofitBuilder(RetrofitConstants())
+            .retrofit
+            .create(Service::class.java)
+
+        RetrofitDataSource(service = service)
     }
 
     this register Singleton<AdManager> {

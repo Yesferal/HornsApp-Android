@@ -23,6 +23,11 @@ android {
         manifestPlaceholders = [AD_MOB_APP_ID: AD_MOB_APP_ID]
     }
     buildTypes {
+        staging {
+            initWith debug
+            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
+        }
+
         debug {
             debuggable true
             manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
