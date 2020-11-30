@@ -1,37 +1,25 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
+import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.BandViewData
 import kotlinx.android.synthetic.main.item_band.view.*
 
 class BandViewHolder (
     itemView: View,
-    private val listener: BandsAdapter.Listener
-) : RecyclerView.ViewHolder(itemView)  {
+    listener: ViewHolderBinding.Listener
+) : BaseViewHolder<BandViewData>(itemView, listener) {
 
-    constructor(
-        parent: ViewGroup,
-        listener: BandsAdapter.Listener
-    ) : this(
-        LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_band, parent, false),
-        listener
-    )
-
-    fun bind(bandViewData: BandViewData) {
-        itemView.itemTextView.text = bandViewData.name
+    override fun bind(viewData: BandViewData) {
+        itemView.itemTextView.text = viewData.name
         itemView.itemImageView.setAllCornersRounded()
-        itemView.itemImageView.load(bandViewData.membersImage)
+        itemView.itemImageView.load(viewData.membersImage)
 
         itemView.itemImageView.setOnClickListener {
-            listener.onClick(bandViewData)
+            (listener as BandViewData.Listener).onClick(viewData)
         }
     }
 }

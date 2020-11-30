@@ -67,12 +67,10 @@ class NewestFragment
     }
 }
 
-interface Listener:
-    NewestViewData.Listener,
-    UpcomingViewData.Listener
-
 private fun NewestFragment.instanceAdapterListener() =
-    object : Listener {
+    object : NewestViewData.Listener,
+        UpcomingViewData.Listener {
+
         override fun onClick(upcomingViewData: UpcomingViewData) {
             startConcertActivity(upcomingViewData.asParcelable())
         }

@@ -87,11 +87,8 @@ class FavoritesFragment
     }
 }
 
-interface Listener:
-    UpcomingViewData.Listener
-
 private fun FavoritesFragment.instanceAdapterListener() =
-    object : Listener {
+    object : UpcomingViewData.Listener {
         override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(
                 activity,

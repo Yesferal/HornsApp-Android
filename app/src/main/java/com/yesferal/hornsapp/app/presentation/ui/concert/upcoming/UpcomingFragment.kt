@@ -91,12 +91,9 @@ class ConcertsFragment
     }
 }
 
-interface Listener:
-    FiltersViewData.Listener,
-    UpcomingViewData.Listener
-
 private fun ConcertsFragment.instanceAdapterListener() =
-    object : Listener {
+    object : FiltersViewData.Listener,
+        UpcomingViewData.Listener {
 
         override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(

@@ -20,7 +20,7 @@ import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter.BandsAdapter
+import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
@@ -32,7 +32,7 @@ class ConcertFragment
     : BaseFragment<ConcertViewState>(),
     RenderEffect {
 
-    private lateinit var bandAdapter: BandsAdapter
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override val actionListener by lazy {
         container.resolve<ConcertPresenter>()
@@ -77,7 +77,7 @@ class ConcertFragment
     }
 
     private fun setUpBandsViewPager() {
-        bandAdapter = BandsAdapter(instanceBandAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
 
         val bigMargin = 24F
         val dpWidth = TypedValue.applyDimension(
@@ -91,7 +91,7 @@ class ConcertFragment
         compositePageTransformer.addTransformer(ScalePageTransformation())
 
         bandsViewPager.also {
-            it.adapter = bandAdapter
+            it.adapter = multiTypeAdapter
             it.clipToPadding = false
             it.clipChildren = false
             it.offscreenPageLimit = 3
@@ -171,7 +171,7 @@ class ConcertFragment
     }
 
     private fun show(bands: List<BandViewData>) {
-        bandAdapter.setItem(bands)
+        multiTypeAdapter.setItems(bands)
     }
 
     private fun enableTicketPurchase(
@@ -289,8 +289,8 @@ class ConcertFragment
     }
 }
 
-private fun ConcertFragment.instanceBandAdapterListener() =
-    object : BandsAdapter.Listener {
+private fun ConcertFragment.instanceAdapterListener() =
+    object : BandViewData.Listener {
         override fun onClick(bandViewData: BandViewData) {
             childFragmentManager.let {
                 val bundle = Bundle()
