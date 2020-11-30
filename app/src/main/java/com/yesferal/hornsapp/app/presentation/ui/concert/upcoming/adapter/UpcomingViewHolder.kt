@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.item_upcoming.view.*
 
 class UpcomingViewHolder(
     itemView: View,
-    listener: ViewHolderBinding.Listener
-) : BaseViewHolder<UpcomingViewData>(itemView, listener) {
+    private val listener: ViewHolderBinding.Listener
+) : BaseViewHolder<UpcomingViewData>(itemView) {
 
     override fun bind(viewData: UpcomingViewData) {
         viewData.year?.let {

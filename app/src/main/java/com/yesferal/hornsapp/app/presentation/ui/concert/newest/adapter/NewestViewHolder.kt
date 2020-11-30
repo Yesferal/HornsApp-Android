@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.item_newest.view.*
 
 class NewestViewHolder (
     itemView: View,
-    listener: ViewHolderBinding.Listener
-) : BaseViewHolder<NewestViewData>(itemView, listener) {
+    private val listener: ViewHolderBinding.Listener
+) : BaseViewHolder<NewestViewData>(itemView) {
 
     override fun bind(viewData: NewestViewData) {
         itemView.containerLayout.setOnClickListener {

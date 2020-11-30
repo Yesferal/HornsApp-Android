@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.item_band.view.*
 
 class BandViewHolder (
     itemView: View,
-    listener: ViewHolderBinding.Listener
-) : BaseViewHolder<BandViewData>(itemView, listener) {
+    private val listener: ViewHolderBinding.Listener
+) : BaseViewHolder<BandViewData>(itemView) {
 
     override fun bind(viewData: BandViewData) {
         itemView.itemTextView.text = viewData.name

@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.item_filters.view.*
 
 class FiltersViewHolder(
     itemView: View,
-    listener: ViewHolderBinding.Listener
-) : BaseViewHolder<FiltersViewData>(itemView, listener) {
+    private val listener: ViewHolderBinding.Listener
+) : BaseViewHolder<FiltersViewData>(itemView) {
 
     private val filtersAdapter by lazy {
         CategoriesAdapter(instanceConcertsAdapterListener())
