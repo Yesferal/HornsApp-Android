@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitBuilder(
-    private val constants: RetrofitConstants
+    private val constants: ApiConstants
 ) {
 
     private val client by lazy {

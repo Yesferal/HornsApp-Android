@@ -1,6 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-class RetrofitConstants {
+class ApiConstants {
     companion object {
         init {
             System.loadLibrary("hornsapp-lib")

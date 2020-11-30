@@ -14,7 +14,7 @@ Then, you should clone the repository.
 
 ---
 ## Usage
-Launch AndroidStudio and `Open an existing project`. Go to Build Variant section and select Debug as Active Build Variant. Then run this build. It is important to say that Debug variant will use a online mock as API.'
+Launch AndroidStudio and `Open an existing project`. Go to Build Variant section and select `Debug` as Active Build Variant. Then run this build. It is important to say that Debug variant will use a online mock as API.
 
 ---
 ## License
