@@ -2,7 +2,6 @@ package com.yesferal.hornsapp.app.presentation.ui.filters
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewHorizontalDecorator
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.FiltersViewData
@@ -10,14 +9,11 @@ import kotlinx.android.synthetic.main.item_filters.view.*
 
 class FiltersViewHolder(
     itemView: View,
-    private val listener: ViewHolderBinding.Listener
+    private val listener: FiltersViewData.Listener
 ) : BaseViewHolder<FiltersViewData>(itemView) {
 
     private val filtersAdapter by lazy {
         CategoriesAdapter(instanceConcertsAdapterListener())
-    }
-    interface Listener {
-        fun onClick(categoryViewData: CategoryViewData)
     }
 
     init {
@@ -40,7 +36,7 @@ class FiltersViewHolder(
     private fun instanceConcertsAdapterListener() =
         object : CategoryViewHolder.Listener {
             override fun onClick(textViewData: CategoryViewData) {
-                (listener as FiltersViewData.Listener).onClick(textViewData)
+                listener.onClick(textViewData)
             }
         }
 }

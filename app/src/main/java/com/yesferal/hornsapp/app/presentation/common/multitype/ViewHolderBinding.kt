@@ -9,5 +9,8 @@ interface ViewHolderBinding {
 
     @get:LayoutRes val layout: Int
 
-    fun onCreateViewHolder(itemView: View, listener: Listener): BaseViewHolder<ViewHolderBinding>
+    fun onCreateViewHolder(
+        itemView: View,
+        listener: Listener
+    ) : BaseViewHolder<*>
 }

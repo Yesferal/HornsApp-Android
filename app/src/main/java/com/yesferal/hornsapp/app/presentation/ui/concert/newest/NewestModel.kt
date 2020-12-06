@@ -6,9 +6,11 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
+import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestTitleViewHolder
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.adapter.NewestViewHolder
+import kotlinx.android.synthetic.main.custom_date_text_view.view.*
+import kotlinx.android.synthetic.main.item_newest.view.*
+import kotlinx.android.synthetic.main.item_newest_title.view.titleTextView
 
 data class NewestViewState(
     val items: List<ViewHolderBinding>? = null,
@@ -22,15 +24,15 @@ data class TitleViewData(
 ) : ViewHolderBinding {
     override val layout = R.layout.item_newest_title
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ): BaseViewHolder<ViewHolderBinding> {
-        return NewestTitleViewHolder(itemView) as BaseViewHolder<ViewHolderBinding>
+    ) = object : BaseViewHolder<TitleViewData>(itemView) {
+        override fun bind(viewData: TitleViewData) {
+            itemView.titleTextView.setUpWith(viewData.name)
+        }
     }
 }
-
 
 data class NewestViewData(
     val id: String,
@@ -53,11 +55,20 @@ data class NewestViewData(
 
     override val layout = R.layout.item_newest
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ): BaseViewHolder<ViewHolderBinding> {
-        return NewestViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
+    ) = object : BaseViewHolder<NewestViewData>(itemView) {
+        override fun bind(viewData: NewestViewData) {
+            itemView.containerLayout.setOnClickListener {
+                (listener as Listener).onClick(viewData)
+            }
+
+            itemView.titleTextView.setUpWith(viewData.name)
+            itemView.subtitleTextView.setUpWith(viewData.ticketingHostName)
+
+            itemView.dayTextView.setUpWith(viewData.day)
+            itemView.monthTextView.setUpWith(viewData.month)
+        }
     }
 }

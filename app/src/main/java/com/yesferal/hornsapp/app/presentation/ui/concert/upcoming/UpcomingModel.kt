@@ -5,13 +5,18 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.ViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
+import com.yesferal.hornsapp.app.presentation.common.custom.load
+import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.ErrorViewHolder
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.adapter.UpcomingViewHolder
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
+import kotlinx.android.synthetic.main.custom_date_text_view.view.*
+import kotlinx.android.synthetic.main.custom_error.view.*
+import kotlinx.android.synthetic.main.item_upcoming.view.*
 
 data class UpcomingViewState(
     val items: List<ViewHolderBinding>? = null,
@@ -42,18 +47,33 @@ data class UpcomingViewData(
 
     override val layout = R.layout.item_upcoming
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ): BaseViewHolder<ViewHolderBinding> {
-        return UpcomingViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
+    ) = object : BaseViewHolder<UpcomingViewData>(itemView) {
+        override fun bind(viewData: UpcomingViewData) {
+            viewData.year?.let {
+                itemView.tagTextView.setUpWith("#$it")
+            }
+            itemView.titleTextView.setUpWith(viewData.name)
+            itemView.dayTextView.setUpWith(viewData.day)
+            itemView.monthTextView.setUpWith(viewData.month)
+            itemView.timeTextView.setUpWith(viewData.time)
+            itemView.genreTextView.setUpWith(viewData.genre)
+
+            itemView.concertImageView.setAllCornersRounded()
+            itemView.concertImageView.load(viewData.image)
+
+            itemView.containerLayout.setOnClickListener {
+                (listener as Listener).onClick(viewData)
+            }
+        }
     }
 }
 
 data class FiltersViewData(
     val categories: List<CategoryViewData>
-) : ViewHolderBinding {
+) : ViewData, ViewHolderBinding {
 
     interface Listener: ViewHolderBinding.Listener {
         fun onClick(categoryViewData: CategoryViewData)
@@ -61,13 +81,10 @@ data class FiltersViewData(
 
     override val layout = R.layout.item_filters
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ): BaseViewHolder<ViewHolderBinding> {
-        return FiltersViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
-    }
+    ) = FiltersViewHolder(itemView, listener as Listener) as BaseViewHolder<FiltersViewData>
 }
 
 data class ErrorViewData(
@@ -77,11 +94,14 @@ data class ErrorViewData(
 
     override val layout = R.layout.custom_error
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ): BaseViewHolder<ViewHolderBinding> {
-        return ErrorViewHolder(itemView) as BaseViewHolder<ViewHolderBinding>
+    ) = object : BaseViewHolder<ErrorViewData>(itemView) {
+        override fun bind(viewData: ErrorViewData) {
+            itemView.errorTextView.let {
+                it.setUpWith(it.context.getString(viewData.errorMessage))
+            }
+        }
     }
 }

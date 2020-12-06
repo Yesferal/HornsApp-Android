@@ -7,10 +7,12 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ViewState
+import com.yesferal.hornsapp.app.presentation.common.custom.load
+import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter.BandViewHolder
 import com.yesferal.hornsapp.domain.entity.Venue
+import kotlinx.android.synthetic.main.item_band.view.*
 import java.net.URI
 
 data class ConcertViewState(
@@ -57,11 +59,18 @@ data class BandViewData(
 
     override val layout = R.layout.item_band
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ): BaseViewHolder<ViewHolderBinding> {
-        return BandViewHolder(itemView, listener) as BaseViewHolder<ViewHolderBinding>
+    ) = object : BaseViewHolder<BandViewData>(itemView) {
+        override fun bind(viewData: BandViewData) {
+            itemView.itemTextView.text = viewData.name
+            itemView.itemImageView.setAllCornersRounded()
+            itemView.itemImageView.load(viewData.membersImage)
+
+            itemView.itemImageView.setOnClickListener {
+                (listener as Listener).onClick(viewData)
+            }
+        }
     }
 }
