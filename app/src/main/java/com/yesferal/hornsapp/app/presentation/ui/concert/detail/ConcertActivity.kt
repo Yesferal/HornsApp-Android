@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseActivity
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import kotlinx.android.synthetic.main.activity_concert.*
 
@@ -17,7 +17,7 @@ class ConcertActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
 
-        val item = intent?.extras?.getParcelable<ParcelableViewData>(
+        val item = intent?.extras?.getParcelable<Parcelable.ViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 

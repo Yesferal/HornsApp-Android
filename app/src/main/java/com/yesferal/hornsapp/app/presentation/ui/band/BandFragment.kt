@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.domain.entity.Band
@@ -26,7 +26,7 @@ class BandFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = arguments?.getParcelable<ParcelableViewData>(
+        val item = arguments?.getParcelable<Parcelable.ViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 

@@ -4,7 +4,7 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
@@ -43,12 +43,9 @@ data class BandViewData(
     val name: String?,
     val membersImage: String?,
     val genre: String?
-) : ViewHolderBinding {
-    fun asParcelable(): ParcelableViewData {
-        return ParcelableViewData(
-            id,
-            name
-        )
+) : ViewHolderBinding, Parcelable {
+    override fun asParcelable(): Parcelable.ViewData {
+        return Parcelable.ViewData(id, name)
     }
 
     interface Listener: ViewHolderBinding.Listener {

@@ -3,7 +3,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 import android.view.View
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
@@ -39,13 +39,10 @@ data class NewestViewData(
     val day: String?,
     val month: String?,
     val ticketingHostName: String?
-) : ViewHolderBinding {
+) : ViewHolderBinding, Parcelable {
 
-    fun asParcelable(): ParcelableViewData {
-        return ParcelableViewData(
-            id,
-            name
-        )
+    override fun asParcelable(): Parcelable.ViewData {
+        return Parcelable.ViewData(id, name)
     }
 
     interface Listener: ViewHolderBinding.Listener {

@@ -15,7 +15,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
@@ -50,7 +50,7 @@ class ConcertFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<ParcelableViewData>(
+        val item = arguments?.getParcelable<Parcelable.ViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 
@@ -270,7 +270,7 @@ class ConcertFragment
 
     companion object {
         fun newInstance(
-            item: ParcelableViewData
+            item: Parcelable.ViewData
         ) : ConcertFragment {
             val bundle = Bundle()
             bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)
