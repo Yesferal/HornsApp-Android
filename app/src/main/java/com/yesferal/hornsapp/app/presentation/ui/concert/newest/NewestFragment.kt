@@ -2,9 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
@@ -23,15 +21,11 @@ class NewestFragment
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
 
+    override val layout: Int
+        get() = R.layout.fragment_newest
+
     override val actionListener by lazy {
         container.resolve<NewestPresenter>()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_newest, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

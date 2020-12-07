@@ -5,9 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -34,6 +32,9 @@ class ConcertFragment
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
 
+    override val layout: Int
+        get() = R.layout.fragment_concert
+
     override val actionListener by lazy {
         container.resolve<ConcertPresenter>()
     }
@@ -41,14 +42,6 @@ class ConcertFragment
     var listener: Listener? = null
     interface Listener {
         fun show(adView: AdView)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_concert, container, false)
     }
 
     override fun onViewCreated(

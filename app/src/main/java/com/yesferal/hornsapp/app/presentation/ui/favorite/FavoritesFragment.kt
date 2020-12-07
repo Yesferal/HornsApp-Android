@@ -2,9 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
@@ -23,15 +21,11 @@ class FavoritesFragment
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
 
+    override val layout: Int
+        get() = R.layout.fragment_favorites
+
     override val actionListener by lazy {
         container.resolve<FavoritesPresenter>()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
     override fun onViewCreated(

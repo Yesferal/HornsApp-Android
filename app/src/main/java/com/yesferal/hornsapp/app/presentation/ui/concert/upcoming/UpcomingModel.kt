@@ -5,8 +5,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.item_upcoming.view.*
 data class UpcomingViewState(
     val items: List<ViewHolderBinding>? = null,
     val isLoading: Boolean = false
-) : ViewState
+)
 
 data class UpcomingViewData(
     val id: String,
@@ -73,7 +71,7 @@ data class UpcomingViewData(
 
 data class FiltersViewData(
     val categories: List<CategoryViewData>
-) : ViewData, ViewHolderBinding {
+) : ViewHolderBinding {
 
     interface Listener: ViewHolderBinding.Listener {
         fun onClick(categoryViewData: CategoryViewData)

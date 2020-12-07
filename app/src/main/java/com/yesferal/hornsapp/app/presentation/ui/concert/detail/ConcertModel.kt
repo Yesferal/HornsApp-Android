@@ -5,8 +5,6 @@ import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
@@ -21,7 +19,7 @@ data class ConcertViewState(
     val adView: AdView? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessageId: Int? = null
-) : ViewState
+)
 
 data class ConcertViewData(
     val id: String,
@@ -38,7 +36,7 @@ data class ConcertViewData(
     val ticketingHost: String? = null,
     val ticketingUrl: URI? = null,
     val venue: Venue? = null,
-) : ViewData
+)
 
 data class BandViewData(
     val id: String,

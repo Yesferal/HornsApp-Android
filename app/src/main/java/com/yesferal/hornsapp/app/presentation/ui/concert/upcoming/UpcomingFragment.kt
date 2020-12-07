@@ -3,9 +3,8 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
+import android.os.Looper
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
@@ -24,15 +23,11 @@ class ConcertsFragment
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
 
+    override val layout: Int
+        get() = R.layout.fragment_upcoming
+
     override val actionListener by lazy {
         container.resolve<UpcomingPresenter>()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_upcoming, container, false)
     }
 
     override fun onViewCreated(
@@ -53,8 +48,7 @@ class ConcertsFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        val handler = Handler()
-        handler.postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             actionListener.onViewCreated()
         }, 333)
     }

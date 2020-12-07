@@ -1,16 +1,14 @@
 package com.yesferal.hornsapp.app.presentation.common.multitype
 
 import android.view.View
-import androidx.annotation.LayoutRes
+import com.yesferal.hornsapp.app.presentation.common.base.LayoutBinding
 
-interface ViewHolderBinding {
+interface ViewHolderBinding: LayoutBinding {
 
     interface Listener
-
-    @get:LayoutRes val layout: Int
 
     fun onCreateViewHolder(
         itemView: View,
         listener: Listener
-    ) : BaseViewHolder<*>
+    ) : BaseViewHolder<out ViewHolderBinding>
 }

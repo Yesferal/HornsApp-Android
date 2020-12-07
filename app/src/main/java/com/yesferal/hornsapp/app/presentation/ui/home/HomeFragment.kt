@@ -1,9 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -27,16 +25,11 @@ class HomeFragment
     : BaseFragment<HomeViewState>() {
     private lateinit var stubViewInflated: View
 
+    override val layout: Int
+        get() = R.layout.fragment_home
+
     override val actionListener by lazy {
         container.resolve<HomePresenter>()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

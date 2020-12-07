@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
-import com.yesferal.hornsapp.app.presentation.common.base.ViewState
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
@@ -16,7 +15,7 @@ data class NewestViewState(
     val items: List<ViewHolderBinding>? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessage: Int? = null
-) : ViewState
+)
 
 data class TitleViewData(
     val id: String,

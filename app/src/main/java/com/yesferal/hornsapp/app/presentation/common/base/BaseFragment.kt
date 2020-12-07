@@ -3,7 +3,9 @@ package com.yesferal.hornsapp.app.presentation.common.base
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
@@ -11,10 +13,11 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.HornsApp
 import java.net.URI
 
-abstract class BaseFragment<VIEW_STATE: ViewState>
+abstract class BaseFragment<VIEW_STATE>
     : Fragment(),
     RenderState<VIEW_STATE>,
-    BaseContract.View {
+    BaseContract.View,
+    LayoutBinding {
 
     abstract val actionListener: BaseContract.ActionListener?
 
@@ -23,6 +26,13 @@ abstract class BaseFragment<VIEW_STATE: ViewState>
     }
 
     abstract override fun render(viewState: VIEW_STATE)
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(layout, container, false)
+    }
 
     override fun onViewCreated(
         view: View,
