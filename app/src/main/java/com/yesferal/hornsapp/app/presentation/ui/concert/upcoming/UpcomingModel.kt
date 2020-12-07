@@ -32,6 +32,8 @@ data class UpcomingViewData(
     val genre: String?
 ) : ViewHolderBinding, Parcelable {
 
+    override val layout = R.layout.item_upcoming
+
     override fun asParcelable(): Parcelable.ViewData {
         return Parcelable.ViewData(id, name)
     }
@@ -39,8 +41,6 @@ data class UpcomingViewData(
     interface Listener: ViewHolderBinding.Listener {
         fun onClick(upcomingViewData: UpcomingViewData)
     }
-
-    override val layout = R.layout.item_upcoming
 
     override fun onCreateViewHolder(
         itemView: View,
@@ -70,11 +70,11 @@ data class FiltersViewData(
     val categories: List<CategoryViewData>
 ) : ViewHolderBinding {
 
+    override val layout = R.layout.item_filters
+
     interface Listener: ViewHolderBinding.Listener {
         fun onClick(categoryViewData: CategoryViewData)
     }
-
-    override val layout = R.layout.item_filters
 
     override fun onCreateViewHolder(
         itemView: View,

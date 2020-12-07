@@ -38,11 +38,11 @@ class MultiTypeAdapter (
         holder.bind(list[position])
     }
 
-    fun setItems(list: List<ViewHolderBinding>) {
-        this.list.clear()
-        list.forEach {
-            this.list.add(it)
-            this.viewTypes[it.layout] = { view, listener ->
+    fun setItems(newList: List<ViewHolderBinding>) {
+        list.clear()
+        newList.forEach {
+            list.add(it)
+            viewTypes[it.layout] = { view, listener ->
                 @Suppress("UNCHECKED_CAST")
                 it.onCreateViewHolder(view, listener) as BaseViewHolder<ViewHolderBinding>
             }

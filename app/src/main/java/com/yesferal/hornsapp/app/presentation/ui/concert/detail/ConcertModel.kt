@@ -44,6 +44,9 @@ data class BandViewData(
     val membersImage: String?,
     val genre: String?
 ) : ViewHolderBinding, Parcelable {
+
+    override val layout = R.layout.item_band
+
     override fun asParcelable(): Parcelable.ViewData {
         return Parcelable.ViewData(id, name)
     }
@@ -51,8 +54,6 @@ data class BandViewData(
     interface Listener: ViewHolderBinding.Listener {
         fun onClick(bandViewData: BandViewData)
     }
-
-    override val layout = R.layout.item_band
 
     override fun onCreateViewHolder(
         itemView: View,

@@ -16,7 +16,6 @@ import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
-import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*

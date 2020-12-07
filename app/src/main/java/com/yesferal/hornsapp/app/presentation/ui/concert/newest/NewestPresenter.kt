@@ -61,8 +61,7 @@ class NewestPresenter(
         concerts: List<Concert>,
         year: Int
     ) {
-        this.add(TitleViewData(year.toString(), "#$year"))
-        this.addAll(concerts
+        val views = concerts
             .filter { year.toString() == it.dateTime?.yearFormatted() }
             .take(3)
             .sortedWith(compareBy { it.dateTime?.time })
@@ -75,6 +74,10 @@ class NewestPresenter(
                     ticketingHostName = concert.ticketingHost
                 )
             }
-        )
+
+        if (views.isEmpty()) { return }
+
+        this.add(TitleViewData("#$year"))
+        this.addAll(views)
     }
 }

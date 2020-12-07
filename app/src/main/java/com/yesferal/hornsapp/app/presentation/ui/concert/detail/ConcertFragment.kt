@@ -19,7 +19,6 @@ import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
-import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*

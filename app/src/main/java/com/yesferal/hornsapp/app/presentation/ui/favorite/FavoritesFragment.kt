@@ -12,7 +12,6 @@ import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 

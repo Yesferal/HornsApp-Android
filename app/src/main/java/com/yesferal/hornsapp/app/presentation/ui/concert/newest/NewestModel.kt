@@ -18,9 +18,9 @@ data class NewestViewState(
 )
 
 data class TitleViewData(
-    val id: String,
     val name: String?
 ) : ViewHolderBinding {
+
     override val layout = R.layout.item_newest_title
 
     override fun onCreateViewHolder(
@@ -41,6 +41,8 @@ data class NewestViewData(
     val ticketingHostName: String?
 ) : ViewHolderBinding, Parcelable {
 
+    override val layout = R.layout.item_newest
+
     override fun asParcelable(): Parcelable.ViewData {
         return Parcelable.ViewData(id, name)
     }
@@ -48,8 +50,6 @@ data class NewestViewData(
     interface Listener: ViewHolderBinding.Listener {
         fun onClick(newestViewData: NewestViewData)
     }
-
-    override val layout = R.layout.item_newest
 
     override fun onCreateViewHolder(
         itemView: View,

@@ -13,7 +13,6 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
-import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.fragment_newest.*
 
 class NewestFragment
