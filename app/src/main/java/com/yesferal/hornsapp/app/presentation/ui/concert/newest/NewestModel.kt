@@ -4,9 +4,9 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
-import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
+import com.yesferal.hornsapp.multitype.BaseViewHolder
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.item_newest.view.*
 import kotlinx.android.synthetic.main.item_newest_title.view.titleTextView
@@ -27,8 +27,8 @@ data class TitleViewData(
         itemView: View,
         listener: ViewHolderBinding.Listener
     ) = object : BaseViewHolder<TitleViewData>(itemView) {
-        override fun bind(viewData: TitleViewData) {
-            itemView.titleTextView.setUpWith(viewData.name)
+        override fun bind(model: TitleViewData) {
+            itemView.titleTextView.setUpWith(model.name)
         }
     }
 }
@@ -55,16 +55,16 @@ data class NewestViewData(
         itemView: View,
         listener: ViewHolderBinding.Listener
     ) = object : BaseViewHolder<NewestViewData>(itemView) {
-        override fun bind(viewData: NewestViewData) {
+        override fun bind(model: NewestViewData) {
             itemView.containerLayout.setOnClickListener {
-                (listener as Listener).onClick(viewData)
+                (listener as Listener).onClick(model)
             }
 
-            itemView.titleTextView.setUpWith(viewData.name)
-            itemView.subtitleTextView.setUpWith(viewData.ticketingHostName)
+            itemView.titleTextView.setUpWith(model.name)
+            itemView.subtitleTextView.setUpWith(model.ticketingHostName)
 
-            itemView.dayTextView.setUpWith(viewData.day)
-            itemView.monthTextView.setUpWith(viewData.month)
+            itemView.dayTextView.setUpWith(model.day)
+            itemView.monthTextView.setUpWith(model.month)
         }
     }
 }

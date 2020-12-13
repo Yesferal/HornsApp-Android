@@ -7,9 +7,9 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
-import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.domain.entity.Venue
+import com.yesferal.hornsapp.multitype.BaseViewHolder
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.item_band.view.*
 import java.net.URI
 
@@ -59,13 +59,13 @@ data class BandViewData(
         itemView: View,
         listener: ViewHolderBinding.Listener
     ) = object : BaseViewHolder<BandViewData>(itemView) {
-        override fun bind(viewData: BandViewData) {
-            itemView.itemTextView.text = viewData.name
+        override fun bind(model: BandViewData) {
+            itemView.itemTextView.text = model.name
             itemView.itemImageView.setAllCornersRounded()
-            itemView.itemImageView.load(viewData.membersImage)
+            itemView.itemImageView.load(model.membersImage)
 
             itemView.itemImageView.setOnClickListener {
-                (listener as Listener).onClick(viewData)
+                (listener as Listener).onClick(model)
             }
         }
     }

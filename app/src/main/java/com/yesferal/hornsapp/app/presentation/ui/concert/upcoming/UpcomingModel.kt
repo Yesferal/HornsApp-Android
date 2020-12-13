@@ -8,10 +8,10 @@ import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.custom.load
 import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
-import com.yesferal.hornsapp.app.presentation.common.multitype.BaseViewHolder
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
+import com.yesferal.hornsapp.multitype.BaseViewHolder
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.custom_error.view.*
 import kotlinx.android.synthetic.main.item_upcoming.view.*
@@ -46,21 +46,21 @@ data class UpcomingViewData(
         itemView: View,
         listener: ViewHolderBinding.Listener
     ) = object : BaseViewHolder<UpcomingViewData>(itemView) {
-        override fun bind(viewData: UpcomingViewData) {
-            viewData.year?.let {
+        override fun bind(model: UpcomingViewData) {
+            model.year?.let {
                 itemView.tagTextView.setUpWith("#$it")
             }
-            itemView.titleTextView.setUpWith(viewData.name)
-            itemView.dayTextView.setUpWith(viewData.day)
-            itemView.monthTextView.setUpWith(viewData.month)
-            itemView.timeTextView.setUpWith(viewData.time)
-            itemView.genreTextView.setUpWith(viewData.genre)
+            itemView.titleTextView.setUpWith(model.name)
+            itemView.dayTextView.setUpWith(model.day)
+            itemView.monthTextView.setUpWith(model.month)
+            itemView.timeTextView.setUpWith(model.time)
+            itemView.genreTextView.setUpWith(model.genre)
 
             itemView.concertImageView.setAllCornersRounded()
-            itemView.concertImageView.load(viewData.image)
+            itemView.concertImageView.load(model.image)
 
             itemView.containerLayout.setOnClickListener {
-                (listener as Listener).onClick(viewData)
+                (listener as Listener).onClick(model)
             }
         }
     }
@@ -79,7 +79,7 @@ data class FiltersViewData(
     override fun onCreateViewHolder(
         itemView: View,
         listener: ViewHolderBinding.Listener
-    ) = FiltersViewHolder(itemView, listener as Listener) as BaseViewHolder<FiltersViewData>
+    ) = FiltersViewHolder(itemView, listener as Listener)
 }
 
 data class ErrorViewData(
@@ -93,9 +93,9 @@ data class ErrorViewData(
         itemView: View,
         listener: ViewHolderBinding.Listener
     ) = object : BaseViewHolder<ErrorViewData>(itemView) {
-        override fun bind(viewData: ErrorViewData) {
+        override fun bind(model: ErrorViewData) {
             itemView.errorTextView.let {
-                it.setUpWith(it.context.getString(viewData.errorMessage))
+                it.setUpWith(it.context.getString(model.errorMessage))
             }
         }
     }

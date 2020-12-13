@@ -18,7 +18,7 @@ import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
-import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -69,7 +69,7 @@ class ConcertFragment
     }
 
     private fun setUpBandsViewPager() {
-        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(listener = instanceAdapterListener())
 
         val bigMargin = 24F
         val dpWidth = TypedValue.applyDimension(
@@ -163,7 +163,7 @@ class ConcertFragment
     }
 
     private fun show(bands: List<BandViewData>) {
-        multiTypeAdapter.setItems(bands)
+        multiTypeAdapter.setModels(bands)
     }
 
     private fun enableTicketPurchase(

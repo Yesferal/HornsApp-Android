@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
@@ -72,7 +72,7 @@ class FavoritesFragment
     }
 
     private fun showItems(items: List<ViewHolderBinding>) {
-        multiTypeAdapter.setItems(items)
+        multiTypeAdapter.setModels(items)
     }
 
     companion object {

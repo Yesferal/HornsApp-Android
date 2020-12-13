@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.fragment_newest.*
 
 class NewestFragment
@@ -52,7 +52,7 @@ class NewestFragment
     }
 
     private fun showItems(items: List<ViewHolderBinding>) {
-        multiTypeAdapter.setItems(items)
+        multiTypeAdapter.setModels(items)
     }
 
     companion object {
