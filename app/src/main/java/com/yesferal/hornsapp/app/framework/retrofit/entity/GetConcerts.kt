@@ -8,9 +8,6 @@ data class GetConcerts(
     val _id: String,
     val name: String?,
     val description: String?,
-    val posterImage: String?,
-    val trailerUrl: String?,
-    val socialNetworks: List<String>?,
     val headlinerImage: String?,
     val dateTime: Date?,
     val genre: String?,
@@ -20,16 +17,12 @@ data class GetConcerts(
 ) {
     fun mapToConcert(): Concert {
         
-        val facebookUrl = socialNetworks?.first()
-
         val isFavorite = false
 
         return Concert(
             id = this._id,
             name = this.name,
             description = this.description,
-            trailerUrl = this.trailerUrl?.toSafeUri(),
-            facebookUrl = facebookUrl?.toSafeUri(),
             headlinerImage = this.headlinerImage,
             dateTime = this.dateTime,
             genre = this.genre,
