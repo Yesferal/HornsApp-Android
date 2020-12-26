@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/HornsApp.TextView.Title"
-        android:textColor="@color/secondaryText"
+        android:textColor="@android:color/white"
+        android:alpha="0.3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
