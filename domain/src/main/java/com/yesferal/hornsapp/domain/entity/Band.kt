@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.domain.entity
 
-class Band (
-    val _id: String,
+data class Band (
+    val id: String,
     val name: String?,
     val description: String?,
     val membersImage: String?,

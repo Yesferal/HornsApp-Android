@@ -13,7 +13,7 @@ data class GetBand(
 ) {
     fun mapToBand(): Band {
         return Band(
-            _id = this._id,
+            id = this._id,
             name = this.name,
             description = this.description,
             membersImage = this.membersImage,

@@ -3,19 +3,17 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
+import android.os.Looper
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
-import com.yesferal.hornsapp.hada.container.resolve
+import com.yesferal.hornsapp.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 
@@ -24,15 +22,11 @@ class ConcertsFragment
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
 
+    override val layout: Int
+        get() = R.layout.fragment_upcoming
+
     override val actionListener by lazy {
         container.resolve<UpcomingPresenter>()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_upcoming, container, false)
     }
 
     override fun onViewCreated(
@@ -53,8 +47,7 @@ class ConcertsFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        val handler = Handler()
-        handler.postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             actionListener.onViewCreated()
         }, 333)
     }
@@ -83,7 +76,7 @@ class ConcertsFragment
     private fun showItems(
         items: List<ViewHolderBinding>
     ) {
-        multiTypeAdapter.setItems(items)
+        multiTypeAdapter.setModels(items)
     }
 
     companion object {
@@ -91,12 +84,9 @@ class ConcertsFragment
     }
 }
 
-interface Listener:
-    FiltersViewData.Listener,
-    UpcomingViewData.Listener
-
 private fun ConcertsFragment.instanceAdapterListener() =
-    object : Listener {
+    object : FiltersViewData.Listener,
+        UpcomingViewData.Listener {
 
         override fun onClick(upcomingViewData: UpcomingViewData) {
             val intent = Intent(

@@ -1,7 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
@@ -10,6 +9,7 @@ import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 
 class UpcomingPresenter(
     private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase

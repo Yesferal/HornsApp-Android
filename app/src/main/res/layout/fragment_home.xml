@@ -1,47 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/margin_small"
-        app:tabIndicatorHeight="8dp"
-        app:tabIndicator="@drawable/shape_selected_dot"
-        app:tabMode="scrollable"
-        app:tabPaddingStart="0dp"
-        app:tabPaddingEnd="0dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            app:layout_scrollFlags="scroll"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/margin_small"
+            app:tabIndicatorHeight="8dp"
+            app:tabIndicator="@drawable/shape_selected_dot"
+            app:tabMode="scrollable"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/concertsViewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <FrameLayout
         android:id="@+id/adContainerLayout"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_gravity="bottom|center_horizontal"/>
 
     <ViewStub
         android:id="@+id/stubView"
         android:inflatedId="@+id/inflatedStubView"
         android:layout="@layout/custom_error"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <include
         layout="@layout/custom_view_progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

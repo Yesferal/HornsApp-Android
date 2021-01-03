@@ -1,5 +1,4 @@
 # Horns App
-
 This is an Android App that show concerts at Lima. Here you will see:
 
 1. Concerts that will happened soon
@@ -8,7 +7,6 @@ This is an Android App that show concerts at Lima. Here you will see:
 4. The last bands' videos released.
 
 ---
-
 ## Installation
 First, this project need Git and AndroidStudio previously installed, the steps for installation depend on OS you have.
 
@@ -16,8 +14,7 @@ Then, you should clone the repository.
 
 ---
 ## Usage
-Launch AndroidStudio and `Open an existing project`. You have to create a hornsapp-lib.cpp file in `./app/src/main/cpp/
-`. Then create functions for both your `authentication()` and `baseUrl()`. Finally, refresh linked C++ and run the project.
+Launch AndroidStudio and `Open an existing project`. Go to Build Variant section and select `Debug` as Active Build Variant. Then run this build. It is important to say that Debug variant will use a online mock as API.
 
 ---
 ## License

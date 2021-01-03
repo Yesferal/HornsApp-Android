@@ -1,17 +1,14 @@
 package com.yesferal.hornsapp.app.presentation.ui.band
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.domain.entity.Band
-import com.yesferal.hornsapp.hada.container.resolve
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_band.*
@@ -19,21 +16,16 @@ import kotlinx.android.synthetic.main.fragment_band.*
 class BandFragment
     : BaseFragment<BandViewState>() {
 
+    override val layout: Int
+        get() = R.layout.fragment_band
+
     override val actionListener by lazy {
         container.resolve<BandPresenter>()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_band, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = arguments?.getParcelable<ParcelableViewData>(
+        val item = arguments?.getParcelable<Parcelable.ViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 

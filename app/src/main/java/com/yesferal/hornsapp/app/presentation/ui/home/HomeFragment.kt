@@ -1,10 +1,11 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -18,7 +19,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
-import com.yesferal.hornsapp.hada.container.resolve
+import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,24 +28,43 @@ class HomeFragment
     : BaseFragment<HomeViewState>() {
     private lateinit var stubViewInflated: View
 
+    override val layout: Int
+        get() = R.layout.fragment_home
+
     override val actionListener by lazy {
         container.resolve<HomePresenter>()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initToolbar()
+
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
         actionListener.onViewCreated()
+    }
+
+    private fun initToolbar() {
+        (activity as AppCompatActivity?)?.let {
+            it.setSupportActionBar(toolbar)
+
+            toolbar.setNavigationOnClickListener {
+                fragmentManager?.let { manager ->
+                    ProfileBottomSheetFragment.newInstance(Bundle()).apply {
+                        show(manager, tag)
+                    }
+                }
+            }
+
+            val drawable = ContextCompat.getDrawable(it, R.drawable.ic_menu)
+            drawable?.setTint(Color.WHITE)
+
+            it.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            it.supportActionBar?.setDisplayShowHomeEnabled(true)
+            it.supportActionBar?.setHomeAsUpIndicator(drawable)
+            it.supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
     }
 
     override fun render(viewState: HomeViewState) {
@@ -81,6 +101,7 @@ class HomeFragment
             tab.setCustomView(R.layout.custom_tab_layout)
             tab.text = titles[position]
         }.attach()
+        tabLayout.visibility = View.VISIBLE
     }
 
     private fun showAd(adView: AdView) {

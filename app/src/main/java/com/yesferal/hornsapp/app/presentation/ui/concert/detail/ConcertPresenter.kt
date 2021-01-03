@@ -39,8 +39,8 @@ class ConcertPresenter(
 
                 val bands = it.bands?.map { band ->
                     BandViewData(
-                        band._id,
-                        it.name,
+                        band.id,
+                        band.name,
                         band.membersImage,
                         band.genre
                     )

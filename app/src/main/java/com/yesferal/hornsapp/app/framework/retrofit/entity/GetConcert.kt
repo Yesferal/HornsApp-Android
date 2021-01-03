@@ -13,11 +13,10 @@ data class GetConcert(
     val socialNetworks: List<String>?,
     val headlinerImage: String?,
     val dateTime: Date?,
-    val state: State?,
     val genre: String?,
     val tags: List<String>?,
-    val venue: Venue?,
-    val bands: List<Band>?,
+    val venue: GetVenue?,
+    val bands: List<GetBand>?,
     val ticketingUrl: String?,
     val ticketingHost: String?
 ) {
@@ -35,11 +34,10 @@ data class GetConcert(
             facebookUrl = facebookUrl?.toSafeUri(),
             headlinerImage = this.headlinerImage,
             dateTime = this.dateTime,
-            state = this.state?.name,
             genre = this.genre,
             tags = this.tags,
-            venue = this.venue,
-            bands = this.bands,
+            venue = this.venue?.mapToVenue(),
+            bands = this.bands?.map { it.mapToBand() },
             ticketingUrl = this.ticketingUrl?.toSafeUri(),
             ticketingHost = this.ticketingHost,
             isFavorite = isFavorite

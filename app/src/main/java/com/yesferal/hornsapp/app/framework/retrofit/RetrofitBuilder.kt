@@ -4,32 +4,21 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitBuilder {
-
-    companion object {
-        init {
-            System.loadLibrary("hornsapp-lib")
-        }
-    }
-
-    private external fun authorization(): String
-    private external fun baseUrl(): String
+class RetrofitBuilder(
+    private val constants: ApiConstants
+) {
 
     private val client by lazy {
         OkHttpClient.Builder()
-            .addInterceptor(AuthenticationInterceptor(authorization()))
+            .addInterceptor(AuthenticationInterceptor(constants.authorization()))
             .build()
     }
 
-    private val retrofit by lazy {
+    val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(baseUrl())
+            .baseUrl(constants.baseUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-    }
-
-    fun createService(): Service {
-        return retrofit.create(Service::class.java)
     }
 }

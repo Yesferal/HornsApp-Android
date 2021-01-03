@@ -5,9 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -17,11 +15,10 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.adapter.BandsAdapter
-import com.yesferal.hornsapp.hada.container.resolve
+import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -32,7 +29,10 @@ class ConcertFragment
     : BaseFragment<ConcertViewState>(),
     RenderEffect {
 
-    private lateinit var bandAdapter: BandsAdapter
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
+
+    override val layout: Int
+        get() = R.layout.fragment_concert
 
     override val actionListener by lazy {
         container.resolve<ConcertPresenter>()
@@ -43,21 +43,13 @@ class ConcertFragment
         fun show(adView: AdView)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_concert, container, false)
-    }
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<ParcelableViewData>(
+        val item = arguments?.getParcelable<Parcelable.ViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 
@@ -77,7 +69,7 @@ class ConcertFragment
     }
 
     private fun setUpBandsViewPager() {
-        bandAdapter = BandsAdapter(instanceBandAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(listener = instanceAdapterListener())
 
         val bigMargin = 24F
         val dpWidth = TypedValue.applyDimension(
@@ -91,7 +83,7 @@ class ConcertFragment
         compositePageTransformer.addTransformer(ScalePageTransformation())
 
         bandsViewPager.also {
-            it.adapter = bandAdapter
+            it.adapter = multiTypeAdapter
             it.clipToPadding = false
             it.clipChildren = false
             it.offscreenPageLimit = 3
@@ -171,7 +163,7 @@ class ConcertFragment
     }
 
     private fun show(bands: List<BandViewData>) {
-        bandAdapter.setItem(bands)
+        multiTypeAdapter.setModels(bands)
     }
 
     private fun enableTicketPurchase(
@@ -277,7 +269,7 @@ class ConcertFragment
 
     companion object {
         fun newInstance(
-            item: ParcelableViewData
+            item: Parcelable.ViewData
         ) : ConcertFragment {
             val bundle = Bundle()
             bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)
@@ -289,8 +281,8 @@ class ConcertFragment
     }
 }
 
-private fun ConcertFragment.instanceBandAdapterListener() =
-    object : BandsAdapter.Listener {
+private fun ConcertFragment.instanceAdapterListener() =
+    object : BandViewData.Listener {
         override fun onClick(bandViewData: BandViewData) {
             childFragmentManager.let {
                 val bundle = Bundle()

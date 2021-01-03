@@ -2,7 +2,6 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
-import com.yesferal.hornsapp.app.presentation.common.multitype.ViewHolderBinding
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
@@ -11,6 +10,7 @@ import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import java.util.*
 
 class NewestPresenter(
@@ -61,8 +61,7 @@ class NewestPresenter(
         concerts: List<Concert>,
         year: Int
     ) {
-        this.add(TitleViewData(year.toString(), "#$year"))
-        this.addAll(concerts
+        val views = concerts
             .filter { year.toString() == it.dateTime?.yearFormatted() }
             .take(3)
             .sortedWith(compareBy { it.dateTime?.time })
@@ -75,6 +74,10 @@ class NewestPresenter(
                     ticketingHostName = concert.ticketingHost
                 )
             }
-        )
+
+        if (views.isEmpty()) { return }
+
+        this.add(TitleViewData("#$year"))
+        this.addAll(views)
     }
 }

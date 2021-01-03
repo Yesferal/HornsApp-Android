@@ -1,11 +1,16 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
+import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.gms.ads.AdView
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ViewState
+import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
+import com.yesferal.hornsapp.app.presentation.common.custom.load
+import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
 import com.yesferal.hornsapp.domain.entity.Venue
+import com.yesferal.hornsapp.multitype.BaseViewHolder
+import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import kotlinx.android.synthetic.main.item_band.view.*
 import java.net.URI
 
 data class ConcertViewState(
@@ -14,7 +19,7 @@ data class ConcertViewState(
     val adView: AdView? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessageId: Int? = null
-) : ViewState
+)
 
 data class ConcertViewData(
     val id: String,
@@ -31,18 +36,37 @@ data class ConcertViewData(
     val ticketingHost: String? = null,
     val ticketingUrl: URI? = null,
     val venue: Venue? = null,
-) : ViewData
+)
 
 data class BandViewData(
     val id: String,
     val name: String?,
     val membersImage: String?,
     val genre: String?
-) : ViewData {
-    fun asParcelable(): ParcelableViewData {
-        return ParcelableViewData(
-            id,
-            name
-        )
+) : ViewHolderBinding, Parcelable {
+
+    override val layout = R.layout.item_band
+
+    override fun asParcelable(): Parcelable.ViewData {
+        return Parcelable.ViewData(id, name)
+    }
+
+    interface Listener: ViewHolderBinding.Listener {
+        fun onClick(bandViewData: BandViewData)
+    }
+
+    override fun onCreateViewHolder(
+        itemView: View,
+        listener: ViewHolderBinding.Listener
+    ) = object : BaseViewHolder<BandViewData>(itemView) {
+        override fun bind(model: BandViewData) {
+            itemView.itemTextView.text = model.name
+            itemView.itemImageView.setAllCornersRounded()
+            itemView.itemImageView.load(model.membersImage)
+
+            itemView.itemImageView.setOnClickListener {
+                (listener as Listener).onClick(model)
+            }
+        }
     }
 }
