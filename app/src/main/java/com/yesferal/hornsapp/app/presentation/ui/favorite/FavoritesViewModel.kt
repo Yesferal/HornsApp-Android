@@ -1,7 +1,10 @@
 package com.yesferal.hornsapp.app.presentation.ui.favorite
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
@@ -10,13 +13,18 @@ import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
 
-class FavoritesPresenter(
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
-) : BasePresenter<FavoritesFragment>() {
-    fun onViewCreated()  {
+class FavoritesViewModel(
+    getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
+) : ViewModel() {
+    private val _state = MutableLiveData<FavoritesViewState>()
+
+    val state: LiveData<FavoritesViewState>
+        get() = _state
+
+    init {
         getFavoriteConcertsUseCase(
             onSuccess = { concerts ->
-                val viewState = FavoritesViewState(items = concerts
+                _state.value = FavoritesViewState(items = concerts
                     .sortedWith(compareBy { it.dateTime?.time })
                     .map {
                         UpcomingViewData(
@@ -31,11 +39,9 @@ class FavoritesPresenter(
                         )
                     }
                 )
-
-                view?.render(viewState)
             },
             onError = {
-                val viewState = FavoritesViewState(
+                _state.value = FavoritesViewState(
                     items = listOf(
                         ErrorViewData(
                             R.drawable.ic_music_note,
@@ -43,9 +49,17 @@ class FavoritesPresenter(
                         )
                     )
                 )
-
-                view?.render(viewState)
             }
         )
+    }
+}
+
+class FavoritesViewModelFactory(
+    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return modelClass.getConstructor(
+            GetFavoriteConcertsUseCase::class.java
+        ).newInstance(getFavoriteConcertsUseCase)
     }
 }

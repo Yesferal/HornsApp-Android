@@ -1,7 +1,6 @@
 package com.yesferal.hornsapp.app.presentation
 
 import android.app.Application
-import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -16,8 +15,6 @@ class HornsApp: Application() {
     override fun onCreate() {
         super.onCreate()
         container.registerAppDependencies(context = this)
-
-        MobileAds.initialize(this)
         firebaseAnalytics = Firebase.analytics
     }
 }

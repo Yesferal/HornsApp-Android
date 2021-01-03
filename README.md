@@ -21,7 +21,7 @@ This app has been divided in 3 modules:
 In this module we tried two different presentation patterns just for academic purposes.
 We separated the implementations in two branches.
 1. [MVP pattern branch](https://github.com/Yesferal/Hornsapp-Android/tree/mvp-pattern)
-2. [MVVM pattern branch](https://github.com/Yesferal/Hornsapp-Android/)
+2. [MVVM pattern branch](https://github.com/Yesferal/Hornsapp-Android/tree/mvvm-pattern)
 
 The first presentation pattern that we implement in this project was MVP pattern.
 To do it we defined a base contract that contains both `View` & `ActionListener` interfaces,

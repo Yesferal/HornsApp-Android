@@ -10,14 +10,14 @@ fun View.fadeIn() {
 
     animate()
         .alpha(1f)
-        .setDuration(500)
+        .setDuration(50)
         .setListener(null)
 }
 
 fun View.fadeOut() {
     animate()
         .alpha(0f)
-        .setDuration(500)
+        .setDuration(50)
         .setListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 visibility = View.GONE

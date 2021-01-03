@@ -1,16 +1,16 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.fragment_newest.*
@@ -18,14 +18,11 @@ import kotlinx.android.synthetic.main.fragment_newest.*
 class NewestFragment
     : BaseFragment<NewestViewState>() {
 
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
-
     override val layout: Int
         get() = R.layout.fragment_newest
 
-    override val actionListener by lazy {
-        container.resolve<NewestPresenter>()
-    }
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
+    private lateinit var newestViewModel: NewestViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +39,14 @@ class NewestFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        actionListener.onViewCreated()
+        newestViewModel = ViewModelProvider(
+            this,
+            container.resolve<NewestViewModelFactory>()
+        ).get(NewestViewModel::class.java)
+
+        newestViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
     }
 
     override fun render(viewState: NewestViewState) {
@@ -72,17 +76,10 @@ private fun NewestFragment.instanceAdapterListener() =
             startConcertActivity(newestViewData.asParcelable())
         }
 
-        private fun startConcertActivity(parcelableViewData: Parcelable.ViewData) {
-            val intent = Intent(
-                activity,
-                ConcertActivity::class.java
+        private fun startConcertActivity(parcelableViewData: ParcelableViewData) {
+            findNavController().navigate(
+                HomeFragmentDirections
+                    .actionHomeToConcert(parcelableViewData)
             )
-
-            intent.putExtra(
-                EXTRA_PARAM_PARCELABLE,
-                parcelableViewData
-            )
-
-            startActivity(intent)
         }
     }

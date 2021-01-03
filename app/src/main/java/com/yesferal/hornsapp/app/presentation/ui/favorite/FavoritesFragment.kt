@@ -1,15 +1,15 @@
 package com.yesferal.hornsapp.app.presentation.ui.favorite
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -18,14 +18,11 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 class FavoritesFragment
     : BaseFragment<FavoritesViewState>() {
 
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
-
     override val layout: Int
         get() = R.layout.fragment_favorites
 
-    override val actionListener by lazy {
-        container.resolve<FavoritesPresenter>()
-    }
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
+    private lateinit var favoritesViewModel: FavoritesViewModel
 
     override fun onViewCreated(
         view: View,
@@ -44,11 +41,15 @@ class FavoritesFragment
             )
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        actionListener.onViewCreated()
+        favoritesViewModel = ViewModelProvider(
+            this,
+            container.resolve<FavoritesViewModelFactory>()
+        ).get(FavoritesViewModel::class.java)
+
+        favoritesViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
     }
 
     override fun render(viewState: FavoritesViewState) {
@@ -83,16 +84,9 @@ class FavoritesFragment
 private fun FavoritesFragment.instanceAdapterListener() =
     object : UpcomingViewData.Listener {
         override fun onClick(upcomingViewData: UpcomingViewData) {
-            val intent = Intent(
-                activity,
-                ConcertActivity::class.java
+            findNavController().navigate(
+                HomeFragmentDirections
+                    .actionHomeToConcert(upcomingViewData.asParcelable())
             )
-
-            intent.putExtra(
-                EXTRA_PARAM_PARCELABLE,
-                upcomingViewData.asParcelable()
-            )
-
-            startActivity(intent)
         }
     }

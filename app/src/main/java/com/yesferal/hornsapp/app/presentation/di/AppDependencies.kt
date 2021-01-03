@@ -5,7 +5,7 @@ import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.dependency.Singleton
 
 fun Container.registerAppDependencies(context: Context) {
-    this register Singleton<Context> { context }
+    this register Singleton { context }
     registerDomainModule()
     registerDataModule()
     registerFrameworkModule()

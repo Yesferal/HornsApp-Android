@@ -1,20 +1,18 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertsFragment
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
@@ -27,43 +25,32 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment
     : BaseFragment<HomeViewState>() {
     private lateinit var stubViewInflated: View
+    private lateinit var homeViewModel: HomeViewModel
 
     override val layout: Int
         get() = R.layout.fragment_home
 
-    override val actionListener by lazy {
-        container.resolve<HomePresenter>()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initToolbar()
-
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
-        actionListener.onViewCreated()
-    }
-
-    private fun initToolbar() {
-        (activity as AppCompatActivity?)?.let {
-            it.setSupportActionBar(toolbar)
-
-            toolbar.setNavigationOnClickListener {
-                fragmentManager?.let { manager ->
-                    ProfileBottomSheetFragment.newInstance(Bundle()).apply {
-                        show(manager, tag)
-                    }
+        hornsAppImageView.setOnClickListener {
+            childFragmentManager.let { manager ->
+                ProfileBottomSheetFragment.newInstance(Bundle()).apply {
+                    show(manager, tag)
                 }
             }
+        }
 
-            val drawable = ContextCompat.getDrawable(it, R.drawable.ic_menu)
-            drawable?.setTint(Color.WHITE)
+        homeViewModel = ViewModelProvider(
+            this,
+            container.resolve<HomeViewModelFactory>()
+        ).get(HomeViewModel::class.java)
 
-            it.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            it.supportActionBar?.setDisplayShowHomeEnabled(true)
-            it.supportActionBar?.setHomeAsUpIndicator(drawable)
-            it.supportActionBar?.setDisplayShowTitleEnabled(false)
+        homeViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
         }
     }
 
@@ -72,7 +59,7 @@ class HomeFragment
             showFragments(titles)
         }
 
-        viewState.adView?.let { adView ->
+        viewState.adViewData?.let { adView ->
             showAd(adView)
         }
 
@@ -104,9 +91,8 @@ class HomeFragment
         tabLayout.visibility = View.VISIBLE
     }
 
-    private fun showAd(adView: AdView) {
-        adContainerLayout.removeAllViews()
-        adContainerLayout.addView(adView)
+    private fun showAd(adViewData: AdViewData) {
+        adContainerLayout.addAdView(adViewData)
     }
 
     private fun showProgress() {
@@ -132,7 +118,7 @@ class HomeFragment
         }
 
         tryAgainTextView.setOnClickListener {
-            actionListener.onRefresh()
+            homeViewModel.onRefresh()
             tryAgainTextView.visibility = View.GONE
         }
     }
@@ -141,10 +127,6 @@ class HomeFragment
         if (::stubViewInflated.isInitialized) {
             stubViewInflated.visibility = View.GONE
         }
-    }
-
-    companion object {
-        fun newInstance() = HomeFragment()
     }
 }
 
@@ -161,7 +143,7 @@ private class ScreenSlidePagerAdapter(
                 NewestFragment.newInstance()
             }
             1 -> {
-                ConcertsFragment.newInstance()
+                UpcomingFragment.newInstance()
             }
             else -> {
                 FavoritesFragment.newInstance()

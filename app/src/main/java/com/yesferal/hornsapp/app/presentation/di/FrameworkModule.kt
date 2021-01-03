@@ -27,10 +27,9 @@ fun Container.registerFrameworkModule() {
         RetrofitDataSource(service = service)
     }
 
-    this register Singleton<AdManager> {
+    this register Singleton {
         AdManager(
-            adUnitIds = AdUnitIds(),
-            context = resolve()
+            adUnitIds = AdUnitIds()
         )
     }
 }

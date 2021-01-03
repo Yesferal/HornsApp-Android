@@ -3,31 +3,57 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginHorizontal="@dimen/margin_small"
-            app:layout_scrollFlags="scroll"/>
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/margin_small"
+            android:paddingHorizontal="@dimen/margin_big"
+            app:layout_scrollFlags="scroll">
+
+            <ImageView
+                android:id="@+id/hornsAppImageView"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@mipmap/ic_launcher_round"
+                android:contentDescription="@null"
+                android:layout_marginTop="@dimen/margin_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/app_name"
+                style="@style/HornsApp.TextView.Subtitle"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.05"
+                app:layout_constraintTop_toTopOf="@+id/hornsAppImageView"
+                app:layout_constraintStart_toEndOf="@+id/hornsAppImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/hornsAppImageView"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small"
             app:tabIndicatorHeight="8dp"
             app:tabIndicator="@drawable/shape_selected_dot"
             app:tabMode="scrollable"
             app:tabPaddingStart="0dp"
             app:tabPaddingEnd="0dp"
-            app:layout_constraintTop_toTopOf="parent"
             android:visibility="gone"/>
     </com.google.android.material.appbar.AppBarLayout>
 

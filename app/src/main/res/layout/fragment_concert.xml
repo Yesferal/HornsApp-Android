@@ -1,144 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
-        android:id="@+id/favoriteImageView"
+    <View
+        android:id="@+id/toolbarBackground"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/background"
+        android:elevation="4dp"/>
+
+    <ImageView
+        android:id="@+id/closeImageView"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:contentDescription="@null"
-        android:layout_marginTop="@dimen/margin_tiny"
-        android:padding="@dimen/margin_small"
-        android:background="@color/background"
-        app:layout_constraintTop_toBottomOf="@+id/custom_date_text_view"
-        app:layout_constraintStart_toStartOf="@+id/custom_date_text_view"
-        app:layout_constraintEnd_toEndOf="@+id/custom_date_text_view"
-        app:layout_constraintDimensionRatio="1:1"/>
-
-    <include
-        android:id="@+id/custom_date_text_view"
-        layout="@layout/custom_date_text_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:padding="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.2"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/bandsViewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:nestedScrollingEnabled="false"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/custom_date_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:1" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:layout_marginEnd="@dimen/margin_big"
-        android:layout_marginBottom="@dimen/margin_medium"
-        app:tabBackground="@drawable/selector_dot_indicator"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        app:layout_constraintStart_toStartOf="@+id/bandsViewPager"
-        app:layout_constraintEnd_toEndOf="@+id/bandsViewPager"
-        app:layout_constraintBottom_toBottomOf="@+id/bandsViewPager"/>
-
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/ticketTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/buyTicketsTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/buyTicketsTextView"/>
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
 
     <TextView
-        android:id="@+id/buyTicketsTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_rounded_16dp"
-        android:backgroundTint="@color/accent"
-        android:textColor="@android:color/white"
+        android:elevation="4dp"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintTop_toTopOf="@id/toolbarBackground"
+        app:layout_constraintStart_toEndOf="@+id/closeImageView"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="@null"
+        android:layout_marginHorizontal="@dimen/margin_small"
         android:padding="@dimen/margin_medium"
-        android:layout_margin="@dimen/margin_big"
-        style="@style/HornsApp.TextView.Subtitle"
-        app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"
+        app:layout_constraintDimensionRatio="1:1"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/venueTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/buyTicketsTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/datetimeTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/venueTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/facebookTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/youtubeTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/facebookTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/youtubeTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- layout_height="66dp": This is equals to Ad size (50 + 16) -->
     <View
-        android:id="@+id/bottomView"
+        android:id="@+id/lineBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.2"/>
+
+    <View
+        android:id="@+id/dashedLineView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="software"
+        android:background="@drawable/shape_vertical_dashed_line"
+        app:layout_constraintTop_toTopOf="@id/lineBackgroundView"
+        app:layout_constraintStart_toStartOf="@+id/lineBackgroundView"
+        app:layout_constraintEnd_toEndOf="@id/lineBackgroundView"
+        app:layout_constraintBottom_toBottomOf="@+id/lineBackgroundView"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="66dp"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"/>
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBackground"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium">
+
+            <include
+                android:id="@+id/custom_date_text_view"
+                layout="@layout/custom_date_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.2"/>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/bandsViewPager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/custom_date_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="8dp"
+                android:layout_marginEnd="@dimen/margin_big"
+                android:layout_marginBottom="@dimen/margin_medium"
+                app:tabBackground="@drawable/selector_dot_indicator"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:layout_constraintStart_toStartOf="@+id/bandsViewPager"
+                app:layout_constraintEnd_toEndOf="@+id/bandsViewPager"
+                app:layout_constraintBottom_toBottomOf="@+id/bandsViewPager"/>
+
+            <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+                android:id="@+id/ticketTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/buyTicketsTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/buyTicketsTextView"/>
+
+            <TextView
+                android:id="@+id/buyTicketsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rectangle_rounded_16dp"
+                android:backgroundTint="@color/accent"
+                android:textColor="@android:color/white"
+                android:padding="@dimen/margin_medium"
+                android:layout_margin="@dimen/margin_big"
+                style="@style/HornsApp.TextView.Subtitle"
+                app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+                android:id="@+id/venueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/buyTicketsTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+                android:id="@+id/datetimeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/venueTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+                android:id="@+id/facebookTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/datetimeTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+                android:id="@+id/youtubeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/facebookTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/youtubeTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- layout_height="66dp": This is equals to Ad size (50 + 16) -->
+            <View
+                android:id="@+id/bottomView"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/adContainerLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ViewStub
         android:id="@+id/stubView"
         android:inflatedId="@+id/inflatedStubView"
         android:layout="@layout/custom_error"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomView"/>
+        android:layout_height="match_parent"/>
 
     <include
         layout="@layout/custom_view_progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/bottomView"/>
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

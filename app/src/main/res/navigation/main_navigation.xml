@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/fragment_splash">
+
+    <fragment
+        android:id="@+id/fragment_splash"
+        android:name="com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragment"
+        android:label="splash_fragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@+id/fragment_home"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/fragment_splash"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_concert"
+            app:destination="@+id/fragment_concert"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/fragment_concert"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_concert"
+        android:name="com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertFragment"
+        android:label="concert_fragment"
+        tools:layout="@layout/fragment_concert">
+        <argument
+            android:name="concert"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData" />
+    </fragment>
+</navigation>

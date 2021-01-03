@@ -3,12 +3,14 @@ package com.yesferal.hornsapp.app.presentation.ui.band
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.domain.entity.Band
+import com.yesferal.hornsapp.hada.parameter.Parameters
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_band.*
@@ -19,25 +21,30 @@ class BandFragment
     override val layout: Int
         get() = R.layout.fragment_band
 
-    override val actionListener by lazy {
-        container.resolve<BandPresenter>()
-    }
+    private lateinit var bandViewModel: BandViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = arguments?.getParcelable<Parcelable.ViewData>(
+        val item = arguments?.getParcelable<ParcelableViewData>(
             EXTRA_PARAM_PARCELABLE
         )
 
         if (item == null) {
-            activity?.finish()
+            activity?.onBackPressed()
             return
         }
 
         titleTextView.text = item.name
         membersImageView.setTopCornersRounded()
 
-        actionListener.onViewCreated(item.id)
+        bandViewModel = ViewModelProvider(
+            this,
+            container.resolve<BandViewModelFactory>(params = Parameters(item.id))
+        ).get(BandViewModel::class.java)
+
+        bandViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
     }
 
     override fun render(viewState: BandViewState) {

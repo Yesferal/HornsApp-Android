@@ -1,7 +1,10 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BasePresenter
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.usecase.GetConcertsByCategoryUseCase
@@ -11,11 +14,15 @@ import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 
-class UpcomingPresenter(
+class UpcomingViewModel(
     private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase
-) : BasePresenter<ConcertsFragment>() {
+) : ViewModel() {
+    private val _state = MutableLiveData<UpcomingViewState>()
 
-    fun onViewCreated()  {
+    val state: LiveData<UpcomingViewState>
+        get() = _state
+
+    init {
         getConcertsByCategoryUseCase(CategoryKey.ALL)
     }
 
@@ -55,18 +62,16 @@ class UpcomingPresenter(
                                     time = it.dateTime?.timeFormatted(),
                                     genre = it.genre
                                 )
-                        }
+                            }
                     )
                 }
 
-                val viewState = UpcomingViewState(
+                _state.value = UpcomingViewState(
                     items = items.toList()
                 )
-
-                view?.render(viewState)
             },
             onError = {
-                val viewState = UpcomingViewState(
+                _state.value = UpcomingViewState(
                     items = listOf(
                         FiltersViewData(categories),
                         ErrorViewData(
@@ -75,9 +80,17 @@ class UpcomingPresenter(
                         )
                     )
                 )
-
-                view?.render(viewState)
             }
         )
+    }
+}
+
+class UpcomingViewModelFactory(
+    private val getConcertsByCategoryUseCase: GetConcertsByCategoryUseCase
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return modelClass.getConstructor(
+            GetConcertsByCategoryUseCase::class.java
+        ).newInstance(getConcertsByCategoryUseCase)
     }
 }
