@@ -11,6 +11,8 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.fragment_newest.*
@@ -22,7 +24,7 @@ class NewestFragment
         get() = R.layout.fragment_newest
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
-    private lateinit var newestViewModel: NewestViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,13 +41,15 @@ class NewestFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        newestViewModel = ViewModelProvider(
-            this,
-            container.resolve<NewestViewModelFactory>()
-        ).get(NewestViewModel::class.java)
+        activity?.viewModelStore?.let { viewModelStore ->
+            homeViewModel = ViewModelProvider(
+                viewModelStore,
+                container.resolve<HomeViewModelFactory>()
+            ).get(HomeViewModel::class.java)
 
-        newestViewModel.state.observe(viewLifecycleOwner) {
-            render(it)
+            homeViewModel.stateNewest.observe(viewLifecycleOwner) {
+                render(it)
+            }
         }
     }
 

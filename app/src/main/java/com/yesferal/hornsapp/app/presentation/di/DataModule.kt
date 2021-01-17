@@ -10,8 +10,8 @@ import com.yesferal.hornsapp.hada.dependency.Singleton
 fun Container.registerDataModule() {
     this register Singleton<ConcertRepository> {
         ConcertRepositoryImpl(
-            storageDataSource = resolve(),
-            apiDataSource = resolve()
+            apiDataSource = resolve(),
+            ormDataSource = resolve()
         )
     }
 

@@ -7,7 +7,6 @@ import java.util.*
 data class GetConcerts(
     val _id: String,
     val name: String?,
-    val description: String?,
     val headlinerImage: String?,
     val dateTime: Date?,
     val genre: String?,
@@ -22,7 +21,6 @@ data class GetConcerts(
         return Concert(
             id = this._id,
             name = this.name,
-            description = this.description,
             headlinerImage = this.headlinerImage,
             dateTime = this.dateTime,
             genre = this.genre,

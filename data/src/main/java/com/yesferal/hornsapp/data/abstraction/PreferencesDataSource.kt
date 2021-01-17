@@ -1,0 +1,3 @@
+package com.yesferal.hornsapp.data.abstraction
+
+interface PreferencesDataSource

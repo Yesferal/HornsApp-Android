@@ -18,12 +18,6 @@ fun Container.registerDomainModule() {
     }
 
     this register Factory {
-        GetConcertsByCategoryUseCase(
-            concertRepository = resolve()
-        )
-    }
-
-    this register Factory {
         GetFavoriteConcertsUseCase(
             concertRepository = resolve()
         )

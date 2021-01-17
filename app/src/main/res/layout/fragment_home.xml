@@ -28,20 +28,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="@string/app_name"
-                style="@style/HornsApp.TextView.Subtitle"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:gravity="center_vertical"
-                android:letterSpacing="0.05"
-                app:layout_constraintTop_toTopOf="@+id/hornsAppImageView"
-                app:layout_constraintStart_toEndOf="@+id/hornsAppImageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/hornsAppImageView"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout

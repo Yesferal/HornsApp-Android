@@ -10,6 +10,8 @@ import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -22,7 +24,7 @@ class FavoritesFragment
         get() = R.layout.fragment_favorites
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
-    private lateinit var favoritesViewModel: FavoritesViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onViewCreated(
         view: View,
@@ -42,13 +44,15 @@ class FavoritesFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        favoritesViewModel = ViewModelProvider(
-            this,
-            container.resolve<FavoritesViewModelFactory>()
-        ).get(FavoritesViewModel::class.java)
+        activity?.viewModelStore?.let { viewModelStore ->
+            homeViewModel = ViewModelProvider(
+                viewModelStore,
+                container.resolve<HomeViewModelFactory>()
+            ).get(HomeViewModel::class.java)
 
-        favoritesViewModel.state.observe(viewLifecycleOwner) {
-            render(it)
+            homeViewModel.stateFavorite.observe(viewLifecycleOwner) {
+                render(it)
+            }
         }
     }
 

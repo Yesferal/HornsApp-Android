@@ -2,9 +2,11 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
@@ -30,7 +32,6 @@ class HomeFragment
     override val layout: Int
         get() = R.layout.fragment_home
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,14 +45,29 @@ class HomeFragment
             }
         }
 
-        homeViewModel = ViewModelProvider(
-            this,
-            container.resolve<HomeViewModelFactory>()
-        ).get(HomeViewModel::class.java)
+        activity?.viewModelStore?.let { viewModelStore ->
+            homeViewModel = ViewModelProvider(
+                viewModelStore,
+                container.resolve<HomeViewModelFactory>()
+            ).get(HomeViewModel::class.java)
 
-        homeViewModel.state.observe(viewLifecycleOwner) {
-            render(it)
+            homeViewModel.state.observe(viewLifecycleOwner) {
+                render(it)
+            }
+
+            homeViewModel.getFavoriteConcerts()
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(concertsViewPager.currentItem == 0){
+                    isEnabled = false
+                    activity?.onBackPressed()
+                }else{
+                    concertsViewPager.currentItem = concertsViewPager.currentItem - 1
+                }
+            }
+        })
     }
 
     override fun render(viewState: HomeViewState) {
@@ -78,10 +94,10 @@ class HomeFragment
     }
 
     private fun showFragments(titles: List<String>) {
-        activity?.let {
-            val pagerAdapter = ScreenSlidePagerAdapter(it, titles)
-            concertsViewPager.adapter = pagerAdapter
-        }
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(
+            requireActivity().supportFragmentManager,
+            lifecycle
+        )
 
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
@@ -131,23 +147,17 @@ class HomeFragment
 }
 
 private class ScreenSlidePagerAdapter(
-    fragmentActivity: FragmentActivity,
-    private val fragments: List<String>
-) : FragmentStateAdapter(fragmentActivity) {
+    fragment: FragmentManager,
+    lifecycle: Lifecycle
+) : FragmentStateAdapter(fragment, lifecycle) {
 
-    override fun getItemCount(): Int = fragments.size
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> {
-                NewestFragment.newInstance()
-            }
-            1 -> {
-                UpcomingFragment.newInstance()
-            }
-            else -> {
-                FavoritesFragment.newInstance()
-            }
+            0 -> NewestFragment.newInstance()
+            1 -> UpcomingFragment.newInstance()
+            else -> FavoritesFragment.newInstance()
         }
     }
 }

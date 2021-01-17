@@ -25,6 +25,7 @@ data class ConcertViewState(
 data class ConcertViewData(
     val id: String,
     val name: String?,
+    val headlinerImage: String?,
     val description: String?,
     val timeInMillis: Long?,
     val dateTime: String?,

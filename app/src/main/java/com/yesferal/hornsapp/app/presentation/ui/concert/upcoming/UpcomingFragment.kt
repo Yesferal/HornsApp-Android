@@ -12,6 +12,8 @@ import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -24,7 +26,7 @@ class UpcomingFragment
         get() = R.layout.fragment_upcoming
 
     private lateinit var multiTypeAdapter: MultiTypeAdapter
-    lateinit var upcomingViewModel: UpcomingViewModel
+    lateinit var homeViewModel: HomeViewModel
 
     override fun onViewCreated(
         view: View,
@@ -45,13 +47,15 @@ class UpcomingFragment
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            upcomingViewModel = ViewModelProvider(
-                this,
-                container.resolve<UpcomingViewModelFactory>()
-            ).get(UpcomingViewModel::class.java)
+            activity?.viewModelStore?.let { viewModelStore ->
+                homeViewModel = ViewModelProvider(
+                    viewModelStore,
+                    container.resolve<HomeViewModelFactory>()
+                ).get(HomeViewModel::class.java)
 
-            upcomingViewModel.state.observe(viewLifecycleOwner) {
-                render(it)
+                homeViewModel.stateUpcoming.observe(viewLifecycleOwner) {
+                    render(it)
+                }
             }
         }, 333)
     }
@@ -99,6 +103,6 @@ private fun UpcomingFragment.instanceAdapterListener() =
         }
 
         override fun onClick(categoryViewData: CategoryViewData) {
-            upcomingViewModel.onFilterClick(categoryViewData)
+            homeViewModel.onFilterClick(categoryViewData)
         }
     }
