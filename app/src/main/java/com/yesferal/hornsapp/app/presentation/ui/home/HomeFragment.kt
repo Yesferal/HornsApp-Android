@@ -95,7 +95,7 @@ class HomeFragment
 
     private fun showFragments(titles: List<String>) {
         concertsViewPager.adapter = ScreenSlidePagerAdapter(
-            requireActivity().supportFragmentManager,
+            this.childFragmentManager,
             lifecycle
         )
 

@@ -12,6 +12,8 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewDa
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewState
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesViewState
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewData
+import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewState
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
@@ -248,6 +250,41 @@ class HomeViewModel(
 
         this.add(TitleViewData("#$year"))
         this.addAll(views)
+    }
+    // endregion
+
+    // region On Boarding
+    private val _stateOnBoarding = MutableLiveData<OnBoardingViewState>()
+
+    val stateOnBoarding: LiveData<OnBoardingViewState>
+        get() = _stateOnBoarding
+
+    fun getOnBoardingData() {
+        val concerts = _state.value?.concerts
+
+        _stateOnBoarding.value = if(concerts != null) {
+            val onBoardingViewData = OnBoardingViewData(
+                metalConcerts = concerts.filter {
+                    it.tags?.contains(CategoryKey.METAL.toString()) == true
+                }.size,
+                rockConcerts = concerts.filter {
+                    it.tags?.contains(CategoryKey.ROCK.toString()) == true
+                }.size,
+                upcomingConcerts = concerts.filter {
+                    val dateTime = it.dateTime?: return
+                    val twoMonthsInMillis = 5184000000
+
+                    dateTime.after(Date(Calendar.getInstance().timeInMillis + (twoMonthsInMillis)))
+                }.size,
+                total = concerts.size
+            )
+
+            OnBoardingViewState(onBoardingViewData = onBoardingViewData)
+        } else {
+            OnBoardingViewState(
+                errorMessage = R.string.error_default,
+            )
+        }
     }
     // endregion
 }
