@@ -2,14 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_on_boarding"/>
+        android:src="@drawable/img_on_boarding"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <View
         android:id="@+id/headerView"
@@ -25,7 +29,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/shape_gradient_left_to_right"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.66"/>
+        app:layout_constraintWidth_percent="0.66"
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -41,14 +46,15 @@
         app:layout_constraintEnd_toEndOf="@+id/startView"/>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Vamos a encontrar juntos tu próximo concierto."
         android:layout_marginHorizontal="@dimen/margin_medium"
+        android:text="Vamos a encontrar juntos tu próximo concierto."
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="@+id/startView"
         app:layout_constraintStart_toStartOf="@+id/startView"
-        app:layout_constraintEnd_toEndOf="@+id/startView"/>
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
         android:id="@+id/nextTextView"
@@ -65,6 +71,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/metalCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/startView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintStart_toStartOf="@+id/startView"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView" />
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/rockCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView"
+        app:layout_constraintStart_toStartOf="@id/metalCard"
+        app:layout_constraintEnd_toEndOf="@id/upcomingCard"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/upcomingCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView"
+        app:layout_constraintStart_toStartOf="@id/rockCard"
+        app:layout_constraintEnd_toEndOf="@id/totalCard"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/totalCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView"
+        app:layout_constraintStart_toStartOf="@id/upcomingCard"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

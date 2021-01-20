@@ -31,4 +31,8 @@
     <string name="facebook_package">com.facebook.katana</string>
     <string name="maps_package">com.google.android.apps.maps</string>
     <string name="calendar_action_type">vnd.android.cursor.item/event</string>
+    <string name="upcomingCategory">Próximos</string>
+    <string name="metalCategory">Metal</string>
+    <string name="rockCategory">Rock</string>
+    <string name="totalCategory">Todos</string>
 </resources>
