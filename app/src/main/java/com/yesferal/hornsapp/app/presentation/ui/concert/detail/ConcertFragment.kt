@@ -61,7 +61,7 @@ class ConcertFragment
 
         concertViewModel = ViewModelProvider(
             this,
-            container.resolve<ConcertViewModelFactory>(params = Parameters(concert.id))
+            hada().resolve<ConcertViewModelFactory>(params = Parameters(concert.id))
         ).get(ConcertViewModel::class.java)
 
         concertViewModel.state.observe(viewLifecycleOwner) {

@@ -39,7 +39,7 @@ class BandFragment
 
         bandViewModel = ViewModelProvider(
             this,
-            container.resolve<BandViewModelFactory>(params = Parameters(item.id))
+            hada().resolve<BandViewModelFactory>(params = Parameters(item.id))
         ).get(BandViewModel::class.java)
 
         bandViewModel.state.observe(viewLifecycleOwner) {

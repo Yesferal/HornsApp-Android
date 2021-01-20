@@ -29,7 +29,7 @@ class OnBoardingFragment
         activity?.viewModelStore?.let { viewModelStore ->
             homeViewModel = ViewModelProvider(
                 viewModelStore,
-                container.resolve<HomeViewModelFactory>()
+                hada().resolve<HomeViewModelFactory>()
             ).get(HomeViewModel::class.java)
 
             homeViewModel.state.observe(viewLifecycleOwner) {

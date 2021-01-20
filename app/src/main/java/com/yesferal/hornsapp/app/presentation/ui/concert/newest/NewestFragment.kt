@@ -44,7 +44,7 @@ class NewestFragment
         activity?.viewModelStore?.let { viewModelStore ->
             homeViewModel = ViewModelProvider(
                 viewModelStore,
-                container.resolve<HomeViewModelFactory>()
+                hada().resolve<HomeViewModelFactory>()
             ).get(HomeViewModel::class.java)
 
             homeViewModel.stateNewest.observe(viewLifecycleOwner) {

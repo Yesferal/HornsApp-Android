@@ -50,7 +50,7 @@ class UpcomingFragment
             activity?.viewModelStore?.let { viewModelStore ->
                 homeViewModel = ViewModelProvider(
                     viewModelStore,
-                    container.resolve<HomeViewModelFactory>()
+                    hada().resolve<HomeViewModelFactory>()
                 ).get(HomeViewModel::class.java)
 
                 homeViewModel.stateUpcoming.observe(viewLifecycleOwner) {

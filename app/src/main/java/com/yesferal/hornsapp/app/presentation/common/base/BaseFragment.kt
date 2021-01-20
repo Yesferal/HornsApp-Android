@@ -13,17 +13,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
-import com.yesferal.hornsapp.app.presentation.HornsApp
+import com.yesferal.hornsapp.app.presentation.di.hada.HadaAwareness
 import java.net.URI
 
 abstract class BaseFragment<VIEW_STATE>
     : Fragment(),
     RenderState<VIEW_STATE>,
-    LayoutBinding {
-
-    protected val container by lazy {
-        (activity?.application as HornsApp).container
-    }
+    LayoutBinding,
+    HadaAwareness {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
