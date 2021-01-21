@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import kotlinx.android.synthetic.main.fragment_concert.*

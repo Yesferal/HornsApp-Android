@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.custom
+package com.yesferal.hornsapp.app.presentation.common.extension
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

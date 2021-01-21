@@ -6,8 +6,8 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.custom.load
-import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.extension.load
+import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.domain.entity.Venue
 import com.yesferal.hornsapp.multitype.BaseViewHolder
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding

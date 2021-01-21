@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.multitype.BaseViewHolder
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*

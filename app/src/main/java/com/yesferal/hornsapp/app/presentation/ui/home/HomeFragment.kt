@@ -13,9 +13,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment

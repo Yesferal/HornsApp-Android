@@ -8,7 +8,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.extension.*
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.hada.parameter.Parameters
 import kotlinx.android.synthetic.main.custom_error.*
