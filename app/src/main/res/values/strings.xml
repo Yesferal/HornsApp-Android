@@ -4,10 +4,10 @@
     <!-- Words -->
     <string name="version">Versión</string>
     <string name="profile">Perfil</string>
-    <string name="upcomingCategory">Próximos</string>
-    <string name="metalCategory">Metal</string>
-    <string name="rockCategory">Rock</string>
-    <string name="totalCategory">Todos</string>
+    <string name="upcoming_category">Próximos</string>
+    <string name="metal_category">Metal</string>
+    <string name="rock_category">Rock</string>
+    <string name="total_category">Todos</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>

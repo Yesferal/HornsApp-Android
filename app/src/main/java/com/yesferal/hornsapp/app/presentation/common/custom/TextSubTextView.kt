@@ -24,7 +24,7 @@ class TextSubTextView @JvmOverloads constructor(
 
     fun setText(title: String?) {
         title?.let {
-            titleTextView.visibility = View.VISIBLE
+            visibility = View.VISIBLE
             titleTextView.text = it
         } ?: kotlin.run { visibility = View.GONE }
     }

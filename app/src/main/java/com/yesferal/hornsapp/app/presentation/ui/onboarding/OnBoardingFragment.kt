@@ -65,10 +65,10 @@ class OnBoardingFragment
     }
 
     private fun showData(onBoardingViewData: OnBoardingViewData) {
-        metalCard.setText(onBoardingViewData.metalConcerts.toString(),getString(R.string.metalCategory))
-        rockCard.setText(onBoardingViewData.rockConcerts.toString(),getString(R.string.rockCategory))
-        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(),getString(R.string.upcomingCategory))
-        totalCard.setText(onBoardingViewData.total.toString(),getString(R.string.totalCategory))
+        metalCard.setText(onBoardingViewData.metalConcerts.toString(),getString(R.string.metal_category))
+        rockCard.setText(onBoardingViewData.rockConcerts.toString(),getString(R.string.rock_category))
+        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(),getString(R.string.upcoming_category))
+        totalCard.setText(onBoardingViewData.total.toString(),getString(R.string.total_category))
     }
 
     private fun showProgress() {
