@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
+import com.yesferal.hornsapp.app.BuildConfig
 import com.yesferal.hornsapp.app.R
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -32,11 +33,11 @@ class ProfileFragment
 
     private fun setUpShare() {
         shareTextView.setImageView(R.drawable.ic_share)
-        shareTextView.setText(getString(R.string.share_with_friends), getString(R.string.see_your_apps))
+        shareTextView.setText(getString(R.string.share_with_friends), getString(R.string.use_your_favorite_apps))
         shareTextView.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_hornsapp))
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_hornsapp_message))
             intent.type = "text/plain"
             startActivity(intent)
         }
@@ -51,9 +52,17 @@ class ProfileFragment
             val versionName: String = packageInfo.versionName
             val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
 
-            val version = "$versionName.$versionCode"
             versionTextView.setImageView(R.drawable.ic_information)
-            versionTextView.setText(getString(R.string.version), version)
+            val version = StringBuilder()
+                .append(versionName)
+                .append(".")
+                .append(versionCode)
+
+            if (BuildConfig.DEBUG) {
+                version.append("-DEV")
+            }
+
+            versionTextView.setText(getString(R.string.version), version.toString())
         }
     }
 

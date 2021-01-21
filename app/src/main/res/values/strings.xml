@@ -8,6 +8,7 @@
     <string name="metal_category">Metal</string>
     <string name="rock_category">Rock</string>
     <string name="total_category">Todos</string>
+    <string name="app_name_register">HornsApp®</string>
 
     <!-- Messages -->
     <string name="go_now">Ir Ahora</string>
@@ -22,8 +23,9 @@
     <string name="available_in">Disponible en</string>
     <string name="try_again">Volver a intentar</string>
     <string name="share_with_friends">Compartir con amigos</string>
-    <string name="share_hornsapp">Revisa nuestra app. HornsApp (Rock &amp; Metal): https://play.google.com/store/apps/details?id=com.yesferal.hornsapp</string>
-    <string name="see_your_apps">Ver tus apps</string>
+    <string name="share_hornsapp_message">Buscando nuevos conciertos en Lima, descarga HornsApp (Rock &amp; Metal): https://play.google.com/store/apps/details?id=com.yesferal.hornsapp</string>
+    <string name="use_your_favorite_apps">Usa tu app preferida</string>
+    <string name="about_this_app">Acerca de</string>
 
     <!-- Error Messages -->
     <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
