@@ -6,43 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/imageBackgroundView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/background"
-        android:layout_marginStart="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="@id/itemImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/itemImageView"
-        app:layout_constraintWidth_percent="0.2"/>
-
     <TextView
         android:id="@+id/titleTextView"
-        style="@style/HornsApp.TextView.Subtitle"
+        style="@style/HornsApp.TextView.HugeTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageBackgroundView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="23" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/subtitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Metal"
         android:textColor="#E2C1C1C1"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_tiny"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageBackgroundView"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        tools:text="Metal" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"/>
 
 </merge>

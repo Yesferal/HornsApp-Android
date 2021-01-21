@@ -20,8 +20,6 @@ class TextSubTextView @JvmOverloads constructor(
                     Context.LAYOUT_INFLATER_SERVICE
                 ) as LayoutInflater
         inflater.inflate(R.layout.custom_text_sub_text_view, this, true)
-        titleTextView.visibility = View.GONE
-        subtitleTextView.visibility = View.GONE
     }
 
     fun setText(title: String?) {
@@ -38,7 +36,7 @@ class TextSubTextView @JvmOverloads constructor(
         setText(title)
         description?.let {
             subtitleTextView.visibility = View.VISIBLE
-            subtitleTextView.text = description
+            subtitleTextView.text = it
         } ?: kotlin.run {
             subtitleTextView.visibility = View.GONE
         }
