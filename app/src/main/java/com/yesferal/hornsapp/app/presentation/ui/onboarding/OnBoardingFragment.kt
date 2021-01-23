@@ -1,6 +1,5 @@
 package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
@@ -10,15 +9,11 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
-import kotlinx.android.synthetic.main.fragment_concert.*
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
-import java.net.URI
 
 class OnBoardingFragment
     : BaseFragment <OnBoardingViewState>() {
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var onBoardingViewModel: OnBoardingViewModel
 
     override val layout: Int
         get() = R.layout.fragment_on_boarding
@@ -26,19 +21,13 @@ class OnBoardingFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.viewModelStore?.let { viewModelStore ->
-            homeViewModel = ViewModelProvider(
-                viewModelStore,
-                hada().resolve<HomeViewModelFactory>()
-            ).get(HomeViewModel::class.java)
+        onBoardingViewModel = ViewModelProvider(
+            this,
+            hada().resolve<OnBoardingViewModelFactory>()
+        ).get(OnBoardingViewModel::class.java)
 
-            homeViewModel.state.observe(viewLifecycleOwner) {
-                homeViewModel.getOnBoardingData()
-            }
-
-            homeViewModel.stateOnBoarding.observe(viewLifecycleOwner) {
-                render(it)
-            }
+        onBoardingViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
         }
 
         nextTextView.setOnClickListener {

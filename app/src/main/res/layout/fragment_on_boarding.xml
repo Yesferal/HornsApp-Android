@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_on_boarding"/>
+        android:src="@drawable/img_on_boarding"
+        android:contentDescription="@null"/>
 
     <View
         android:id="@+id/headerView"
@@ -33,7 +33,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Estas listo para hoy?"
+        android:text="@string/are_you_ready_for_tonight"
         android:layout_marginHorizontal="@dimen/margin_medium"
         android:textColor="@android:color/white"
         android:textSize="48sp"
@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_medium"
-        android:text="Vamos a encontrar juntos tu próximo concierto."
+        android:text="@string/let_find_out_together"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/startView"
         app:layout_constraintStart_toStartOf="@+id/startView"
@@ -61,7 +61,7 @@
         android:textColor="@android:color/white"
         android:padding="@dimen/margin_medium"
         android:layout_margin="@dimen/margin_big"
-        android:text="Empecemos"
+        android:text="@string/get_started"
         android:visibility="gone"
         style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintStart_toStartOf="parent"
