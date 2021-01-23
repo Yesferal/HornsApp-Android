@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import kotlinx.android.synthetic.main.fragment_preferences.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment
     : BaseFragment<SettingsState>() {
     private lateinit var settingsViewModel: SettingsViewModel
 
     override val layout: Int
-        get() = R.layout.fragment_preferences
+        get() = R.layout.fragment_settings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

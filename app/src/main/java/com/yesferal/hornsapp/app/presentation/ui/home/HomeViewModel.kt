@@ -136,6 +136,10 @@ class HomeViewModel(
                 )
 
                 val concerts = _state.value?.concerts
+                    ?.filter {
+                        categoryKey == CategoryKey.ALL ||
+                                it.tags?.contains(categoryKey.toString()) == true
+                    }
 
                 if (concerts == null || concerts.isEmpty()) {
                     return@withContext UpcomingViewState(
@@ -151,25 +155,20 @@ class HomeViewModel(
 
                 val items = mutableListOf<ViewHolderBinding>().apply {
                     add(FiltersViewData(categories))
-                    addAll(
-                        concerts
-                            .filter {
-                                categoryKey == CategoryKey.ALL ||
-                                it.tags?.contains(categoryKey.toString()) == true
-                            }
-                            .sortedWith(compareBy { it.dateTime?.time })
-                            .map {
-                                UpcomingViewData(
-                                    id = it.id,
-                                    image = it.headlinerImage,
-                                    day = it.dateTime?.dayFormatted(),
-                                    month = it.dateTime?.monthFormatted(),
-                                    year = it.dateTime?.yearFormatted(),
-                                    name = it.name,
-                                    time = it.dateTime?.timeFormatted(),
-                                    genre = it.genre
-                                )
-                            }
+                    addAll(concerts
+                        .sortedWith(compareBy { it.dateTime?.time })
+                        .map {
+                            UpcomingViewData(
+                                id = it.id,
+                                image = it.headlinerImage,
+                                day = it.dateTime?.dayFormatted(),
+                                month = it.dateTime?.monthFormatted(),
+                                year = it.dateTime?.yearFormatted(),
+                                name = it.name,
+                                time = it.dateTime?.timeFormatted(),
+                                genre = it.genre
+                            )
+                        }
                     )
                 }
 

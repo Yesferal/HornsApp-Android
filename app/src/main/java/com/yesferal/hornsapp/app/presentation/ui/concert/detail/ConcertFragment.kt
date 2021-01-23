@@ -62,6 +62,8 @@ class ConcertFragment
             activity?.onBackPressed()
         }
 
+        titleTextView.setUpWith(concert.name)
+
         concertViewModel = ViewModelProvider(
             this,
             hada().resolve<ConcertViewModelFactory>(params = Parameters(concert.id))

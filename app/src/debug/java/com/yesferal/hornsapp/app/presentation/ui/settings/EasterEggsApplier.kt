@@ -8,6 +8,6 @@ interface EasterEggsApplier {
     fun versionSuffix() = "DEV"
 
     fun Fragment.onAppImageViewClick() {
-        findNavController().navigate(HomeFragmentDirections.actionHomeToPreferences())
+        findNavController().navigate(HomeFragmentDirections.actionHomeToSettings())
     }
 }
