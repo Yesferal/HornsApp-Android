@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -43,12 +45,12 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Vamos a encontrar juntos tu próximo concierto."
         android:layout_marginHorizontal="@dimen/margin_medium"
+        android:text="Vamos a encontrar juntos tu próximo concierto."
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="@+id/startView"
         app:layout_constraintStart_toStartOf="@+id/startView"
-        app:layout_constraintEnd_toEndOf="@+id/startView"/>
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
         android:id="@+id/nextTextView"
@@ -66,6 +68,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/metalCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_big"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintEnd_toStartOf="@id/rockCard"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView" />
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/rockCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_big"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView"
+        app:layout_constraintEnd_toStartOf="@id/guideline" />
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/upcomingCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_big"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView"
+        app:layout_constraintStart_toEndOf="@id/guideline"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
+        android:id="@+id/totalCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_big"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintBottom_toTopOf="@+id/nextTextView"
+        app:layout_constraintStart_toEndOf="@id/upcomingCard"/>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

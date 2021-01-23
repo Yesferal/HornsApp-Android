@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
@@ -11,7 +12,9 @@ import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
+import kotlinx.android.synthetic.main.fragment_concert.*
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
+import java.net.URI
 
 class OnBoardingFragment
     : BaseFragment <OnBoardingViewState>() {
@@ -62,7 +65,10 @@ class OnBoardingFragment
     }
 
     private fun showData(onBoardingViewData: OnBoardingViewData) {
-        // TODO("Implement")
+        metalCard.setText(onBoardingViewData.metalConcerts.toString(),getString(R.string.metal_category))
+        rockCard.setText(onBoardingViewData.rockConcerts.toString(),getString(R.string.rock_category))
+        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(),getString(R.string.upcoming_category))
+        totalCard.setText(onBoardingViewData.total.toString(),getString(R.string.total_category))
     }
 
     private fun showProgress() {
@@ -78,10 +84,8 @@ class OnBoardingFragment
     private fun showError(
         @StringRes messageId: Int
     ) {
-        // TODO("Implement")
     }
 
     private fun hideError() {
-        // TODO("Implement")
     }
 }

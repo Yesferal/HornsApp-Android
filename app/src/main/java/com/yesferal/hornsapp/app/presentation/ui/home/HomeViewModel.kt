@@ -274,7 +274,7 @@ class HomeViewModel(
                     val dateTime = it.dateTime?: return
                     val twoMonthsInMillis = 5184000000
 
-                    dateTime.after(Date(Calendar.getInstance().timeInMillis + (twoMonthsInMillis)))
+                    dateTime.before(Date(Calendar.getInstance().timeInMillis + (twoMonthsInMillis)))
                 }.size,
                 total = concerts.size
             )
