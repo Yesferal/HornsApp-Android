@@ -50,6 +50,15 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/fragment_concert"/>
+
+        <action
+            android:id="@+id/action_home_to_preferences"
+            app:destination="@+id/fragment_preferences"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/fragment_preferences"/>
     </fragment>
 
     <fragment
@@ -63,4 +72,10 @@
             android:defaultValue="@null"
             app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_preferences"
+        android:name="com.yesferal.hornsapp.app.presentation.ui.preferences.PreferencesFragment"
+        android:label="preferences_fragment"
+        tools:layout="@layout/fragment_preferences"/>
 </navigation>

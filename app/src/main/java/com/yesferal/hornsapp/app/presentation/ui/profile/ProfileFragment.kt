@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
-import com.yesferal.hornsapp.app.BuildConfig
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.ui.preferences.EasterEggsApplier
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment
-    : Fragment() {
+    : Fragment(),
+    EasterEggsApplier {
+
+    private var preferencesCountDown: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,9 +28,10 @@ class ProfileFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferencesCountDown = 0
 
-        setUpVersion()
-
+        setUpPreferences()
+        setUpVersion(versionSuffix())
         setUpShare()
     }
 
@@ -43,7 +47,7 @@ class ProfileFragment
         }
     }
 
-    private fun setUpVersion() {
+    private fun setUpVersion(suffix: String) {
         activity?.let { activityNonNull ->
             val packageInfo: PackageInfo = activityNonNull
                 .packageManager
@@ -54,15 +58,22 @@ class ProfileFragment
 
             versionTextView.setImageView(R.drawable.ic_information)
             val version = StringBuilder()
-                .append(versionName)
-                .append(".")
-                .append(versionCode)
-
-            if (BuildConfig.DEBUG) {
-                version.append("-DEV")
-            }
+                    .append(versionName)
+                    .append(".")
+                    .append(versionCode)
+                    .append("-")
+                    .append(suffix)
 
             versionTextView.setText(getString(R.string.version), version.toString())
+        }
+    }
+
+    private fun setUpPreferences() {
+        hornsAppImageView.setOnClickListener {
+            preferencesCountDown++
+            if (preferencesCountDown >= 3) {
+                onAppImageViewClick()
+            }
         }
     }
 

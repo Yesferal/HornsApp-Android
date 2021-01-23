@@ -76,15 +76,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx:18.0.1'
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
-
-    // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
-
-
-    def room_version = "2.2.6"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:${versions.room}"
+    kapt "androidx.room:room-compiler:${versions.room}"
 
     // Module
     implementation project(hornsAppModules.domain)
