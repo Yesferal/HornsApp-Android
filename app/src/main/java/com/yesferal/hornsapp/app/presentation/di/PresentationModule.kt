@@ -4,6 +4,7 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.settings.SettingsViewModelFactory
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.dependency.Factory
 
@@ -36,6 +37,14 @@ fun Container.registerPresentationModule() {
     this register Factory {
         OnBoardingViewModelFactory(
             getConcertsUseCase = resolve()
+        )
+    }
+
+    this register Factory {
+        SettingsViewModelFactory(
+                getDefaultEnvironmentUseCase = resolve(),
+                getSettingsUseCase = resolve(),
+                updateSettingsUseCase = resolve()
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.preferences
+package com.yesferal.hornsapp.app.presentation.ui.settings
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController

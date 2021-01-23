@@ -22,13 +22,16 @@ fun Container.registerFrameworkModule() {
     this register Singleton<PreferencesDataSource> {
         SharedPreferencesDataSource(
             context = resolve(),
-            name = "hornsapp-shared-preferences.sp"
+            name = "hornsapp-shared-preferences.sp",
+            apiConstants = ApiConstants()
         )
     }
 
     this register Singleton {
-        RetrofitFactory(ApiConstants())
-            .retrofit
+        RetrofitFactory(
+            constants = ApiConstants(),
+            environment = resolve<PreferencesDataSource>().getEnvironment()
+        ).retrofit
     }
 
     this register Factory<ApiDataSource> {

@@ -34,4 +34,22 @@ fun Container.registerDomainModule() {
             bandRepository = resolve()
         )
     }
+
+    this register Factory {
+        GetSettingsUseCase(
+                settingsRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        GetDefaultEnvironmentUseCase(
+                settingsRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        UpdateSettingsUseCase(
+                settingsRepository = resolve()
+        )
+    }
 }

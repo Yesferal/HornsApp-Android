@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.preferences
+package com.yesferal.hornsapp.app.presentation.ui.settings
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment

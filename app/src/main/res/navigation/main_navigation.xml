@@ -85,7 +85,7 @@
 
     <fragment
         android:id="@+id/fragment_preferences"
-        android:name="com.yesferal.hornsapp.app.presentation.ui.preferences.PreferencesFragment"
+        android:name="com.yesferal.hornsapp.app.presentation.ui.settings.SettingsFragment"
         android:label="preferences_fragment"
         tools:layout="@layout/fragment_preferences"/>
 </navigation>

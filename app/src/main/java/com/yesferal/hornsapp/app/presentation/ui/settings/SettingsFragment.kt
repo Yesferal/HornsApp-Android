@@ -1,16 +1,18 @@
-package com.yesferal.hornsapp.app.presentation.ui.preferences
+package com.yesferal.hornsapp.app.presentation.ui.settings
 
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import kotlinx.android.synthetic.main.fragment_preferences.*
 
-class PreferencesFragment
-    : BaseFragment<PreferencesState>() {
+class SettingsFragment
+    : BaseFragment<SettingsState>() {
+    private lateinit var settingsViewModel: SettingsViewModel
 
     override val layout: Int
         get() = R.layout.fragment_preferences
@@ -22,14 +24,17 @@ class PreferencesFragment
             environmentSpinner.performClick()
         }
 
-        render(PreferencesState(
-            listOf(
-                    Pair("Debug", "https://mock.pe"),
-                    Pair("Stage", "https://hornsapp.pe")
-        )))
+        settingsViewModel = ViewModelProvider(
+            this,
+            hada().resolve<SettingsViewModelFactory>()
+        ).get(SettingsViewModel::class.java)
+
+        settingsViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
     }
 
-    override fun render(viewState: PreferencesState) {
+    override fun render(viewState: SettingsState) {
 
         ArrayAdapter(
                 requireContext(),
@@ -40,9 +45,12 @@ class PreferencesFragment
             environmentSpinner.adapter = adapter
         }
 
+        environmentSpinner.setSelection(viewState.environment)
+
         environmentSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 environmentSubTitleTextView.setUpWith(viewState.environments[position].second)
+                settingsViewModel.onSpinnerItemSelected(environment = position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

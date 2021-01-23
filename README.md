@@ -21,7 +21,7 @@ This app has been divided in 3 modules:
 In this module we tried two different presentation patterns just for academic purposes.
 We separated the implementations in two branches.
 1. [MVP pattern branch](https://github.com/Yesferal/Hornsapp-Android/tree/mvp-pattern)
-2. [MVVM pattern branch](https://github.com/Yesferal/Hornsapp-Android/tree/mvvm-pattern)
+2. [MVVM pattern branch (Default branch)](https://github.com/Yesferal/Hornsapp-Android)
 
 The first presentation pattern that we implement in this project was MVP pattern.
 To do it we defined a base contract that contains both `View` & `ActionListener` interfaces,
@@ -32,6 +32,8 @@ and we applies the observable pattern to communicate the `ViewModel` with its `V
 so now we can update the view easily using LiveData.
 
 ## Implementation: Getting Started
+This app was made using Kotlin mainly, but we used C++(NDK) too.
+
 ### Clone the exiting project
 This project need Git and AndroidStudio previously installed.
 Then you should:
@@ -43,10 +45,6 @@ Then you should:
 Once you have the project open, make sure you choose the `Debug` build variant.
 It is important to say that `Debug` variant will use a online mock as API.
 Finally, run the app module.
-
-### Final Approach
-This app was made using Kotlin mainly, but we used C++(NDK) too.
-
 
 ## License
 ```

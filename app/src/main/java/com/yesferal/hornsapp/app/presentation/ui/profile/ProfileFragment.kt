@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.ui.preferences.EasterEggsApplier
+import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment
