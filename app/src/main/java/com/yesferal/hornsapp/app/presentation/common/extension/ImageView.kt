@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.common.custom
+package com.yesferal.hornsapp.app.presentation.common.extension
 
 import android.util.TypedValue
 import android.widget.ImageView

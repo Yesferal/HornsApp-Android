@@ -22,7 +22,7 @@ class TextSubTextView @JvmOverloads constructor(
         inflater.inflate(R.layout.custom_text_sub_text_view, this, true)
     }
 
-    fun setText(title: String?) {
+    private fun setText(title: String?) {
         title?.let {
             visibility = View.VISIBLE
             titleTextView.text = it

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -21,7 +21,7 @@ class SplashFragment
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
 
-        view.viewTreeObserver.addOnPreDrawListener(object: ViewTreeObserver.OnPreDrawListener {
+        view.viewTreeObserver.addOnPreDrawListener(object: OnPreDrawListener {
             override fun onPreDraw(): Boolean {
                 view.viewTreeObserver.removeOnPreDrawListener(this)
                 val layoutParams = imageView.layoutParams as ConstraintLayout.LayoutParams
@@ -45,7 +45,12 @@ class SplashFragment
     private fun initMotionLayout() {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                findNavController().navigate(SplashFragmentDirections.actionSplashToOnBoarding())
+                // TODO("Implement this boolean using SharedPreferences")
+                if (true) {
+                    findNavController().navigate(SplashFragmentDirections.actionSplashToHome())
+                } else {
+                    findNavController().navigate(SplashFragmentDirections.actionSplashToOnBoarding())
+                }
             }
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) { }
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) { }

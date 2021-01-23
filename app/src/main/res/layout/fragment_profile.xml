@@ -11,23 +11,45 @@
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/profile"
+        android:text="@string/about_this_app"
         android:textAlignment="center"
         style="@style/HornsApp.TextView.ActivityTitle"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
-        android:id="@+id/shareTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/hornsAppImageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@mipmap/ic_launcher_round"
         android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"/>
+        android:contentDescription="@null"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/hornsAppTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name_register"
+        android:paddingHorizontal="@dimen/margin_small"
+        style="@style/HornsApp.TextView.Subtitle"
+        app:layout_constraintTop_toBottomOf="@+id/hornsAppImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
         android:id="@+id/versionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
-        app:layout_constraintTop_toBottomOf="@+id/shareTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/hornsAppTextView"/>
+
+    <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+        android:id="@+id/shareTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_big"
+        app:layout_constraintTop_toBottomOf="@+id/versionTextView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

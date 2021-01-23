@@ -17,6 +17,9 @@ import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.*
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.hada.parameter.Parameters
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import kotlinx.android.synthetic.main.custom_date_text_view.*
@@ -61,7 +64,7 @@ class ConcertFragment
 
         concertViewModel = ViewModelProvider(
             this,
-            container.resolve<ConcertViewModelFactory>(params = Parameters(concert.id))
+            hada().resolve<ConcertViewModelFactory>(params = Parameters(concert.id))
         ).get(ConcertViewModel::class.java)
 
         concertViewModel.state.observe(viewLifecycleOwner) {

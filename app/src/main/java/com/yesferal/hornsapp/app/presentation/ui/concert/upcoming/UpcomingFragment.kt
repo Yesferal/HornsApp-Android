@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
@@ -50,7 +52,7 @@ class UpcomingFragment
             activity?.viewModelStore?.let { viewModelStore ->
                 homeViewModel = ViewModelProvider(
                     viewModelStore,
-                    container.resolve<HomeViewModelFactory>()
+                    hada().resolve<HomeViewModelFactory>()
                 ).get(HomeViewModel::class.java)
 
                 homeViewModel.stateUpcoming.observe(viewLifecycleOwner) {

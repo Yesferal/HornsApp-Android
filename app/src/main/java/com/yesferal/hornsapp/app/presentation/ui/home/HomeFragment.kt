@@ -5,8 +5,7 @@ import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
@@ -14,9 +13,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
@@ -36,6 +35,7 @@ class HomeFragment
         super.onViewCreated(view, savedInstanceState)
 
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(activity as FragmentActivity)
 
         hornsAppImageView.setOnClickListener {
             childFragmentManager.let { manager ->
@@ -48,7 +48,7 @@ class HomeFragment
         activity?.viewModelStore?.let { viewModelStore ->
             homeViewModel = ViewModelProvider(
                 viewModelStore,
-                container.resolve<HomeViewModelFactory>()
+                hada().resolve<HomeViewModelFactory>()
             ).get(HomeViewModel::class.java)
 
             homeViewModel.state.observe(viewLifecycleOwner) {
@@ -72,7 +72,7 @@ class HomeFragment
 
     override fun render(viewState: HomeViewState) {
         viewState.fragmentTitles?.let { titles ->
-            showFragments(titles)
+            showChildFragmentTitles(titles)
         }
 
         viewState.adViewData?.let { adView ->
@@ -93,12 +93,7 @@ class HomeFragment
         }
     }
 
-    private fun showFragments(titles: List<String>) {
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(
-            this.childFragmentManager,
-            lifecycle
-        )
-
+    private fun showChildFragmentTitles(titles: List<String>) {
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
@@ -147,9 +142,8 @@ class HomeFragment
 }
 
 private class ScreenSlidePagerAdapter(
-    fragment: FragmentManager,
-    lifecycle: Lifecycle
-) : FragmentStateAdapter(fragment, lifecycle) {
+        activity: FragmentActivity
+) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = 3
 
