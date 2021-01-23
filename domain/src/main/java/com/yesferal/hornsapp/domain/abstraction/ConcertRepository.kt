@@ -8,25 +8,19 @@ interface ConcertRepository {
         onError: (t: Throwable) -> Unit
     )
 
-    fun insertConcerts(concerts: List<Concert>?)
-
-    fun getConcertsFromStorage(): List<Concert>?
-
     fun getConcert(
         id: String,
         onSuccess: (concert: Concert) -> Unit,
         onError: (t: Throwable) -> Unit
     )
 
-    fun getFavoriteConcert(): List<String>?
+    suspend fun getFavoriteConcert(): List<Concert>
 
-    fun insertFavoriteConcert(
-        concertId: String,
-        onComplete: () -> Unit
+    suspend fun insertFavoriteConcert(
+        concert: Concert
     )
 
-    fun removeFavoriteConcert(
-        concertId: String,
-        onComplete: () -> Unit
+    suspend fun removeFavoriteConcert(
+        concert: Concert
     )
 }

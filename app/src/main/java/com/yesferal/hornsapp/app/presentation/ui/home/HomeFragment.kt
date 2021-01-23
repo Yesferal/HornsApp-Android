@@ -1,22 +1,21 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ConcertsFragment
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.custom.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
@@ -27,52 +26,56 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment
     : BaseFragment<HomeViewState>() {
     private lateinit var stubViewInflated: View
+    private lateinit var homeViewModel: HomeViewModel
 
     override val layout: Int
         get() = R.layout.fragment_home
 
-    override val actionListener by lazy {
-        container.resolve<HomePresenter>()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initToolbar()
-
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(activity as FragmentActivity)
 
-        actionListener.onViewCreated()
-    }
-
-    private fun initToolbar() {
-        (activity as AppCompatActivity?)?.let {
-            it.setSupportActionBar(toolbar)
-
-            toolbar.setNavigationOnClickListener {
-                fragmentManager?.let { manager ->
-                    ProfileBottomSheetFragment.newInstance(Bundle()).apply {
-                        show(manager, tag)
-                    }
+        hornsAppImageView.setOnClickListener {
+            childFragmentManager.let { manager ->
+                ProfileBottomSheetFragment.newInstance(Bundle()).apply {
+                    show(manager, tag)
                 }
             }
-
-            val drawable = ContextCompat.getDrawable(it, R.drawable.ic_menu)
-            drawable?.setTint(Color.WHITE)
-
-            it.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            it.supportActionBar?.setDisplayShowHomeEnabled(true)
-            it.supportActionBar?.setHomeAsUpIndicator(drawable)
-            it.supportActionBar?.setDisplayShowTitleEnabled(false)
         }
+
+        activity?.viewModelStore?.let { viewModelStore ->
+            homeViewModel = ViewModelProvider(
+                viewModelStore,
+                hada().resolve<HomeViewModelFactory>()
+            ).get(HomeViewModel::class.java)
+
+            homeViewModel.state.observe(viewLifecycleOwner) {
+                render(it)
+            }
+
+            homeViewModel.getFavoriteConcerts()
+        }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(concertsViewPager.currentItem == 0){
+                    isEnabled = false
+                    activity?.onBackPressed()
+                }else{
+                    concertsViewPager.currentItem = concertsViewPager.currentItem - 1
+                }
+            }
+        })
     }
 
     override fun render(viewState: HomeViewState) {
         viewState.fragmentTitles?.let { titles ->
-            showFragments(titles)
+            showChildFragmentTitles(titles)
         }
 
-        viewState.adView?.let { adView ->
+        viewState.adViewData?.let { adView ->
             showAd(adView)
         }
 
@@ -90,12 +93,7 @@ class HomeFragment
         }
     }
 
-    private fun showFragments(titles: List<String>) {
-        activity?.let {
-            val pagerAdapter = ScreenSlidePagerAdapter(it, titles)
-            concertsViewPager.adapter = pagerAdapter
-        }
-
+    private fun showChildFragmentTitles(titles: List<String>) {
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
@@ -104,9 +102,8 @@ class HomeFragment
         tabLayout.visibility = View.VISIBLE
     }
 
-    private fun showAd(adView: AdView) {
-        adContainerLayout.removeAllViews()
-        adContainerLayout.addView(adView)
+    private fun showAd(adViewData: AdViewData) {
+        adContainerLayout.addAdView(adViewData)
     }
 
     private fun showProgress() {
@@ -132,7 +129,7 @@ class HomeFragment
         }
 
         tryAgainTextView.setOnClickListener {
-            actionListener.onRefresh()
+            homeViewModel.onRefresh()
             tryAgainTextView.visibility = View.GONE
         }
     }
@@ -142,30 +139,19 @@ class HomeFragment
             stubViewInflated.visibility = View.GONE
         }
     }
-
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
 }
 
 private class ScreenSlidePagerAdapter(
-    fragmentActivity: FragmentActivity,
-    private val fragments: List<String>
-) : FragmentStateAdapter(fragmentActivity) {
+        activity: FragmentActivity
+) : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = fragments.size
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> {
-                NewestFragment.newInstance()
-            }
-            1 -> {
-                ConcertsFragment.newInstance()
-            }
-            else -> {
-                FavoritesFragment.newInstance()
-            }
+            0 -> NewestFragment.newInstance()
+            1 -> UpcomingFragment.newInstance()
+            else -> FavoritesFragment.newInstance()
         }
     }
 }

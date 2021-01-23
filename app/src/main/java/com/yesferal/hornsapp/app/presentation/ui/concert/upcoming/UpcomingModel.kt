@@ -5,9 +5,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
-import com.yesferal.hornsapp.app.presentation.common.custom.load
-import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
-import com.yesferal.hornsapp.app.presentation.common.custom.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.extension.load
+import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
 import com.yesferal.hornsapp.multitype.BaseViewHolder
@@ -34,8 +35,8 @@ data class UpcomingViewData(
 
     override val layout = R.layout.item_upcoming
 
-    override fun asParcelable(): Parcelable.ViewData {
-        return Parcelable.ViewData(id, name)
+    override fun asParcelable(): ParcelableViewData {
+        return ParcelableViewData(id, name)
     }
 
     interface Listener: ViewHolderBinding.Listener {

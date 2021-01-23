@@ -1,30 +1,25 @@
 package com.yesferal.hornsapp.app.framework.adMob
 
-import android.content.Context
 import com.google.android.gms.ads.*
 
 class AdManager(
-    private val adUnitIds: AdUnitIds,
-    private val context: Context
+    private val adUnitIds: AdUnitIds
 ) {
-
     private fun adRequest() = AdRequest.Builder().build()
 
-    fun concertsAdView(): AdView {
-        val adView = AdView(context)
-        adView.adSize = AdSize.BANNER
-        adView.adUnitId = adUnitIds.concertsBannerAdUnitId()
-        adView.loadAd(adRequest())
+    fun concertsAdView(): AdViewData {
+        val adSize = AdSize.BANNER
+        val adUnitId = adUnitIds.concertsBannerAdUnitId()
+        val adRequest = adRequest()
 
-        return adView
+        return AdViewData(adSize, adUnitId, adRequest)
     }
 
-    fun concertDetailAdView(): AdView {
-        val adView = AdView(context)
-        adView.adSize = AdSize.BANNER
-        adView.adUnitId = adUnitIds.concertDetailBannerAdUnitId()
-        adView.loadAd(adRequest())
+    fun concertDetailAdView(): AdViewData {
+        val adSize = AdSize.BANNER
+        val adUnitId = adUnitIds.concertDetailBannerAdUnitId()
+        val adRequest = adRequest()
 
-        return adView
+        return AdViewData(adSize, adUnitId, adRequest)
     }
 }

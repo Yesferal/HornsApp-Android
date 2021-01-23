@@ -7,41 +7,42 @@ import android.provider.CalendarContract
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.google.android.gms.ads.AdView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdViewData
+import com.yesferal.hornsapp.app.presentation.common.base.*
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
-import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
-import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.hada.parameter.Parameters
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concert.*
+import kotlinx.android.synthetic.main.fragment_concert.adContainerLayout
 import java.net.URI
+import java.util.*
+
+const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
 class ConcertFragment
     : BaseFragment<ConcertViewState>(),
     RenderEffect {
 
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
-
     override val layout: Int
         get() = R.layout.fragment_concert
 
-    override val actionListener by lazy {
-        container.resolve<ConcertPresenter>()
-    }
+    private val args: ConcertFragmentArgs by navArgs()
 
-    var listener: Listener? = null
-    interface Listener {
-        fun show(adView: AdView)
-    }
+    private lateinit var concertViewModel: ConcertViewModel
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override fun onViewCreated(
         view: View,
@@ -49,23 +50,30 @@ class ConcertFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val item = arguments?.getParcelable<Parcelable.ViewData>(
-            EXTRA_PARAM_PARCELABLE
-        )
-
-        if (item == null) {
-            activity?.finish()
+        val concert = args.concert
+        if (concert == null) {
+            activity?.onBackPressed()
             return
         }
 
         setUpBandsViewPager()
 
-        actionListener.onViewCreated(item.id)
-    }
+        closeImageView.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+        concertViewModel = ViewModelProvider(
+            this,
+            hada().resolve<ConcertViewModelFactory>(params = Parameters(concert.id))
+        ).get(ConcertViewModel::class.java)
+
+        concertViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+        concertViewModel.effect.observe(viewLifecycleOwner) {
+            render(it)
+        }
     }
 
     private fun setUpBandsViewPager() {
@@ -106,7 +114,7 @@ class ConcertFragment
             show(bands = it)
         }
 
-        viewState.adView?.let {
+        viewState.adViewData?.let {
             showAd(it)
         }
 
@@ -123,12 +131,13 @@ class ConcertFragment
 
     private fun show(concert: ConcertViewData) {
 
+        titleTextView.setUpWith(concert.name)
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
 
         favoriteImageView.isChecked = concert.isFavorite
         favoriteImageView.setOnCheckedChangeListener { isChecked ->
-            actionListener.onFavoriteImageViewClick(concert, isChecked)
+            concertViewModel.onFavoriteImageViewClick(concert, isChecked)
         }
 
         enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
@@ -216,8 +225,8 @@ class ConcertFragment
         }
     }
 
-    private fun showAd(adView: AdView) {
-        listener?.show(adView)
+    private fun showAd(adViewData: AdViewData) {
+        adContainerLayout.addAdView(adViewData)
     }
 
     private fun showProgress() {
@@ -252,8 +261,12 @@ class ConcertFragment
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = getString(R.string.calendar_action_type)
         intent.putExtra(CalendarContract.Events.TITLE, concertViewData.name)
-        intent.putExtra("beginTime", concertViewData.timeInMillis)
-        intent.putExtra("endTime", concertViewData.timeInMillis?: 0 + 180 * 60 * 1000)
+        val dtStart = concertViewData
+            .timeInMillis
+            ?.minus(TimeZone.getDefault().rawOffset + TimeZone.getDefault().dstSavings)
+            ?: 0
+        intent.putExtra("beginTime", dtStart)
+        intent.putExtra("endTime", dtStart + (2 * 60 * 60 * 1000))
         intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.description)
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.venue?.name)
         startActivity(intent)
@@ -263,19 +276,6 @@ class ConcertFragment
         when(effect) {
             is ViewEffect.Toast -> {
                 showToast(effect.errorMessageId)
-            }
-        }
-    }
-
-    companion object {
-        fun newInstance(
-            item: Parcelable.ViewData
-        ) : ConcertFragment {
-            val bundle = Bundle()
-            bundle.putParcelable(EXTRA_PARAM_PARCELABLE, item)
-
-            return ConcertFragment().apply {
-                arguments = bundle
             }
         }
     }

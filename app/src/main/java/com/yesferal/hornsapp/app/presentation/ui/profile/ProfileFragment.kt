@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.ui.preferences.EasterEggsApplier
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment
-    : Fragment() {
+    : Fragment(),
+    EasterEggsApplier {
+
+    private var preferencesCountDown: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,25 +28,26 @@ class ProfileFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferencesCountDown = 0
 
-        setUpVersion()
-
+        setUpPreferences()
+        setUpVersion(versionSuffix())
         setUpShare()
     }
 
     private fun setUpShare() {
         shareTextView.setImageView(R.drawable.ic_share)
-        shareTextView.setText(getString(R.string.share_with_friends), getString(R.string.see_your_apps))
+        shareTextView.setText(getString(R.string.share_with_friends), getString(R.string.use_your_favorite_apps))
         shareTextView.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_hornsapp))
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_hornsapp_message))
             intent.type = "text/plain"
             startActivity(intent)
         }
     }
 
-    private fun setUpVersion() {
+    private fun setUpVersion(suffix: String) {
         activity?.let { activityNonNull ->
             val packageInfo: PackageInfo = activityNonNull
                 .packageManager
@@ -51,9 +56,24 @@ class ProfileFragment
             val versionName: String = packageInfo.versionName
             val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
 
-            val version = "$versionName.$versionCode"
             versionTextView.setImageView(R.drawable.ic_information)
-            versionTextView.setText(getString(R.string.version), version)
+            val version = StringBuilder()
+                    .append(versionName)
+                    .append(".")
+                    .append(versionCode)
+                    .append("-")
+                    .append(suffix)
+
+            versionTextView.setText(getString(R.string.version), version.toString())
+        }
+    }
+
+    private fun setUpPreferences() {
+        hornsAppImageView.setOnClickListener {
+            preferencesCountDown++
+            if (preferencesCountDown >= 3) {
+                onAppImageViewClick()
+            }
         }
     }
 

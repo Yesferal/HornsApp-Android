@@ -2,11 +2,12 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import android.view.View
 import androidx.annotation.StringRes
-import com.google.android.gms.ads.AdView
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
-import com.yesferal.hornsapp.app.presentation.common.custom.load
-import com.yesferal.hornsapp.app.presentation.common.custom.setAllCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.extension.load
+import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.domain.entity.Venue
 import com.yesferal.hornsapp.multitype.BaseViewHolder
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
@@ -16,7 +17,7 @@ import java.net.URI
 data class ConcertViewState(
     val concert: ConcertViewData? = null,
     val bands: List<BandViewData>? = null,
-    val adView: AdView? = null,
+    val adViewData: AdViewData? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessageId: Int? = null
 )
@@ -24,6 +25,7 @@ data class ConcertViewState(
 data class ConcertViewData(
     val id: String,
     val name: String?,
+    val headlinerImage: String?,
     val description: String?,
     val timeInMillis: Long?,
     val dateTime: String?,
@@ -47,8 +49,8 @@ data class BandViewData(
 
     override val layout = R.layout.item_band
 
-    override fun asParcelable(): Parcelable.ViewData {
-        return Parcelable.ViewData(id, name)
+    override fun asParcelable(): ParcelableViewData {
+        return ParcelableViewData(id, name)
     }
 
     interface Listener: ViewHolderBinding.Listener {
