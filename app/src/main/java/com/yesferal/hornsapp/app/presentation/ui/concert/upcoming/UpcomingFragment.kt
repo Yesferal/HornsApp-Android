@@ -1,33 +1,34 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertActivity
-import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 
-class ConcertsFragment
+class UpcomingFragment
     : BaseFragment<UpcomingViewState>() {
-
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
 
     override val layout: Int
         get() = R.layout.fragment_upcoming
 
-    override val actionListener by lazy {
-        container.resolve<UpcomingPresenter>()
-    }
+    private lateinit var multiTypeAdapter: MultiTypeAdapter
+    lateinit var homeViewModel: HomeViewModel
 
     override fun onViewCreated(
         view: View,
@@ -48,12 +49,20 @@ class ConcertsFragment
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            actionListener.onViewCreated()
+            activity?.viewModelStore?.let { viewModelStore ->
+                homeViewModel = ViewModelProvider(
+                    viewModelStore,
+                    hada().resolve<HomeViewModelFactory>()
+                ).get(HomeViewModel::class.java)
+
+                homeViewModel.stateUpcoming.observe(viewLifecycleOwner) {
+                    render(it)
+                }
+            }
         }, 333)
     }
 
     override fun render(viewState: UpcomingViewState) {
-
         viewState.items?.let { items ->
             showItems(items)
         }
@@ -80,29 +89,22 @@ class ConcertsFragment
     }
 
     companion object {
-        fun newInstance() = ConcertsFragment()
+        fun newInstance() = UpcomingFragment()
     }
 }
 
-private fun ConcertsFragment.instanceAdapterListener() =
+private fun UpcomingFragment.instanceAdapterListener() =
     object : FiltersViewData.Listener,
         UpcomingViewData.Listener {
 
         override fun onClick(upcomingViewData: UpcomingViewData) {
-            val intent = Intent(
-                activity,
-                ConcertActivity::class.java
+            findNavController().navigate(
+                HomeFragmentDirections
+                    .actionHomeToConcert(upcomingViewData.asParcelable())
             )
-
-            intent.putExtra(
-                EXTRA_PARAM_PARCELABLE,
-                upcomingViewData.asParcelable()
-            )
-
-            startActivity(intent)
         }
 
         override fun onClick(categoryViewData: CategoryViewData) {
-            actionListener.onFilterClick(categoryViewData)
+            homeViewModel.onFilterClick(categoryViewData)
         }
     }

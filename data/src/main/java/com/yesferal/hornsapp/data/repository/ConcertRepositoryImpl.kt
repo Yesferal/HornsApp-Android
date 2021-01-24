@@ -1,12 +1,12 @@
 package com.yesferal.hornsapp.data.repository
 
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
-import com.yesferal.hornsapp.data.abstraction.StorageDataSource
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
+import com.yesferal.hornsapp.data.abstraction.OrmDataSource
 import com.yesferal.hornsapp.domain.entity.Concert
 
 class ConcertRepositoryImpl(
-    private val storageDataSource: StorageDataSource,
+    private val ormDataSource: OrmDataSource,
     private val apiDataSource: ApiDataSource
 ) : ConcertRepository {
 
@@ -22,14 +22,6 @@ class ConcertRepositoryImpl(
                 onError(it)
             }
         )
-    }
-
-    override fun insertConcerts(concerts: List<Concert>?) {
-        storageDataSource.insertConcerts(concerts)
-    }
-
-    override fun getConcertsFromStorage(): List<Concert>?  {
-        return storageDataSource.getConcerts()
     }
 
     override fun getConcert(
@@ -48,25 +40,19 @@ class ConcertRepositoryImpl(
         )
     }
 
-    override fun getFavoriteConcert(): List<String>? {
-        return storageDataSource.getFavoriteConcerts()
+    override suspend fun getFavoriteConcert(): List<Concert> {
+        return ormDataSource.getFavoriteConcerts()
     }
 
-    override fun insertFavoriteConcert(
-        concertId: String,
-        onComplete: () -> Unit
+    override suspend fun insertFavoriteConcert(
+        concert: Concert
     ) {
-        storageDataSource.insertFavoriteConcert(concertId) {
-            onComplete()
-        }
+        ormDataSource.insertFavoriteConcert(concert)
     }
 
-    override fun removeFavoriteConcert(
-        concertId: String,
-        onComplete: () -> Unit
+    override suspend fun removeFavoriteConcert(
+        concert: Concert
     ) {
-        storageDataSource.removeFavoriteConcert(concertId) {
-            onComplete()
-        }
+        ormDataSource.removeFavoriteConcert(concert)
     }
 }

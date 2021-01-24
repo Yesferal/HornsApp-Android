@@ -11,9 +11,8 @@ class GetConcertsUseCase(
         onError: (t: Throwable) -> Unit
     ) {
         concertRepository.getConcerts(
-            onSuccess = { concerts ->
-                onSuccess(concerts)
-                concertRepository.insertConcerts(concerts)
+            onSuccess = {
+                onSuccess(it)
             },
             onError = {
                 onError(it)

@@ -5,39 +5,51 @@ import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.dependency.Factory
 
 fun Container.registerDomainModule() {
-    this register Factory<GetConcertsUseCase> {
+    this register Factory {
         GetConcertsUseCase(
             concertRepository = resolve()
         )
     }
 
-    this register Factory<GetConcertUseCase> {
+    this register Factory {
         GetConcertUseCase(
             concertRepository = resolve()
         )
     }
 
-    this register Factory<GetConcertsByCategoryUseCase> {
-        GetConcertsByCategoryUseCase(
-            concertRepository = resolve()
-        )
-    }
-
-    this register Factory<GetFavoriteConcertsUseCase> {
+    this register Factory {
         GetFavoriteConcertsUseCase(
             concertRepository = resolve()
         )
     }
 
-    this register Factory<UpdateFavoriteConcertUseCase> {
+    this register Factory {
         UpdateFavoriteConcertUseCase(
             concertRepository = resolve()
         )
     }
 
-    this register Factory<GetBandUseCase> {
+    this register Factory {
         GetBandUseCase(
             bandRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        GetSettingsUseCase(
+                settingsRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        GetDefaultEnvironmentUseCase(
+                settingsRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        UpdateSettingsUseCase(
+                settingsRepository = resolve()
         )
     }
 }

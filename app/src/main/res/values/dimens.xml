@@ -9,4 +9,5 @@
     <dimen name="text_small">16sp</dimen>
     <dimen name="text_medium">20sp</dimen>
     <dimen name="text_big">25sp</dimen>
+    <dimen name="text_huge">36sp</dimen>
 </resources>

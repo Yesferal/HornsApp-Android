@@ -3,7 +3,9 @@
 buildscript {
     ext.versions = [
             'jvmTarget': '1.8',
-            'kotlin': '1.4.20'
+            'kotlin': '1.4.21',
+            'navigation': '2.3.2',
+            'room': "2.2.6"
     ]
 
     ext.hornsAppModules = [
@@ -21,6 +23,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
     }
 }
 

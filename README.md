@@ -1,22 +1,51 @@
 # Horns App
-This is an Android App that show concerts at Lima. Here you will see:
+This is an Native Android App about concerts at Lima.
 
-1. Concerts that will happened soon
-2. Bands' information
-3. News about this bands & concerts.
-4. The last bands' videos released.
+## Requirements Analysis
+As users, we need to:
+1. Discover the newest concerts at Lima
+2. Discover the upcoming concerts at Lima
+3. Select concerts as favorites, and save them for later
+4. Know more about a concert; as social networks, videos, bands, venue and date
+5. Discover the bands that will play in a concert, and the detail about them
 
----
-## Installation
-First, this project need Git and AndroidStudio previously installed, the steps for installation depend on OS you have.
+## Software Design
+### Architecture
+This app was designed following Clear Architecture and the SOLID principles.
+This app has been divided in 3 modules:
+1. Domain: Kotlin Module
+2. Data: Kotlin Module
+3. App: Android Module. This module contains the Presentation and the Framework modules.
 
-Then, you should clone the repository.
+### Presentation Module
+In this module we tried two different presentation patterns just for academic purposes.
+We separated the implementations in two branches.
+1. [MVP pattern branch](https://github.com/Yesferal/Hornsapp-Android/tree/mvp-pattern)
+2. [MVVM pattern branch (Default branch)](https://github.com/Yesferal/Hornsapp-Android)
 
----
-## Usage
-Launch AndroidStudio and `Open an existing project`. Go to Build Variant section and select `Debug` as Active Build Variant. Then run this build. It is important to say that Debug variant will use a online mock as API.
+The first presentation pattern that we implement in this project was MVP pattern.
+To do it we defined a base contract that contains both `View` & `ActionListener` interfaces,
+and then we created an abstract classes: `BaseActivity` & `BasePresenter`.
 
----
+The second presentation pattern was MVVM pattern. Here we use the Android's ViewModel class,
+and we applies the observable pattern to communicate the `ViewModel` with its `View`,
+so now we can update the view easily using LiveData.
+
+## Implementation: Getting Started
+This app was made using Kotlin mainly, but we used C++(NDK) too.
+
+### Clone the exiting project
+This project need Git and AndroidStudio previously installed.
+Then you should:
+
+1. Clone the repository, the default branch is staging.
+2. Launch AndroidStudio and use the option `Open an existing project`.
+
+### Run the Application
+Once you have the project open, make sure you choose the `Debug` build variant.
+It is important to say that `Debug` variant will use a online mock as API.
+Finally, run the app module.
+
 ## License
 ```
 Copyright 2020 HornsApp Contributors
