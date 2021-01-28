@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.*
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
@@ -26,7 +25,6 @@ import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
 import kotlinx.android.synthetic.main.fragment_concert.*
-import kotlinx.android.synthetic.main.fragment_concert.adContainerLayout
 import java.net.URI
 import java.util.*
 
@@ -114,10 +112,6 @@ class ConcertFragment
 
         viewState.bands?.let {
             show(bands = it)
-        }
-
-        viewState.adViewData?.let {
-            showAd(it)
         }
 
         viewState.errorMessageId?.let {
@@ -225,10 +219,6 @@ class ConcertFragment
         }?: kotlin.run {
             youtubeTextView.visibility = View.GONE
         }
-    }
-
-    private fun showAd(adViewData: AdViewData) {
-        adContainerLayout.addAdView(adViewData)
     }
 
     private fun showProgress() {

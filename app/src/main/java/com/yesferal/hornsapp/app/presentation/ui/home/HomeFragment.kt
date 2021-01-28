@@ -11,7 +11,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
@@ -75,10 +74,6 @@ class HomeFragment
             showChildFragmentTitles(titles)
         }
 
-        viewState.adViewData?.let { adView ->
-            showAd(adView)
-        }
-
         viewState.errorMessage?.let {
             showError(
                 messageId =  viewState.errorMessage,
@@ -100,10 +95,6 @@ class HomeFragment
             tab.text = titles[position]
         }.attach()
         tabLayout.visibility = View.VISIBLE
-    }
-
-    private fun showAd(adViewData: AdViewData) {
-        adContainerLayout.addAdView(adViewData)
     }
 
     private fun showProgress() {

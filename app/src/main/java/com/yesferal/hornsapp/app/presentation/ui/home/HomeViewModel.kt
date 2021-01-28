@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 import androidx.lifecycle.*
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
+import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
@@ -29,15 +30,21 @@ import java.util.*
 class HomeViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
-    private val adManager: AdManager
+    adManager: AdManager
 ): ViewModel() {
     private val _state = MutableLiveData<HomeViewState>()
 
     val state: LiveData<HomeViewState>
         get() = _state
 
+    private val _adViewData = MutableLiveData<AdViewData>()
+
+    val adViewData: LiveData<AdViewData>
+        get() = _adViewData
+
     init {
         getConcerts()
+        _adViewData.value = adManager.concertsAdView()
     }
 
     fun onRefresh() {
@@ -52,8 +59,8 @@ class HomeViewModel(
 
                 _state.value = HomeViewState(
                     fragmentTitles = titles,
-                    concerts = it,
-                    adViewData = adManager.concertsAdView())
+                    concerts = it
+                )
 
                 getUpcomingConcertsWith(CategoryKey.ALL)
                 getNewestConcerts()

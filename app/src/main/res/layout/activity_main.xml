@@ -14,4 +14,10 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_navigation" />
+
+    <FrameLayout
+        android:id="@+id/adContainerLayout"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|center_horizontal"/>
 </merge>

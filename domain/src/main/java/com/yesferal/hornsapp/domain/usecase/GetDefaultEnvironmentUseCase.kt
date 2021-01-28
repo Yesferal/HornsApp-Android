@@ -5,5 +5,5 @@ import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 class GetDefaultEnvironmentUseCase(
         private val settingsRepository: SettingsRepository
 ) {
-    operator fun invoke() = settingsRepository.getEnvironment()
+    operator fun invoke() = settingsRepository.getDefaultEnvironment()
 }

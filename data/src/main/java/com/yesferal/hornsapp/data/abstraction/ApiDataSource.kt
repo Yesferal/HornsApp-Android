@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.data.abstraction
 
+import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
 
@@ -9,11 +10,9 @@ interface ApiDataSource {
         onError: (t: Throwable) -> Unit
     )
 
-    fun getConcert(
-        id: String,
-        onSuccess: (entity: Concert) -> Unit,
-        onError: (t: Throwable) -> Unit
-    )
+    suspend fun getConcert(
+        id: String
+    ): Result<Concert>
 
     fun getBand(
         id: String,

@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.data.repository
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
 import com.yesferal.hornsapp.data.abstraction.OrmDataSource
+import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Concert
 
 class ConcertRepositoryImpl(
@@ -24,21 +25,9 @@ class ConcertRepositoryImpl(
         )
     }
 
-    override fun getConcert(
-        id: String,
-        onSuccess: (concert: Concert) -> Unit,
-        onError: (t: Throwable) -> Unit
-    ) {
-        apiDataSource.getConcert(
-            id,
-            onSuccess = {
-                onSuccess(it)
-            },
-            onError = {
-                onError(it)
-            }
-        )
-    }
+    override suspend fun getConcert(
+        id: String
+    ): Result<Concert> = apiDataSource.getConcert(id)
 
     override suspend fun getFavoriteConcert(): List<Concert> {
         return ormDataSource.getFavoriteConcerts()

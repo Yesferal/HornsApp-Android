@@ -48,7 +48,7 @@ class SettingsFragment
         environmentSpinner.setSelection(viewState.environment)
 
         environmentSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 environmentSubTitleTextView.setUpWith(viewState.environments[position].second)
                 settingsViewModel.onSpinnerItemSelected(environment = position)
             }

@@ -10,7 +10,7 @@ class SettingsRepositoryImpl(
     override fun getEnvironments()
         = preferencesDataSource.getEnvironments()
 
-    override fun getEnvironment() = preferencesDataSource.getEnvironment()
+    override fun getDefaultEnvironment() = preferencesDataSource.getDefaultEnvironment()
 
     override fun updateDefaultEnvironment(environment: Int) {
         preferencesDataSource.updateDefaultEnvironment(environment)
