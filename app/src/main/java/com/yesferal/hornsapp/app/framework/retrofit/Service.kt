@@ -18,7 +18,7 @@ interface Service {
     ): Response<GetConcert>
 
     @GET("/band/{id}")
-    fun getBandBy(
+    suspend fun getBandBy(
         @Path("id") id: String
-    ): Call<GetBand>
+    ): Response<GetBand>
 }

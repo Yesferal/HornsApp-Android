@@ -14,9 +14,7 @@ interface ApiDataSource {
         id: String
     ): Result<Concert>
 
-    fun getBand(
-        id: String,
-        onSuccess: (entity: Band) -> Unit,
-        onError: (t: Throwable) -> Unit
-    )
+    suspend fun getBand(
+        id: String
+    ): Result<Band>
 }

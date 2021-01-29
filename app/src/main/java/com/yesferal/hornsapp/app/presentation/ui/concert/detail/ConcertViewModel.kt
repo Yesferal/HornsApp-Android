@@ -115,7 +115,6 @@ class ConcertViewModel(
 class ConcertViewModelFactory(
     private val id: String,
     private val getConcertUseCase: GetConcertUseCase,
-    private val adManager: AdManager,
     private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModelProvider.Factory {

@@ -22,7 +22,6 @@ fun Container.registerPresentationModule() {
             id = id,
             getConcertUseCase = resolve(),
             getFavoriteConcertsUseCase = resolve(),
-            adManager = resolve(),
             updateFavoriteConcertUseCase = resolve()
         )
     }

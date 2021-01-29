@@ -46,6 +46,13 @@ class RetrofitDataSource(
                 .safeCall { it.mapToConcert() }
     }
 
+    override suspend fun getBand(
+        id: String
+    ): Result<Band> {
+        return service.getBandBy(id)
+                .safeCall { it.mapToBand() }
+    }
+
     private fun <INPUT, OUTPUT> Response<INPUT>.safeCall(
             func: Response<INPUT>.(INPUT) -> OUTPUT
     ): Result<OUTPUT> {
@@ -56,31 +63,5 @@ class RetrofitDataSource(
         } else {
             Result.Error
         }
-    }
-
-    override fun getBand(
-        id: String,
-        onSuccess: (entity: Band) -> Unit,
-        onError: (t: Throwable) -> Unit
-    ) {
-        val call = service.getBandBy(id)
-        call.enqueue(object : Callback<GetBand> {
-            override fun onResponse(
-                call: Call<GetBand>,
-                response: Response<GetBand>
-            ) {
-                val data = response.body()
-                data?.let {
-                    onSuccess(it.mapToBand())
-                }
-            }
-
-            override fun onFailure(
-                call: Call<GetBand>,
-                t: Throwable
-            ) {
-                onError(t)
-            }
-        })
     }
 }
