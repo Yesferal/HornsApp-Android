@@ -11,19 +11,7 @@ class ConcertRepositoryImpl(
     private val apiDataSource: ApiDataSource
 ) : ConcertRepository {
 
-    override fun getConcerts(
-        onSuccess: (concerts: List<Concert>) -> Unit,
-        onError: (t: Throwable) -> Unit
-    ) {
-        apiDataSource.getConcerts(
-            onSuccess = {
-                onSuccess(it)
-            },
-            onError = {
-                onError(it)
-            }
-        )
-    }
+    override suspend fun getConcerts() = apiDataSource.getConcerts()
 
     override suspend fun getConcert(
         id: String

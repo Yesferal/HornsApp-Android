@@ -13,6 +13,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewDa
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewState
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesViewState
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
@@ -43,35 +44,38 @@ class HomeViewModel(
         get() = _adViewData
 
     init {
-        getConcerts()
-        _adViewData.value = adManager.concertsAdView()
+        viewModelScope.launch {
+            _adViewData.value = adManager.concertsAdView()
+            _state.value = getConcerts()
+            _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
+            _stateNewest.value = getNewestConcerts()
+        }
     }
 
     fun onRefresh() {
-        _state.value = HomeViewState(isLoading = true)
-        getConcerts()
+        viewModelScope.launch {
+            _state.value = HomeViewState(isLoading = true)
+            _state.value = getConcerts()
+        }
     }
 
-    private fun getConcerts() {
-        getConcertsUseCase(
-            onSuccess = {
+    private suspend fun getConcerts() = withContext(Dispatchers.IO) {
+        when (val result = getConcertsUseCase()) {
+            is Result.Success -> {
                 val titles = listOf("Novedades", "Proximos", "Favoritos")
 
-                _state.value = HomeViewState(
-                    fragmentTitles = titles,
-                    concerts = it
-                )
-
-                getUpcomingConcertsWith(CategoryKey.ALL)
-                getNewestConcerts()
-            },
-            onError = {
-                _state.value = HomeViewState(
-                    errorMessage = R.string.error_default,
-                    allowRetry = true
+                HomeViewState(
+                        fragmentTitles = titles,
+                        concerts = result.value
                 )
             }
-        )
+            is Result.Error -> {
+                HomeViewState(
+                        errorMessage = R.string.error_default,
+                        allowRetry = true
+                )
+            }
+        }
     }
 
     // region Favorite
@@ -82,35 +86,33 @@ class HomeViewModel(
 
     fun getFavoriteConcerts() {
         viewModelScope.launch {
-            val favorites = withContext(Dispatchers.IO) {
-                getFavoriteConcertsUseCase()
-            }
+            _stateFavorite.value = withContext(Dispatchers.IO) {
+                val favorites = getFavoriteConcertsUseCase()
 
-            if (favorites.isEmpty()) {
-                _stateFavorite.value = FavoritesViewState(
-                    items = listOf(
-                        ErrorViewData(
-                            R.drawable.ic_music_note,
-                            R.string.error_no_favorite_yet
+                if (favorites.isEmpty()) {
+                    FavoritesViewState(
+                        items = listOf(
+                            ErrorViewData(
+                                    R.drawable.ic_music_note,
+                                    R.string.error_no_favorite_yet
+                            )
                         )
                     )
-                )
-            } else {
-                _stateFavorite.value = withContext(Dispatchers.IO) {
+                } else {
                     FavoritesViewState(items = favorites
-                        .sortedWith(compareBy { it.dateTime?.time })
-                        .map {
-                            UpcomingViewData(
-                                id = it.id,
-                                image = it.headlinerImage,
-                                day = it.dateTime?.dayFormatted(),
-                                month = it.dateTime?.monthFormatted(),
-                                year = it.dateTime?.yearFormatted(),
-                                name = it.name,
-                                time = it.dateTime?.timeFormatted(),
-                                genre = it.genre
-                            )
-                        }
+                            .sortedWith(compareBy { it.dateTime?.time })
+                            .map {
+                                UpcomingViewData(
+                                        id = it.id,
+                                        image = it.headlinerImage,
+                                        day = it.dateTime?.dayFormatted(),
+                                        month = it.dateTime?.monthFormatted(),
+                                        year = it.dateTime?.yearFormatted(),
+                                        name = it.name,
+                                        time = it.dateTime?.timeFormatted(),
+                                        genre = it.genre
+                                )
+                            }
                     )
                 }
             }
@@ -125,66 +127,65 @@ class HomeViewModel(
         get() = _stateUpcoming
 
     fun onFilterClick(categoryViewData: CategoryViewData) {
-        if (categoryViewData.isSelected) {
-            getUpcomingConcertsWith(CategoryKey.ALL)
-        } else {
-            getUpcomingConcertsWith(categoryViewData.categoryKey)
+        viewModelScope.launch {
+            if (categoryViewData.isSelected) {
+                _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
+            } else {
+                _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.categoryKey)
+            }
         }
     }
 
-    private fun getUpcomingConcertsWith(categoryKey: CategoryKey) {
-        viewModelScope.launch {
-            _stateUpcoming.value = withContext(Dispatchers.IO) {
-                val categories = listOf(
-                    CategoryViewData(CategoryKey.LIVE, "Lima", CategoryKey.LIVE == categoryKey),
-                    CategoryViewData(CategoryKey.ONLINE, "Online", CategoryKey.ONLINE == categoryKey),
-                    CategoryViewData(CategoryKey.METAL, "Metal", CategoryKey.METAL == categoryKey),
-                    CategoryViewData(CategoryKey.ROCK, "Rock", CategoryKey.ROCK == categoryKey)
-                )
+    private suspend fun getUpcomingConcertsWith(
+            categoryKey: CategoryKey
+    ) = withContext(Dispatchers.IO) {
+        val categories = listOf(
+            CategoryViewData(CategoryKey.LIVE, "Lima", CategoryKey.LIVE == categoryKey),
+            CategoryViewData(CategoryKey.ONLINE, "Online", CategoryKey.ONLINE == categoryKey),
+            CategoryViewData(CategoryKey.METAL, "Metal", CategoryKey.METAL == categoryKey),
+            CategoryViewData(CategoryKey.ROCK, "Rock", CategoryKey.ROCK == categoryKey)
+        )
 
-                val concerts = _state.value?.concerts
-                    ?.filter {
-                        categoryKey == CategoryKey.ALL ||
-                                it.tags?.contains(categoryKey.toString()) == true
-                    }
-
-                if (concerts == null || concerts.isEmpty()) {
-                    return@withContext UpcomingViewState(
-                        items = listOf(
-                            FiltersViewData(categories),
-                            ErrorViewData(
-                                R.drawable.ic_music_note,
-                                R.string.error_no_items
-                            )
-                        )
-                    )
-                }
-
-                val items = mutableListOf<ViewHolderBinding>().apply {
-                    add(FiltersViewData(categories))
-                    addAll(concerts
-                        .sortedWith(compareBy { it.dateTime?.time })
-                        .map {
-                            UpcomingViewData(
-                                id = it.id,
-                                image = it.headlinerImage,
-                                day = it.dateTime?.dayFormatted(),
-                                month = it.dateTime?.monthFormatted(),
-                                year = it.dateTime?.yearFormatted(),
-                                name = it.name,
-                                time = it.dateTime?.timeFormatted(),
-                                genre = it.genre
-                            )
-                        }
-                    )
-                }
-
-                return@withContext UpcomingViewState(
-                    items = items.toList()
-                )
+        val concerts = _state.value?.concerts
+            ?.filter {
+                categoryKey == CategoryKey.ALL ||
+                        it.tags?.contains(categoryKey.toString()) == true
             }
 
+        if (concerts == null || concerts.isEmpty()) {
+            return@withContext UpcomingViewState(
+                items = listOf(
+                    FiltersViewData(categories),
+                    ErrorViewData(
+                        R.drawable.ic_music_note,
+                        R.string.error_no_items
+                    )
+                )
+            )
         }
+
+        val items = mutableListOf<ViewHolderBinding>().apply {
+            add(FiltersViewData(categories))
+            addAll(concerts
+                .sortedWith(compareBy { it.dateTime?.time })
+                .map {
+                    UpcomingViewData(
+                        id = it.id,
+                        image = it.headlinerImage,
+                        day = it.dateTime?.dayFormatted(),
+                        month = it.dateTime?.monthFormatted(),
+                        year = it.dateTime?.yearFormatted(),
+                        name = it.name,
+                        time = it.dateTime?.timeFormatted(),
+                        genre = it.genre
+                    )
+                }
+            )
+        }
+
+        return@withContext UpcomingViewState(
+            items = items.toList()
+        )
     }
     // endregion
 
@@ -194,42 +195,38 @@ class HomeViewModel(
     val stateNewest: LiveData<NewestViewState>
         get() = _stateNewest
 
-    private fun getNewestConcerts() {
-        viewModelScope.launch {
-            _stateNewest.value = withContext(Dispatchers.IO) {
-                val concerts = _state.value?.concerts
+    private suspend fun getNewestConcerts() = withContext(Dispatchers.IO) {
+        val concerts = _state.value?.concerts
 
-                if (concerts == null || concerts.isEmpty()) {
-                    return@withContext NewestViewState(
-                        errorMessage = R.string.error_no_items,
-                    )
-                }
-
-                val views = mutableListOf<ViewHolderBinding>()
-                val concertReversed = concerts.reversed()
-                val firstConcert = concertReversed.toMutableList().removeFirst()
-                views.add(
-                    UpcomingViewData(
-                        id = firstConcert.id,
-                        image = firstConcert.headlinerImage,
-                        day = firstConcert.dateTime?.dayFormatted(),
-                        month = firstConcert.dateTime?.monthFormatted(),
-                        year = firstConcert.dateTime?.yearFormatted(),
-                        name = firstConcert.name,
-                        time = firstConcert.dateTime?.timeFormatted(),
-                        genre = firstConcert.genre
-                    )
-                )
-
-                val thisYear = Calendar.getInstance().get(Calendar.YEAR)
-                views.insertElementByYear(concertReversed, thisYear)
-
-                val nextYear = thisYear + 1
-                views.insertElementByYear(concertReversed, nextYear)
-
-                return@withContext NewestViewState(views)
-            }
+        if (concerts == null || concerts.isEmpty()) {
+            return@withContext NewestViewState(
+                errorMessage = R.string.error_no_items,
+            )
         }
+
+        val views = mutableListOf<ViewHolderBinding>()
+        val concertReversed = concerts.reversed()
+        val firstConcert = concertReversed.toMutableList().removeFirst()
+        views.add(
+            UpcomingViewData(
+                id = firstConcert.id,
+                image = firstConcert.headlinerImage,
+                day = firstConcert.dateTime?.dayFormatted(),
+                month = firstConcert.dateTime?.monthFormatted(),
+                year = firstConcert.dateTime?.yearFormatted(),
+                name = firstConcert.name,
+                time = firstConcert.dateTime?.timeFormatted(),
+                genre = firstConcert.genre
+            )
+        )
+
+        val thisYear = Calendar.getInstance().get(Calendar.YEAR)
+        views.insertElementByYear(concertReversed, thisYear)
+
+        val nextYear = thisYear + 1
+        views.insertElementByYear(concertReversed, nextYear)
+
+        return@withContext NewestViewState(views)
     }
 
     private fun MutableList<ViewHolderBinding>.insertElementByYear(

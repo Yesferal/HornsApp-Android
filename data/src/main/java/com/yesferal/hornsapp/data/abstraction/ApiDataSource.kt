@@ -5,10 +5,7 @@ import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
 
 interface ApiDataSource {
-    fun getConcerts(
-        onSuccess: (entity: List<Concert>) -> Unit,
-        onError: (t: Throwable) -> Unit
-    )
+    suspend fun getConcerts(): Result<List<Concert>>
 
     suspend fun getConcert(
         id: String
