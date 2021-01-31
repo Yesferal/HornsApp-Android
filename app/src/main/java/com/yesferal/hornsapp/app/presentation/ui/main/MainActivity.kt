@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.home
+package com.yesferal.hornsapp.app.presentation.ui.main
 
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity
     : AppCompatActivity(),
     HadaAwareness {
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,12 +23,12 @@ class MainActivity
 
         MobileAds.initialize(this)
 
-        homeViewModel = ViewModelProvider(
+        mainViewModel = ViewModelProvider(
                 viewModelStore,
-                hada().resolve<HomeViewModelFactory>()
-        ).get(HomeViewModel::class.java)
+                hada().resolve<MainViewModelFactory>()
+        ).get(MainViewModel::class.java)
 
-        homeViewModel.adViewData.observe(this) {
+        mainViewModel.adViewData.observe(this) {
             adContainerLayout.addAdView(it)
         }
     }

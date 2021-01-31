@@ -2,8 +2,6 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import androidx.lifecycle.*
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdManager
-import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
@@ -30,32 +28,27 @@ import java.util.*
 
 class HomeViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
-    adManager: AdManager
+    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
 ): ViewModel() {
     private val _state = MutableLiveData<HomeViewState>()
 
     val state: LiveData<HomeViewState>
         get() = _state
 
-    private val _adViewData = MutableLiveData<AdViewData>()
-
-    val adViewData: LiveData<AdViewData>
-        get() = _adViewData
-
     init {
-        viewModelScope.launch {
-            _adViewData.value = adManager.concertsAdView()
-            _state.value = getConcerts()
-            _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
-            _stateNewest.value = getNewestConcerts()
-        }
+        updateViews()
     }
 
     fun onRefresh() {
+        _state.value = HomeViewState(isLoading = true)
+        updateViews()
+    }
+
+    private fun updateViews() {
         viewModelScope.launch {
-            _state.value = HomeViewState(isLoading = true)
             _state.value = getConcerts()
+            _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
+            _stateNewest.value = getNewestConcerts()
         }
     }
 
@@ -257,14 +250,12 @@ class HomeViewModel(
 
 class HomeViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
-    private val adManager: AdManager
+    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            GetFavoriteConcertsUseCase::class.java,
-            AdManager::class.java
-        ).newInstance(getConcertsUseCase, getFavoriteConcertsUseCase, adManager)
+            GetFavoriteConcertsUseCase::class.java
+        ).newInstance(getConcertsUseCase, getFavoriteConcertsUseCase)
     }
 }

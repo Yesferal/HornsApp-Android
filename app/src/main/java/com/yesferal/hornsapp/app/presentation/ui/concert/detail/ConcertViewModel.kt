@@ -2,7 +2,6 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import androidx.lifecycle.*
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Concert
