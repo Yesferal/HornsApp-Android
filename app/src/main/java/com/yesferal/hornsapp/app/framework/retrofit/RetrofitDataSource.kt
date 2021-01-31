@@ -1,92 +1,59 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-import com.yesferal.hornsapp.app.framework.retrofit.entity.*
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
+import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
-import retrofit2.Call
-import retrofit2.Callback
+import okhttp3.ResponseBody
 import retrofit2.Response
+import java.lang.Exception
 
 class RetrofitDataSource(
     private val service: Service
 ) : ApiDataSource {
-    override fun getConcerts(
-        onSuccess: (entity: List<Concert>) -> Unit,
-        onError: (t: Throwable) -> Unit
-    ) {
-        val call = service.getConcerts()
-        call.enqueue(object : Callback<List<GetConcerts>> {
-            override fun onResponse(
-                call: Call<List<GetConcerts>>,
-                response: Response<List<GetConcerts>>
-            ) {
-                val data = response.body()?: listOf()
-                val concerts = data.map {
-                    it.mapToConcert()
+    override suspend fun getConcerts(): Result<List<Concert>> {
+        return service
+                .safeCall { getConcerts() }
+                .mapToResult {
+                    it.map { apiConcert -> apiConcert.mapToConcert() }
                 }
-
-                onSuccess(concerts)
-            }
-
-            override fun onFailure(
-                call: Call<List<GetConcerts>>,
-                t: Throwable
-            ) {
-                onError(t)
-            }
-        })
     }
 
-    override fun getConcert(
-        id: String,
-        onSuccess: (entity: Concert) -> Unit,
-        onError: (t: Throwable) -> Unit
-    ) {
-        val call = service.getConcertBy(id)
-        call.enqueue(object : Callback<GetConcert> {
-            override fun onResponse(
-                call: Call<GetConcert>,
-                response: Response<GetConcert>
-            ) {
-                val data = response.body()
-                data?.let {
-                    onSuccess(it.mapToConcert())
-                }
-            }
-
-            override fun onFailure(
-                call: Call<GetConcert>,
-                t: Throwable
-            ) {
-                onError(t)
-            }
-        })
+    override suspend fun getConcert(
+        id: String
+    ): Result<Concert> {
+        return service
+                .safeCall { getConcertBy(id) }
+                .mapToResult { it.mapToConcert() }
     }
 
-    override fun getBand(
-        id: String,
-        onSuccess: (entity: Band) -> Unit,
-        onError: (t: Throwable) -> Unit
-    ) {
-        val call = service.getBandBy(id)
-        call.enqueue(object : Callback<GetBand> {
-            override fun onResponse(
-                call: Call<GetBand>,
-                response: Response<GetBand>
-            ) {
-                val data = response.body()
-                data?.let {
-                    onSuccess(it.mapToBand())
-                }
-            }
+    override suspend fun getBand(
+        id: String
+    ): Result<Band> {
+        return service
+                .safeCall { getBandBy(id) }
+                .mapToResult { it.mapToBand() }
+    }
 
-            override fun onFailure(
-                call: Call<GetBand>,
-                t: Throwable
-            ) {
-                onError(t)
-            }
-        })
+    private suspend fun <INPUT> Service.safeCall(
+            request: suspend Service.() -> Response<INPUT>
+    ): Response<INPUT> {
+        return try {
+            request()
+        } catch (e: Exception) {
+            Response.error(404, ResponseBody.create(null, String()))
+        }
+    }
+
+    private fun <INPUT, OUTPUT> Response<INPUT>.mapToResult(
+            func: Response<INPUT>.(INPUT) -> OUTPUT
+    ): Result<OUTPUT> {
+        return if (isSuccessful) {
+            body()?.let {
+                Result.Success(func(it))
+            }?: Result.Error
+        } else {
+            Result.Error
+        }
     }
 }

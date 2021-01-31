@@ -10,15 +10,12 @@ class ApiConstants {
     private external fun authorization(): String
     private external fun baseUrl(): String
 
-    private val mockEnvironment = "MOCK"
-    private val productionEnvironment = "PROD"
-
     val authorizations = listOf(
-            Pair(mockEnvironment, String()),
-            Pair(productionEnvironment, authorization())
+            String(),
+            authorization()
     )
     val environments = listOf(
-            Pair(mockEnvironment, "http://demo0511701.mockable.io/"),
-            Pair(productionEnvironment, baseUrl())
+            Pair("Dev", "http://demo0511701.mockable.io/"),
+            Pair("Prod", baseUrl())
     )
 }

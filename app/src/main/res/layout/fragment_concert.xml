@@ -195,14 +195,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <FrameLayout
-        android:id="@+id/adContainerLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
     <ViewStub
         android:id="@+id/stubView"
         android:inflatedId="@+id/inflatedStubView"

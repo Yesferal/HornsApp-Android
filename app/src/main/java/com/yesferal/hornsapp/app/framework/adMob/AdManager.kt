@@ -14,12 +14,4 @@ class AdManager(
 
         return AdViewData(adSize, adUnitId, adRequest)
     }
-
-    fun concertDetailAdView(): AdViewData {
-        val adSize = AdSize.BANNER
-        val adUnitId = adUnitIds.concertDetailBannerAdUnitId()
-        val adRequest = adRequest()
-
-        return AdViewData(adSize, adUnitId, adRequest)
-    }
 }

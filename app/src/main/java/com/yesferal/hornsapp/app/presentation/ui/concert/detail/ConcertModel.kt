@@ -3,7 +3,6 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 import android.view.View
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
@@ -17,7 +16,6 @@ import java.net.URI
 data class ConcertViewState(
     val concert: ConcertViewData? = null,
     val bands: List<BandViewData>? = null,
-    val adViewData: AdViewData? = null,
     val isLoading: Boolean = false,
     @StringRes val errorMessageId: Int? = null
 )
