@@ -4,7 +4,7 @@ buildscript {
     ext.versions = [
             'jvmTarget': '1.8',
             'kotlin': '1.4.21',
-            'navigation': '2.3.2',
+            'navigation': '2.3.3',
             'room': "2.2.6",
             'retrofit': "2.9.0"
     ]
@@ -22,7 +22,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath 'com.google.gms:google-services:4.3.4'
+        classpath 'com.google.gms:google-services:4.3.5'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
     }
