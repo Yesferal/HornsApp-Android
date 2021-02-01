@@ -49,12 +49,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <FrameLayout
-        android:id="@+id/adContainerLayout"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom|center_horizontal"/>
-
     <ViewStub
         android:id="@+id/stubView"
         android:inflatedId="@+id/inflatedStubView"

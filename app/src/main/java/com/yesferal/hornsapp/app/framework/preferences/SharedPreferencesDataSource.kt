@@ -17,7 +17,7 @@ class SharedPreferencesDataSource(
         context.getSharedPreferences(name, Context.MODE_PRIVATE)
     }
 
-    override fun getEnvironment(): Int {
+    override fun getDefaultEnvironment(): Int {
         val key = Key.ENVIRONMENT.toString()
         return sharedPreferences.getInt(key, 0)
     }

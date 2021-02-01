@@ -2,8 +2,8 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import androidx.lifecycle.*
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
+import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
@@ -19,7 +19,6 @@ import java.util.*
 class ConcertViewModel(
     id: String,
     getConcertUseCase: GetConcertUseCase,
-    private val adManager: AdManager,
     private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ): ViewModel() {
@@ -33,59 +32,57 @@ class ConcertViewModel(
         get() = _effect
 
     init {
-        // TODO("Change this Use Case as suspend")
-        getConcertUseCase(
-            id,
-            onSuccess = { concert ->
-                viewModelScope.launch {
-                    _state.value = withContext(Dispatchers.IO) {
+        viewModelScope.launch {
+            _state.value = withContext(Dispatchers.IO) {
+                when (val result = getConcertUseCase(id)) {
+                    is Result.Success -> {
+                        val concert = result.value
                         getFavoriteConcertsUseCase()
-                            .map { it.id }
-                            .let { favorites ->
-                            if (favorites.contains(concert.id)) {
-                                concert.isFavorite = true
-                            }
-                        }
+                                .map { it.id }
+                                .let { favorites ->
+                                    if (favorites.contains(concert.id)) {
+                                        concert.isFavorite = true
+                                    }
+                                }
 
                         val concertViewData = ConcertViewData(
-                            concert.id,
-                            concert.name,
-                            concert.headlinerImage,
-                            concert.description,
-                            concert.dateTime?.time,
-                            concert.dateTime?.dateTimeFormatted(),
-                            concert.dateTime?.dayFormatted(),
-                            concert.dateTime?.monthFormatted(),
-                            concert.trailerUrl,
-                            concert.facebookUrl,
-                            concert.isFavorite,
-                            concert.genre,
-                            concert.ticketingHost,
-                            concert.ticketingUrl,
-                            concert.venue
+                                concert.id,
+                                concert.name,
+                                concert.headlinerImage,
+                                concert.description,
+                                concert.dateTime?.time,
+                                concert.dateTime?.dateTimeFormatted(),
+                                concert.dateTime?.dayFormatted(),
+                                concert.dateTime?.monthFormatted(),
+                                concert.trailerUrl,
+                                concert.facebookUrl,
+                                concert.isFavorite,
+                                concert.genre,
+                                concert.ticketingHost,
+                                concert.ticketingUrl,
+                                concert.venue
                         )
 
                         val bandsViewData = concert.bands?.map { band ->
                             BandViewData(
-                                band.id,
-                                band.name,
-                                band.membersImage,
-                                band.genre
+                                    band.id,
+                                    band.name,
+                                    band.membersImage,
+                                    band.genre
                             )
                         }
 
                         ConcertViewState(
-                            concert = concertViewData,
-                            bands = bandsViewData,
-                            adViewData = adManager.concertDetailAdView()
-                        )
+                                    concert = concertViewData,
+                                    bands = bandsViewData
+                            )
+                        }
+                    is Result.Error -> {
+                        ConcertViewState(errorMessageId = R.string.error_default)
                     }
                 }
-            },
-            onError = {
-                _state.value = ConcertViewState(errorMessageId = R.string.error_default)
             }
-        )
+        }
     }
 
     fun onFavoriteImageViewClick(
@@ -117,7 +114,6 @@ class ConcertViewModel(
 class ConcertViewModelFactory(
     private val id: String,
     private val getConcertUseCase: GetConcertUseCase,
-    private val adManager: AdManager,
     private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModelProvider.Factory {
@@ -125,9 +121,8 @@ class ConcertViewModelFactory(
         return modelClass.getConstructor(
             String::class.java,
             GetConcertUseCase::class.java,
-            AdManager::class.java,
             GetFavoriteConcertsUseCase::class.java,
             UpdateFavoriteConcertUseCase::class.java
-        ).newInstance(id, getConcertUseCase, adManager, getFavoriteConcertsUseCase, updateFavoriteConcertUseCase)
+        ).newInstance(id, getConcertUseCase, getFavoriteConcertsUseCase, updateFavoriteConcertUseCase)
     }
 }

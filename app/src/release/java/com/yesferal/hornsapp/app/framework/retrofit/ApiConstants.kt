@@ -10,12 +10,10 @@ class ApiConstants {
     private external fun authorization(): String
     private external fun baseUrl(): String
 
-    private val productionEnvironment = "PROD"
-
     val authorizations = listOf(
-        Pair(productionEnvironment, authorization())
+        authorization()
     )
     val environments = listOf(
-        Pair(productionEnvironment, baseUrl())
+        Pair("Prod", baseUrl())
     )
 }

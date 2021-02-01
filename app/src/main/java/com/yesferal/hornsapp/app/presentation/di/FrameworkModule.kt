@@ -28,9 +28,13 @@ fun Container.registerFrameworkModule() {
     }
 
     this register Singleton {
+        val apiConstants = ApiConstants()
+        val defaultEnvironment = resolve<PreferencesDataSource>()
+                .getDefaultEnvironment()
+
         RetrofitFactory(
-            constants = ApiConstants(),
-            environment = resolve<PreferencesDataSource>().getEnvironment()
+            authorization = apiConstants.authorizations[defaultEnvironment],
+            baseUrl = apiConstants.environments[defaultEnvironment].second
         ).retrofit
     }
 

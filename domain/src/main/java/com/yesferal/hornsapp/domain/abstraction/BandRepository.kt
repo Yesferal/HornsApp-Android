@@ -1,11 +1,10 @@
 package com.yesferal.hornsapp.domain.abstraction
 
 import com.yesferal.hornsapp.domain.entity.Band
+import com.yesferal.hornsapp.domain.common.Result
 
 interface BandRepository {
-    fun getBand(
-        id: String,
-        onSuccess: (band: Band) -> Unit,
-        onError: (t: Throwable) -> Unit
-    )
+    suspend fun getBand(
+        id: String
+    ): Result<Band>
 }

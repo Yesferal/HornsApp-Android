@@ -24,7 +24,7 @@
             android:value="${crashlyticsCollectionEnabled}" />
 
         <activity
-            android:name=".presentation.ui.home.MainActivity"
+            android:name=".presentation.ui.main.MainActivity"
             android:theme="@style/HornsApp.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
