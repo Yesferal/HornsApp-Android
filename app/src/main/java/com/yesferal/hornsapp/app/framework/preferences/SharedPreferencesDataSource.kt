@@ -10,7 +10,8 @@ class SharedPreferencesDataSource(
     private val apiConstants: ApiConstants
 ) : PreferencesDataSource {
     enum class Key{
-        ENVIRONMENT
+        ENVIRONMENT,
+        ONBOARDING_VISIBILITY
     }
 
     private val sharedPreferences by lazy {
@@ -30,5 +31,13 @@ class SharedPreferencesDataSource(
 
     override fun getEnvironments() = apiConstants.environments
 
-    // TODO("Implement onboarding validation")
+    override fun onBoardingIsVisible(): Boolean {
+        return sharedPreferences.getBoolean(Key.ONBOARDING_VISIBILITY.toString(),true)
+    }
+
+    override fun hideOnBoarding() {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(Key.ONBOARDING_VISIBILITY.toString(), false)
+        editor.apply()
+    }
 }

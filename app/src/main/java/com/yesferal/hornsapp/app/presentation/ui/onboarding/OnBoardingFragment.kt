@@ -9,12 +9,14 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.ui.splash.SplashViewModel
+import com.yesferal.hornsapp.app.presentation.ui.splash.SplashViewModelFactory
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
 
 class OnBoardingFragment
     : BaseFragment <OnBoardingViewState>() {
     private lateinit var onBoardingViewModel: OnBoardingViewModel
-
+    private lateinit var splashViewModel: SplashViewModel
     override val layout: Int
         get() = R.layout.fragment_on_boarding
 
@@ -30,7 +32,13 @@ class OnBoardingFragment
             render(it)
         }
 
+        splashViewModel = ViewModelProvider(
+                this,
+                hada().resolve<SplashViewModelFactory>()
+        ).get(SplashViewModel::class.java)
+
         nextTextView.setOnClickListener {
+            splashViewModel.updateVisibilityOnBoarding()
             findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingToHome())
         }
     }
