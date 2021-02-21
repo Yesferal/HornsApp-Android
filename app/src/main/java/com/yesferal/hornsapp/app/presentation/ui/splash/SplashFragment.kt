@@ -1,56 +1,37 @@
 package com.yesferal.hornsapp.app.presentation.ui.splash
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver.*
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 class SplashFragment
-    : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_splash, container, false)
+    : BaseFragment<SplashState>() {
 
-        view.viewTreeObserver.addOnPreDrawListener(object: OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                view.viewTreeObserver.removeOnPreDrawListener(this)
-                val layoutParams = imageView.layoutParams as ConstraintLayout.LayoutParams
+    private lateinit var splashViewModel: SplashViewModel
 
-                val statusBarHeightId = resources.getIdentifier("status_bar_height", "dimen", "android")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-                val statusBarHeight = resources.getDimensionPixelSize(statusBarHeightId)
+        splashViewModel = ViewModelProvider(
+            this,
+            hada().resolve<SplashViewModelFactory>()
+        ).get(SplashViewModel::class.java)
 
-                layoutParams.setMargins(0, 0, 0, statusBarHeight)
-                imageView.layoutParams = layoutParams
-
-                initMotionLayout()
-
-                return true
-            }
-        })
-
-        return view
+        splashViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
     }
 
-    private fun initMotionLayout() {
+    private fun initMotionLayout(navDirection : NavDirections) {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                // TODO("Implement this boolean using SharedPreferences")
-                if (true) {
-                    findNavController().navigate(SplashFragmentDirections.actionSplashToHome())
-                } else {
-                    findNavController().navigate(SplashFragmentDirections.actionSplashToOnBoarding())
-                }
+                findNavController().navigate(navDirection)
             }
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) { }
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) { }
@@ -58,4 +39,16 @@ class SplashFragment
         })
         motionLayout.transitionToEnd()
     }
+
+    override fun render(viewState: SplashState) {
+        val navDirection : NavDirections = if (viewState.onBoardingVisibility) {
+            SplashFragmentDirections.actionSplashToOnBoarding()
+        } else {
+            SplashFragmentDirections.actionSplashToHome()
+        }
+        initMotionLayout(navDirection)
+    }
+
+    override val layout: Int
+        get() = R.layout.fragment_splash
 }

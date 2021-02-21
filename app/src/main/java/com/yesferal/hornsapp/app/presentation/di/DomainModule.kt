@@ -52,4 +52,16 @@ fun Container.registerDomainModule() {
                 settingsRepository = resolve()
         )
     }
+
+    this register Factory {
+        GetVisibilityOnBoardingUseCase(
+            settingsRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        UpdateVisibilityOnBoardingUseCase(
+            settingsRepository = resolve()
+        )
+    }
 }

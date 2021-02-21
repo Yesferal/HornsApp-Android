@@ -4,4 +4,6 @@ interface SettingsRepository {
     fun getEnvironments(): List<Pair<String, String>>
     fun getDefaultEnvironment(): Int
     fun updateDefaultEnvironment(environment: Int)
+    fun onBoardingIsVisible() : Boolean
+    fun hideOnBoarding()
 }
