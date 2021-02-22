@@ -9,14 +9,12 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
-import com.yesferal.hornsapp.app.presentation.ui.splash.SplashViewModel
-import com.yesferal.hornsapp.app.presentation.ui.splash.SplashViewModelFactory
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
 
 class OnBoardingFragment
     : BaseFragment <OnBoardingViewState>() {
     private lateinit var onBoardingViewModel: OnBoardingViewModel
-    private lateinit var splashViewModel: SplashViewModel
+
     override val layout: Int
         get() = R.layout.fragment_on_boarding
 
@@ -32,13 +30,8 @@ class OnBoardingFragment
             render(it)
         }
 
-        splashViewModel = ViewModelProvider(
-                this,
-                hada().resolve<SplashViewModelFactory>()
-        ).get(SplashViewModel::class.java)
-
         nextTextView.setOnClickListener {
-            splashViewModel.updateVisibilityOnBoarding()
+            onBoardingViewModel.updateVisibilityOnBoarding()
             findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingToHome())
         }
     }
@@ -48,12 +41,6 @@ class OnBoardingFragment
             showData(it)
         }
 
-        viewState.errorMessage?.let {
-            showError(
-                messageId =  viewState.errorMessage
-            )
-        }?: kotlin.run { hideError() }
-
         if (viewState.isLoading) {
             showProgress()
         } else {
@@ -62,10 +49,10 @@ class OnBoardingFragment
     }
 
     private fun showData(onBoardingViewData: OnBoardingViewData) {
-        metalCard.setText(onBoardingViewData.metalConcerts.toString(),getString(R.string.metal_category))
-        rockCard.setText(onBoardingViewData.rockConcerts.toString(),getString(R.string.rock_category))
-        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(),getString(R.string.upcoming_category))
-        totalCard.setText(onBoardingViewData.total.toString(),getString(R.string.total_category))
+        metalCard.setText(onBoardingViewData.metalConcerts.toString(), getString(R.string.metal_category))
+        rockCard.setText(onBoardingViewData.rockConcerts.toString(), getString(R.string.rock_category))
+        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(), getString(R.string.upcoming_category))
+        totalCard.setText(onBoardingViewData.total.toString(), getString(R.string.total_category))
     }
 
     private fun showProgress() {
@@ -76,13 +63,5 @@ class OnBoardingFragment
     private fun hideProgress() {
         progressBar.fadeOut()
         nextTextView.fadeIn()
-    }
-
-    private fun showError(
-        @StringRes messageId: Int
-    ) {
-    }
-
-    private fun hideError() {
     }
 }
