@@ -42,7 +42,8 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         OnBoardingViewModelFactory(
-            getConcertsUseCase = resolve()
+            getConcertsUseCase = resolve(),
+            updateVisibilityOnBoardingUseCase = resolve()
         )
     }
 
@@ -56,8 +57,7 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         SplashViewModelFactory(
-            getVisibilityOnBoardingUseCase = resolve(),
-            updateVisibilityOnBoardingUseCase = resolve()
+            getVisibilityOnBoardingUseCase = resolve()
         )
     }
 }

@@ -1,17 +1,18 @@
 package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
 import androidx.lifecycle.*
-import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
 class OnBoardingViewModel(
-    getConcertsUseCase: GetConcertsUseCase
+    getConcertsUseCase: GetConcertsUseCase,
+    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<OnBoardingViewState>()
 
@@ -44,22 +45,26 @@ class OnBoardingViewModel(
                         OnBoardingViewState(onBoardingViewData = onBoardingViewData)
                     }
                     is Result.Error -> {
-                        OnBoardingViewState(
-                                errorMessage = R.string.error_default
-                        )
+                        OnBoardingViewState()
                     }
                 }
             }
         }
     }
+
+    fun updateVisibilityOnBoarding(){
+        updateVisibilityOnBoardingUseCase()
+    }
 }
 
 class OnBoardingViewModelFactory(
-    private val getConcertsUseCase: GetConcertsUseCase
+    private val getConcertsUseCase: GetConcertsUseCase,
+    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-            GetConcertsUseCase::class.java
-        ).newInstance(getConcertsUseCase)
+            GetConcertsUseCase::class.java,
+            UpdateVisibilityOnBoardingUseCase::class.java
+        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase)
     }
 }

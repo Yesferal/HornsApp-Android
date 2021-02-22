@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.domain.usecase.*
 
 class SplashViewModel(
-    getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase,
-    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase
+    getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<SplashState>()
 
@@ -20,20 +19,14 @@ class SplashViewModel(
             onBoardingVisibility = getVisibilityOnBoardingUseCase()
         )
     }
-
-    fun updateVisibilityOnBoarding(){
-        updateVisibilityOnBoardingUseCase()
-    }
 }
 
 class SplashViewModelFactory(
-    private val getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase,
-    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase
+    private val getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-            GetVisibilityOnBoardingUseCase::class.java,
-            UpdateVisibilityOnBoardingUseCase::class.java
-        ).newInstance(getVisibilityOnBoardingUseCase, updateVisibilityOnBoardingUseCase)
+            GetVisibilityOnBoardingUseCase::class.java
+        ).newInstance(getVisibilityOnBoardingUseCase)
     }
 }
