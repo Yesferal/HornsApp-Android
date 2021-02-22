@@ -15,7 +15,7 @@ class ApiConstants {
             authorization()
     )
     val environments = listOf(
-            Pair("Dev", "http://demo0511701.mockable.io/"),
+            Pair("Dev", "https://demo8819092.mockable.io/"),
             Pair("Prod", baseUrl())
     )
 }
