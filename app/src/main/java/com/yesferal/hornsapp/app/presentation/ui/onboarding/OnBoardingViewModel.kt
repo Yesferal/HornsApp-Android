@@ -52,7 +52,7 @@ class OnBoardingViewModel(
         }
     }
 
-    fun updateVisibilityOnBoarding(){
+    fun updateVisibilityOnBoarding() {
         updateVisibilityOnBoardingUseCase()
     }
 }

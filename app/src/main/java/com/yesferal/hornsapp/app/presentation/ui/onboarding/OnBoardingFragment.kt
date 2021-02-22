@@ -2,7 +2,6 @@ package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R

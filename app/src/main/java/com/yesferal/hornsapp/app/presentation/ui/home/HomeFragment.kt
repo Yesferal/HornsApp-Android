@@ -59,10 +59,10 @@ class HomeFragment
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(concertsViewPager.currentItem == 0){
+                if(concertsViewPager.currentItem == 0) {
                     isEnabled = false
                     activity?.onBackPressed()
-                }else{
+                } else {
                     concertsViewPager.currentItem = concertsViewPager.currentItem - 1
                 }
             }
