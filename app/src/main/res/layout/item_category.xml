@@ -13,7 +13,7 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_border_rounded_16dp"
+        android:background="@drawable/shape_rectangle_border_rounded_24dp"
         android:backgroundTint="@color/secondaryText"
         android:textColor="@color/secondaryText"
         android:paddingVertical="@dimen/margin_small"
