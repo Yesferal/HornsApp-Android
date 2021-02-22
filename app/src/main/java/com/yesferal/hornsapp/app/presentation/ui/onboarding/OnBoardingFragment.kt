@@ -31,6 +31,7 @@ class OnBoardingFragment
         }
 
         nextTextView.setOnClickListener {
+            onBoardingViewModel.updateVisibilityOnBoarding()
             findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingToHome())
         }
     }
@@ -40,12 +41,6 @@ class OnBoardingFragment
             showData(it)
         }
 
-        viewState.errorMessage?.let {
-            showError(
-                messageId =  viewState.errorMessage
-            )
-        }?: kotlin.run { hideError() }
-
         if (viewState.isLoading) {
             showProgress()
         } else {
@@ -54,10 +49,10 @@ class OnBoardingFragment
     }
 
     private fun showData(onBoardingViewData: OnBoardingViewData) {
-        metalCard.setText(onBoardingViewData.metalConcerts.toString(),getString(R.string.metal_category))
-        rockCard.setText(onBoardingViewData.rockConcerts.toString(),getString(R.string.rock_category))
-        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(),getString(R.string.upcoming_category))
-        totalCard.setText(onBoardingViewData.total.toString(),getString(R.string.total_category))
+        metalCard.setText(onBoardingViewData.metalConcerts.toString(), getString(R.string.metal_category))
+        rockCard.setText(onBoardingViewData.rockConcerts.toString(), getString(R.string.rock_category))
+        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(), getString(R.string.upcoming_category))
+        totalCard.setText(onBoardingViewData.total.toString(), getString(R.string.total_category))
     }
 
     private fun showProgress() {
@@ -68,13 +63,5 @@ class OnBoardingFragment
     private fun hideProgress() {
         progressBar.fadeOut()
         nextTextView.fadeIn()
-    }
-
-    private fun showError(
-        @StringRes messageId: Int
-    ) {
-    }
-
-    private fun hideError() {
     }
 }

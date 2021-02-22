@@ -15,4 +15,12 @@ class SettingsRepositoryImpl(
     override fun updateDefaultEnvironment(environment: Int) {
         preferencesDataSource.updateDefaultEnvironment(environment)
     }
+
+    override fun onBoardingIsVisible(): Boolean {
+        return preferencesDataSource.onBoardingIsVisible()
+    }
+
+    override fun hideOnBoarding() {
+        return preferencesDataSource.hideOnBoarding()
+    }
 }

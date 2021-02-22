@@ -19,7 +19,7 @@
         android:layout_height="0dp"
         android:background="@drawable/shape_gradient_top_to_bottom"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.25"/>
+        app:layout_constraintHeight_percent="0.15"/>
 
     <View
         android:id="@+id/startView"
@@ -43,6 +43,7 @@
         app:layout_constraintEnd_toEndOf="@+id/startView"/>
 
     <TextView
+        android:id="@+id/subtitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_medium"
@@ -52,6 +53,8 @@
         app:layout_constraintStart_toStartOf="@+id/startView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
+
+    <!-- margin bottom 66dp for google ad size    android:layout_marginBottom="66dp"-->
     <TextView
         android:id="@+id/nextTextView"
         android:layout_width="wrap_content"
@@ -59,10 +62,12 @@
         android:background="@drawable/shape_rectangle_rounded_32dp"
         android:backgroundTint="@color/accent"
         android:textColor="@android:color/white"
-        android:padding="@dimen/margin_medium"
-        android:layout_margin="@dimen/margin_big"
+        android:paddingVertical="@dimen/margin_medium"
+        android:paddingHorizontal="@dimen/margin_big"
+        android:layout_marginHorizontal="@dimen/margin_big"
+        android:layout_marginBottom="66dp"
         android:text="@string/get_started"
-        android:visibility="gone"
+        android:visibility="invisible"
         style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +84,7 @@
         android:id="@+id/metalCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_medium"
         app:layout_constraintWidth_percent="0.2"
         app:layout_constraintEnd_toStartOf="@id/rockCard"
         app:layout_constraintBottom_toTopOf="@+id/nextTextView" />
@@ -88,7 +93,7 @@
         android:id="@+id/rockCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_medium"
         app:layout_constraintWidth_percent="0.2"
         app:layout_constraintBottom_toTopOf="@+id/nextTextView"
         app:layout_constraintEnd_toStartOf="@id/guideline" />
@@ -97,7 +102,7 @@
         android:id="@+id/upcomingCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_medium"
         app:layout_constraintWidth_percent="0.2"
         app:layout_constraintBottom_toTopOf="@+id/nextTextView"
         app:layout_constraintStart_toEndOf="@id/guideline"/>
@@ -106,18 +111,18 @@
         android:id="@+id/totalCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_medium"
         app:layout_constraintWidth_percent="0.2"
         app:layout_constraintBottom_toTopOf="@+id/nextTextView"
         app:layout_constraintStart_toEndOf="@id/upcomingCard"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_big"
         style="?android:progressBarStyleLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/nextTextView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
