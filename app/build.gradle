@@ -19,8 +19,8 @@ android {
         applicationId "com.yesferal.hornsapp"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 9
-        versionName "1.7.0"
+        versionCode 10
+        versionName "1.8.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake { cppFlags "" }
@@ -61,8 +61,8 @@ dependencies {
 
     // Library
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
@@ -71,9 +71,9 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.android.material:material:1.3.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:18.0.2'
-    implementation 'com.google.android.gms:play-services-ads:19.7.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
+    implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+    implementation 'com.google.android.gms:play-services-ads:20.2.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.0.1'
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
     implementation "androidx.room:room-runtime:${versions.room}"
@@ -84,7 +84,7 @@ dependencies {
     implementation project(hornsAppModules.data)
 
     // Test Library
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
