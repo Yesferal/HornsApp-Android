@@ -7,10 +7,12 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
 
 Properties properties = new Properties()
-def AD_MOB_APP_ID = ""
+def AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
 if (project.rootProject.file('local.properties').exists()) {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+    if (properties.getProperty('AD_MOB_APP_ID')) {
+        AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+    }
 }
 
 android {
