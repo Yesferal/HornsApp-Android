@@ -9,7 +9,7 @@ class SharedPreferencesDataSource(
     name: String,
     private val apiConstants: ApiConstants
 ) : PreferencesDataSource {
-    enum class Key{
+    enum class Key {
         ENVIRONMENT,
         ONBOARDING_VISIBILITY
     }
@@ -32,7 +32,7 @@ class SharedPreferencesDataSource(
     override fun getEnvironments() = apiConstants.environments
 
     override fun onBoardingIsVisible(): Boolean {
-        return sharedPreferences.getBoolean(Key.ONBOARDING_VISIBILITY.toString(),true)
+        return sharedPreferences.getBoolean(Key.ONBOARDING_VISIBILITY.toString(), true)
     }
 
     override fun hideOnBoarding() {

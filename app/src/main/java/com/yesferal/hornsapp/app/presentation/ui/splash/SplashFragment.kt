@@ -28,6 +28,7 @@ class SplashFragment
         }
     }
 
+    // FIXME: Enabled animation when start working again
     private fun initMotionLayout(navDirection : NavDirections) {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
@@ -41,12 +42,11 @@ class SplashFragment
     }
 
     override fun render(viewState: SplashState) {
-        val navDirection : NavDirections = if (viewState.onBoardingVisibility) {
-            SplashFragmentDirections.actionSplashToOnBoarding()
+        if (viewState.onBoardingVisibility) {
+            findNavController().navigate(SplashFragmentDirections.actionSplashToOnBoarding())
         } else {
-            SplashFragmentDirections.actionSplashToHome()
+            findNavController().navigate(SplashFragmentDirections.actionSplashToHome())
         }
-        initMotionLayout(navDirection)
     }
 
     override val layout: Int
