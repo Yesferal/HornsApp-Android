@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "254049168002",
+    "firebase_url": "https://hornsapp-8fc9e.firebaseio.com",
+    "project_id": "hornsapp-8fc9e",
+    "storage_bucket": "hornsapp-8fc9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254049168002:android:91b4c812a934bda7de229b",
+        "android_client_info": {
+          "package_name": "com.yesferal.hornsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254049168002-la0n740kvaoag4jbol1ttcgc8lkqjh4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ9d8zGInzQKmK6D7AsVPhzGGzhNEVmAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254049168002-la0n740kvaoag4jbol1ttcgc8lkqjh4v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-6197340251584010~3942657087"
+    }
+  ],
+  "configuration_version": "1"
+}

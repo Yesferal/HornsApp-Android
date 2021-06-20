@@ -14,6 +14,6 @@ class ApiConstants {
         authorization()
     )
     val environments = listOf(
-        Pair("Prod", baseUrl())
+        Pair("R", baseUrl())
     )
 }

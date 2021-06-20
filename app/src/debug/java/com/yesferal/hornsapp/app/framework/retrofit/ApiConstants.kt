@@ -16,6 +16,6 @@ class ApiConstants {
     )
     val environments = listOf(
             Pair("Dev", "https://demo8819092.mockable.io/"),
-            Pair("Prod", baseUrl())
+            Pair("R", baseUrl())
     )
 }
