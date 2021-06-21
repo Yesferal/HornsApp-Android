@@ -51,8 +51,6 @@ captures/
 .externalNativeBuild
 .cxx/
 
-# Google Services (e.g. APIs or Firebase)
-app/src/main/google-services.json
 # Metadata
 output-metadata.json
 

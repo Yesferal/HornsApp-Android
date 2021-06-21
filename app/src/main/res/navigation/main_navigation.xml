@@ -13,20 +13,12 @@
         <action
             android:id="@+id/action_splash_to_on_boarding"
             app:destination="@+id/fragment_on_boarding"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/fragment_splash"
             app:popUpToInclusive="true"/>
 
         <action
             android:id="@+id/action_splash_to_home"
             app:destination="@+id/fragment_home"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/fragment_splash"
             app:popUpToInclusive="true"/>
     </fragment>
@@ -39,10 +31,6 @@
         <action
             android:id="@+id/action_on_boarding_to_home"
             app:destination="@+id/fragment_home"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_open_exit"
             app:popUpTo="@id/fragment_on_boarding"
             app:popUpToInclusive="true"/>
     </fragment>
@@ -64,10 +52,6 @@
         <action
             android:id="@+id/action_home_to_settings"
             app:destination="@+id/fragment_settings"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/fragment_settings"/>
     </fragment>
 

@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.yesferal.hornsapp.app.framework.room.entity.RoomConcert
 
-@Database(entities = [RoomConcert::class], version = 1)
+@Database(entities = [RoomConcert::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun concertDao(): ConcertDao
 }

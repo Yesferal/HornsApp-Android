@@ -1,3 +1,8 @@
-/src/main/cpp/*
+# Google Services (e.g. APIs or Firebase)
+/src/release/google-services.json
+
+# CPP files
+/src/release/cpp/*
+
 /build
 *.iml
