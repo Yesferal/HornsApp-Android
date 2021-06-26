@@ -17,8 +17,8 @@ def RELEASE_AD_MOB_APP_ID = ""
 def RELEASE_C_MAKE_FLAVOR = "-DFLAVOR=RELEASE"
 
 // Add your values in app/release.properties file in order to get them here
-if (project.file('release.properties').exists()) {
-    properties.load(project.file('release.properties').newDataInputStream())
+if (project.file('src/release/release.properties').exists()) {
+    properties.load(project.file('src/release/release.properties').newDataInputStream())
     // If you want the app use a specific ad mob key while develop
     if (properties.getProperty('AD_MOB_APP_ID')) {
         DEBUG_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
