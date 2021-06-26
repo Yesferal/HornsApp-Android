@@ -7,11 +7,26 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
 
 Properties properties = new Properties()
-def AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
-if (project.rootProject.file('local.properties').exists()) {
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// This ad mob value is a test value, real value is in app/release.properties
+def DEBUG_AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+def DEBUG_C_MAKE_FLAVOR = "-DFLAVOR=DEBUG"
+
+// The real value of these attributes are in app/release.properties
+def RELEASE_AD_MOB_APP_ID = ""
+def RELEASE_C_MAKE_FLAVOR = "-DFLAVOR=RELEASE"
+
+// Add your values in app/release.properties file in order to get them here
+if (project.file('release.properties').exists()) {
+    properties.load(project.file('release.properties').newDataInputStream())
+    // If you want the app use a specific ad mob key while develop
     if (properties.getProperty('AD_MOB_APP_ID')) {
-        AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+        DEBUG_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+        RELEASE_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+    }
+    // If you want the app use an specific endpoint while develop
+    if (properties.getProperty('C_MAKE_FLAVOR')) {
+        DEBUG_C_MAKE_FLAVOR = properties.getProperty('C_MAKE_FLAVOR')
     }
 }
 
@@ -27,14 +42,13 @@ android {
         externalNativeBuild {
             cmake { cppFlags "" }
         }
-        manifestPlaceholders = [AD_MOB_APP_ID: AD_MOB_APP_ID]
     }
     buildTypes {
         debug {
             debuggable true
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "false", AD_MOB_APP_ID: DEBUG_AD_MOB_APP_ID]
             externalNativeBuild.cmake {
-                arguments "-DFLAVOR=DEBUG"
+                arguments DEBUG_C_MAKE_FLAVOR
             }
         }
 
@@ -42,9 +56,9 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true", AD_MOB_APP_ID: RELEASE_AD_MOB_APP_ID]
             externalNativeBuild.cmake {
-                arguments "-DFLAVOR=RELEASE"
+                arguments RELEASE_C_MAKE_FLAVOR
             }
         }
     }
