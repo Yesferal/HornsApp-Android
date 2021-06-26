@@ -35,7 +35,7 @@ class BandFragment
         }
 
         titleTextView.text = item.name
-        membersImageView.setTopCornersRounded()
+        membersImageView.setTopCornersRounded(dp = 32)
 
         bandViewModel = ViewModelProvider(
             this,

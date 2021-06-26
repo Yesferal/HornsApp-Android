@@ -43,6 +43,6 @@
     </style>
 
     <style name="HornsApp.ModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shape_rectangle_rounded_16dp_top</item>
+        <item name="android:background">@drawable/shape_rectangle_rounded_32dp_top</item>
     </style>
 </resources>
