@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.domain.usecase.*
 
 class SplashViewModel(
-    getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase
+    private val getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<SplashState>()
 
     val state: LiveData<SplashState>
         get() = _state
 
-    init {
+    fun onViewCreated() {
         _state.value = SplashState(
             onBoardingVisibility = getVisibilityOnBoardingUseCase()
         )
