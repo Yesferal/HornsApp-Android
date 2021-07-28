@@ -30,13 +30,16 @@ class UpcomingFragment
     private lateinit var multiTypeAdapter: MultiTypeAdapter
     lateinit var homeViewModel: HomeViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-
-        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
 
         concertsRecyclerView.also {
             it.adapter = multiTypeAdapter

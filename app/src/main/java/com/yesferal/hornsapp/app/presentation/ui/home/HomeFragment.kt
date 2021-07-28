@@ -5,7 +5,6 @@ import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
@@ -34,7 +33,7 @@ class HomeFragment
         super.onViewCreated(view, savedInstanceState)
 
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(activity as FragmentActivity)
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this)
 
         hornsAppImageView.setOnClickListener {
             childFragmentManager.let { manager ->
@@ -53,20 +52,20 @@ class HomeFragment
             homeViewModel.state.observe(viewLifecycleOwner) {
                 render(it)
             }
-
-            homeViewModel.getFavoriteConcerts()
         }
 
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if(concertsViewPager.currentItem == 0) {
-                    isEnabled = false
-                    activity?.onBackPressed()
-                } else {
-                    concertsViewPager.currentItem = concertsViewPager.currentItem - 1
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (concertsViewPager.currentItem == 0) {
+                        isEnabled = false
+                        activity?.onBackPressed()
+                    } else {
+                        concertsViewPager.currentItem = concertsViewPager.currentItem - 1
+                    }
                 }
-            }
-        })
+            })
     }
 
     override fun render(viewState: HomeViewState) {
@@ -76,10 +75,10 @@ class HomeFragment
 
         viewState.errorMessage?.let {
             showError(
-                messageId =  viewState.errorMessage,
+                messageId = viewState.errorMessage,
                 allowRetry = viewState.allowRetry
             )
-        }?: kotlin.run { hideError() }
+        } ?: kotlin.run { hideError() }
 
         if (viewState.isLoading) {
             showProgress()
@@ -133,7 +132,7 @@ class HomeFragment
 }
 
 private class ScreenSlidePagerAdapter(
-        activity: FragmentActivity
+    activity: Fragment
 ) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = 3

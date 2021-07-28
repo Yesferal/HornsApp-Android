@@ -9,13 +9,11 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.FiltersViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewState
-import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesViewState
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.CategoryKey
 import com.yesferal.hornsapp.domain.entity.Concert
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
 import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
@@ -27,8 +25,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class HomeViewModel(
-    private val getConcertsUseCase: GetConcertsUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
+    private val getConcertsUseCase: GetConcertsUseCase
 ): ViewModel() {
     private val _state = MutableLiveData<HomeViewState>()
 
@@ -70,48 +67,6 @@ class HomeViewModel(
             }
         }
     }
-
-    // region Favorite
-    private val _stateFavorite = MutableLiveData<FavoritesViewState>()
-
-    val stateFavorite: LiveData<FavoritesViewState>
-        get() = _stateFavorite
-
-    fun getFavoriteConcerts() {
-        viewModelScope.launch {
-            _stateFavorite.value = withContext(Dispatchers.IO) {
-                val favorites = getFavoriteConcertsUseCase()
-
-                if (favorites.isEmpty()) {
-                    FavoritesViewState(
-                        items = listOf(
-                            ErrorViewData(
-                                    R.drawable.ic_music_note,
-                                    R.string.error_no_favorite_yet
-                            )
-                        )
-                    )
-                } else {
-                    FavoritesViewState(items = favorites
-                            .sortedWith(compareBy { it.dateTime?.time })
-                            .map {
-                                UpcomingViewData(
-                                        id = it.id,
-                                        image = it.headlinerImage,
-                                        day = it.dateTime?.dayFormatted(),
-                                        month = it.dateTime?.monthFormatted(),
-                                        year = it.dateTime?.yearFormatted(),
-                                        name = it.name,
-                                        time = it.dateTime?.timeFormatted(),
-                                        genre = it.genre
-                                )
-                            }
-                    )
-                }
-            }
-        }
-    }
-    // endregion
 
     // region Upcoming
     private val _stateUpcoming = MutableLiveData<UpcomingViewState>()
@@ -249,13 +204,11 @@ class HomeViewModel(
 }
 
 class HomeViewModelFactory(
-    private val getConcertsUseCase: GetConcertsUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
+    private val getConcertsUseCase: GetConcertsUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-            GetConcertsUseCase::class.java,
-            GetFavoriteConcertsUseCase::class.java
-        ).newInstance(getConcertsUseCase, getFavoriteConcertsUseCase)
+            GetConcertsUseCase::class.java
+        ).newInstance(getConcertsUseCase)
     }
 }
