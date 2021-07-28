@@ -31,9 +31,9 @@ class HomeFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        customProgressBar.visibility = View.GONE
 
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(this)
 
         hornsAppImageView.setOnClickListener {
             childFragmentManager.let { manager ->
@@ -43,15 +43,13 @@ class HomeFragment
             }
         }
 
-        activity?.viewModelStore?.let { viewModelStore ->
-            homeViewModel = ViewModelProvider(
-                viewModelStore,
-                hada().resolve<HomeViewModelFactory>()
-            ).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(
+            viewModelStore,
+            hada().resolve<HomeViewModelFactory>()
+        ).get(HomeViewModel::class.java)
 
-            homeViewModel.state.observe(viewLifecycleOwner) {
-                render(it)
-            }
+        homeViewModel.state.observe(viewLifecycleOwner) {
+            render(it)
         }
 
         activity?.onBackPressedDispatcher?.addCallback(
@@ -88,6 +86,7 @@ class HomeFragment
     }
 
     private fun showChildFragmentTitles(titles: List<String>) {
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, titles.size)
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
@@ -132,10 +131,11 @@ class HomeFragment
 }
 
 private class ScreenSlidePagerAdapter(
-    activity: Fragment
+    activity: Fragment,
+    private val size: Int
 ) : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = size
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {

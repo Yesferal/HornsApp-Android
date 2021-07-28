@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
@@ -49,7 +50,9 @@ class FavoritesFragment
             render(it)
         }
 
-        viewModel.getFavoriteConcerts()
+        postDelayed {
+            viewModel.getFavoriteConcerts()
+        }
     }
 
     override fun render(viewState: FavoritesViewState) {
