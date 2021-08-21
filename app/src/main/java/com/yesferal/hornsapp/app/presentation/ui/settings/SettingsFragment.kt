@@ -32,6 +32,10 @@ class SettingsFragment
         settingsViewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
+
+        forceCrashButton.setOnClickListener {
+            throw Exception(getString(R.string.settings_force_crash_subtitle))
+        }
     }
 
     override fun render(viewState: SettingsState) {
