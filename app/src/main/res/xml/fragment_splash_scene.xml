@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
-    <ConstraintSet android:id="@+id/start"/>
+    <ConstraintSet android:id="@+id/start" />
 
-    <ConstraintSet android:id="@+id/end"/>
+    <ConstraintSet android:id="@+id/end">
+    </ConstraintSet>
 
     <Transition
         android:id="@+id/transition"
-        motion:duration="1000"
+        motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@+id/start"
-        motion:constraintSetEnd="@+id/end">
-        <KeyFrameSet >
+        motion:duration="1000">
+        <KeyFrameSet>
             <KeyAttribute
-                motion:motionTarget="@+id/imageView"
-                motion:framePosition="25"
                 android:scaleX="0.7"
-                android:scaleY="0.7" />
-            <KeyAttribute
-                motion:motionTarget="@+id/imageView"
-                motion:framePosition="50"
-                android:scaleX="1.0"
-                android:scaleY="1.0" />
+                android:scaleY="0.7"
+                motion:framePosition="25"
+                motion:motionTarget="@+id/imageView" />
 
             <KeyAttribute
-                motion:motionTarget="@+id/imageView"
+                android:alpha="0"
+                android:scaleX="50.0"
+                android:scaleY="50.0"
                 motion:framePosition="100"
-                android:scaleX="25.0"
-                android:scaleY="25.0"
-                android:alpha="0"/>
+                motion:motionTarget="@+id/imageView" />
         </KeyFrameSet>
     </Transition>
 </MotionScene>

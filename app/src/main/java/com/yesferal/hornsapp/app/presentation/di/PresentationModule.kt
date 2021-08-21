@@ -2,6 +2,9 @@ package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.main.MainViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewModelFactory
@@ -19,8 +22,25 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         HomeViewModelFactory(
-            getConcertsUseCase = resolve(),
+            getConcertsUseCase = resolve()
+        )
+    }
+
+    this register Factory {
+        FavoritesViewModelFactory(
             getFavoriteConcertsUseCase = resolve()
+        )
+    }
+
+    this register Factory {
+        UpcomingViewModelFactory(
+            getConcertsUseCase = resolve()
+        )
+    }
+
+    this register Factory {
+        NewestViewModelFactory(
+            getConcertsUseCase = resolve()
         )
     }
 
@@ -49,9 +69,9 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         SettingsViewModelFactory(
-                getDefaultEnvironmentUseCase = resolve(),
-                getSettingsUseCase = resolve(),
-                updateSettingsUseCase = resolve()
+            getDefaultEnvironmentUseCase = resolve(),
+            getSettingsUseCase = resolve(),
+            updateSettingsUseCase = resolve()
         )
     }
 

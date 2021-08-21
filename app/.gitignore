@@ -1,8 +1,14 @@
-# Google Services (e.g. APIs or Firebase)
+/build
+
+######################
+### HornsApp Project
+######################
+
+# Google Services (e.g. Ad Mob or Firebase keys)
 /src/release/google-services.json
 
-# CPP files
+# C++ files
 /src/release/cpp/*
 
-/build
-*.iml
+# App Properties
+release.properties

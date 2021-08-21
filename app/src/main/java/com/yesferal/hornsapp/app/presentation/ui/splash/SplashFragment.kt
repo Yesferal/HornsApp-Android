@@ -2,6 +2,7 @@ package com.yesferal.hornsapp.app.presentation.ui.splash
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
@@ -23,30 +24,40 @@ class SplashFragment
             hada().resolve<SplashViewModelFactory>()
         ).get(SplashViewModel::class.java)
 
+        view.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                view.viewTreeObserver.removeOnPreDrawListener(this)
+
+                splashViewModel.onViewCreated()
+                return true
+            }
+        })
+
         splashViewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
     }
 
-    // FIXME: Enabled animation when start working again
-    private fun initMotionLayout(navDirection : NavDirections) {
+    private fun initMotionLayout(navDirection: NavDirections) {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 findNavController().navigate(navDirection)
             }
-            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) { }
-            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) { }
-            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) { }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
         })
         motionLayout.transitionToEnd()
     }
 
     override fun render(viewState: SplashState) {
-        if (viewState.onBoardingVisibility) {
-            findNavController().navigate(SplashFragmentDirections.actionSplashToOnBoarding())
+        val navDirection = if (viewState.onBoardingVisibility) {
+            SplashFragmentDirections.actionSplashToOnBoarding()
         } else {
-            findNavController().navigate(SplashFragmentDirections.actionSplashToHome())
+            SplashFragmentDirections.actionSplashToHome()
         }
+        initMotionLayout(navDirection)
     }
 
     override val layout: Int

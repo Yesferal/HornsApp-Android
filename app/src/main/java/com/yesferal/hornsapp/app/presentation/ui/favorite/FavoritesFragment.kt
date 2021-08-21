@@ -8,15 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.*
-import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
-import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModel
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
-import com.yesferal.hornsapp.multitype.MultiTypeAdapter
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
-import kotlinx.android.synthetic.main.custom_view_progress_bar.*
+import com.yesferal.hornsapp.multitype.DelegateAdapter
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class FavoritesFragment
@@ -25,8 +21,15 @@ class FavoritesFragment
     override val layout: Int
         get() = R.layout.fragment_favorites
 
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var delegateAdapter: DelegateAdapter
+    private lateinit var viewModel: FavoritesViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        delegateAdapter = DelegateAdapter.Builder()
+            .setListener(instanceAdapterListener())
+            .build()
+    }
 
     override fun onViewCreated(
         view: View,
@@ -34,27 +37,23 @@ class FavoritesFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
-
         concertsRecyclerView.also {
-            it.adapter = multiTypeAdapter
-            it.layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+            it.adapter = delegateAdapter
+            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        activity?.viewModelStore?.let { viewModelStore ->
-            homeViewModel = ViewModelProvider(
-                viewModelStore,
-                hada().resolve<HomeViewModelFactory>()
-            ).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(
+            viewModelStore,
+            hada().resolve<FavoritesViewModelFactory>()
+        ).get(FavoritesViewModel::class.java)
 
-            homeViewModel.stateFavorite.observe(viewLifecycleOwner) {
-                render(it)
-            }
+        viewModel.stateFavorite.observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+        postDelayed {
+            viewModel.getFavoriteConcerts()
         }
     }
 
@@ -62,24 +61,10 @@ class FavoritesFragment
         viewState.items?.let { items ->
             showItems(items)
         }
-
-        if (viewState.isLoading) {
-            showProgress()
-        } else {
-            hideProgress()
-        }
     }
 
-    private fun showProgress() {
-        customProgressBar.fadeIn()
-    }
-
-    private fun hideProgress() {
-        customProgressBar.fadeOut()
-    }
-
-    private fun showItems(items: List<ViewHolderBinding>) {
-        multiTypeAdapter.setModels(items)
+    private fun showItems(items: List<Delegate>) {
+        delegateAdapter.updateItems(items)
     }
 
     companion object {
@@ -91,8 +76,7 @@ private fun FavoritesFragment.instanceAdapterListener() =
     object : UpcomingViewData.Listener {
         override fun onClick(upcomingViewData: UpcomingViewData) {
             findNavController().navigate(
-                HomeFragmentDirections
-                    .actionHomeToConcert(upcomingViewData.asParcelable())
+                HomeFragmentDirections.actionHomeToConcert(upcomingViewData.asParcelable())
             )
         }
     }

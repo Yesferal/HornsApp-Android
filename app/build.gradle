@@ -5,13 +5,29 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-parcelize'
 
 Properties properties = new Properties()
-def AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
-if (project.rootProject.file('local.properties').exists()) {
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// This ad mob value is a test value, real value is in app/release.properties
+def DEBUG_AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+def DEBUG_C_MAKE_FLAVOR = "-DFLAVOR=DEBUG"
+
+// The real value of these attributes are in app/release.properties
+def RELEASE_AD_MOB_APP_ID = ""
+def RELEASE_C_MAKE_FLAVOR = "-DFLAVOR=RELEASE"
+
+// Add your values in app/release.properties file in order to get them here
+if (project.file('src/release/release.properties').exists()) {
+    properties.load(project.file('src/release/release.properties').newDataInputStream())
+    // If you want the app use a specific ad mob key while develop
     if (properties.getProperty('AD_MOB_APP_ID')) {
-        AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+        DEBUG_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+        RELEASE_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+    }
+    // If you want the app use an specific endpoint while develop
+    if (properties.getProperty('C_MAKE_FLAVOR')) {
+        DEBUG_C_MAKE_FLAVOR = properties.getProperty('C_MAKE_FLAVOR')
     }
 }
 
@@ -19,22 +35,21 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.yesferal.hornsapp"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 30
-        versionCode 10
-        versionName "1.8.0"
+        versionCode 11
+        versionName "1.9.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake { cppFlags "" }
         }
-        manifestPlaceholders = [AD_MOB_APP_ID: AD_MOB_APP_ID]
     }
     buildTypes {
         debug {
             debuggable true
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "false", AD_MOB_APP_ID: DEBUG_AD_MOB_APP_ID]
             externalNativeBuild.cmake {
-                arguments "-DFLAVOR=DEBUG"
+                arguments DEBUG_C_MAKE_FLAVOR
             }
         }
 
@@ -42,9 +57,9 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true", AD_MOB_APP_ID: RELEASE_AD_MOB_APP_ID]
             externalNativeBuild.cmake {
-                arguments "-DFLAVOR=RELEASE"
+                arguments RELEASE_C_MAKE_FLAVOR
             }
         }
     }
@@ -67,23 +82,39 @@ dependencies {
     // Jar
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Library
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    // Android
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+
+    // Retrofit - API request
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-    implementation 'com.yesferal.hornsapp:hada:1.0.5'
-    implementation 'com.yesferal.hornsapp:multitype:1.0.1'
+
+    // Own Libraries
+    implementation 'com.github.Yesferal:hada:1.1.1'
+    implementation 'com.github.Yesferal:MultiTypeAdapter:1.4.0'
+
+    // ViewPager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.google.android.material:material:1.3.0'
+
+    // Picasso - Image
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    // Google
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
     implementation 'com.google.android.gms:play-services-ads:20.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:18.2.1'
+
+    // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+
+    // Room
     implementation "androidx.room:room-runtime:${versions.room}"
     kapt "androidx.room:room-compiler:${versions.room}"
 
@@ -93,6 +124,6 @@ dependencies {
 
     // Test Library
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

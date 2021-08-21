@@ -7,5 +7,6 @@
     <color name="primaryText">@color/primaryDark</color>
     <color name="secondaryText">#616E91</color>
 
+    <color name="divider">@color/secondaryText</color>
     <color name="background">#FFFFFF</color>
 </resources>

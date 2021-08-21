@@ -20,7 +20,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.hada.parameter.Parameters
-import com.yesferal.hornsapp.multitype.MultiTypeAdapter
+import com.yesferal.hornsapp.multitype.DelegateAdapter
 import kotlinx.android.synthetic.main.custom_date_text_view.*
 import kotlinx.android.synthetic.main.custom_error.*
 import kotlinx.android.synthetic.main.custom_view_progress_bar.*
@@ -40,7 +40,7 @@ class ConcertFragment
     private val args: ConcertFragmentArgs by navArgs()
 
     private lateinit var concertViewModel: ConcertViewModel
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
+    private lateinit var delegateAdapter: DelegateAdapter
 
     override fun onViewCreated(
         view: View,
@@ -77,7 +77,9 @@ class ConcertFragment
     }
 
     private fun setUpBandsViewPager() {
-        multiTypeAdapter = MultiTypeAdapter(listener = instanceAdapterListener())
+        delegateAdapter = DelegateAdapter.Builder()
+            .setListener(instanceAdapterListener())
+            .build()
 
         val bigMargin = 24F
         val dpWidth = TypedValue.applyDimension(
@@ -91,7 +93,7 @@ class ConcertFragment
         compositePageTransformer.addTransformer(ScalePageTransformation())
 
         bandsViewPager.also {
-            it.adapter = multiTypeAdapter
+            it.adapter = delegateAdapter
             it.clipToPadding = false
             it.clipChildren = false
             it.offscreenPageLimit = 3
@@ -126,7 +128,6 @@ class ConcertFragment
     }
 
     private fun show(concert: ConcertViewData) {
-
         titleTextView.setUpWith(concert.name)
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
@@ -168,7 +169,7 @@ class ConcertFragment
     }
 
     private fun show(bands: List<BandViewData>) {
-        multiTypeAdapter.setModels(bands)
+        delegateAdapter.updateItems(bands)
     }
 
     private fun enableTicketPurchase(

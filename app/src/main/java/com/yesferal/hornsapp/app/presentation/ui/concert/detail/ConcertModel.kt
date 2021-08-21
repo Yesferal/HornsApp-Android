@@ -8,8 +8,8 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.domain.entity.Venue
-import com.yesferal.hornsapp.multitype.BaseViewHolder
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
+import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
 import kotlinx.android.synthetic.main.item_band.view.*
 import java.net.URI
 
@@ -43,7 +43,7 @@ data class BandViewData(
     val name: String?,
     val membersImage: String?,
     val genre: String?
-) : ViewHolderBinding, Parcelable {
+) : ViewDelegate<BandViewData.Listener>(), Parcelable {
 
     override val layout = R.layout.item_band
 
@@ -51,22 +51,17 @@ data class BandViewData(
         return ParcelableViewData(id, name)
     }
 
-    interface Listener: ViewHolderBinding.Listener {
+    interface Listener: DelegateListener {
         fun onClick(bandViewData: BandViewData)
     }
 
-    override fun onCreateViewHolder(
-        itemView: View,
-        listener: ViewHolderBinding.Listener
-    ) = object : BaseViewHolder<BandViewData>(itemView) {
-        override fun bind(model: BandViewData) {
-            itemView.itemTextView.text = model.name
-            itemView.itemImageView.setAllCornersRounded()
-            itemView.itemImageView.load(model.membersImage)
+    override fun onBindViewDelegate(view: View, listener: Listener) {
+        view.itemTextView.text = name
+        view.itemImageView.setAllCornersRounded()
+        view.itemImageView.load(membersImage)
 
-            itemView.itemImageView.setOnClickListener {
-                (listener as Listener).onClick(model)
-            }
+        view.itemImageView.setOnClickListener {
+            listener.onClick(this)
         }
     }
 }

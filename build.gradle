@@ -3,7 +3,7 @@
 buildscript {
     ext.versions = [
             'jvmTarget': '1.8',
-            'kotlin': '1.5.10',
+            'kotlin': '1.5.21',
             'navigation': '2.3.5',
             'room': "2.3.0",
             'retrofit': "2.9.0"
@@ -16,14 +16,15 @@ buildscript {
 
     repositories {
         google()
+        maven { url 'https://jitpack.io' }
         jcenter()
-        
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath 'com.google.gms:google-services:4.3.8'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.0'
+        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
     }
 }
@@ -31,6 +32,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven { url 'https://jitpack.io' }
         jcenter()
     }
 }

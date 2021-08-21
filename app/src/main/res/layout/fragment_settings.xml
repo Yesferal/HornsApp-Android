@@ -13,6 +13,7 @@
         android:text="@string/environment"
         style="@style/HornsApp.TextView.Subtitle"
         android:textAlignment="viewStart"
+        android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/environmentSpinner"/>
@@ -49,4 +50,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/environmentSpinner"/>
 
+    <View
+        android:id="@+id/forceCrashDividerView"
+        android:layout_width="match_parent"
+        android:layout_height="0.05dp"
+        android:layout_marginVertical="@dimen/margin_big"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@+id/environmentSubTitleTextView" />
+
+    <TextView
+        android:id="@+id/forceCrashTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_force_crash_title"
+        style="@style/HornsApp.TextView.Subtitle"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_marginEnd="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/forceCrashDividerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/forceCrashButton"/>
+
+    <TextView
+        android:id="@+id/forceCrashSubtitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:text="@string/settings_force_crash_subtitle"
+        android:layout_marginEnd="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/forceCrashTitleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/forceCrashButton"/>
+
+    <TextView
+        android:id="@+id/forceCrashButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_force_crash_button"
+        style="@style/HornsApp.Button"
+        app:layout_constraintTop_toTopOf="@+id/forceCrashTitleTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/forceCrashSubtitleTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
