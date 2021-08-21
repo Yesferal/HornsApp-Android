@@ -4,7 +4,6 @@
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="28dp"
     app:layoutDescription="@xml/fragment_splash_scene">
 
     <ImageView
@@ -14,8 +13,10 @@
         android:contentDescription="@null"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_launcher_round"
+        android:layout_marginTop="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

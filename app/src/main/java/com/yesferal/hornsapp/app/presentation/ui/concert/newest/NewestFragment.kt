@@ -11,8 +11,8 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
-import com.yesferal.hornsapp.multitype.MultiTypeAdapter
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.DelegateAdapter
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import kotlinx.android.synthetic.main.fragment_newest.*
 
 class NewestFragment
@@ -21,19 +21,21 @@ class NewestFragment
     override val layout: Int
         get() = R.layout.fragment_newest
 
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
+    private lateinit var delegateAdapter: DelegateAdapter
     private lateinit var viewModel: NewestViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
+        delegateAdapter = DelegateAdapter.Builder()
+            .setListener(instanceAdapterListener())
+            .build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         newestRecyclerView.also {
-            it.adapter = multiTypeAdapter
+            it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
@@ -54,8 +56,8 @@ class NewestFragment
         }
     }
 
-    private fun showItems(items: List<ViewHolderBinding>) {
-        multiTypeAdapter.setModels(items)
+    private fun showItems(items: List<Delegate>) {
+        delegateAdapter.updateItems(items)
     }
 
     companion object {

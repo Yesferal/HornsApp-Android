@@ -14,7 +14,8 @@ import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
+import com.yesferal.hornsapp.multitype.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +34,7 @@ class UpcomingViewModel(
         }
     }
 
-    fun onFilterClick(categoryViewData: CategoryViewData) {
+    fun onCategoryClick(categoryViewData: CategoryViewData) {
         viewModelScope.launch {
             if (categoryViewData.isSelected) {
                 _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
@@ -52,6 +53,7 @@ class UpcomingViewModel(
             CategoryViewData(CategoryKey.METAL, "Metal", CategoryKey.METAL == categoryKey),
             CategoryViewData(CategoryKey.ROCK, "Rock", CategoryKey.ROCK == categoryKey)
         )
+        val categoryHorizontalMargin = 16
 
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
@@ -64,7 +66,10 @@ class UpcomingViewModel(
                 if (concerts.isEmpty()) {
                     return@withContext UpcomingViewState(
                         items = listOf(
-                            FiltersViewData(categories),
+                            RowDelegate.Builder()
+                                .addItems(categories)
+                                .addHorizontalMargin(categoryHorizontalMargin)
+                                .build(),
                             ErrorViewData(
                                 R.drawable.ic_music_note,
                                 R.string.error_no_items
@@ -73,8 +78,12 @@ class UpcomingViewModel(
                     )
                 }
 
-                val items = mutableListOf<ViewHolderBinding>().apply {
-                    add(FiltersViewData(categories))
+                val items = mutableListOf<Delegate>().apply {
+                    add(RowDelegate.Builder()
+                        .addItems(categories)
+                        .addHorizontalMargin(categoryHorizontalMargin)
+                        .build()
+                    )
                     addAll(concerts
                         .sortedWith(compareBy { it.dateTime?.time })
                         .map {
@@ -99,7 +108,10 @@ class UpcomingViewModel(
             is Result.Error -> {
                 return@withContext UpcomingViewState(
                     items = listOf(
-                        FiltersViewData(categories),
+                        RowDelegate.Builder()
+                            .addItems(categories)
+                            .addHorizontalMargin(categoryHorizontalMargin)
+                            .build(),
                         ErrorViewData(
                             R.drawable.ic_music_note,
                             R.string.error_no_items
