@@ -14,7 +14,7 @@ import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +46,7 @@ class NewestViewModel(
                     )
                 }
 
-                val views = mutableListOf<ViewHolderBinding>()
+                val views = mutableListOf<Delegate>()
                 val concertReversed = concerts.reversed()
                 val firstConcert = concertReversed.toMutableList().removeFirst()
                 views.add(
@@ -78,7 +78,7 @@ class NewestViewModel(
         }
     }
 
-    private fun MutableList<ViewHolderBinding>.insertElementByYear(
+    private fun MutableList<Delegate>.insertElementByYear(
         concerts: List<Concert>,
         year: Int
     ) {

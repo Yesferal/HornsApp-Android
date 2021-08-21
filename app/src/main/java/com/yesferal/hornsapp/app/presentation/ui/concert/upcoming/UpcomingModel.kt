@@ -9,16 +9,17 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
-import com.yesferal.hornsapp.app.presentation.ui.filters.FiltersViewHolder
-import com.yesferal.hornsapp.multitype.BaseViewHolder
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
+import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
+import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
 import kotlinx.android.synthetic.main.custom_date_text_view.view.*
 import kotlinx.android.synthetic.main.custom_error.view.*
 import kotlinx.android.synthetic.main.item_upcoming.view.*
+import kotlinx.android.synthetic.main.item_upcoming.view.containerLayout
 
 data class UpcomingViewState(
-    val items: List<ViewHolderBinding>? = null,
+    val items: List<Delegate>? = null,
     val isLoading: Boolean = false
 )
 
@@ -31,7 +32,7 @@ data class UpcomingViewData(
     val year: String?,
     val time: String?,
     val genre: String?
-) : ViewHolderBinding, Parcelable {
+) : ViewDelegate<UpcomingViewData.Listener>(), Parcelable {
 
     override val layout = R.layout.item_upcoming
 
@@ -39,65 +40,39 @@ data class UpcomingViewData(
         return ParcelableViewData(id, name)
     }
 
-    interface Listener: ViewHolderBinding.Listener {
+    interface Listener: DelegateListener {
         fun onClick(upcomingViewData: UpcomingViewData)
     }
 
-    override fun onCreateViewHolder(
-        itemView: View,
-        listener: ViewHolderBinding.Listener
-    ) = object : BaseViewHolder<UpcomingViewData>(itemView) {
-        override fun bind(model: UpcomingViewData) {
-            model.year?.let {
-                itemView.tagTextView.setUpWith("#$it")
-            }
-            itemView.titleTextView.setUpWith(model.name)
-            itemView.dayTextView.setUpWith(model.day)
-            itemView.monthTextView.setUpWith(model.month)
-            itemView.timeTextView.setUpWith(model.time)
-            itemView.genreTextView.setUpWith(model.genre)
+    override fun onBindViewDelegate(view: View, listener: Listener) {
+        year?.let {
+            view.tagTextView.setUpWith("#$it")
+        }
+        view.titleTextView.setUpWith(name)
+        view.dayTextView.setUpWith(day)
+        view.monthTextView.setUpWith(month)
+        view.timeTextView.setUpWith(time)
+        view.genreTextView.setUpWith(genre)
 
-            itemView.concertImageView.setAllCornersRounded()
-            itemView.concertImageView.load(model.image)
+        view.concertImageView.setAllCornersRounded()
+        view.concertImageView.load(image)
 
-            itemView.containerLayout.setOnClickListener {
-                (listener as Listener).onClick(model)
-            }
+        view.containerLayout.setOnClickListener {
+            listener.onClick(this)
         }
     }
-}
-
-data class FiltersViewData(
-    val categories: List<CategoryViewData>
-) : ViewHolderBinding {
-
-    override val layout = R.layout.item_filters
-
-    interface Listener: ViewHolderBinding.Listener {
-        fun onClick(categoryViewData: CategoryViewData)
-    }
-
-    override fun onCreateViewHolder(
-        itemView: View,
-        listener: ViewHolderBinding.Listener
-    ) = FiltersViewHolder(itemView, listener as Listener)
 }
 
 data class ErrorViewData(
     @DrawableRes val imageId: Int,
     @StringRes val errorMessage: Int
-) : ViewHolderBinding {
+) : NonInteractiveViewDelegate() {
 
     override val layout = R.layout.custom_error
 
-    override fun onCreateViewHolder(
-        itemView: View,
-        listener: ViewHolderBinding.Listener
-    ) = object : BaseViewHolder<ErrorViewData>(itemView) {
-        override fun bind(model: ErrorViewData) {
-            itemView.errorTextView.let {
-                it.setUpWith(it.context.getString(model.errorMessage))
-            }
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+        view.errorTextView.let {
+            it.setUpWith(it.context.getString(errorMessage))
         }
     }
 }

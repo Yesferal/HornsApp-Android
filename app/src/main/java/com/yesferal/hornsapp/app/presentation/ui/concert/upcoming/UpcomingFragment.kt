@@ -11,8 +11,8 @@ import com.yesferal.hornsapp.app.presentation.common.custom.*
 import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
 import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
-import com.yesferal.hornsapp.multitype.MultiTypeAdapter
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.DelegateAdapter
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 
 class UpcomingFragment
@@ -21,12 +21,14 @@ class UpcomingFragment
     override val layout: Int
         get() = R.layout.fragment_upcoming
 
-    private lateinit var multiTypeAdapter: MultiTypeAdapter
+    private lateinit var delegateAdapter: DelegateAdapter
     lateinit var viewModel: UpcomingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
+        delegateAdapter = DelegateAdapter.Builder()
+            .setListener(instanceAdapterListener())
+            .build()
     }
 
     override fun onViewCreated(
@@ -36,7 +38,7 @@ class UpcomingFragment
         super.onViewCreated(view, savedInstanceState)
 
         concertsRecyclerView.also {
-            it.adapter = multiTypeAdapter
+            it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
@@ -64,9 +66,9 @@ class UpcomingFragment
     }
 
     private fun showItems(
-        items: List<ViewHolderBinding>
+        items: List<Delegate>
     ) {
-        multiTypeAdapter.setModels(items)
+        delegateAdapter.updateItems(items)
     }
 
     companion object {
@@ -75,7 +77,7 @@ class UpcomingFragment
 }
 
 private fun UpcomingFragment.instanceAdapterListener() =
-    object : FiltersViewData.Listener,
+    object : CategoryViewData.Listener,
         UpcomingViewData.Listener {
 
         override fun onClick(upcomingViewData: UpcomingViewData) {
@@ -86,6 +88,6 @@ private fun UpcomingFragment.instanceAdapterListener() =
         }
 
         override fun onClick(categoryViewData: CategoryViewData) {
-            viewModel.onFilterClick(categoryViewData)
+            viewModel.onCategoryClick(categoryViewData)
         }
     }
