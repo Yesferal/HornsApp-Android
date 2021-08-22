@@ -5,24 +5,24 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.DelegateAdapter
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import kotlinx.android.synthetic.main.fragment_newest.*
 
-class NewestFragment
-    : BaseFragment<NewestViewState>() {
+class NewestFragment : BaseFragment<NewestViewState>() {
 
-    override val layout: Int
-        get() = R.layout.fragment_newest
+    override val layout = R.layout.fragment_newest
 
-    private lateinit var delegateAdapter: DelegateAdapter
     private lateinit var viewModel: NewestViewModel
+    private lateinit var delegateAdapter: DelegateAdapter
+
+    private lateinit var newestRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +34,7 @@ class NewestFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        newestRecyclerView = view.findViewById(R.id.newestRecyclerView)
         newestRecyclerView.also {
             it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

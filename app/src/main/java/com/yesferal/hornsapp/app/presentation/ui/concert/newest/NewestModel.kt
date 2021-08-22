@@ -1,6 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.StringRes
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
@@ -10,9 +11,6 @@ import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
-import kotlinx.android.synthetic.main.custom_date_text_view.view.*
-import kotlinx.android.synthetic.main.item_newest.view.*
-import kotlinx.android.synthetic.main.item_newest_title.view.titleTextView
 
 data class NewestViewState(
     val items: List<Delegate>? = null,
@@ -24,11 +22,11 @@ data class TitleViewData(
     val name: String?
 ) : NonInteractiveViewDelegate() {
 
-    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
-        view.titleTextView.setUpWith(name)
-    }
-
     override val layout = R.layout.item_newest_title
+
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
+    }
 }
 
 data class NewestViewData(
@@ -50,14 +48,14 @@ data class NewestViewData(
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        view.containerLayout.setOnClickListener {
+        view.setOnClickListener {
             listener.onClick(this)
         }
 
-        view.titleTextView.setUpWith(name)
-        view.subtitleTextView.setUpWith(ticketingHostName)
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
+        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(ticketingHostName)
 
-        view.dayTextView.setUpWith(day)
-        view.monthTextView.setUpWith(month)
+        view.findViewById<TextView>(R.id.dayTextView).setUpWith(day)
+        view.findViewById<TextView>(R.id.monthTextView).setUpWith(month)
     }
 }

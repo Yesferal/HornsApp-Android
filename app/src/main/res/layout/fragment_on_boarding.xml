@@ -53,22 +53,16 @@
         app:layout_constraintStart_toStartOf="@+id/startView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
-
     <!-- margin bottom 66dp for google ad size    android:layout_marginBottom="66dp"-->
     <TextView
         android:id="@+id/nextTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_rounded_32dp"
-        android:backgroundTint="@color/accent"
-        android:textColor="@android:color/white"
-        android:paddingVertical="@dimen/margin_medium"
-        android:paddingHorizontal="@dimen/margin_big"
+        style="@style/HornsApp.Button"
         android:layout_marginHorizontal="@dimen/margin_big"
         android:layout_marginBottom="66dp"
         android:text="@string/get_started"
         android:visibility="invisible"
-        style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

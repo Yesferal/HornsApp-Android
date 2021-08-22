@@ -9,12 +9,11 @@ import com.google.android.gms.ads.MobileAds
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 import com.yesferal.hornsapp.app.presentation.di.hada.HadaAwareness
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity
-    : AppCompatActivity(),
-    HadaAwareness {
+class MainActivity : AppCompatActivity(), HadaAwareness {
+
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var adContainerLayout: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +23,11 @@ class MainActivity
         MobileAds.initialize(this)
 
         mainViewModel = ViewModelProvider(
-                viewModelStore,
-                hada().resolve<MainViewModelFactory>()
+            viewModelStore,
+            hada().resolve<MainViewModelFactory>()
         ).get(MainViewModel::class.java)
+
+        adContainerLayout = findViewById(R.id.adContainerLayout)
 
         mainViewModel.adViewData.observe(this) {
             adContainerLayout.addAdView(it)

@@ -2,20 +2,28 @@ package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
-import kotlinx.android.synthetic.main.fragment_on_boarding.*
 
-class OnBoardingFragment
-    : BaseFragment <OnBoardingViewState>() {
+class OnBoardingFragment : BaseFragment<OnBoardingViewState>() {
+
+    override val layout = R.layout.fragment_on_boarding
+
     private lateinit var onBoardingViewModel: OnBoardingViewModel
 
-    override val layout: Int
-        get() = R.layout.fragment_on_boarding
+    private lateinit var nextTextView: TextView
+    private lateinit var metalCard: TextSubTextView
+    private lateinit var rockCard: TextSubTextView
+    private lateinit var upcomingCard: TextSubTextView
+    private lateinit var totalCard: TextSubTextView
+    private lateinit var progressBar: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,6 +32,13 @@ class OnBoardingFragment
             this,
             hada().resolve<OnBoardingViewModelFactory>()
         ).get(OnBoardingViewModel::class.java)
+
+        nextTextView = view.findViewById(R.id.nextTextView)
+        metalCard = view.findViewById(R.id.metalCard)
+        rockCard = view.findViewById(R.id.rockCard)
+        upcomingCard = view.findViewById(R.id.upcomingCard)
+        totalCard = view.findViewById(R.id.totalCard)
+        progressBar = view.findViewById(R.id.progressBar)
 
         onBoardingViewModel.state.observe(viewLifecycleOwner) {
             render(it)
@@ -48,9 +63,18 @@ class OnBoardingFragment
     }
 
     private fun showData(onBoardingViewData: OnBoardingViewData) {
-        metalCard.setText(onBoardingViewData.metalConcerts.toString(), getString(R.string.metal_category))
-        rockCard.setText(onBoardingViewData.rockConcerts.toString(), getString(R.string.rock_category))
-        upcomingCard.setText(onBoardingViewData.upcomingConcerts.toString(), getString(R.string.upcoming_category))
+        metalCard.setText(
+            onBoardingViewData.metalConcerts.toString(),
+            getString(R.string.metal_category)
+        )
+        rockCard.setText(
+            onBoardingViewData.rockConcerts.toString(),
+            getString(R.string.rock_category)
+        )
+        upcomingCard.setText(
+            onBoardingViewData.upcomingConcerts.toString(),
+            getString(R.string.upcoming_category)
+        )
         totalCard.setText(onBoardingViewData.total.toString(), getString(R.string.total_category))
     }
 

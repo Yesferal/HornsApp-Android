@@ -1,7 +1,9 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.StringRes
+import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
@@ -10,7 +12,6 @@ import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRoun
 import com.yesferal.hornsapp.domain.entity.Venue
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
-import kotlinx.android.synthetic.main.item_band.view.*
 import java.net.URI
 
 data class ConcertViewState(
@@ -51,16 +52,18 @@ data class BandViewData(
         return ParcelableViewData(id, name)
     }
 
-    interface Listener: DelegateListener {
+    interface Listener : DelegateListener {
         fun onClick(bandViewData: BandViewData)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        view.itemTextView.text = name
-        view.itemImageView.setAllCornersRounded()
-        view.itemImageView.load(membersImage)
+        view.findViewById<TextView>(R.id.itemTextView).text = name
 
-        view.itemImageView.setOnClickListener {
+        val itemImageView = view.findViewById<ShapeableImageView>(R.id.itemImageView)
+        itemImageView.setAllCornersRounded()
+        itemImageView.load(membersImage)
+
+        view.setOnClickListener {
             listener.onClick(this)
         }
     }

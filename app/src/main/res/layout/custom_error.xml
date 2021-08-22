@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/error_default"
-        android:layout_margin="@dimen/margin_big"
+        android:padding="@dimen/margin_big"
         app:layout_constraintTop_toBottomOf="@id/errorImageView"/>
 
     <TextView
@@ -32,11 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/try_again"
-        android:textColor="@color/accent"
-        android:padding="@dimen/margin_big"
-        android:layout_margin="@dimen/margin_big"
+        style="@style/HornsApp.Button"
         android:visibility="gone"
-        style="@style/HornsApp.TextView.Title"
         app:layout_constraintTop_toBottomOf="@+id/errorTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

@@ -1,12 +1,16 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.View
+import android.view.ViewStub
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
@@ -17,20 +21,28 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragme
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
-import kotlinx.android.synthetic.main.custom_error.*
-import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment
-    : BaseFragment<HomeViewState>() {
-    private lateinit var stubViewInflated: View
+class HomeFragment : BaseFragment<HomeViewState>() {
+
+    override val layout = R.layout.fragment_home
+
     private lateinit var homeViewModel: HomeViewModel
 
-    override val layout: Int
-        get() = R.layout.fragment_home
+    private lateinit var customProgressBar: View
+    private lateinit var tabLayout: TabLayout
+    private lateinit var hornsAppImageView: ImageView
+    private lateinit var concertsViewPager: ViewPager2
+    private lateinit var stubViewInflated: ViewStub
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        customProgressBar = view.findViewById(R.id.customProgressBar)
+        tabLayout = view.findViewById(R.id.tabLayout)
+        hornsAppImageView = view.findViewById(R.id.hornsAppImageView)
+        concertsViewPager = view.findViewById(R.id.concertsViewPager)
+        stubViewInflated = view.findViewById(R.id.stubView)
+
         customProgressBar.visibility = View.GONE
 
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
@@ -107,26 +119,23 @@ class HomeFragment
         @StringRes messageId: Int,
         allowRetry: Boolean
     ) {
-        if (!::stubViewInflated.isInitialized) {
-            stubViewInflated = stubView.inflate()
-        }
         stubViewInflated.visibility = View.VISIBLE
 
-        errorTextView.text = getString(messageId)
+        view?.findViewById<TextView>(R.id.errorTextView)?.text = getString(messageId)
+        val tryAgainTextView = view?.findViewById<TextView>(R.id.tryAgainTextView)
+
         if (allowRetry) {
-            tryAgainTextView.visibility = View.VISIBLE
+            tryAgainTextView?.visibility = View.VISIBLE
         }
 
-        tryAgainTextView.setOnClickListener {
+        tryAgainTextView?.setOnClickListener {
             homeViewModel.onRefresh()
             tryAgainTextView.visibility = View.GONE
         }
     }
 
     private fun hideError() {
-        if (::stubViewInflated.isInitialized) {
-            stubViewInflated.visibility = View.GONE
-        }
+        stubViewInflated.visibility = View.GONE
     }
 }
 

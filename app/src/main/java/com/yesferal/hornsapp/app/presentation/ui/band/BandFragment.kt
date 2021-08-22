@@ -2,26 +2,37 @@ package com.yesferal.hornsapp.app.presentation.ui.band
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewStub
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.load
+import com.yesferal.hornsapp.app.presentation.common.extension.setTopCornersRounded
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.app.presentation.common.extension.*
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.hada.parameter.Parameters
-import kotlinx.android.synthetic.main.custom_error.*
-import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_band.*
 
-class BandFragment
-    : BaseFragment<BandViewState>() {
+class BandFragment : BaseFragment<BandViewState>() {
 
-    override val layout: Int
-        get() = R.layout.fragment_band
+    override val layout = R.layout.fragment_band
 
     private lateinit var bandViewModel: BandViewModel
+    private lateinit var titleTextView: TextView
+    private lateinit var membersImageView: ShapeableImageView
+    private lateinit var logoImageView: ImageView
+    private lateinit var genreTextView: TextView
+    private lateinit var countryTextView: TextView
+    private lateinit var descriptionTextView: TextView
+    private lateinit var customProgressBar: View
+    private lateinit var stubView: ViewStub
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,6 +44,15 @@ class BandFragment
             activity?.onBackPressed()
             return
         }
+
+        titleTextView = view.findViewById(R.id.titleTextView)
+        membersImageView = view.findViewById(R.id.membersImageView)
+        logoImageView = view.findViewById(R.id.logoImageView)
+        genreTextView = view.findViewById(R.id.genreTextView)
+        countryTextView = view.findViewById(R.id.countryTextView)
+        descriptionTextView = view.findViewById(R.id.descriptionTextView)
+        customProgressBar = view.findViewById(R.id.customProgressBar)
+        stubView = view.findViewById(R.id.stubView)
 
         titleTextView.text = item.name
         membersImageView.setTopCornersRounded(dp = 32)
@@ -80,14 +100,16 @@ class BandFragment
     }
 
     private fun showError(@StringRes messageId: Int) {
+        membersImageView.visibility = View.GONE
+        logoImageView.visibility = View.GONE
         stubView.visibility = View.VISIBLE
-        errorTextView.text = getString(messageId)
+        view?.findViewById<TextView>(R.id.errorTextView)?.text = getString(messageId)
     }
 
     companion object {
         fun newInstance(
             bundle: Bundle
-        ) : BandFragment {
+        ): BandFragment {
             return BandFragment().apply {
                 arguments = bundle
             }
