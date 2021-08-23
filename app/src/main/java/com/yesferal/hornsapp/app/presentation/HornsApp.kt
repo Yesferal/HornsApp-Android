@@ -9,8 +9,8 @@ import com.yesferal.hornsapp.app.presentation.di.registerAppDependencies
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.container.Hada
 
-class HornsApp : Application(),
-        HadaApp {
+class HornsApp : Application(), HadaApp {
+
     override val container: Container by lazy { Hada() }
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics

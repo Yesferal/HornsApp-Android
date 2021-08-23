@@ -10,7 +10,6 @@ import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -18,9 +17,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.base.RenderEffect
-import com.yesferal.hornsapp.app.presentation.common.base.ViewEffect
 import com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.common.custom.ScalePageTransformation
@@ -28,14 +24,15 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.hada.parameter.Parameters
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.multitype.DelegateAdapter
 import java.net.URI
 import java.util.*
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
-class ConcertFragment : BaseFragment<ConcertViewState>(), RenderEffect {
+class ConcertFragment : RenderFragment<ConcertViewState>() {
 
     override val layout = R.layout.fragment_concert
 
@@ -98,10 +95,8 @@ class ConcertFragment : BaseFragment<ConcertViewState>(), RenderEffect {
 
         titleTextView.setUpWith(concert.name)
 
-        concertViewModel = ViewModelProvider(
-            this,
-            hada().resolve<ConcertViewModelFactory>(params = Parameters(concert.id))
-        ).get(ConcertViewModel::class.java)
+        concertViewModel =
+            getViewModel<ConcertViewModel, ConcertViewModelFactory>(param = concert.id)
 
         concertViewModel.state.observe(viewLifecycleOwner) {
             render(it)
@@ -301,14 +296,6 @@ class ConcertFragment : BaseFragment<ConcertViewState>(), RenderEffect {
         intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.description)
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.venue?.name)
         startActivity(intent)
-    }
-
-    override fun render(effect: ViewEffect) {
-        when (effect) {
-            is ViewEffect.Toast -> {
-                showToast(effect.errorMessageId)
-            }
-        }
     }
 }
 

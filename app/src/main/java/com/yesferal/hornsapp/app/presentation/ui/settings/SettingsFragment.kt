@@ -7,12 +7,12 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 
-class SettingsFragment : BaseFragment<SettingsState>() {
+class SettingsFragment : RenderFragment<SettingsState>() {
 
     override val layout = R.layout.fragment_settings
 
@@ -35,10 +35,7 @@ class SettingsFragment : BaseFragment<SettingsState>() {
             environmentSpinner.performClick()
         }
 
-        settingsViewModel = ViewModelProvider(
-            this,
-            hada().resolve<SettingsViewModelFactory>()
-        ).get(SettingsViewModel::class.java)
+        settingsViewModel = getViewModel<SettingsViewModel, SettingsViewModelFactory>()
 
         settingsViewModel.state.observe(viewLifecycleOwner) {
             render(it)

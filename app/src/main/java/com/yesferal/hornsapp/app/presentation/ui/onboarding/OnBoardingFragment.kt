@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 
-class OnBoardingFragment : BaseFragment<OnBoardingViewState>() {
+class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
     override val layout = R.layout.fragment_on_boarding
 
@@ -28,10 +28,7 @@ class OnBoardingFragment : BaseFragment<OnBoardingViewState>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onBoardingViewModel = ViewModelProvider(
-            this,
-            hada().resolve<OnBoardingViewModelFactory>()
-        ).get(OnBoardingViewModel::class.java)
+        onBoardingViewModel = getViewModel<OnBoardingViewModel, OnBoardingViewModelFactory>()
 
         nextTextView = view.findViewById(R.id.nextTextView)
         metalCard = view.findViewById(R.id.metalCard)

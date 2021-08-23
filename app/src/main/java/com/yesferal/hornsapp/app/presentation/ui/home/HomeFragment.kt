@@ -8,21 +8,21 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 
-class HomeFragment : BaseFragment<HomeViewState>() {
+class HomeFragment : RenderFragment<HomeViewState>() {
 
     override val layout = R.layout.fragment_home
 
@@ -55,10 +55,7 @@ class HomeFragment : BaseFragment<HomeViewState>() {
             }
         }
 
-        homeViewModel = ViewModelProvider(
-            viewModelStore,
-            hada().resolve<HomeViewModelFactory>()
-        ).get(HomeViewModel::class.java)
+        homeViewModel = getViewModel<HomeViewModel, HomeViewModelFactory>()
 
         homeViewModel.state.observe(viewLifecycleOwner) {
             render(it)

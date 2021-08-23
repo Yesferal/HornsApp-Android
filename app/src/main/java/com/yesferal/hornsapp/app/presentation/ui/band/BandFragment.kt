@@ -6,21 +6,20 @@ import android.view.ViewStub
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setTopCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.domain.entity.Band
-import com.yesferal.hornsapp.hada.parameter.Parameters
 
-class BandFragment : BaseFragment<BandViewState>() {
+class BandFragment : RenderFragment<BandViewState>() {
 
     override val layout = R.layout.fragment_band
 
@@ -57,10 +56,7 @@ class BandFragment : BaseFragment<BandViewState>() {
         titleTextView.text = item.name
         membersImageView.setTopCornersRounded(dp = 32)
 
-        bandViewModel = ViewModelProvider(
-            this,
-            hada().resolve<BandViewModelFactory>(params = Parameters(item.id))
-        ).get(BandViewModel::class.java)
+        bandViewModel = getViewModel<BandViewModel, BandViewModelFactory>(param = item.id)
 
         bandViewModel.state.observe(viewLifecycleOwner) {
             render(it)

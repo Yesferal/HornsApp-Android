@@ -2,20 +2,20 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.DelegateAdapter
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 
-class NewestFragment : BaseFragment<NewestViewState>() {
+class NewestFragment : RenderFragment<NewestViewState>() {
 
     override val layout = R.layout.fragment_newest
 
@@ -41,10 +41,7 @@ class NewestFragment : BaseFragment<NewestViewState>() {
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        viewModel = ViewModelProvider(
-            viewModelStore,
-            hada().resolve<NewestViewModelFactory>()
-        ).get(NewestViewModel::class.java)
+        viewModel = getViewModel<NewestViewModel, NewestViewModelFactory>()
 
         viewModel.stateNewest.observe(viewLifecycleOwner) {
             render(it)

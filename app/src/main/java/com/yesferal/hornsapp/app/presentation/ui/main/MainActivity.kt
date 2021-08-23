@@ -8,9 +8,9 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
-import com.yesferal.hornsapp.app.presentation.di.hada.HadaAwareness
+import com.yesferal.hornsapp.app.presentation.di.hada.hada
 
-class MainActivity : AppCompatActivity(), HadaAwareness {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adContainerLayout: FrameLayout
