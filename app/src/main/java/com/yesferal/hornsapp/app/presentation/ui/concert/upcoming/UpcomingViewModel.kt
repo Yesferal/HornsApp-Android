@@ -50,7 +50,7 @@ class UpcomingViewModel(
     private suspend fun getUpcomingConcertsWith(
         categoryKey: CategoryDrawer.Type
     ) = withContext(Dispatchers.IO) {
-        val categories = settingsRepository.getHomeDrawer().screens?.first {
+        val categories = settingsRepository.getAppDrawer().screens?.first {
             it.type == ScreenDrawer.Type.UPCOMING
         }?.let {
             it.categories?.map { category ->

@@ -28,5 +28,5 @@ class SettingsRepositoryImpl(
         return onBoardingDataSource.hideOnBoarding()
     }
 
-    override fun getHomeDrawer() = drawerDataSource.getHomeDrawer()
+    override fun getAppDrawer() = drawerDataSource.getAppDrawer()
 }

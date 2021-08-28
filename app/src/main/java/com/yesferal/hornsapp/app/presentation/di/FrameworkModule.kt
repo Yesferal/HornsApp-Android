@@ -45,7 +45,7 @@ fun Container.registerFrameworkModule() {
     }
 
     this register Factory<DrawerDataSource> {
-        FileReaderDataSource(name = "home_drawer.json", context = resolve(), gson = resolve())
+        FileReaderDataSource(name = "app_drawer.json", context = resolve(), gson = resolve())
     }
 
     this register Singleton {
