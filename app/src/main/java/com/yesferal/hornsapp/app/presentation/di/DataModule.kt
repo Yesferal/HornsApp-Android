@@ -25,7 +25,9 @@ fun Container.registerDataModule() {
 
     this register Singleton<SettingsRepository> {
         SettingsRepositoryImpl(
-                preferencesDataSource = resolve()
+            environmentDataSource = resolve(),
+            onBoardingDataSource = resolve(),
+            drawerDataSource = resolve()
         )
     }
 }

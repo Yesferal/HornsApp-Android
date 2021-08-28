@@ -9,8 +9,9 @@
     <string name="total_category">Todos</string>
     <string name="app_name_register">HornsApp®</string>
     <string name="get_started">Empecemos</string>
-    <string name="environment">Environment</string>
+    
     <!-- Settings -->
+    <string name="settings_environment">Environment</string>
     <string name="settings_force_crash_title">Force Crash</string>
     <string name="settings_force_crash_subtitle">Press this button in order to crash the app.</string>
     <string name="settings_force_crash_button">Crash</string>

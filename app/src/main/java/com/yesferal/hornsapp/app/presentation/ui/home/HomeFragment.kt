@@ -21,6 +21,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragme
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
+import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 
 class HomeFragment : RenderFragment<HomeViewState>() {
 
@@ -76,8 +77,8 @@ class HomeFragment : RenderFragment<HomeViewState>() {
     }
 
     override fun render(viewState: HomeViewState) {
-        viewState.fragmentTitles?.let { titles ->
-            showChildFragmentTitles(titles)
+        viewState.screens?.let { screens ->
+            showChildFragmentTitles(screens)
         }
 
         viewState.errorMessage?.let {
@@ -94,12 +95,12 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         }
     }
 
-    private fun showChildFragmentTitles(titles: List<String>) {
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, titles.size)
+    private fun showChildFragmentTitles(screens: List<Pair<ScreenDrawer.Type, String>>) {
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, screens.map { it.first })
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
-            tab.text = titles[position]
+            tab.text = screens[position].second
         }.attach()
         tabLayout.visibility = View.VISIBLE
     }
@@ -138,16 +139,16 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
 private class ScreenSlidePagerAdapter(
     activity: Fragment,
-    private val size: Int
+    private val screens: List<ScreenDrawer.Type>
 ) : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = size
+    override fun getItemCount(): Int = screens.size
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> NewestFragment.newInstance()
-            1 -> UpcomingFragment.newInstance()
-            else -> FavoritesFragment.newInstance()
+        return when (screens[position]) {
+            ScreenDrawer.Type.NEWEST -> NewestFragment.newInstance()
+            ScreenDrawer.Type.UPCOMING -> UpcomingFragment.newInstance()
+            ScreenDrawer.Type.FAVORITE -> FavoritesFragment.newInstance()
         }
     }
 }

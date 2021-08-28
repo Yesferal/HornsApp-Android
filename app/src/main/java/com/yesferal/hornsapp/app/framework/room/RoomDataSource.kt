@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.domain.entity.Concert
 
 class RoomDataSource(
     private val concertDao: ConcertDao
-): OrmDataSource {
+) : OrmDataSource {
     override suspend fun insertFavoriteConcert(
         concert: Concert
     ) {
@@ -24,13 +24,15 @@ class RoomDataSource(
     override suspend fun removeFavoriteConcert(
         concert: Concert
     ) {
-        concertDao.delete(RoomConcert(
-            concert.id,
-            concert.name,
-            concert.headlinerImage,
-            concert.dateTime?.time,
-            concert.genre
-        ))
+        concertDao.delete(
+            RoomConcert(
+                concert.id,
+                concert.name,
+                concert.headlinerImage,
+                concert.dateTime?.time,
+                concert.genre
+            )
+        )
     }
 
     override suspend fun getFavoriteConcerts(): List<Concert> {

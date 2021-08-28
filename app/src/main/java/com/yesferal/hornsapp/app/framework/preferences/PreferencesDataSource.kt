@@ -2,13 +2,15 @@ package com.yesferal.hornsapp.app.framework.preferences
 
 import android.content.Context
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
-import com.yesferal.hornsapp.data.abstraction.PreferencesDataSource
+import com.yesferal.hornsapp.data.abstraction.features.EnvironmentDataSource
+import com.yesferal.hornsapp.data.abstraction.features.OnBoardingDataSource
 
-class SharedPreferencesDataSource(
+class PreferencesDataSource(
     context: Context,
     name: String,
     private val apiConstants: ApiConstants
-) : PreferencesDataSource {
+) : EnvironmentDataSource, OnBoardingDataSource {
+
     enum class Key {
         ENVIRONMENT,
         ONBOARDING_VISIBILITY

@@ -10,7 +10,7 @@
         android:id="@+id/environmentTitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/environment"
+        android:text="@string/settings_environment"
         style="@style/HornsApp.TextView.Subtitle"
         android:textAlignment="viewStart"
         android:layout_marginEnd="@dimen/margin_medium"

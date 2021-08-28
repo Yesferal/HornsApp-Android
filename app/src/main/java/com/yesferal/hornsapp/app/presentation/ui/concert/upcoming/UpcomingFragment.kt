@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVertical
 import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
-import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.DelegateAdapter
 import com.yesferal.hornsapp.multitype.abstraction.Delegate

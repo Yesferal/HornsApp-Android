@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.common.base
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class ParcelableViewData(

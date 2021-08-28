@@ -1,8 +1,12 @@
 package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.CategoryKey
+import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
 import kotlinx.coroutines.Dispatchers
@@ -26,20 +30,21 @@ class OnBoardingViewModel(
                     is Result.Success -> {
                         val concerts = result.value
                         val onBoardingViewData = OnBoardingViewData(
-                                metalConcerts = concerts.filter {
-                                    it.tags?.contains(CategoryKey.METAL.toString()) == true
-                                }.size,
-                                rockConcerts = concerts.filter {
-                                    it.tags?.contains(CategoryKey.ROCK.toString()) == true
-                                }.size,
-                                upcomingConcerts = concerts.filter {
-                                    val dateTime = it.dateTime?: return@filter false
+                            metalConcerts = concerts.filter {
+                                it.tags?.contains(CategoryDrawer.Type.METAL.toString()) == true
+                            }.size,
+                            rockConcerts = concerts.filter {
+                                it.tags?.contains(CategoryDrawer.Type.ROCK.toString()) == true
+                            }.size,
+                            upcomingConcerts = concerts.filter {
+                                val dateTime = it.dateTime ?: return@filter false
 
-                                    val twoMonthsInMillis = 5184000000
+                                val todayInMillis = Calendar.getInstance().timeInMillis
+                                val twoMonthsInMillis = 5184000000
 
-                                    dateTime.before(Date(Calendar.getInstance().timeInMillis + (twoMonthsInMillis)))
-                                }.size,
-                                total = concerts.size
+                                dateTime.before(Date(todayInMillis + (twoMonthsInMillis)))
+                            }.size,
+                            total = concerts.size
                         )
 
                         OnBoardingViewState(onBoardingViewData = onBoardingViewData)

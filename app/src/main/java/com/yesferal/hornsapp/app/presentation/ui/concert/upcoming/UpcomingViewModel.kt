@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
+import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.CategoryKey
+import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
@@ -21,7 +23,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UpcomingViewModel(
-    private val getConcertsUseCase: GetConcertsUseCase
+    private val getConcertsUseCase: GetConcertsUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     private val _stateUpcoming = MutableLiveData<UpcomingViewState>()
 
@@ -30,14 +33,14 @@ class UpcomingViewModel(
 
     init {
         viewModelScope.launch {
-            _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
+            _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL)
         }
     }
 
     fun onCategoryClick(categoryViewData: CategoryViewData) {
         viewModelScope.launch {
             if (categoryViewData.isSelected) {
-                _stateUpcoming.value = getUpcomingConcertsWith(CategoryKey.ALL)
+                _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL)
             } else {
                 _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.categoryKey)
             }
@@ -45,21 +48,27 @@ class UpcomingViewModel(
     }
 
     private suspend fun getUpcomingConcertsWith(
-        categoryKey: CategoryKey
+        categoryKey: CategoryDrawer.Type
     ) = withContext(Dispatchers.IO) {
-        val categories = listOf(
-            CategoryViewData(CategoryKey.LIVE, "Lima", CategoryKey.LIVE == categoryKey),
-            CategoryViewData(CategoryKey.ONLINE, "Online", CategoryKey.ONLINE == categoryKey),
-            CategoryViewData(CategoryKey.METAL, "Metal", CategoryKey.METAL == categoryKey),
-            CategoryViewData(CategoryKey.ROCK, "Rock", CategoryKey.ROCK == categoryKey)
-        )
+        val categories = settingsRepository.getHomeDrawer().screens?.first {
+            it.type == ScreenDrawer.Type.UPCOMING
+        }?.let {
+            it.categories?.map { category ->
+                    CategoryViewData(
+                        category.type,
+                        category.title?.en.orEmpty(),
+                        categoryKey == category.type
+                    )
+                }
+            }?: listOf()
+
         val categoryHorizontalMargin = 16
 
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
                 val concerts = result.value
                     .filter {
-                        categoryKey == CategoryKey.ALL ||
+                        categoryKey == CategoryDrawer.Type.ALL ||
                                 it.tags?.contains(categoryKey.toString()) == true
                     }
 
@@ -79,10 +88,11 @@ class UpcomingViewModel(
                 }
 
                 val items = mutableListOf<Delegate>().apply {
-                    add(RowDelegate.Builder()
-                        .addItems(categories)
-                        .addHorizontalMargin(categoryHorizontalMargin)
-                        .build()
+                    add(
+                        RowDelegate.Builder()
+                            .addItems(categories)
+                            .addHorizontalMargin(categoryHorizontalMargin)
+                            .build()
                     )
                     addAll(concerts
                         .sortedWith(compareBy { it.dateTime?.time })
@@ -124,11 +134,13 @@ class UpcomingViewModel(
 }
 
 class UpcomingViewModelFactory(
-    private val getConcertsUseCase: GetConcertsUseCase
+    private val getConcertsUseCase: GetConcertsUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-            GetConcertsUseCase::class.java
-        ).newInstance(getConcertsUseCase)
+            GetConcertsUseCase::class.java,
+            SettingsRepository::class.java
+        ).newInstance(getConcertsUseCase, settingsRepository)
     }
 }

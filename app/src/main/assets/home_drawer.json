@@ -1,0 +1,55 @@
+{
+  "screens": [
+    {
+      "type": "NEWEST",
+      "title": {
+        "en": "Newest",
+        "es": "Nuevos"
+      }
+    },
+    {
+      "type": "UPCOMING",
+      "title": {
+        "en": "Upcoming",
+        "es": "Proximos"
+      },
+      "categories": [
+        {
+          "type": "LIVE",
+          "title": {
+            "en": "Live",
+            "es": "Presencial"
+          }
+        },
+        {
+          "type": "ONLINE",
+          "title": {
+            "en": "Online",
+            "es": "En linea"
+          }
+        },
+        {
+          "type": "METAL",
+          "title": {
+            "en": "Metal",
+            "es": "Metal"
+          }
+        },
+        {
+          "type": "ROCK",
+          "title": {
+            "en": "Rock",
+            "es": "Rock"
+          }
+        }
+      ]
+    },
+    {
+      "type": "FAVORITE",
+      "title": {
+        "en": "Favorites",
+        "es": "Favoritos"
+      }
+    }
+  ]
+}

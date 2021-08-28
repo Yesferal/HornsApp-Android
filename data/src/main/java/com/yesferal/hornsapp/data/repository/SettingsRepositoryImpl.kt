@@ -1,26 +1,32 @@
 package com.yesferal.hornsapp.data.repository
 
-import com.yesferal.hornsapp.data.abstraction.PreferencesDataSource
+import com.yesferal.hornsapp.data.abstraction.features.DrawerDataSource
+import com.yesferal.hornsapp.data.abstraction.features.EnvironmentDataSource
+import com.yesferal.hornsapp.data.abstraction.features.OnBoardingDataSource
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 
 class SettingsRepositoryImpl(
-    private val preferencesDataSource: PreferencesDataSource
+    private val environmentDataSource: EnvironmentDataSource,
+    private val onBoardingDataSource: OnBoardingDataSource,
+    private val drawerDataSource: DrawerDataSource
 ) : SettingsRepository {
 
     override fun getEnvironments()
-        = preferencesDataSource.getEnvironments()
+        = environmentDataSource.getEnvironments()
 
-    override fun getDefaultEnvironment() = preferencesDataSource.getDefaultEnvironment()
+    override fun getDefaultEnvironment() = environmentDataSource.getDefaultEnvironment()
 
     override fun updateDefaultEnvironment(environment: Int) {
-        preferencesDataSource.updateDefaultEnvironment(environment)
+        environmentDataSource.updateDefaultEnvironment(environment)
     }
 
     override fun onBoardingIsVisible(): Boolean {
-        return preferencesDataSource.onBoardingIsVisible()
+        return onBoardingDataSource.onBoardingIsVisible()
     }
 
     override fun hideOnBoarding() {
-        return preferencesDataSource.hideOnBoarding()
+        return onBoardingDataSource.hideOnBoarding()
     }
+
+    override fun getHomeDrawer() = drawerDataSource.getHomeDrawer()
 }

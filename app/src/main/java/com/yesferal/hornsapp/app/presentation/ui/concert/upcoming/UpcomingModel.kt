@@ -38,7 +38,7 @@ data class UpcomingViewData(
         return ParcelableViewData(id, name)
     }
 
-    interface Listener: DelegateListener {
+    interface Listener : DelegateListener {
         fun onClick(upcomingViewData: UpcomingViewData)
     }
 
@@ -71,6 +71,7 @@ data class ErrorViewData(
     override val layout = R.layout.custom_error
 
     override fun onBindViewDelegate(view: View, listener: DelegateListener) {
-        view.findViewById<TextView>(R.id.errorTextView).setUpWith(view.context.getString(errorMessage))
+        view.findViewById<TextView>(R.id.errorTextView)
+            .setUpWith(view.context.getString(errorMessage))
     }
 }

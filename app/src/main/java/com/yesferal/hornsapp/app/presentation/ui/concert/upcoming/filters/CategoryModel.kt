@@ -1,17 +1,17 @@
-package com.yesferal.hornsapp.app.presentation.ui.filters
+package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters
 
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.domain.entity.CategoryKey
+import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
 
 data class CategoryViewData(
-    val categoryKey: CategoryKey,
-    val name: String?,
+    val categoryKey: CategoryDrawer.Type,
+    val name: String,
     val isSelected: Boolean = false
 ) : ViewDelegate<CategoryViewData.Listener>() {
 
