@@ -56,7 +56,7 @@ class UpcomingViewModel(
             it.categories?.map { category ->
                     CategoryViewData(
                         category.type,
-                        category.title?.en.orEmpty(),
+                        category.title?.text.orEmpty(),
                         categoryKey == category.type
                     )
                 }

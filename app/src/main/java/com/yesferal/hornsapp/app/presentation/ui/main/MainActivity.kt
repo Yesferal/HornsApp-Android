@@ -1,5 +1,9 @@
 package com.yesferal.hornsapp.app.presentation.ui.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +17,14 @@ import com.yesferal.hornsapp.app.presentation.di.hada.hada
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
+
     private lateinit var adContainerLayout: FrameLayout
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            this@MainActivity.finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +43,14 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.adViewData.observe(this) {
             adContainerLayout.addAdView(it)
         }
+
+        val filter = IntentFilter(Intent.ACTION_LOCALE_CHANGED)
+        registerReceiver(broadcastReceiver, filter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
     }
 
     private fun FrameLayout.addAdView(adViewData: AdViewData) {

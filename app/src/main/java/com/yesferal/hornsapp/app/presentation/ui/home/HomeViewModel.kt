@@ -41,7 +41,7 @@ class HomeViewModel(
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
                 val screens = settingsRepository.getHomeDrawer().screens?.map {
-                    Pair(it.type, it.title?.en.orEmpty())
+                    Pair(it.type, it.title?.text.orEmpty())
                 }
 
                 HomeViewState(screens, concerts = result.value)
