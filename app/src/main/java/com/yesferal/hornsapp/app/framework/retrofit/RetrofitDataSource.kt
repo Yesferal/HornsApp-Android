@@ -4,6 +4,7 @@ import com.yesferal.hornsapp.data.abstraction.ApiDataSource
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.lang.Exception
@@ -13,30 +14,30 @@ class RetrofitDataSource(
 ) : ApiDataSource {
     override suspend fun getConcerts(): Result<List<Concert>> {
         return service
-                .safeCall { getConcerts() }
-                .mapToResult {
-                    it.map { apiConcert -> apiConcert.mapToConcert() }
-                }
+            .safeCall { getConcerts() }
+            .mapToResult {
+                it.map { apiConcert -> apiConcert.mapToConcert() }
+            }
     }
 
     override suspend fun getConcert(
         id: String
     ): Result<Concert> {
         return service
-                .safeCall { getConcertBy(id) }
-                .mapToResult { it.mapToConcert() }
+            .safeCall { getConcertBy(id) }
+            .mapToResult { it.mapToConcert() }
     }
 
     override suspend fun getBand(
         id: String
     ): Result<Band> {
         return service
-                .safeCall { getBandBy(id) }
-                .mapToResult { it.mapToBand() }
+            .safeCall { getBandBy(id) }
+            .mapToResult { it.mapToBand() }
     }
 
     private suspend fun <INPUT> Service.safeCall(
-            request: suspend Service.() -> Response<INPUT>
+        request: suspend Service.() -> Response<INPUT>
     ): Response<INPUT> {
         return try {
             request()
@@ -46,14 +47,20 @@ class RetrofitDataSource(
     }
 
     private fun <INPUT, OUTPUT> Response<INPUT>.mapToResult(
-            func: Response<INPUT>.(INPUT) -> OUTPUT
+        func: Response<INPUT>.(INPUT) -> OUTPUT
     ): Result<OUTPUT> {
         return if (isSuccessful) {
             body()?.let {
                 Result.Success(func(it))
-            }?: Result.Error
+            } ?: Result.Error
         } else {
             Result.Error
         }
+    }
+
+    override suspend fun getAppDrawer(): Result<AppDrawer> {
+        return service
+            .safeCall { getAppDrawer() }
+            .mapToResult { it }
     }
 }

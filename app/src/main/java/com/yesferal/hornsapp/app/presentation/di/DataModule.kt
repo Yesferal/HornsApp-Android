@@ -27,7 +27,10 @@ fun Container.registerDataModule() {
         SettingsRepositoryImpl(
             environmentDataSource = resolve(),
             onBoardingDataSource = resolve(),
-            drawerDataSource = resolve()
+            drawerDataSource = resolve(),
+            defaultDrawerDataSource = resolve(),
+            apiDataSource = resolve(),
+            logger = resolve()
         )
     }
 }

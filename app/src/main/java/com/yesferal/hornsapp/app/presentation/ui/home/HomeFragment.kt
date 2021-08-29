@@ -149,6 +149,7 @@ private class ScreenSlidePagerAdapter(
             ScreenDrawer.Type.NEWEST -> NewestFragment.newInstance()
             ScreenDrawer.Type.UPCOMING -> UpcomingFragment.newInstance()
             ScreenDrawer.Type.FAVORITE -> FavoritesFragment.newInstance()
+            ScreenDrawer.Type.UNDETERMINED -> NewestFragment.newInstance() // TODO ErrorFragment
         }
     }
 }

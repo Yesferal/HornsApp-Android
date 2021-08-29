@@ -9,4 +9,5 @@ interface SettingsRepository {
     fun onBoardingIsVisible() : Boolean
     fun hideOnBoarding()
     fun getAppDrawer(): AppDrawer
+    suspend fun syncAppDrawer()
 }

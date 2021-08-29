@@ -1,42 +1,42 @@
 {
   "screens": [
     {
-      "type": "NEWEST",
+      "key": "NEWEST",
       "title": {
         "en": "Newest",
         "es": "Nuevos"
       }
     },
     {
-      "type": "UPCOMING",
+      "key": "UPCOMING",
       "title": {
         "en": "Upcoming",
         "es": "Proximos"
       },
       "categories": [
         {
-          "type": "LIVE",
+          "key": "LIVE",
           "title": {
             "en": "Live",
             "es": "Presencial"
           }
         },
         {
-          "type": "ONLINE",
+          "key": "ONLINE",
           "title": {
             "en": "Online",
             "es": "En linea"
           }
         },
         {
-          "type": "METAL",
+          "key": "METAL",
           "title": {
             "en": "Metal",
             "es": "Metal"
           }
         },
         {
-          "type": "ROCK",
+          "key": "ROCK",
           "title": {
             "en": "Rock",
             "es": "Rock"
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "type": "FAVORITE",
+      "key": "FAVORITE",
       "title": {
         "en": "Favorites",
         "es": "Favoritos"

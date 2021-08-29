@@ -55,9 +55,9 @@ class UpcomingViewModel(
         }?.let {
             it.categories?.map { category ->
                     CategoryViewData(
-                        category.type,
+                        category.key,
                         category.title?.text.orEmpty(),
-                        categoryKey == category.type
+                        categoryKey == category.key
                     )
                 }
             }?: listOf()

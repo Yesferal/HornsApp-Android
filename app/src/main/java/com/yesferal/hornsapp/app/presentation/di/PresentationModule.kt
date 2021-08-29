@@ -16,7 +16,8 @@ import com.yesferal.hornsapp.hada.dependency.Factory
 fun Container.registerPresentationModule() {
     this register Factory {
         MainViewModelFactory(
-            adManager = resolve()
+            adManager = resolve(),
+            settingsRepository = resolve()
         )
     }
 
