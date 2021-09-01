@@ -40,7 +40,7 @@ class HomeViewModel(
     private suspend fun getConcerts() = withContext(Dispatchers.IO) {
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
-                val screens = settingsRepository.getAppDrawer().screens?.map {
+                val screens = settingsRepository.getAppDrawer()?.screens?.map {
                     Pair(it.type, it.title?.text.orEmpty())
                 }
 

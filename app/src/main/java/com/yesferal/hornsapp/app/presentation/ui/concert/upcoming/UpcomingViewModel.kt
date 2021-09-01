@@ -10,7 +10,6 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.Catego
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
@@ -33,14 +32,14 @@ class UpcomingViewModel(
 
     init {
         viewModelScope.launch {
-            _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL)
+            _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL.name)
         }
     }
 
     fun onCategoryClick(categoryViewData: CategoryViewData) {
         viewModelScope.launch {
             if (categoryViewData.isSelected) {
-                _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL)
+                _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL.name)
             } else {
                 _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.categoryKey)
             }
@@ -48,19 +47,15 @@ class UpcomingViewModel(
     }
 
     private suspend fun getUpcomingConcertsWith(
-        categoryKey: CategoryDrawer.Type
+        categoryKey: String
     ) = withContext(Dispatchers.IO) {
-        val categories = settingsRepository.getAppDrawer().screens?.first {
-            it.type == ScreenDrawer.Type.UPCOMING
-        }?.let {
-            it.categories?.map { category ->
-                    CategoryViewData(
-                        category.key,
-                        category.title?.text.orEmpty(),
-                        categoryKey == category.key
-                    )
-                }
-            }?: listOf()
+        val categories = settingsRepository.getAppDrawer()?.categories?.map { category ->
+            CategoryViewData(
+                category.key.orEmpty(),
+                category.title?.text.orEmpty(),
+                categoryKey == category.key
+            )
+        } ?: listOf()
 
         val categoryHorizontalMargin = 16
 
@@ -68,8 +63,8 @@ class UpcomingViewModel(
             is Result.Success -> {
                 val concerts = result.value
                     .filter {
-                        categoryKey == CategoryDrawer.Type.ALL ||
-                                it.tags?.contains(categoryKey.toString()) == true
+                        categoryKey == CategoryDrawer.Type.ALL.name ||
+                                it.tags?.contains(categoryKey) == true
                     }
 
                 if (concerts.isEmpty()) {

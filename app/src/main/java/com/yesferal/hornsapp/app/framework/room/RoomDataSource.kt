@@ -1,12 +1,12 @@
 package com.yesferal.hornsapp.app.framework.room
 
 import com.yesferal.hornsapp.app.framework.room.entity.RoomConcert
-import com.yesferal.hornsapp.data.abstraction.OrmDataSource
+import com.yesferal.hornsapp.data.abstraction.features.FavoriteDataSource
 import com.yesferal.hornsapp.domain.entity.Concert
 
 class RoomDataSource(
     private val concertDao: ConcertDao
-) : OrmDataSource {
+) : FavoriteDataSource {
     override suspend fun insertFavoriteConcert(
         concert: Concert
     ) {

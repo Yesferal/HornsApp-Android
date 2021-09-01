@@ -14,11 +14,11 @@ import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
-import com.yesferal.hornsapp.data.abstraction.OrmDataSource
-import com.yesferal.hornsapp.data.abstraction.features.DefaultDrawerDataSource
 import com.yesferal.hornsapp.data.abstraction.features.DrawerDataSource
 import com.yesferal.hornsapp.data.abstraction.features.EnvironmentDataSource
+import com.yesferal.hornsapp.data.abstraction.features.FavoriteDataSource
 import com.yesferal.hornsapp.data.abstraction.features.OnBoardingDataSource
+import com.yesferal.hornsapp.data.abstraction.features.UpdateDrawerDataSource
 import com.yesferal.hornsapp.domain.abstraction.Logger
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.dependency.Factory
@@ -44,7 +44,7 @@ fun Container.registerFrameworkModule() {
         resolve<PreferencesDataSource>()
     }
 
-    this register Factory<DrawerDataSource> {
+    this register Factory<UpdateDrawerDataSource> {
         resolve<PreferencesDataSource>()
     }
 
@@ -52,7 +52,7 @@ fun Container.registerFrameworkModule() {
         Gson()
     }
 
-    this register Factory<DefaultDrawerDataSource> {
+    this register Factory<DrawerDataSource> {
         FileReaderDataSource(name = "app_drawer.json", context = resolve(), gson = resolve())
     }
 
@@ -89,10 +89,14 @@ fun Container.registerFrameworkModule() {
         ).build()
     }
 
-    this register Factory<OrmDataSource> {
+    this register Singleton {
         val concertDao = resolve<AppDatabase>().concertDao()
 
         RoomDataSource(concertDao = concertDao)
+    }
+
+    this register Factory<FavoriteDataSource> {
+        resolve<RoomDataSource>()
     }
 
     this register Factory<Logger> {

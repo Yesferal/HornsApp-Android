@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity() {
             adContainerLayout.addAdView(it)
         }
 
+        setupReceiver()
+    }
+
+    private fun setupReceiver() {
         val filter = IntentFilter(Intent.ACTION_LOCALE_CHANGED)
         registerReceiver(broadcastReceiver, filter)
     }

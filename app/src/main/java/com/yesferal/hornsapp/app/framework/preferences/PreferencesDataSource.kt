@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
 import com.yesferal.hornsapp.data.abstraction.features.EnvironmentDataSource
 import com.yesferal.hornsapp.data.abstraction.features.OnBoardingDataSource
-import com.yesferal.hornsapp.data.abstraction.features.DrawerDataSource
+import com.yesferal.hornsapp.data.abstraction.features.UpdateDrawerDataSource
 import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
 
 class PreferencesDataSource(
@@ -13,7 +13,7 @@ class PreferencesDataSource(
     name: String,
     private val apiConstants: ApiConstants,
     private val gson: Gson
-) : EnvironmentDataSource, OnBoardingDataSource, DrawerDataSource {
+) : EnvironmentDataSource, OnBoardingDataSource, UpdateDrawerDataSource {
 
     enum class Key {
         ENVIRONMENT,

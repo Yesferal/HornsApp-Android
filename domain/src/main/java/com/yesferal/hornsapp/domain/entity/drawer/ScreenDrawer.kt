@@ -1,9 +1,8 @@
 package com.yesferal.hornsapp.domain.entity.drawer
 
 class ScreenDrawer(
-    private val key: String,
-    val title: TextDrawer?,
-    val categories: List<CategoryDrawer>?
+    private val key: String?,
+    val title: TextDrawer?
 ) {
     enum class Type {
         NEWEST,

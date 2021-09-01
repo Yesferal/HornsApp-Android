@@ -4,5 +4,4 @@ import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
 
 interface DrawerDataSource {
     fun getAppDrawer(): AppDrawer?
-    fun updateAppDrawer(appDrawer: AppDrawer)
 }

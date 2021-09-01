@@ -13,7 +13,7 @@ fun Container.registerDataModule() {
     this register Singleton<ConcertRepository> {
         ConcertRepositoryImpl(
             apiDataSource = resolve(),
-            ormDataSource = resolve()
+            favoriteDataSource = resolve()
         )
     }
 
@@ -28,7 +28,7 @@ fun Container.registerDataModule() {
             environmentDataSource = resolve(),
             onBoardingDataSource = resolve(),
             drawerDataSource = resolve(),
-            defaultDrawerDataSource = resolve(),
+            updateDrawerDataSource = resolve(),
             apiDataSource = resolve(),
             logger = resolve()
         )

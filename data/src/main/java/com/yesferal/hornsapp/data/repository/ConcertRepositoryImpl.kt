@@ -2,12 +2,12 @@ package com.yesferal.hornsapp.data.repository
 
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
 import com.yesferal.hornsapp.data.abstraction.ApiDataSource
-import com.yesferal.hornsapp.data.abstraction.OrmDataSource
+import com.yesferal.hornsapp.data.abstraction.features.FavoriteDataSource
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Concert
 
 class ConcertRepositoryImpl(
-    private val ormDataSource: OrmDataSource,
+    private val favoriteDataSource: FavoriteDataSource,
     private val apiDataSource: ApiDataSource
 ) : ConcertRepository {
     var concerts: List<Concert>? = null
@@ -29,18 +29,18 @@ class ConcertRepositoryImpl(
     ): Result<Concert> = apiDataSource.getConcert(id)
 
     override suspend fun getFavoriteConcert(): List<Concert> {
-        return ormDataSource.getFavoriteConcerts()
+        return favoriteDataSource.getFavoriteConcerts()
     }
 
     override suspend fun insertFavoriteConcert(
         concert: Concert
     ) {
-        ormDataSource.insertFavoriteConcert(concert)
+        favoriteDataSource.insertFavoriteConcert(concert)
     }
 
     override suspend fun removeFavoriteConcert(
         concert: Concert
     ) {
-        ormDataSource.removeFavoriteConcert(concert)
+        favoriteDataSource.removeFavoriteConcert(concert)
     }
 }

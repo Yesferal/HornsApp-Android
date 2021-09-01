@@ -19,6 +19,7 @@ import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
+import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
@@ -149,7 +150,7 @@ private class ScreenSlidePagerAdapter(
             ScreenDrawer.Type.NEWEST -> NewestFragment.newInstance()
             ScreenDrawer.Type.UPCOMING -> UpcomingFragment.newInstance()
             ScreenDrawer.Type.FAVORITE -> FavoritesFragment.newInstance()
-            ScreenDrawer.Type.UNDETERMINED -> NewestFragment.newInstance() // TODO ErrorFragment
+            ScreenDrawer.Type.UNDETERMINED -> ErrorFragment.newInstance()
         }
     }
 }
