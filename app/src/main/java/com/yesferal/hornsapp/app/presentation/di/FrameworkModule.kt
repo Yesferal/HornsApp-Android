@@ -4,7 +4,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
-import com.yesferal.hornsapp.app.framework.file.FileReaderDataSource
+import com.yesferal.hornsapp.app.framework.file.FileReaderManager
 import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitFactory
@@ -13,12 +13,12 @@ import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
 import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
-import com.yesferal.hornsapp.data.abstraction.ApiDataSource
-import com.yesferal.hornsapp.data.abstraction.features.DrawerDataSource
-import com.yesferal.hornsapp.data.abstraction.features.EnvironmentDataSource
-import com.yesferal.hornsapp.data.abstraction.features.FavoriteDataSource
-import com.yesferal.hornsapp.data.abstraction.features.OnBoardingDataSource
-import com.yesferal.hornsapp.data.abstraction.features.UpdateDrawerDataSource
+import com.yesferal.hornsapp.data.abstraction.storage.DrawerStorageDataSource
+import com.yesferal.hornsapp.data.abstraction.storage.EnvironmentDataSource
+import com.yesferal.hornsapp.data.abstraction.storage.ConcertStorageDataSource
+import com.yesferal.hornsapp.data.abstraction.storage.OnBoardingDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.BandRemoteDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.domain.abstraction.Logger
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.dependency.Factory
@@ -32,7 +32,8 @@ fun Container.registerFrameworkModule() {
             context = resolve(),
             name = "hornsapp-shared-preferences.sp",
             apiConstants = ApiConstants(),
-            gson = resolve()
+            gson = resolve(),
+            fileReaderManager = resolve()
         )
     }
 
@@ -44,22 +45,20 @@ fun Container.registerFrameworkModule() {
         resolve<PreferencesDataSource>()
     }
 
-    this register Factory<UpdateDrawerDataSource> {
+    this register Factory<DrawerStorageDataSource> {
         resolve<PreferencesDataSource>()
     }
 
-    this register Singleton {
-        Gson()
-    }
+    this register Singleton { Gson() }
 
-    this register Factory<DrawerDataSource> {
-        FileReaderDataSource(name = "app_drawer.json", context = resolve(), gson = resolve())
+    this register Factory {
+        FileReaderManager(context = resolve())
     }
 
     this register Singleton {
-        val apiConstants = ApiConstants()
         val defaultEnvironment = resolve<PreferencesDataSource>()
                 .getDefaultEnvironment()
+        val apiConstants = ApiConstants()
 
         RetrofitFactory(
             authorization = apiConstants.authorizations[defaultEnvironment],
@@ -68,17 +67,19 @@ fun Container.registerFrameworkModule() {
         ).retrofit
     }
 
-    this register Factory<ApiDataSource> {
+    this register Singleton {
         val service = resolve<Retrofit>()
             .create(Service::class.java)
 
-        RetrofitDataSource(
-            service = service
-        )
+        RetrofitDataSource(service = service)
     }
 
-    this register Singleton {
-        AdManager(adUnitIds = AdUnitIds())
+    this register Factory<ConcertRemoteDataSource> {
+        resolve<RetrofitDataSource>()
+    }
+
+    this register Factory<BandRemoteDataSource> {
+        resolve<RetrofitDataSource>()
     }
 
     this register Singleton {
@@ -95,11 +96,15 @@ fun Container.registerFrameworkModule() {
         RoomDataSource(concertDao = concertDao)
     }
 
-    this register Factory<FavoriteDataSource> {
+    this register Factory<ConcertStorageDataSource> {
         resolve<RoomDataSource>()
     }
 
     this register Factory<Logger> {
         YLogger
+    }
+
+    this register Singleton {
+        AdManager(adUnitIds = AdUnitIds())
     }
 }

@@ -1,17 +1,18 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-import com.yesferal.hornsapp.data.abstraction.ApiDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.BandRemoteDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Band
 import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.lang.Exception
 
 class RetrofitDataSource(
     private val service: Service
-) : ApiDataSource {
+) : ConcertRemoteDataSource, BandRemoteDataSource {
+
     override suspend fun getConcerts(): Result<List<Concert>> {
         return service
             .safeCall { getConcerts() }
@@ -56,11 +57,5 @@ class RetrofitDataSource(
         } else {
             Result.Error
         }
-    }
-
-    override suspend fun getAppDrawer(): Result<AppDrawer> {
-        return service
-            .safeCall { getAppDrawer() }
-            .mapToResult { it }
     }
 }

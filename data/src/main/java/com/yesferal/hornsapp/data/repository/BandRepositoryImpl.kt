@@ -1,13 +1,13 @@
 package com.yesferal.hornsapp.data.repository
 
-import com.yesferal.hornsapp.data.abstraction.ApiDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.domain.abstraction.BandRepository
 
 class BandRepositoryImpl(
-    private val apiDataSource: ApiDataSource
+    private val bandRemoteDataSource: BandRemoteDataSource
 ) : BandRepository {
 
     override suspend fun getBand(
         id: String
-    ) = apiDataSource.getBand(id)
+    ) = bandRemoteDataSource.getBand(id)
 }

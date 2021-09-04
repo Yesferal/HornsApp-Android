@@ -49,7 +49,7 @@ class UpcomingViewModel(
     private suspend fun getUpcomingConcertsWith(
         categoryKey: String
     ) = withContext(Dispatchers.IO) {
-        val categories = settingsRepository.getAppDrawer()?.categories?.map { category ->
+        val categories = settingsRepository.getAppDrawer().categories?.map { category ->
             CategoryViewData(
                 category.key.orEmpty(),
                 category.title?.text.orEmpty(),

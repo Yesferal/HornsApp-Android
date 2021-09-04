@@ -12,14 +12,14 @@ import com.yesferal.hornsapp.hada.dependency.Singleton
 fun Container.registerDataModule() {
     this register Singleton<ConcertRepository> {
         ConcertRepositoryImpl(
-            apiDataSource = resolve(),
-            favoriteDataSource = resolve()
+            concertRemoteDataSource = resolve(),
+            concertStorageDataSource = resolve()
         )
     }
 
     this register Singleton<BandRepository> {
         BandRepositoryImpl(
-            apiDataSource = resolve()
+            bandRemoteDataSource = resolve()
         )
     }
 
@@ -27,10 +27,7 @@ fun Container.registerDataModule() {
         SettingsRepositoryImpl(
             environmentDataSource = resolve(),
             onBoardingDataSource = resolve(),
-            drawerDataSource = resolve(),
-            updateDrawerDataSource = resolve(),
-            apiDataSource = resolve(),
-            logger = resolve()
+            drawerStorageDataSource = resolve()
         )
     }
 }

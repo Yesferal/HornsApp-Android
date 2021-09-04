@@ -1,14 +1,14 @@
 package com.yesferal.hornsapp.data.repository
 
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
-import com.yesferal.hornsapp.data.abstraction.ApiDataSource
-import com.yesferal.hornsapp.data.abstraction.features.FavoriteDataSource
+import com.yesferal.hornsapp.data.abstraction.storage.ConcertStorageDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.Concert
 
 class ConcertRepositoryImpl(
-    private val favoriteDataSource: FavoriteDataSource,
-    private val apiDataSource: ApiDataSource
+    private val concertStorageDataSource: ConcertStorageDataSource,
+    private val concertRemoteDataSource: ConcertRemoteDataSource
 ) : ConcertRepository {
     var concerts: List<Concert>? = null
 
@@ -16,7 +16,7 @@ class ConcertRepositoryImpl(
         return concerts?.let {
             Result.Success(it)
         } ?: run {
-            val result = apiDataSource.getConcerts()
+            val result = concertRemoteDataSource.getConcerts()
             if (result is Result.Success) {
                 concerts = result.value
             }
@@ -26,21 +26,21 @@ class ConcertRepositoryImpl(
 
     override suspend fun getConcert(
         id: String
-    ): Result<Concert> = apiDataSource.getConcert(id)
+    ): Result<Concert> = concertRemoteDataSource.getConcert(id)
 
     override suspend fun getFavoriteConcert(): List<Concert> {
-        return favoriteDataSource.getFavoriteConcerts()
+        return concertStorageDataSource.getFavoriteConcerts()
     }
 
     override suspend fun insertFavoriteConcert(
         concert: Concert
     ) {
-        favoriteDataSource.insertFavoriteConcert(concert)
+        concertStorageDataSource.insertFavoriteConcert(concert)
     }
 
     override suspend fun removeFavoriteConcert(
         concert: Concert
     ) {
-        favoriteDataSource.removeFavoriteConcert(concert)
+        concertStorageDataSource.removeFavoriteConcert(concert)
     }
 }

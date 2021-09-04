@@ -8,6 +8,5 @@ interface SettingsRepository {
     fun updateDefaultEnvironment(environment: Int)
     fun onBoardingIsVisible() : Boolean
     fun hideOnBoarding()
-    fun getAppDrawer(): AppDrawer?
-    suspend fun syncAppDrawer()
+    fun getAppDrawer(): AppDrawer
 }
