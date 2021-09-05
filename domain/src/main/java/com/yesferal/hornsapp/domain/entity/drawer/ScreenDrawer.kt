@@ -1,6 +1,6 @@
 package com.yesferal.hornsapp.domain.entity.drawer
 
-class ScreenDrawer(
+data class ScreenDrawer(
     private val key: String?,
     val title: TextDrawer?
 ) {

@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 Properties properties = new Properties()
 
@@ -12,9 +12,9 @@ Properties properties = new Properties()
 def DEBUG_AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
 def DEBUG_C_MAKE_FLAVOR = "-DFLAVOR=DEBUG"
 
-// The real value of these attributes are in app/release.properties
+// The real value of these attributes are in release.properties
 def RELEASE_AD_MOB_APP_ID = ""
-def RELEASE_C_MAKE_FLAVOR = "-DFLAVOR=RELEASE"
+def RELEASE_C_MAKE_FLAVOR = ""
 
 // Add your values in app/release.properties file in order to get them here
 if (project.file('src/release/release.properties').exists()) {
@@ -27,6 +27,7 @@ if (project.file('src/release/release.properties').exists()) {
     // If you want the app use an specific endpoint while develop
     if (properties.getProperty('C_MAKE_FLAVOR')) {
         DEBUG_C_MAKE_FLAVOR = properties.getProperty('C_MAKE_FLAVOR')
+        RELEASE_C_MAKE_FLAVOR = properties.getProperty('C_MAKE_FLAVOR')
     }
 }
 
@@ -83,6 +84,7 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
     // Android
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -116,6 +118,11 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:${versions.room}"
     kapt "androidx.room:room-compiler:${versions.room}"
+
+    //Socket.io
+    implementation('io.socket:socket.io-client:2.0.1') {
+        exclude group: 'org.json', module: 'json'
+    }
 
     // Module
     implementation project(hornsAppModules.domain)

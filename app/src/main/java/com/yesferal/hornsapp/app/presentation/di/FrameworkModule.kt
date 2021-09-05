@@ -13,12 +13,14 @@ import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
 import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
+import com.yesferal.hornsapp.app.framework.socketio.SocketIoDataSource
 import com.yesferal.hornsapp.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.data.abstraction.storage.ConcertStorageDataSource
 import com.yesferal.hornsapp.data.abstraction.storage.OnBoardingDataSource
 import com.yesferal.hornsapp.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.data.abstraction.remote.ConcertRemoteDataSource
+import com.yesferal.hornsapp.data.abstraction.remote.DrawerRemoteDataSource
 import com.yesferal.hornsapp.domain.abstraction.Logger
 import com.yesferal.hornsapp.hada.container.Container
 import com.yesferal.hornsapp.hada.dependency.Factory
@@ -57,7 +59,7 @@ fun Container.registerFrameworkModule() {
 
     this register Singleton {
         val defaultEnvironment = resolve<PreferencesDataSource>()
-                .getDefaultEnvironment()
+            .getDefaultEnvironment()
         val apiConstants = ApiConstants()
 
         RetrofitFactory(
@@ -98,6 +100,23 @@ fun Container.registerFrameworkModule() {
 
     this register Factory<ConcertStorageDataSource> {
         resolve<RoomDataSource>()
+    }
+
+    this register Singleton {
+        val defaultEnvironment = resolve<PreferencesDataSource>()
+            .getDefaultEnvironment()
+        val apiConstants = ApiConstants()
+
+        SocketIoDataSource(
+            gson = resolve(),
+            logger = resolve(),
+            baseUrl = apiConstants.environments[defaultEnvironment].second,
+            defaultAppDrawer = resolve<DrawerStorageDataSource>().getAppDrawer()
+        )
+    }
+
+    this register Factory<DrawerRemoteDataSource> {
+        resolve<SocketIoDataSource>()
     }
 
     this register Factory<Logger> {

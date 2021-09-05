@@ -9,6 +9,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
+import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
 import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.util.dayFormatted
@@ -18,6 +19,7 @@ import com.yesferal.hornsapp.domain.util.yearFormatted
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -25,12 +27,25 @@ class UpcomingViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
-    private val _stateUpcoming = MutableLiveData<UpcomingViewState>()
 
+    private val _stateUpcoming = MutableLiveData<UpcomingViewState>()
     val stateUpcoming: LiveData<UpcomingViewState>
         get() = _stateUpcoming
 
+    private val _appDrawer = MutableLiveData<AppDrawer>()
+    val appDrawer: LiveData<AppDrawer>
+        get() = _appDrawer
+
     init {
+        viewModelScope.launch {
+            settingsRepository.getAppDrawer().collect {
+                settingsRepository.updateDrawer(it)
+                _appDrawer.value = it
+            }
+        }
+    }
+
+    fun onRender() {
         viewModelScope.launch {
             _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL.name)
         }
@@ -49,13 +64,13 @@ class UpcomingViewModel(
     private suspend fun getUpcomingConcertsWith(
         categoryKey: String
     ) = withContext(Dispatchers.IO) {
-        val categories = settingsRepository.getAppDrawer().categories?.map { category ->
-            CategoryViewData(
-                category.key.orEmpty(),
-                category.title?.text.orEmpty(),
-                categoryKey == category.key
-            )
-        } ?: listOf()
+        val categories = appDrawer.value?.categories?.map { category ->
+                CategoryViewData(
+                    category.key.orEmpty(),
+                    category.title?.text.orEmpty(),
+                    categoryKey == category.key
+                )
+            } ?: listOf()
 
         val categoryHorizontalMargin = 16
 

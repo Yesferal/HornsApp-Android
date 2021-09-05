@@ -59,6 +59,10 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
         homeViewModel = getViewModel<HomeViewModel, HomeViewModelFactory>()
 
+        homeViewModel.appDrawer.observe(viewLifecycleOwner) {
+            homeViewModel.onRefresh()
+        }
+
         homeViewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
