@@ -52,7 +52,7 @@ class UpcomingFragment : RenderFragment<UpcomingViewState>() {
         viewModel = getViewModel<UpcomingViewModel, UpcomingViewModelFactory>()
 
         postDelayed {
-            viewModel.appDrawer.observe(viewLifecycleOwner) {
+            viewModel.categoryDrawer.observe(viewLifecycleOwner) {
                 viewModel.onRender()
             }
 

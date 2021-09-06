@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
+import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -23,15 +23,14 @@ class HomeViewModel(
     val state: LiveData<HomeViewState>
         get() = _state
 
-    private val _appDrawer = MutableLiveData<AppDrawer>()
-    val appDrawer: LiveData<AppDrawer>
-    get() = _appDrawer
+    private val _screenDrawer = MutableLiveData<List<ScreenDrawer>>()
+    val screenDrawer: LiveData<List<ScreenDrawer>>
+    get() = _screenDrawer
 
     init {
         viewModelScope.launch {
-            settingsRepository.getAppDrawer().collect {
-                settingsRepository.updateDrawer(it)
-                _appDrawer.value = it
+            settingsRepository.getScreenDrawer().collect {
+                _screenDrawer.value = it
             }
         }
     }
@@ -50,7 +49,7 @@ class HomeViewModel(
     private suspend fun getConcerts() = withContext(Dispatchers.IO) {
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
-                val screens = appDrawer.value?.screens?.map {
+                val screens = screenDrawer.value?.map {
                     Pair(it.type, it.title?.text.orEmpty())
                 }
 

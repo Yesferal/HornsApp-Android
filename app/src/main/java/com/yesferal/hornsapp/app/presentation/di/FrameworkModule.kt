@@ -111,7 +111,7 @@ fun Container.registerFrameworkModule() {
             gson = resolve(),
             logger = resolve(),
             baseUrl = apiConstants.environments[defaultEnvironment].second,
-            defaultAppDrawer = resolve<DrawerStorageDataSource>().getAppDrawer()
+            drawerStorageDataSource = resolve()
         )
     }
 

@@ -2,8 +2,11 @@ package com.yesferal.hornsapp.app.framework.socketio
 
 import com.google.gson.Gson
 import com.yesferal.hornsapp.data.abstraction.remote.DrawerRemoteDataSource
+import com.yesferal.hornsapp.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.domain.abstraction.Logger
 import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
+import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,14 +17,20 @@ class SocketIoDataSource(
     private val gson: Gson,
     private val logger: Logger,
     baseUrl: String,
-    defaultAppDrawer: AppDrawer
+    drawerStorageDataSource: DrawerStorageDataSource
 ) : DrawerRemoteDataSource {
 
     private lateinit var socket: Socket
 
-    private val _appDrawer = MutableStateFlow(defaultAppDrawer)
-    override val appDrawer: StateFlow<AppDrawer>
-        get() = _appDrawer
+    private val _screenDrawer =
+        MutableStateFlow(drawerStorageDataSource.getAppDrawer().screens ?: listOf())
+    override val screenDrawer: StateFlow<List<ScreenDrawer>>
+        get() = _screenDrawer
+
+    private val _categoryDrawer =
+        MutableStateFlow(drawerStorageDataSource.getAppDrawer().categories ?: listOf())
+    override val categoryDrawer: StateFlow<List<CategoryDrawer>>
+        get() = _categoryDrawer
 
     init {
         try {
@@ -43,7 +52,9 @@ class SocketIoDataSource(
             lateinit var appDrawer: AppDrawer
             try {
                 appDrawer = gson.fromJson(it[0].toString(), AppDrawer::class.java)
-                _appDrawer.value = appDrawer
+                drawerStorageDataSource.updateAppDrawer(appDrawer)
+                _screenDrawer.value = appDrawer.screens ?: listOf()
+                _categoryDrawer.value = appDrawer.categories ?: listOf()
             } catch (e: java.lang.Exception) {
                 logger.e("Socket On (updateDrawer): ${e.message.orEmpty()}")
             }

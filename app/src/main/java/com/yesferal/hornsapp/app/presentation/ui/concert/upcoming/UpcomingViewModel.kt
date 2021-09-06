@@ -9,7 +9,6 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
 import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.util.dayFormatted
@@ -32,15 +31,14 @@ class UpcomingViewModel(
     val stateUpcoming: LiveData<UpcomingViewState>
         get() = _stateUpcoming
 
-    private val _appDrawer = MutableLiveData<AppDrawer>()
-    val appDrawer: LiveData<AppDrawer>
-        get() = _appDrawer
+    private val _categoryDrawer = MutableLiveData<List<CategoryDrawer>>()
+    val categoryDrawer: LiveData<List<CategoryDrawer>>
+        get() = _categoryDrawer
 
     init {
         viewModelScope.launch {
-            settingsRepository.getAppDrawer().collect {
-                settingsRepository.updateDrawer(it)
-                _appDrawer.value = it
+            settingsRepository.getCategoryDrawer().collect {
+                _categoryDrawer.value = it
             }
         }
     }
@@ -64,7 +62,7 @@ class UpcomingViewModel(
     private suspend fun getUpcomingConcertsWith(
         categoryKey: String
     ) = withContext(Dispatchers.IO) {
-        val categories = appDrawer.value?.categories?.map { category ->
+        val categories = categoryDrawer.value?.map { category ->
                 CategoryViewData(
                     category.key.orEmpty(),
                     category.title?.text.orEmpty(),
