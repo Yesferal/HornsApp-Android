@@ -50,7 +50,7 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
         }
     }
 
-    protected fun startExternalActivity(uri: URI?) {
+    fun startExternalActivity(uri: URI?) {
         if (uri == null) return
 
         val androidUri = Uri.parse(uri.toString())

@@ -51,5 +51,7 @@
         <item name="android:backgroundTint">@color/accent</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:padding">@dimen/margin_medium</item>
+        <item name="android:textSize">@dimen/text_tiny</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>

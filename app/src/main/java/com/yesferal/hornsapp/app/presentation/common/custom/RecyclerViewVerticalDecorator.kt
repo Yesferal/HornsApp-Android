@@ -23,10 +23,11 @@ class RecyclerViewVerticalDecorator (
             outRect.top = (density * padding).toInt()
         }
 
+        // AdHeight should be 50dp: This is equals to Ad size (50 + 16)
         val adapter = parent.adapter
         if (adapter != null && itemPosition == adapter.itemCount - 1) {
             val adHeight = 50
-            outRect.bottom = (density * (padding + adHeight)).toInt()
+            outRect.bottom = (density * (adHeight)).toInt()
         }
     }
 }

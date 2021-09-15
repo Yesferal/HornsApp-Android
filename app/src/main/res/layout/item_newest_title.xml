@@ -3,20 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/titleImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_music_note"
+        android:padding="@dimen/margin_tiny"
+        app:layout_constraintTop_toTopOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+        app:layout_constraintDimensionRatio="1:1"/>
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_big"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:background="@color/background"
-        style="@style/HornsApp.TextView.Subtitle"
-        android:textColor="@color/secondaryText"
-        android:textAlignment="center"
+        android:layout_marginStart="@dimen/margin_tiny"
+        style="@style/HornsApp.TextView.Title"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.2"/>
+        app:layout_constraintStart_toEndOf="@+id/titleImageView"/>
+
+    <TextView
+        android:id="@+id/subtitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

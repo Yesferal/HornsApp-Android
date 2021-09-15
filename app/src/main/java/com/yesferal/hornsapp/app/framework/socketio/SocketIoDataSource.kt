@@ -22,10 +22,15 @@ class SocketIoDataSource(
 
     private lateinit var socket: Socket
 
-    private val _screenDrawer =
+    private val _homeDrawer =
         MutableStateFlow(drawerStorageDataSource.getAppDrawer().screens ?: listOf())
-    override val screenDrawer: StateFlow<List<ScreenDrawer>>
-        get() = _screenDrawer
+    override val homeDrawer: StateFlow<List<ScreenDrawer>>
+        get() = _homeDrawer
+
+    private val _newestDrawer =
+        MutableStateFlow(drawerStorageDataSource.getAppDrawer().newest ?: listOf())
+    override val newestDrawer: StateFlow<List<ScreenDrawer>>
+        get() = _newestDrawer
 
     private val _categoryDrawer =
         MutableStateFlow(drawerStorageDataSource.getAppDrawer().categories ?: listOf())
@@ -53,7 +58,8 @@ class SocketIoDataSource(
             try {
                 appDrawer = gson.fromJson(it[0].toString(), AppDrawer::class.java)
                 drawerStorageDataSource.updateAppDrawer(appDrawer)
-                _screenDrawer.value = appDrawer.screens ?: listOf()
+                _homeDrawer.value = appDrawer.screens ?: listOf()
+                _newestDrawer.value = appDrawer.newest ?: listOf()
                 _categoryDrawer.value = appDrawer.categories ?: listOf()
             } catch (e: java.lang.Exception) {
                 logger.e("Socket On (updateDrawer): ${e.message.orEmpty()}")

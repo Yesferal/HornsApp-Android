@@ -194,7 +194,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
         descriptionTextView.apply {
             setImageView(R.drawable.ic_information)
-            setText(getString(R.string.about_concert), concert.description)
+            setText(getString(R.string.about), concert.description)
         }
 
         showYoutube(concert.trailerUrl)
@@ -212,7 +212,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         ticketingUrl?.let {
             ticketTextView.apply {
                 setImageView(R.drawable.ic_ticket)
-                setText(getString(R.string.available_in))
+                setText(getString(R.string.available_on))
             }
             buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
             buyTicketsTextView.setOnClickListener {

@@ -59,10 +59,6 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
         homeViewModel = getViewModel<HomeViewModel, HomeViewModelFactory>()
 
-        homeViewModel.screenDrawer.observe(viewLifecycleOwner) {
-            homeViewModel.onRefresh()
-        }
-
         homeViewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -151,10 +147,10 @@ private class ScreenSlidePagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (screens[position]) {
-            ScreenDrawer.Type.NEWEST -> NewestFragment.newInstance()
-            ScreenDrawer.Type.UPCOMING -> UpcomingFragment.newInstance()
-            ScreenDrawer.Type.FAVORITE -> FavoritesFragment.newInstance()
-            ScreenDrawer.Type.UNDETERMINED -> ErrorFragment.newInstance()
+            ScreenDrawer.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
+            ScreenDrawer.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
+            ScreenDrawer.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
+            else -> ErrorFragment.newInstance()
         }
     }
 }

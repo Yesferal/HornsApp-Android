@@ -23,14 +23,13 @@ class HomeViewModel(
     val state: LiveData<HomeViewState>
         get() = _state
 
-    private val _screenDrawer = MutableLiveData<List<ScreenDrawer>>()
-    val screenDrawer: LiveData<List<ScreenDrawer>>
-    get() = _screenDrawer
+    private lateinit var homeDrawer: List<ScreenDrawer>
 
     init {
         viewModelScope.launch {
-            settingsRepository.getScreenDrawer().collect {
-                _screenDrawer.value = it
+            settingsRepository.getHomeDrawer().collect {
+                homeDrawer = it
+                onRefresh()
             }
         }
     }
@@ -49,7 +48,7 @@ class HomeViewModel(
     private suspend fun getConcerts() = withContext(Dispatchers.IO) {
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
-                val screens = screenDrawer.value?.map {
+                val screens = homeDrawer.map {
                     Pair(it.type, it.title?.text.orEmpty())
                 }
 

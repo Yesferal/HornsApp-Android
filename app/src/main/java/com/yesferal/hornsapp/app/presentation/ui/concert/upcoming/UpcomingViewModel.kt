@@ -31,28 +31,27 @@ class UpcomingViewModel(
     val stateUpcoming: LiveData<UpcomingViewState>
         get() = _stateUpcoming
 
-    private val _categoryDrawer = MutableLiveData<List<CategoryDrawer>>()
-    val categoryDrawer: LiveData<List<CategoryDrawer>>
-        get() = _categoryDrawer
+    private lateinit var categoryDrawer: List<CategoryDrawer>
 
     init {
         viewModelScope.launch {
             settingsRepository.getCategoryDrawer().collect {
-                _categoryDrawer.value = it
+                categoryDrawer = it
+                onRender()
             }
         }
     }
 
-    fun onRender() {
+    private fun onRender() {
         viewModelScope.launch {
-            _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL.name)
+            _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.ALL)
         }
     }
 
     fun onCategoryClick(categoryViewData: CategoryViewData) {
         viewModelScope.launch {
             if (categoryViewData.isSelected) {
-                _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.Type.ALL.name)
+                _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.ALL)
             } else {
                 _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.categoryKey)
             }
@@ -62,13 +61,13 @@ class UpcomingViewModel(
     private suspend fun getUpcomingConcertsWith(
         categoryKey: String
     ) = withContext(Dispatchers.IO) {
-        val categories = categoryDrawer.value?.map { category ->
+        val categories = categoryDrawer.map { category ->
                 CategoryViewData(
                     category.key.orEmpty(),
                     category.title?.text.orEmpty(),
                     categoryKey == category.key
                 )
-            } ?: listOf()
+            }
 
         val categoryHorizontalMargin = 16
 
@@ -76,7 +75,7 @@ class UpcomingViewModel(
             is Result.Success -> {
                 val concerts = result.value
                     .filter {
-                        categoryKey == CategoryDrawer.Type.ALL.name ||
+                        categoryKey == CategoryDrawer.ALL ||
                                 it.tags?.contains(categoryKey) == true
                     }
 

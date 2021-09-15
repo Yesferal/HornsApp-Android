@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
-import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 
 class MainViewModel(
     adManager: AdManager

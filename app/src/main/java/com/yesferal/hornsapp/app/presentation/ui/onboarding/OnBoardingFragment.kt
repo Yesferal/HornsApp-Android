@@ -5,12 +5,15 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.custom.TextSubTextView
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
+import com.yesferal.hornsapp.multitype.DelegateAdapter
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
 
 class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
@@ -18,24 +21,35 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
     private lateinit var onBoardingViewModel: OnBoardingViewModel
 
+    private lateinit var recyclerView: RecyclerView
     private lateinit var nextTextView: TextView
-    private lateinit var metalCard: TextSubTextView
-    private lateinit var rockCard: TextSubTextView
-    private lateinit var upcomingCard: TextSubTextView
-    private lateinit var totalCard: TextSubTextView
     private lateinit var progressBar: ProgressBar
+
+    private lateinit var delegateAdapter: DelegateAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        delegateAdapter = DelegateAdapter.Builder()
+            .build()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         onBoardingViewModel = getViewModel<OnBoardingViewModel, OnBoardingViewModelFactory>()
 
+        recyclerView = view.findViewById(R.id.recyclerView)
         nextTextView = view.findViewById(R.id.nextTextView)
-        metalCard = view.findViewById(R.id.metalCard)
-        rockCard = view.findViewById(R.id.rockCard)
-        upcomingCard = view.findViewById(R.id.upcomingCard)
-        totalCard = view.findViewById(R.id.totalCard)
         progressBar = view.findViewById(R.id.progressBar)
+
+        recyclerView.also {
+            it.adapter = delegateAdapter
+            it.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        }
 
         onBoardingViewModel.state.observe(viewLifecycleOwner) {
             render(it)
@@ -48,7 +62,7 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
     }
 
     override fun render(viewState: OnBoardingViewState) {
-        viewState.onBoardingViewData?.let {
+        viewState.categories?.let {
             showData(it)
         }
 
@@ -59,20 +73,8 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
         }
     }
 
-    private fun showData(onBoardingViewData: OnBoardingViewData) {
-        metalCard.setText(
-            onBoardingViewData.metalConcerts.toString(),
-            getString(R.string.metal_category)
-        )
-        rockCard.setText(
-            onBoardingViewData.rockConcerts.toString(),
-            getString(R.string.rock_category)
-        )
-        upcomingCard.setText(
-            onBoardingViewData.upcomingConcerts.toString(),
-            getString(R.string.upcoming_category)
-        )
-        totalCard.setText(onBoardingViewData.total.toString(), getString(R.string.total_category))
+    private fun showData(onBoardingViewData: List<Delegate>) {
+        delegateAdapter.updateItems(onBoardingViewData)
     }
 
     private fun showProgress() {

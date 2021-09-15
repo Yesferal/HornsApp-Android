@@ -5,6 +5,7 @@ import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 import kotlinx.coroutines.flow.Flow
 
 interface DrawerRemoteDataSource {
-    val screenDrawer: Flow<List<ScreenDrawer>>
+    val homeDrawer: Flow<List<ScreenDrawer>>
+    val newestDrawer: Flow<List<ScreenDrawer>>
     val categoryDrawer: Flow<List<CategoryDrawer>>
 }

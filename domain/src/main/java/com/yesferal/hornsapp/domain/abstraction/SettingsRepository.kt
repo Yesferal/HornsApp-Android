@@ -10,6 +10,7 @@ interface SettingsRepository {
     fun updateDefaultEnvironment(environment: Int)
     fun onBoardingIsVisible() : Boolean
     fun hideOnBoarding()
-    fun getScreenDrawer(): Flow<List<ScreenDrawer>>
+    fun getHomeDrawer(): Flow<List<ScreenDrawer>>
+    fun getNewestDrawer(): Flow<List<ScreenDrawer>>
     fun getCategoryDrawer(): Flow<List<CategoryDrawer>>
 }

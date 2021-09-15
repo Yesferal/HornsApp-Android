@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.DelegateAdapter
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
+import java.net.URI
 
 class NewestFragment : RenderFragment<NewestViewState>() {
 
@@ -38,7 +38,6 @@ class NewestFragment : RenderFragment<NewestViewState>() {
         newestRecyclerView.also {
             it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
         viewModel = getViewModel<NewestViewModel, NewestViewModelFactory>()
@@ -64,15 +63,22 @@ class NewestFragment : RenderFragment<NewestViewState>() {
 }
 
 private fun NewestFragment.instanceAdapterListener() =
-    object : NewestViewData.Listener,
-        UpcomingViewData.Listener {
+    object : NewestViewData.Listener, CarouselViewData.Listener, UpcomingViewData.Listener {
 
-        override fun onClick(upcomingViewData: UpcomingViewData) {
-            startConcertActivity(upcomingViewData.asParcelable())
+        override fun onClick(carouselViewData: CarouselViewData) {
+            startConcertActivity(carouselViewData.asParcelable())
         }
 
         override fun onClick(newestViewData: NewestViewData) {
             startConcertActivity(newestViewData.asParcelable())
+        }
+
+        override fun onTicketingClick(ticketingUrl: URI?) {
+            startExternalActivity(ticketingUrl)
+        }
+
+        override fun onClick(upcomingViewData: UpcomingViewData) {
+            startConcertActivity(upcomingViewData.asParcelable())
         }
 
         private fun startConcertActivity(parcelableViewData: ParcelableViewData) {

@@ -30,8 +30,12 @@ class SettingsRepositoryImpl(
         return onBoardingDataSource.hideOnBoarding()
     }
 
-    override fun getScreenDrawer(): Flow<List<ScreenDrawer>> {
-        return drawerRemoteDataSource.screenDrawer
+    override fun getHomeDrawer(): Flow<List<ScreenDrawer>> {
+        return drawerRemoteDataSource.homeDrawer
+    }
+
+    override fun getNewestDrawer(): Flow<List<ScreenDrawer>> {
+        return drawerRemoteDataSource.newestDrawer
     }
 
     override fun getCategoryDrawer(): Flow<List<CategoryDrawer>> {
