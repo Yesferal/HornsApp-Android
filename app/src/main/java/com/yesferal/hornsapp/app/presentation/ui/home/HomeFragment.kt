@@ -1,36 +1,50 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.View
+import android.view.ViewStub
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
+import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
 import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
-import kotlinx.android.synthetic.main.custom_error.*
-import kotlinx.android.synthetic.main.custom_view_progress_bar.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 
-class HomeFragment
-    : BaseFragment<HomeViewState>() {
-    private lateinit var stubViewInflated: View
+class HomeFragment : RenderFragment<HomeViewState>() {
+
+    override val layout = R.layout.fragment_home
+
     private lateinit var homeViewModel: HomeViewModel
 
-    override val layout: Int
-        get() = R.layout.fragment_home
+    private lateinit var customProgressBar: View
+    private lateinit var tabLayout: TabLayout
+    private lateinit var hornsAppImageView: ImageView
+    private lateinit var concertsViewPager: ViewPager2
+    private lateinit var stubViewInflated: ViewStub
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        customProgressBar = view.findViewById(R.id.customProgressBar)
+        tabLayout = view.findViewById(R.id.tabLayout)
+        hornsAppImageView = view.findViewById(R.id.hornsAppImageView)
+        concertsViewPager = view.findViewById(R.id.concertsViewPager)
+        stubViewInflated = view.findViewById(R.id.stubView)
+
         customProgressBar.visibility = View.GONE
 
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
@@ -43,10 +57,7 @@ class HomeFragment
             }
         }
 
-        homeViewModel = ViewModelProvider(
-            viewModelStore,
-            hada().resolve<HomeViewModelFactory>()
-        ).get(HomeViewModel::class.java)
+        homeViewModel = getViewModel<HomeViewModel, HomeViewModelFactory>()
 
         homeViewModel.state.observe(viewLifecycleOwner) {
             render(it)
@@ -67,8 +78,8 @@ class HomeFragment
     }
 
     override fun render(viewState: HomeViewState) {
-        viewState.fragmentTitles?.let { titles ->
-            showChildFragmentTitles(titles)
+        viewState.screens?.let { screens ->
+            showChildFragmentTitles(screens)
         }
 
         viewState.errorMessage?.let {
@@ -85,12 +96,12 @@ class HomeFragment
         }
     }
 
-    private fun showChildFragmentTitles(titles: List<String>) {
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, titles.size)
+    private fun showChildFragmentTitles(screens: List<Pair<ScreenDrawer.Type, String>>) {
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, screens.map { it.first })
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
-            tab.text = titles[position]
+            tab.text = screens[position].second
         }.attach()
         tabLayout.visibility = View.VISIBLE
     }
@@ -107,41 +118,39 @@ class HomeFragment
         @StringRes messageId: Int,
         allowRetry: Boolean
     ) {
-        if (!::stubViewInflated.isInitialized) {
-            stubViewInflated = stubView.inflate()
-        }
         stubViewInflated.visibility = View.VISIBLE
 
-        errorTextView.text = getString(messageId)
+        view?.findViewById<TextView>(R.id.errorTextView)?.text = getString(messageId)
+        val tryAgainTextView = view?.findViewById<TextView>(R.id.tryAgainTextView)
+
         if (allowRetry) {
-            tryAgainTextView.visibility = View.VISIBLE
+            tryAgainTextView?.visibility = View.VISIBLE
         }
 
-        tryAgainTextView.setOnClickListener {
+        tryAgainTextView?.setOnClickListener {
             homeViewModel.onRefresh()
             tryAgainTextView.visibility = View.GONE
         }
     }
 
     private fun hideError() {
-        if (::stubViewInflated.isInitialized) {
-            stubViewInflated.visibility = View.GONE
-        }
+        stubViewInflated.visibility = View.GONE
     }
 }
 
 private class ScreenSlidePagerAdapter(
     activity: Fragment,
-    private val size: Int
+    private val screens: List<ScreenDrawer.Type>
 ) : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = size
+    override fun getItemCount(): Int = screens.size
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> NewestFragment.newInstance()
-            1 -> UpcomingFragment.newInstance()
-            else -> FavoritesFragment.newInstance()
+        return when (screens[position]) {
+            ScreenDrawer.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
+            ScreenDrawer.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
+            ScreenDrawer.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
+            else -> ErrorFragment.newInstance()
         }
     }
 }

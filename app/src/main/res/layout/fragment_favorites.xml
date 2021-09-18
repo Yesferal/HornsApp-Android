@@ -2,31 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.ui.favorite.FavoritesFragment">
-
-    <View
-        android:id="@+id/dateBackgroundView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_big"
-        android:layout_marginStart="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="@+id/concertsRecyclerView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/concertsRecyclerView"
-        app:layout_constraintWidth_percent="0.2"/>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layerType="software"
-        android:background="@drawable/shape_vertical_dashed_line"
-        app:layout_constraintTop_toTopOf="@id/dateBackgroundView"
-        app:layout_constraintStart_toStartOf="@+id/dateBackgroundView"
-        app:layout_constraintEnd_toEndOf="@id/dateBackgroundView"
-        app:layout_constraintBottom_toBottomOf="@+id/dateBackgroundView"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/concertsRecyclerView"

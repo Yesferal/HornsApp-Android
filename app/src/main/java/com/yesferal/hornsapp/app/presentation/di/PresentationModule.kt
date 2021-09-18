@@ -22,7 +22,8 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         HomeViewModelFactory(
-            getConcertsUseCase = resolve()
+            getConcertsUseCase = resolve(),
+            settingsRepository = resolve()
         )
     }
 
@@ -34,13 +35,15 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         UpcomingViewModelFactory(
-            getConcertsUseCase = resolve()
+            getConcertsUseCase = resolve(),
+            settingsRepository = resolve()
         )
     }
 
     this register Factory {
         NewestViewModelFactory(
-            getConcertsUseCase = resolve()
+            getConcertsUseCase = resolve(),
+            settingsRepository = resolve()
         )
     }
 
@@ -63,7 +66,8 @@ fun Container.registerPresentationModule() {
     this register Factory {
         OnBoardingViewModelFactory(
             getConcertsUseCase = resolve(),
-            updateVisibilityOnBoardingUseCase = resolve()
+            updateVisibilityOnBoardingUseCase = resolve(),
+            settingsRepository = resolve()
         )
     }
 

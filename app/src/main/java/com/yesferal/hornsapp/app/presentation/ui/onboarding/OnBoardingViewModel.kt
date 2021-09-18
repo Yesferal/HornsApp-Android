@@ -1,18 +1,26 @@
 package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.DividerDelegate
+import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.CategoryKey
+import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
+import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class OnBoardingViewModel(
-    getConcertsUseCase: GetConcertsUseCase,
-    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase
+    private val getConcertsUseCase: GetConcertsUseCase,
+    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     private val _state = MutableLiveData<OnBoardingViewState>()
 
@@ -21,28 +29,30 @@ class OnBoardingViewModel(
 
     init {
         viewModelScope.launch {
+            settingsRepository.getCategoryDrawer().collect {
+                onRender(it)
+            }
+        }
+    }
+
+    private fun onRender(categoryDrawer: List<CategoryDrawer>) {
+        viewModelScope.launch {
             _state.value = withContext(Dispatchers.IO) {
                 when (val result = getConcertsUseCase()) {
                     is Result.Success -> {
                         val concerts = result.value
-                        val onBoardingViewData = OnBoardingViewData(
-                                metalConcerts = concerts.filter {
-                                    it.tags?.contains(CategoryKey.METAL.toString()) == true
-                                }.size,
-                                rockConcerts = concerts.filter {
-                                    it.tags?.contains(CategoryKey.ROCK.toString()) == true
-                                }.size,
-                                upcomingConcerts = concerts.filter {
-                                    val dateTime = it.dateTime?: return@filter false
+                        val delegates = mutableListOf<Delegate>()
+                        val categoryDelegates = categoryDrawer.map { drawer ->
+                            val amount = concerts.filter {
+                                it.tags?.contains(drawer.key) == true
+                            }.size
+                            OnBoardingCategoryViewData(drawer.title?.text.orEmpty(), amount)
+                        }
+                        delegates.add(DividerDelegate(width = 24, height = 1))
+                        delegates.addAll(categoryDelegates)
+                        delegates.add(DividerDelegate(width = 24, height = 1))
 
-                                    val twoMonthsInMillis = 5184000000
-
-                                    dateTime.before(Date(Calendar.getInstance().timeInMillis + (twoMonthsInMillis)))
-                                }.size,
-                                total = concerts.size
-                        )
-
-                        OnBoardingViewState(onBoardingViewData = onBoardingViewData)
+                        OnBoardingViewState(categories = delegates.toList())
                     }
                     is Result.Error -> {
                         OnBoardingViewState()
@@ -59,12 +69,14 @@ class OnBoardingViewModel(
 
 class OnBoardingViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase
+    private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            UpdateVisibilityOnBoardingUseCase::class.java
-        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase)
+            UpdateVisibilityOnBoardingUseCase::class.java,
+            SettingsRepository::class.java
+        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase, settingsRepository)
     }
 }

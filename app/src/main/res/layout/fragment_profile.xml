@@ -11,7 +11,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/about_this_app"
+        android:text="@string/about"
         android:textAlignment="center"
         style="@style/HornsApp.TextView.ActivityTitle"
         app:layout_constraintTop_toTopOf="parent"/>

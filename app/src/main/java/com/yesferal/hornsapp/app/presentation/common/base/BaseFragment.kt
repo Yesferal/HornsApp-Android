@@ -10,14 +10,9 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.di.hada.HadaAwareness
 import java.net.URI
 
-abstract class BaseFragment<VIEW_STATE>
-    : Fragment(),
-    RenderState<VIEW_STATE>,
-    LayoutBinding,
-    HadaAwareness {
+abstract class BaseFragment : Fragment(), LayoutBinding {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +40,7 @@ abstract class BaseFragment<VIEW_STATE>
         if (uri == null) return
 
         val androidUri = Uri.parse(uri.toString())
-        val intent = Intent(Intent.ACTION_VIEW,  androidUri)
+        val intent = Intent(Intent.ACTION_VIEW, androidUri)
 
         intent.setPackage(externalPackage)
         activity?.let {
@@ -55,7 +50,7 @@ abstract class BaseFragment<VIEW_STATE>
         }
     }
 
-    protected fun startExternalActivity(uri: URI?) {
+    fun startExternalActivity(uri: URI?) {
         if (uri == null) return
 
         val androidUri = Uri.parse(uri.toString())

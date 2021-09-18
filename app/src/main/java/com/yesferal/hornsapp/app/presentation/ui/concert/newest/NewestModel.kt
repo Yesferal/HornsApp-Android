@@ -1,18 +1,23 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
+import android.content.Context
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
-import kotlinx.android.synthetic.main.custom_date_text_view.view.*
-import kotlinx.android.synthetic.main.item_newest.view.*
-import kotlinx.android.synthetic.main.item_newest_title.view.titleTextView
+import java.net.URI
 
 data class NewestViewState(
     val items: List<Delegate>? = null,
@@ -21,14 +26,75 @@ data class NewestViewState(
 )
 
 data class TitleViewData(
-    val name: String?
+    val title: String?,
+    val subtitle: String?
 ) : NonInteractiveViewDelegate() {
 
+    override val layout = R.layout.item_newest_title
+
     override fun onBindViewDelegate(view: View, listener: DelegateListener) {
-        view.titleTextView.setUpWith(name)
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
+        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
+    }
+}
+
+data class HomeCardViewData(
+    val title: String?,
+    val subtitle: String?
+) : NonInteractiveViewDelegate() {
+
+    override val layout = R.layout.item_home_card
+
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
+        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
+    }
+}
+
+data class CarouselViewData(
+    val id: String,
+    val name: String?,
+    val image: String?,
+    val time: String?,
+    val genre: String?,
+    val ticketingUrl: URI?,
+    val ticketingHost: String?
+) : ViewDelegate<CarouselViewData.Listener>(), Parcelable {
+
+    override val layout = R.layout.item_carousel
+
+    override fun asParcelable(): ParcelableViewData {
+        return ParcelableViewData(id, name)
     }
 
-    override val layout = R.layout.item_newest_title
+    interface Listener : DelegateListener {
+        fun onClick(carouselViewData: CarouselViewData)
+        fun onTicketingClick(ticketingUrl: URI?)
+    }
+
+    override fun onBindViewDelegate(view: View, listener: Listener) {
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
+        view.findViewById<TextView>(R.id.timeTextView).setUpWith(time)
+        view.findViewById<TextView>(R.id.genreTextView).setUpWith(genre)
+
+        val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
+        concertImageView.load(image)
+
+        val buyTicketsTextView = view.findViewById<TextView>(R.id.buyTicketsTextView)
+
+        ticketingUrl?.let {
+            buyTicketsTextView.setUpWith(ticketingHost ?: view.context.getString(R.string.go_now))
+            buyTicketsTextView.setOnClickListener {
+                listener.onTicketingClick(ticketingUrl)
+            }
+        } ?: kotlin.run {
+            buyTicketsTextView.visibility = View.GONE
+        }
+
+        view.setOnClickListener {
+            listener.onClick(this)
+        }
+    }
 }
 
 data class NewestViewData(
@@ -50,14 +116,44 @@ data class NewestViewData(
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        view.containerLayout.setOnClickListener {
+        view.setOnClickListener {
             listener.onClick(this)
         }
 
-        view.titleTextView.setUpWith(name)
-        view.subtitleTextView.setUpWith(ticketingHostName)
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
+        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(ticketingHostName)
 
-        view.dayTextView.setUpWith(day)
-        view.monthTextView.setUpWith(month)
+        view.findViewById<TextView>(R.id.dayTextView).setUpWith(day)
+        view.findViewById<TextView>(R.id.monthTextView).setUpWith(month)
     }
+}
+
+data class DividerDelegate(
+    private val width: Int? = null,
+    private val height: Int? = null,
+    @ColorRes private val background: Int? = null
+) : NonInteractiveViewDelegate() {
+
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+        view.findViewById<View>(R.id.dividerView).let { dividerView ->
+            val widthAsPixels = width?.let {
+                convertDpToPixel(it.toFloat(), view.context)
+            }?: view.context.resources.displayMetrics.widthPixels
+            val heightAsPixels = height?.let {
+                convertDpToPixel(it.toFloat(), view.context)
+            }?: view.context.resources.displayMetrics.heightPixels
+            background?.let {
+                dividerView.setBackgroundColor(ContextCompat.getColor(view.context, it))
+            }
+            dividerView.layoutParams = FrameLayout.LayoutParams(widthAsPixels, heightAsPixels)
+        }
+    }
+
+    private fun convertDpToPixel(dp: Float, context: Context): Int {
+        val density = context.resources.displayMetrics.density
+        return (density * dp).toInt()
+    }
+
+    override val layout: Int
+        get() = R.layout.item_newest_divider
 }

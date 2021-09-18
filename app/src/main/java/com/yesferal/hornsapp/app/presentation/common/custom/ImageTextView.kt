@@ -4,10 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.yesferal.hornsapp.app.R
-import kotlinx.android.synthetic.main.custom_image_text_view.view.*
 
 class ImageTextView @JvmOverloads constructor(
     context: Context,
@@ -15,12 +16,17 @@ class ImageTextView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private var itemImageView: ImageView
+    private var titleTextView: TextView
+    private var subtitleTextView: TextView
+
     init {
-        val inflater =  context
-                .getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE
-                ) as LayoutInflater
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.custom_image_text_view, this, true)
+
+        itemImageView = findViewById(R.id.itemImageView)
+        titleTextView = findViewById(R.id.titleTextView)
+        subtitleTextView = findViewById(R.id.subtitleTextView)
 
         itemImageView.visibility = View.GONE
         subtitleTextView.visibility = View.GONE

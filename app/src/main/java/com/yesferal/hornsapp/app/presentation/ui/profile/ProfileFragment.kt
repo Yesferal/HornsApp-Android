@@ -3,32 +3,31 @@ package com.yesferal.hornsapp.app.presentation.ui.profile
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.pm.PackageInfoCompat
-import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
-import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ProfileFragment
-    : Fragment(),
-    EasterEggsApplier {
+class ProfileFragment : BaseFragment(), EasterEggsApplier {
+
+    override val layout = R.layout.fragment_profile
+
+    private lateinit var shareTextView: ImageTextView
+    private lateinit var versionTextView: ImageTextView
+    private lateinit var hornsAppImageView: ImageView
 
     private var preferencesCountDown: Int = 0
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesCountDown = 0
+
+        shareTextView = view.findViewById(R.id.shareTextView)
+        versionTextView = view.findViewById(R.id.versionTextView)
+        hornsAppImageView = view.findViewById(R.id.hornsAppImageView)
 
         setUpPreferences()
         setUpVersion(versionSuffix())
@@ -37,7 +36,10 @@ class ProfileFragment
 
     private fun setUpShare() {
         shareTextView.setImageView(R.drawable.ic_share)
-        shareTextView.setText(getString(R.string.share_with_friends), getString(R.string.use_your_favorite_apps))
+        shareTextView.setText(
+            getString(R.string.share_with_friends),
+            getString(R.string.use_your_favorite_apps)
+        )
         shareTextView.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
@@ -58,11 +60,11 @@ class ProfileFragment
 
             versionTextView.setImageView(R.drawable.ic_information)
             val version = StringBuilder()
-                    .append(versionName)
-                    .append(".")
-                    .append(versionCode)
-                    .append("-")
-                    .append(suffix)
+                .append(versionName)
+                .append(".")
+                .append(versionCode)
+                .append("-")
+                .append(suffix)
 
             versionTextView.setText(getString(R.string.version), version.toString())
         }

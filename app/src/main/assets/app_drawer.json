@@ -1,0 +1,110 @@
+{
+  "screens": [
+    {
+      "key": "NEWEST_FRAGMENT",
+      "title": {
+        "en": "Newest",
+        "es": "Novedades"
+      }
+    },
+    {
+      "key": "UPCOMING_FRAGMENT",
+      "title": {
+        "en": "Upcoming",
+        "es": "Próximos"
+      }
+    },
+    {
+      "key": "FAVORITE_FRAGMENT",
+      "title": {
+        "en": "Favorites",
+        "es": "Favoritos"
+      }
+    }
+  ],
+  "newest": [
+    {
+      "key": "CAROUSEL_VIEW",
+      "condition": {
+        "key": "SORT_BY_NEWEST_DATE",
+        "count": 1
+      }
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Upcoming",
+        "es": "Próximos"
+      },
+      "condition": {
+        "key": "SORT_BY_UPCOMING_DATE",
+        "count": 3
+      }
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Keep on rocking",
+        "es": "El Rock debe ser prioridad"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "ROCK",
+        "count": 1
+      }
+    },
+    {
+      "key": "HOME_CARD_VIEW",
+      "title": {
+        "en": "Save your favorites",
+        "es": "Guarda tus favoritos"
+      },
+      "subtitle": {
+        "en": "You can save your favorite concerts, so you can find them later.",
+        "es": "Puedes guardar tus conciertos favoritos, y asi encontrarlos luego."
+      }
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Metal never dies",
+        "es": "El Metal nunca muere"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "METAL",
+        "count": 2
+      }
+    }
+  ],
+  "categories": [
+    {
+      "key": "LIVE",
+      "title": {
+        "en": "Live",
+        "es": "Lima"
+      }
+    },
+    {
+      "key": "ONLINE",
+      "title": {
+        "en": "Online",
+        "es": "En linea"
+      }
+    },
+    {
+      "key": "METAL",
+      "title": {
+        "en": "Metal",
+        "es": "Metal"
+      }
+    },
+    {
+      "key": "ROCK",
+      "title": {
+        "en": "Rock",
+        "es": "Rock"
+      }
+    }
+  ]
+}

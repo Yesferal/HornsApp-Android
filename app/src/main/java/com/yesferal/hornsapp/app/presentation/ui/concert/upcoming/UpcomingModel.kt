@@ -1,8 +1,10 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
@@ -13,10 +15,6 @@ import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
-import kotlinx.android.synthetic.main.custom_date_text_view.view.*
-import kotlinx.android.synthetic.main.custom_error.view.*
-import kotlinx.android.synthetic.main.item_upcoming.view.*
-import kotlinx.android.synthetic.main.item_upcoming.view.containerLayout
 
 data class UpcomingViewState(
     val items: List<Delegate>? = null,
@@ -40,24 +38,26 @@ data class UpcomingViewData(
         return ParcelableViewData(id, name)
     }
 
-    interface Listener: DelegateListener {
+    interface Listener : DelegateListener {
         fun onClick(upcomingViewData: UpcomingViewData)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         year?.let {
-            view.tagTextView.setUpWith("#$it")
+            val tagText = StringBuilder().append("#").append(it).toString()
+            view.findViewById<TextView>(R.id.tagTextView).setUpWith(tagText)
         }
-        view.titleTextView.setUpWith(name)
-        view.dayTextView.setUpWith(day)
-        view.monthTextView.setUpWith(month)
-        view.timeTextView.setUpWith(time)
-        view.genreTextView.setUpWith(genre)
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
+        view.findViewById<TextView>(R.id.dayTextView).setUpWith(day)
+        view.findViewById<TextView>(R.id.monthTextView).setUpWith(month)
+        view.findViewById<TextView>(R.id.timeTextView).setUpWith(time)
+        view.findViewById<TextView>(R.id.genreTextView).setUpWith(genre)
 
-        view.concertImageView.setAllCornersRounded()
-        view.concertImageView.load(image)
+        val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
+        concertImageView.setAllCornersRounded()
+        concertImageView.load(image)
 
-        view.containerLayout.setOnClickListener {
+        view.setOnClickListener {
             listener.onClick(this)
         }
     }
@@ -71,8 +71,7 @@ data class ErrorViewData(
     override val layout = R.layout.custom_error
 
     override fun onBindViewDelegate(view: View, listener: DelegateListener) {
-        view.errorTextView.let {
-            it.setUpWith(it.context.getString(errorMessage))
-        }
+        view.findViewById<TextView>(R.id.errorTextView)
+            .setUpWith(view.context.getString(errorMessage))
     }
 }

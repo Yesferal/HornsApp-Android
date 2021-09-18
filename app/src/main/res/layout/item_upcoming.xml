@@ -7,6 +7,16 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/margin_small">
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="software"
+        android:background="@drawable/shape_vertical_dashed_line"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/custom_date_text_view"
+        app:layout_constraintEnd_toEndOf="@id/custom_date_text_view"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <include
         android:id="@+id/custom_date_text_view"
         layout="@layout/custom_date_text_view"

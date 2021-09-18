@@ -1,5 +1,9 @@
 package com.yesferal.hornsapp.app.presentation.ui.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +12,19 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
-import com.yesferal.hornsapp.app.presentation.di.hada.HadaAwareness
-import kotlinx.android.synthetic.main.activity_main.*
+import com.yesferal.hornsapp.app.presentation.di.hada.hada
 
-class MainActivity
-    : AppCompatActivity(),
-    HadaAwareness {
+class MainActivity : AppCompatActivity() {
+
     private lateinit var mainViewModel: MainViewModel
+
+    private lateinit var adContainerLayout: FrameLayout
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            this@MainActivity.finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +34,27 @@ class MainActivity
         MobileAds.initialize(this)
 
         mainViewModel = ViewModelProvider(
-                viewModelStore,
-                hada().resolve<MainViewModelFactory>()
+            viewModelStore,
+            hada().resolve<MainViewModelFactory>()
         ).get(MainViewModel::class.java)
+
+        adContainerLayout = findViewById(R.id.adContainerLayout)
 
         mainViewModel.adViewData.observe(this) {
             adContainerLayout.addAdView(it)
         }
+
+        setupReceiver()
+    }
+
+    private fun setupReceiver() {
+        val filter = IntentFilter(Intent.ACTION_LOCALE_CHANGED)
+        registerReceiver(broadcastReceiver, filter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
     }
 
     private fun FrameLayout.addAdView(adViewData: AdViewData) {

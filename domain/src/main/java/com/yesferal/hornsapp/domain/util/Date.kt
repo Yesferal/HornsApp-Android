@@ -6,7 +6,7 @@ import java.util.*
 
 fun Date.formattedWith(pattern: String): String? {
     return try {
-        val simpleDateFormat = SimpleDateFormat(pattern, Locale("es"))
+        val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
         simpleDateFormat.format(this)
     } catch (e: Exception) {

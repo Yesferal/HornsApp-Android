@@ -2,27 +2,27 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
-import com.yesferal.hornsapp.app.presentation.common.custom.*
+import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
-import com.yesferal.hornsapp.app.presentation.ui.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.multitype.DelegateAdapter
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import kotlinx.android.synthetic.main.fragment_upcoming.*
 
-class UpcomingFragment
-    : BaseFragment<UpcomingViewState>() {
+class UpcomingFragment : RenderFragment<UpcomingViewState>() {
 
-    override val layout: Int
-        get() = R.layout.fragment_upcoming
+    override val layout = R.layout.fragment_upcoming
 
-    private lateinit var delegateAdapter: DelegateAdapter
     lateinit var viewModel: UpcomingViewModel
+    private lateinit var delegateAdapter: DelegateAdapter
+
+    private lateinit var concertsRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,8 @@ class UpcomingFragment
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        concertsRecyclerView = view.findViewById(R.id.concertsRecyclerView)
+
         concertsRecyclerView.also {
             it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(
@@ -47,10 +49,7 @@ class UpcomingFragment
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        viewModel = ViewModelProvider(
-            viewModelStore,
-            hada().resolve<UpcomingViewModelFactory>()
-        ).get(UpcomingViewModel::class.java)
+        viewModel = getViewModel<UpcomingViewModel, UpcomingViewModelFactory>()
 
         postDelayed {
             viewModel.stateUpcoming.observe(viewLifecycleOwner) {

@@ -10,7 +10,7 @@
         android:id="@+id/environmentTitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/environment"
+        android:text="@string/settings_environment"
         style="@style/HornsApp.TextView.Subtitle"
         android:textAlignment="viewStart"
         android:layout_marginEnd="@dimen/margin_medium"
@@ -69,7 +69,7 @@
         android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintTop_toBottomOf="@+id/forceCrashDividerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/forceCrashButton"/>
+        app:layout_constraintEnd_toStartOf="@+id/forceCrashTextView"/>
 
     <TextView
         android:id="@+id/forceCrashSubtitleTextView"
@@ -80,10 +80,10 @@
         android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintTop_toBottomOf="@+id/forceCrashTitleTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/forceCrashButton"/>
+        app:layout_constraintEnd_toStartOf="@+id/forceCrashTextView"/>
 
     <TextView
-        android:id="@+id/forceCrashButton"
+        android:id="@+id/forceCrashTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_force_crash_button"
@@ -91,4 +91,5 @@
         app:layout_constraintTop_toTopOf="@+id/forceCrashTitleTextView"
         app:layout_constraintBottom_toBottomOf="@+id/forceCrashSubtitleTextView"
         app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

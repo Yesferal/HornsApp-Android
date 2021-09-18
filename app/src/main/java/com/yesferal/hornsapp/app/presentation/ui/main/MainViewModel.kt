@@ -9,9 +9,9 @@ import com.yesferal.hornsapp.app.framework.adMob.AdViewData
 
 class MainViewModel(
     adManager: AdManager
-): ViewModel() {
-    private val _adViewData = MutableLiveData<AdViewData>()
+) : ViewModel() {
 
+    private val _adViewData = MutableLiveData<AdViewData>()
     val adViewData: LiveData<AdViewData>
         get() = _adViewData
 
@@ -22,10 +22,10 @@ class MainViewModel(
 
 class MainViewModelFactory(
     private val adManager: AdManager
-): ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-                AdManager::class.java
+            AdManager::class.java
         ).newInstance(adManager)
     }
 }
