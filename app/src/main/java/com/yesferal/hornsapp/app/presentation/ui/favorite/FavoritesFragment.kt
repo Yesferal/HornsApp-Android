@@ -40,7 +40,7 @@ class FavoritesFragment : RenderFragment<FavoritesViewState>() {
         concertsRecyclerView.also {
             it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            it.addItemDecoration(RecyclerViewVerticalDecorator())
+            it.addItemDecoration(RecyclerViewVerticalDecorator(paddingTop = 8, paddingBottom = 8))
         }
 
         viewModel = getViewModel<FavoritesViewModel, FavoritesViewModelFactory>()

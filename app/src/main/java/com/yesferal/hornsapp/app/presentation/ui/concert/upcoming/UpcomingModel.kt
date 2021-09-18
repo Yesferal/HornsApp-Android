@@ -13,8 +13,8 @@ import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRoun
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
-import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
+import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
 
 data class UpcomingViewState(
     val items: List<Delegate>? = null,
@@ -30,7 +30,7 @@ data class UpcomingViewData(
     val year: String?,
     val time: String?,
     val genre: String?
-) : ViewDelegate<UpcomingViewData.Listener>(), Parcelable {
+) : InteractiveDelegate<UpcomingViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_upcoming
 
@@ -66,7 +66,7 @@ data class UpcomingViewData(
 data class ErrorViewData(
     @DrawableRes val imageId: Int,
     @StringRes val errorMessage: Int
-) : NonInteractiveViewDelegate() {
+) : NonInteractiveDelegate {
 
     override val layout = R.layout.custom_error
 

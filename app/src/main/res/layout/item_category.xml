@@ -4,9 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/margin_small"
+    android:paddingVertical="@dimen/text_medium"
     android:paddingHorizontal="@dimen/margin_tiny"
-    android:layout_marginBottom="@dimen/margin_small"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView

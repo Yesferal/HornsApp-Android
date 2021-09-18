@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
 
 data class OnBoardingViewState(
     val categories: List<Delegate>? = null,
@@ -16,7 +16,7 @@ data class OnBoardingViewState(
 data class OnBoardingCategoryViewData(
     val category: String,
     val amount: Int
-) : NonInteractiveViewDelegate() {
+) : NonInteractiveDelegate {
 
     override val layout = R.layout.item_on_boarding_category
 

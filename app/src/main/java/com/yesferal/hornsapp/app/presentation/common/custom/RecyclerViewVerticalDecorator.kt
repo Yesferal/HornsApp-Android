@@ -5,7 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewVerticalDecorator (
-    private val padding: Int = 8
+    private val paddingTop: Int = 0,
+    private val paddingBottom: Int = 0
 ): RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
@@ -20,14 +21,14 @@ class RecyclerViewVerticalDecorator (
         val density = parent.context.resources.displayMetrics.density
 
         if (itemPosition == 0) {
-            outRect.top = (density * padding).toInt()
+            outRect.top = (density * paddingTop).toInt()
         }
 
         // AdHeight should be 50dp: This is equals to Ad size (50 + 16)
         val adapter = parent.adapter
         if (adapter != null && itemPosition == adapter.itemCount - 1) {
             val adHeight = 50
-            outRect.bottom = (density * (adHeight)).toInt()
+            outRect.bottom = (density * (adHeight + paddingBottom)).toInt()
         }
     }
 }

@@ -40,21 +40,22 @@ class FavoritesViewModel(
                         )
                     )
                 } else {
-                    FavoritesViewState(items = favorites
-                        .sortedWith(compareBy { it.dateTime?.time })
-                        .map {
-                            UpcomingViewData(
-                                id = it.id,
-                                image = it.headlinerImage,
-                                day = it.dateTime?.dayFormatted(),
-                                month = it.dateTime?.monthFormatted(),
-                                year = it.dateTime?.yearFormatted(),
-                                name = it.name,
-                                time = it.dateTime?.timeFormatted(),
-                                genre = it.genre
-                            )
-                        }
-                    )
+                    val items = favorites
+                            .sortedWith(compareBy { it.dateTime?.time })
+                            .map {
+                                UpcomingViewData(
+                                    id = it.id,
+                                    image = it.headlinerImage,
+                                    day = it.dateTime?.dayFormatted(),
+                                    month = it.dateTime?.monthFormatted(),
+                                    year = it.dateTime?.yearFormatted(),
+                                    name = it.name,
+                                    time = it.dateTime?.timeFormatted(),
+                                    genre = it.genre
+                                )
+                            }
+
+                    FavoritesViewState(items = items)
                 }
             }
         }

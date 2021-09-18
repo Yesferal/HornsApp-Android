@@ -11,7 +11,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.domain.entity.Venue
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
 import java.net.URI
 
 data class ConcertViewState(
@@ -44,7 +44,7 @@ data class BandViewData(
     val name: String?,
     val membersImage: String?,
     val genre: String?
-) : ViewDelegate<BandViewData.Listener>(), Parcelable {
+) : InteractiveDelegate<BandViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_band
 

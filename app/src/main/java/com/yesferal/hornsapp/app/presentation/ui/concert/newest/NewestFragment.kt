@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
@@ -38,6 +39,7 @@ class NewestFragment : RenderFragment<NewestViewState>() {
         newestRecyclerView.also {
             it.adapter = delegateAdapter
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
         viewModel = getViewModel<NewestViewModel, NewestViewModelFactory>()

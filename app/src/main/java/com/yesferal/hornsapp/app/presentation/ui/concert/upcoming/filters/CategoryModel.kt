@@ -6,13 +6,13 @@ import androidx.core.content.ContextCompat
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
 
 data class CategoryViewData(
     val categoryKey: String,
     val name: String,
     val isSelected: Boolean = false
-) : ViewDelegate<CategoryViewData.Listener>() {
+) : InteractiveDelegate<CategoryViewData.Listener> {
 
     override val layout = R.layout.item_category
 

@@ -97,7 +97,7 @@ dependencies {
 
     // Own Libraries
     implementation 'com.github.Yesferal:hada:1.1.1'
-    implementation 'com.github.Yesferal:MultiTypeAdapter:1.4.0'
+    implementation 'com.github.Yesferal:MultiTypeAdapter:1.4.1'
 
     // ViewPager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'

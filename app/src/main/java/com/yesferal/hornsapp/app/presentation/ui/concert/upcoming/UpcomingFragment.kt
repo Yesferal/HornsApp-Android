@@ -46,7 +46,7 @@ class UpcomingFragment : RenderFragment<UpcomingViewState>() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            it.addItemDecoration(RecyclerViewVerticalDecorator())
+            it.addItemDecoration(RecyclerViewVerticalDecorator(paddingBottom = 8))
         }
 
         viewModel = getViewModel<UpcomingViewModel, UpcomingViewModelFactory>()

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
@@ -80,9 +81,6 @@ class NewestViewModel(
                         }
                     }
 
-                    // Divider height should be 50dp: This is equals to Ad size
-                    delegates.includeDivider(50)
-
                     return@withContext NewestViewState(delegates)
                 }
                 is Result.Error -> {
@@ -99,8 +97,11 @@ class NewestViewModel(
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
-        this.add(RowDelegate.Builder().addItems(delegates).build())
-        this.includeDivider(24)
+        this.add(
+            RowDelegate.Builder().addItems(delegates).addBackground(R.color.background)
+                .addElevation(4F).build()
+        )
+        this.addVerticalDivider(24)
     }
 
     private fun MutableList<Delegate>.includeVerticalSection(
@@ -119,7 +120,7 @@ class NewestViewModel(
 
         this.add(TitleViewData(screenDrawer.title?.text, subtitle))
         this.addAll(delegates)
-        this.includeDivider(24)
+        this.addVerticalDivider(24)
     }
 
     private fun getConcertDelegates(
@@ -201,11 +202,7 @@ class NewestViewModel(
         screenDrawer: ScreenDrawer
     ) {
         this.add(HomeCardViewData(screenDrawer.title?.text, screenDrawer.subtitle?.text))
-        this.includeDivider(24)
-    }
-
-    private fun MutableList<Delegate>.includeDivider(height: Int) {
-        this.add(DividerDelegate(height = height, background = R.color.divider))
+        this.addVerticalDivider(24)
     }
 }
 

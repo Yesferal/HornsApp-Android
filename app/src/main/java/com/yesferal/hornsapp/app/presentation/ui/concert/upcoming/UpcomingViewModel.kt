@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
@@ -69,8 +70,6 @@ class UpcomingViewModel(
                 )
             }
 
-        val categoryHorizontalMargin = 16
-
         when (val result = getConcertsUseCase()) {
             is Result.Success -> {
                 val concerts = result.value
@@ -82,10 +81,7 @@ class UpcomingViewModel(
                 if (concerts.isEmpty()) {
                     return@withContext UpcomingViewState(
                         items = listOf(
-                            RowDelegate.Builder()
-                                .addItems(categories)
-                                .addHorizontalMargin(categoryHorizontalMargin)
-                                .build(),
+                            mapCategories(categories),
                             ErrorViewData(
                                 R.drawable.ic_music_note,
                                 R.string.error_no_items
@@ -95,12 +91,7 @@ class UpcomingViewModel(
                 }
 
                 val items = mutableListOf<Delegate>().apply {
-                    add(
-                        RowDelegate.Builder()
-                            .addItems(categories)
-                            .addHorizontalMargin(categoryHorizontalMargin)
-                            .build()
-                    )
+                    add(mapCategories(categories))
                     addAll(concerts
                         .sortedWith(compareBy { it.dateTime?.time })
                         .map {
@@ -125,10 +116,7 @@ class UpcomingViewModel(
             is Result.Error -> {
                 return@withContext UpcomingViewState(
                     items = listOf(
-                        RowDelegate.Builder()
-                            .addItems(categories)
-                            .addHorizontalMargin(categoryHorizontalMargin)
-                            .build(),
+                        mapCategories(categories),
                         ErrorViewData(
                             R.drawable.ic_music_note,
                             R.string.error_no_items
@@ -137,6 +125,13 @@ class UpcomingViewModel(
                 )
             }
         }
+    }
+
+    private fun mapCategories(categories: List<Delegate>): Delegate {
+        return RowDelegate.Builder()
+            .addItems(categories)
+            .addHorizontalMargin(16)
+            .build()
     }
 }
 
