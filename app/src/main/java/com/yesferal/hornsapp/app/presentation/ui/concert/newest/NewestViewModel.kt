@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
@@ -33,8 +35,8 @@ class NewestViewModel(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    private val _stateNewest = MutableLiveData<NewestViewState>()
-    val stateNewest: LiveData<NewestViewState>
+    private val _stateNewest = MutableLiveData<DelegateViewState>()
+    val stateNewest: LiveData<DelegateViewState>
         get() = _stateNewest
 
     init {
@@ -58,8 +60,13 @@ class NewestViewModel(
                     val concerts = result.value
 
                     if (concerts.isEmpty()) {
-                        return@withContext NewestViewState(
-                            errorMessage = R.string.error_no_items,
+                        return@withContext DelegateViewState(
+                            delegates = listOf(
+                                ErrorViewData(
+                                    R.drawable.ic_music_note,
+                                    R.string.error_no_items
+                                )
+                            )
                         )
                     }
 
@@ -81,11 +88,16 @@ class NewestViewModel(
                         }
                     }
 
-                    return@withContext NewestViewState(delegates)
+                    return@withContext DelegateViewState(delegates)
                 }
                 is Result.Error -> {
-                    return@withContext NewestViewState(
-                        errorMessage = R.string.error_no_items,
+                    return@withContext DelegateViewState(
+                        delegates = listOf(
+                            ErrorViewData(
+                                R.drawable.ic_music_note,
+                                R.string.error_no_items
+                            )
+                        )
                     )
                 }
             }

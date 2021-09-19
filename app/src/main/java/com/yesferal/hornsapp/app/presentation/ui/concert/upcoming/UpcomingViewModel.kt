@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
+import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
@@ -28,8 +28,8 @@ class UpcomingViewModel(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    private val _stateUpcoming = MutableLiveData<UpcomingViewState>()
-    val stateUpcoming: LiveData<UpcomingViewState>
+    private val _stateUpcoming = MutableLiveData<DelegateViewState>()
+    val stateUpcoming: LiveData<DelegateViewState>
         get() = _stateUpcoming
 
     private lateinit var categoryDrawer: List<CategoryDrawer>
@@ -79,8 +79,8 @@ class UpcomingViewModel(
                     }
 
                 if (concerts.isEmpty()) {
-                    return@withContext UpcomingViewState(
-                        items = listOf(
+                    return@withContext DelegateViewState(
+                        delegates = listOf(
                             mapCategories(categories),
                             ErrorViewData(
                                 R.drawable.ic_music_note,
@@ -90,7 +90,7 @@ class UpcomingViewModel(
                     )
                 }
 
-                val items = mutableListOf<Delegate>().apply {
+                val delegates = mutableListOf<Delegate>().apply {
                     add(mapCategories(categories))
                     addAll(concerts
                         .sortedWith(compareBy { it.dateTime?.time })
@@ -109,13 +109,11 @@ class UpcomingViewModel(
                     )
                 }
 
-                return@withContext UpcomingViewState(
-                    items = items.toList()
-                )
+                return@withContext DelegateViewState(delegates.toList())
             }
             is Result.Error -> {
-                return@withContext UpcomingViewState(
-                    items = listOf(
+                return@withContext DelegateViewState(
+                    delegates = listOf(
                         mapCategories(categories),
                         ErrorViewData(
                             R.drawable.ic_music_note,

@@ -2,24 +2,16 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.StringRes
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
 import java.net.URI
-
-data class NewestViewState(
-    val items: List<Delegate>? = null,
-    val isLoading: Boolean = false,
-    @StringRes val errorMessage: Int? = null
-)
 
 data class TitleViewData(
     val title: String?,

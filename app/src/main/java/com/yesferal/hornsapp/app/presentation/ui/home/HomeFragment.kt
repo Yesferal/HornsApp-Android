@@ -20,7 +20,7 @@ import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
-import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesFragment
+import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 

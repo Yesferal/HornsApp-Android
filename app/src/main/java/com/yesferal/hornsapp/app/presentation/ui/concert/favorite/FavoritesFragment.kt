@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
+package com.yesferal.hornsapp.app.presentation.ui.concert.favorite
 
 import android.os.Bundle
 import android.view.View
@@ -7,13 +7,12 @@ import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVertical
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 
-class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
-    UpcomingViewData.Listener {
+class FavoritesFragment : DelegateAdapterFragment(), UpcomingViewData.Listener {
 
-    lateinit var viewModel: UpcomingViewModel
+    private lateinit var viewModel: FavoritesViewModel
 
     override fun onViewCreated(
         view: View,
@@ -21,29 +20,26 @@ class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        delegateRecyclerView.addItemDecoration(RecyclerViewVerticalDecorator(paddingBottom = 8))
+        delegateRecyclerView.addItemDecoration(RecyclerViewVerticalDecorator(8, 8))
 
-        viewModel = getViewModel<UpcomingViewModel, UpcomingViewModelFactory>()
+        viewModel = getViewModel<FavoritesViewModel, FavoritesViewModelFactory>()
 
         postDelayed {
-            viewModel.stateUpcoming.observe(viewLifecycleOwner) {
+            viewModel.stateFavorite.observe(viewLifecycleOwner) {
                 render(it)
             }
+
+            viewModel.getFavoriteConcerts()
         }
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
         findNavController().navigate(
-            HomeFragmentDirections
-                .actionHomeToConcert(upcomingViewData.asParcelable())
+            HomeFragmentDirections.actionHomeToConcert(upcomingViewData.asParcelable())
         )
     }
 
-    override fun onClick(categoryViewData: CategoryViewData) {
-        viewModel.onCategoryClick(categoryViewData)
-    }
-
     companion object {
-        fun newInstance() = UpcomingFragment()
+        fun newInstance() = FavoritesFragment()
     }
 }

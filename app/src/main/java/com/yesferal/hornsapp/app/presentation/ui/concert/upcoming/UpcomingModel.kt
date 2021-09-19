@@ -11,15 +11,9 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
-
-data class UpcomingViewState(
-    val items: List<Delegate>? = null,
-    val isLoading: Boolean = false
-)
 
 data class UpcomingViewData(
     val id: String,

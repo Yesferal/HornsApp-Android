@@ -4,7 +4,7 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewModelFactory
-import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.main.MainViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewModelFactory
