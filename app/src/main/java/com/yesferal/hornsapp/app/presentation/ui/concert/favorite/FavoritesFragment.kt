@@ -5,7 +5,6 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
-import com.yesferal.hornsapp.app.presentation.common.extension.postDelayed
 import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
@@ -24,13 +23,11 @@ class FavoritesFragment : DelegateAdapterFragment(), UpcomingViewData.Listener {
 
         viewModel = getViewModel<FavoritesViewModel, FavoritesViewModelFactory>()
 
-        postDelayed {
-            viewModel.stateFavorite.observe(viewLifecycleOwner) {
-                render(it)
-            }
-
-            viewModel.getFavoriteConcerts()
+        viewModel.stateFavorite.observe(viewLifecycleOwner) {
+            render(it)
         }
+
+        viewModel.getFavoriteConcerts()
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {

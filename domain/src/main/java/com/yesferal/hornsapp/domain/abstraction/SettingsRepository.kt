@@ -5,6 +5,7 @@ import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
+    val screenDelay: Long
     fun getEnvironments(): List<Pair<String, String>>
     fun getDefaultEnvironment(): Int
     fun updateDefaultEnvironment(environment: Int)

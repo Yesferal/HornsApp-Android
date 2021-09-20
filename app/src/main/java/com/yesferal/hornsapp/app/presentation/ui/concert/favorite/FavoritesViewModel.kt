@@ -9,17 +9,20 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
 import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FavoritesViewModel(
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
+    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     private val _stateFavorite = MutableLiveData<DelegateViewState>()
@@ -28,6 +31,7 @@ class FavoritesViewModel(
 
     fun getFavoriteConcerts() {
         viewModelScope.launch {
+            delay(settingsRepository.screenDelay)
             _stateFavorite.value = withContext(Dispatchers.IO) {
                 val favorites = getFavoriteConcertsUseCase()
 
@@ -64,11 +68,13 @@ class FavoritesViewModel(
 }
 
 class FavoritesViewModelFactory(
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase
+    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-            GetFavoriteConcertsUseCase::class.java
-        ).newInstance(getFavoriteConcertsUseCase)
+            GetFavoriteConcertsUseCase::class.java,
+            SettingsRepository::class.java
+        ).newInstance(getFavoriteConcertsUseCase, settingsRepository)
     }
 }

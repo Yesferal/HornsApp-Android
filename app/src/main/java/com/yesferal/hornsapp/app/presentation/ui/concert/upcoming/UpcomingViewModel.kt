@@ -19,6 +19,7 @@ import com.yesferal.hornsapp.domain.util.yearFormatted
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.multitype.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,6 +37,7 @@ class UpcomingViewModel(
 
     init {
         viewModelScope.launch {
+            delay(settingsRepository.screenDelay)
             settingsRepository.getCategoryDrawer().collect {
                 categoryDrawer = it
                 onRender()
