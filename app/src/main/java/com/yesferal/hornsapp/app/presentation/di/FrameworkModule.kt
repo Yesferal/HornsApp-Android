@@ -22,9 +22,9 @@ import com.yesferal.hornsapp.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.data.abstraction.remote.DrawerRemoteDataSource
 import com.yesferal.hornsapp.domain.abstraction.Logger
-import com.yesferal.hornsapp.hada.container.Container
-import com.yesferal.hornsapp.hada.dependency.Factory
-import com.yesferal.hornsapp.hada.dependency.Singleton
+import com.yesferal.hornsapp.hadi.container.Container
+import com.yesferal.hornsapp.hadi.dependency.Factory
+import com.yesferal.hornsapp.hadi.dependency.Singleton
 import retrofit2.Retrofit
 
 fun Container.registerFrameworkModule() {

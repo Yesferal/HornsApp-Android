@@ -10,8 +10,8 @@ import com.yesferal.hornsapp.domain.usecase.GetVisibilityOnBoardingUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateSettingsUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
-import com.yesferal.hornsapp.hada.container.Container
-import com.yesferal.hornsapp.hada.dependency.Factory
+import com.yesferal.hornsapp.hadi.container.Container
+import com.yesferal.hornsapp.hadi.dependency.Factory
 
 fun Container.registerDomainModule() {
     this register Factory {

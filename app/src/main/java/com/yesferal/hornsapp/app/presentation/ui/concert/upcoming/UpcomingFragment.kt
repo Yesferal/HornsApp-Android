@@ -5,9 +5,9 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
-import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
     UpcomingViewData.Listener {

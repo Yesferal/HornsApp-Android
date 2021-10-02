@@ -6,8 +6,8 @@ import com.yesferal.hornsapp.data.repository.SettingsRepositoryImpl
 import com.yesferal.hornsapp.domain.abstraction.BandRepository
 import com.yesferal.hornsapp.domain.abstraction.ConcertRepository
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.hada.container.Container
-import com.yesferal.hornsapp.hada.dependency.Singleton
+import com.yesferal.hornsapp.hadi.container.Container
+import com.yesferal.hornsapp.hadi.dependency.Singleton
 
 fun Container.registerDataModule() {
     this register Singleton<ConcertRepository> {

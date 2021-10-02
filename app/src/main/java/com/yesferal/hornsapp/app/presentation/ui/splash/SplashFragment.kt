@@ -8,7 +8,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
-import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
+import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class SplashFragment : RenderFragment<SplashState>() {
 
