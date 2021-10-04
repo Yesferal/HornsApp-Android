@@ -9,9 +9,9 @@ import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
+import com.yesferal.hornsapp.core.domain.entity.Venue
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
-import com.yesferal.hornsapp.domain.entity.Venue
 import java.net.URI
 
 data class ConcertViewState(

@@ -3,7 +3,7 @@ package com.yesferal.hornsapp.app.framework.room.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.entity.Concert
 import java.util.*
 
 @Entity

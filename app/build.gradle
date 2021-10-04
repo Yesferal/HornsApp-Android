@@ -98,7 +98,7 @@ dependencies {
     // Own Libraries
     implementation 'com.github.Yesferal:HornsApp-DI:1.2.2'
     implementation 'com.github.Yesferal:HornsApp-Android-DI:1.2.2'
-    implementation 'com.github.Yesferal:HornsApp-Core:0.1.5'
+    implementation 'com.github.Yesferal:HornsApp-Core:0.3.0'
     implementation 'com.github.Yesferal:DelegateAdapter:1.5.3'
 
     // ViewPager
@@ -125,10 +125,6 @@ dependencies {
     implementation('io.socket:socket.io-client:2.0.1') {
         exclude group: 'org.json', module: 'json'
     }
-
-    // Module
-    implementation project(hornsAppModules.domain)
-    implementation project(hornsAppModules.data)
 
     // Test Library
     testImplementation 'junit:junit:4.13.2'

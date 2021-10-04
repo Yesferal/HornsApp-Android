@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
-import com.yesferal.hornsapp.domain.entity.*
-import com.yesferal.hornsapp.domain.util.*
+import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.util.toSafeUri
 import java.util.*
 
 data class GetConcert(

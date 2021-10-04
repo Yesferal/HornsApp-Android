@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
+import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateVisibilityOnBoardingUseCase
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.DividerDelegate
-import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -37,7 +37,7 @@ class OnBoardingViewModel(
 
     private fun onRender(categoryDrawer: List<CategoryDrawer>) {
         viewModelScope.launch {
-            _state.value = withContext(Dispatchers.IO) {
+            val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertsUseCase()) {
                     is Result.Success -> {
                         val concerts = result.value
@@ -59,6 +59,7 @@ class OnBoardingViewModel(
                     }
                 }
             }
+            _state.value = state
         }
     }
 

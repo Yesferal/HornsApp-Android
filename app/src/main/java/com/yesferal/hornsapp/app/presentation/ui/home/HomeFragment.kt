@@ -21,7 +21,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
-import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class HomeFragment : RenderFragment<HomeViewState>() {

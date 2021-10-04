@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
-import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
+import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

@@ -1,6 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
-import com.yesferal.hornsapp.domain.entity.Venue
+import com.yesferal.hornsapp.core.domain.entity.Venue
 
 data class GetVenue (
     val _id: String,

@@ -4,10 +4,10 @@ import android.content.Context
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.file.FileReaderManager
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
-import com.yesferal.hornsapp.data.abstraction.storage.DrawerStorageDataSource
-import com.yesferal.hornsapp.data.abstraction.storage.EnvironmentDataSource
-import com.yesferal.hornsapp.data.abstraction.storage.OnBoardingDataSource
-import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
+import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
+import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
+import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
+import com.yesferal.hornsapp.core.domain.entity.drawer.AppDrawer
 
 class PreferencesDataSource(
     context: Context,

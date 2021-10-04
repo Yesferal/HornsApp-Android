@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yesferal.hornsapp.domain.usecase.GetDefaultEnvironmentUseCase
-import com.yesferal.hornsapp.domain.usecase.GetSettingsUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateSettingsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetDefaultEnvironmentUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetSettingsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateSettingsUseCase
 
 class SettingsViewModel(
     getDefaultEnvironmentUseCase: GetDefaultEnvironmentUseCase,

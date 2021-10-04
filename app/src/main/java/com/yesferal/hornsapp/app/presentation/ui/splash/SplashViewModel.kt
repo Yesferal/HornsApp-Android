@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yesferal.hornsapp.domain.usecase.*
+import com.yesferal.hornsapp.core.domain.usecase.GetVisibilityOnBoardingUseCase
 
 class SplashViewModel(
     private val getVisibilityOnBoardingUseCase: GetVisibilityOnBoardingUseCase

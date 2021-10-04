@@ -16,7 +16,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.setTopCornersRoun
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
-import com.yesferal.hornsapp.domain.entity.Band
+import com.yesferal.hornsapp.core.domain.entity.Band
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class BandFragment : RenderFragment<BandViewState>() {

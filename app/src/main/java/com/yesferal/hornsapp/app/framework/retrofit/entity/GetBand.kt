@@ -1,6 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
-import com.yesferal.hornsapp.domain.entity.Band
+import com.yesferal.hornsapp.core.domain.entity.Band
 
 data class GetBand(
     val _id: String,

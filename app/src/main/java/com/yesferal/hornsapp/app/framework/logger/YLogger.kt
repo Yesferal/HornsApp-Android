@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.app.framework.logger
 
 import android.util.Log
-import com.yesferal.hornsapp.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.abstraction.Logger
 
 object YLogger: Logger {
     private const val TAG = "YLogger"

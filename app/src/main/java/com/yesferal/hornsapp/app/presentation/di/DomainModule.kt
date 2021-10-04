@@ -1,15 +1,15 @@
 package com.yesferal.hornsapp.app.presentation.di
 
-import com.yesferal.hornsapp.domain.usecase.GetBandUseCase
-import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
-import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.domain.usecase.GetDefaultEnvironmentUseCase
-import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
-import com.yesferal.hornsapp.domain.usecase.GetSettingsUseCase
-import com.yesferal.hornsapp.domain.usecase.GetVisibilityOnBoardingUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateSettingsUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetBandUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetDefaultEnvironmentUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetSettingsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetVisibilityOnBoardingUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateFavoriteConcertUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateSettingsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateVisibilityOnBoardingUseCase
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.dependency.Factory
 

@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.ViewEffect
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
-import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
-import com.yesferal.hornsapp.domain.util.dateTimeFormatted
-import com.yesferal.hornsapp.domain.util.dayFormatted
-import com.yesferal.hornsapp.domain.util.monthFormatted
+import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateFavoriteConcertUseCase
+import com.yesferal.hornsapp.core.domain.util.dateTimeFormatted
+import com.yesferal.hornsapp.core.domain.util.dayFormatted
+import com.yesferal.hornsapp.core.domain.util.monthFormatted
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,7 +37,7 @@ class ConcertViewModel(
 
     init {
         viewModelScope.launch {
-            _state.value = withContext(Dispatchers.IO) {
+            val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertUseCase(id)) {
                     is Result.Success -> {
                         val concert = result.value
@@ -86,6 +86,7 @@ class ConcertViewModel(
                     }
                 }
             }
+            _state.value = state
         }
     }
 

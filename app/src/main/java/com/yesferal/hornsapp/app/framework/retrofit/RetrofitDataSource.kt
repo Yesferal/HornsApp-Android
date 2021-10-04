@@ -1,10 +1,10 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-import com.yesferal.hornsapp.data.abstraction.remote.BandRemoteDataSource
-import com.yesferal.hornsapp.data.abstraction.remote.ConcertRemoteDataSource
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.Band
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
+import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
+import com.yesferal.hornsapp.core.domain.entity.Band
+import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.common.Result
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.lang.Exception
