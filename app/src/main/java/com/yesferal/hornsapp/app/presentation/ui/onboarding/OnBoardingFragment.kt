@@ -11,9 +11,9 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.delegate.DelegateAdapter
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.hadi_android.getViewModel
-import com.yesferal.hornsapp.multitype.DelegateAdapter
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
 
 class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
@@ -74,7 +74,7 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
     }
 
     private fun showData(onBoardingViewData: List<Delegate>) {
-        delegateAdapter.updateItems(onBoardingViewData)
+        delegateAdapter.updateDelegates(onBoardingViewData)
     }
 
     private fun showProgress() {

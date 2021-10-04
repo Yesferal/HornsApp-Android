@@ -11,9 +11,9 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
-import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
+import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
+import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
+import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
 
 data class UpcomingViewData(
     val id: String,
@@ -64,7 +64,7 @@ data class ErrorViewData(
 
     override val layout = R.layout.custom_error
 
-    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+    override fun onBindViewDelegate(view: View) {
         view.findViewById<TextView>(R.id.errorTextView)
             .setUpWith(view.context.getString(errorMessage))
     }

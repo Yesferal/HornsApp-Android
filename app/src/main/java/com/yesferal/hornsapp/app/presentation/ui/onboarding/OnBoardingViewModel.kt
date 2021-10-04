@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
+import com.yesferal.hornsapp.delegate.delegate.DividerDelegate
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.domain.usecase.UpdateVisibilityOnBoardingUseCase
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import com.yesferal.hornsapp.multitype.delegate.DividerDelegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

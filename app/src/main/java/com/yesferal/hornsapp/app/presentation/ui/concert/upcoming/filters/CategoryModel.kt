@@ -5,8 +5,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
+import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
+import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 
 data class CategoryViewData(
     val categoryKey: String,

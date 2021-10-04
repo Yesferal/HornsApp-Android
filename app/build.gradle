@@ -99,7 +99,7 @@ dependencies {
     implementation 'com.github.Yesferal:HornsApp-DI:1.2.2'
     implementation 'com.github.Yesferal:HornsApp-Android-DI:1.2.2'
     implementation 'com.github.Yesferal:HornsApp-Core:0.1.5'
-    implementation 'com.github.Yesferal:DelegateAdapter:1.4.1'
+    implementation 'com.github.Yesferal:DelegateAdapter:1.5.3'
 
     // ViewPager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'

@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
+import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.domain.common.Result
 import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
@@ -16,8 +18,6 @@ import com.yesferal.hornsapp.domain.util.dayFormatted
 import com.yesferal.hornsapp.domain.util.monthFormatted
 import com.yesferal.hornsapp.domain.util.timeFormatted
 import com.yesferal.hornsapp.domain.util.yearFormatted
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import com.yesferal.hornsapp.multitype.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
