@@ -8,14 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
+import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.core.domain.common.Result
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.core.domain.util.dayFormatted
-import com.yesferal.hornsapp.core.domain.util.monthFormatted
-import com.yesferal.hornsapp.core.domain.util.timeFormatted
-import com.yesferal.hornsapp.core.domain.util.yearFormatted
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +23,8 @@ import kotlinx.coroutines.withContext
 
 class UpcomingViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val drawerRepository: DrawerRepository
 ) : ViewModel() {
 
     private val _stateUpcoming = MutableLiveData<DelegateViewState>()
@@ -38,7 +36,7 @@ class UpcomingViewModel(
     init {
         viewModelScope.launch {
             delay(settingsRepository.screenDelay)
-            settingsRepository.getCategoryDrawer().collect {
+            drawerRepository.getCategoryDrawer().collect {
                 categoryDrawer = it
                 onRender()
             }
@@ -73,7 +71,7 @@ class UpcomingViewModel(
             }
 
         when (val result = getConcertsUseCase()) {
-            is Result.Success -> {
+            is HaResult.Success -> {
                 val concerts = result.value
                     .filter {
                         categoryKey == CategoryDrawer.ALL ||
@@ -113,7 +111,7 @@ class UpcomingViewModel(
 
                 return@withContext DelegateViewState(delegates.toList())
             }
-            is Result.Error -> {
+            is HaResult.Error -> {
                 return@withContext DelegateViewState(
                     delegates = listOf(
                         mapCategories(categories),
@@ -137,12 +135,14 @@ class UpcomingViewModel(
 
 class UpcomingViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            SettingsRepository::class.java
-        ).newInstance(getConcertsUseCase, settingsRepository)
+            SettingsRepository::class.java,
+            DrawerRepository::class.java
+        ).newInstance(getConcertsUseCase, settingsRepository, drawerRepository)
     }
 }

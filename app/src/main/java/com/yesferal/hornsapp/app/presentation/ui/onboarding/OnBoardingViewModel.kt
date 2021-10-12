@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateVisibilityOnBoardingUseCase
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.DividerDelegate
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 class OnBoardingViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
-    private val settingsRepository: SettingsRepository
+    private val drawerRepository: DrawerRepository
 ) : ViewModel() {
     private val _state = MutableLiveData<OnBoardingViewState>()
 
@@ -29,7 +29,7 @@ class OnBoardingViewModel(
 
     init {
         viewModelScope.launch {
-            settingsRepository.getCategoryDrawer().collect {
+            drawerRepository.getCategoryDrawer().collect {
                 onRender(it)
             }
         }
@@ -39,7 +39,7 @@ class OnBoardingViewModel(
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertsUseCase()) {
-                    is Result.Success -> {
+                    is HaResult.Success -> {
                         val concerts = result.value
                         val delegates = mutableListOf<Delegate>()
                         val categoryDelegates = categoryDrawer.map { drawer ->
@@ -54,7 +54,7 @@ class OnBoardingViewModel(
 
                         OnBoardingViewState(categories = delegates.toList())
                     }
-                    is Result.Error -> {
+                    is HaResult.Error -> {
                         OnBoardingViewState()
                     }
                 }
@@ -71,13 +71,13 @@ class OnBoardingViewModel(
 class OnBoardingViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
-    private val settingsRepository: SettingsRepository
+    private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             UpdateVisibilityOnBoardingUseCase::class.java,
-            SettingsRepository::class.java
-        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase, settingsRepository)
+            DrawerRepository::class.java
+        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase, drawerRepository)
     }
 }

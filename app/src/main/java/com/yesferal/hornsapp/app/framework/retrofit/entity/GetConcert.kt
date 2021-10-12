@@ -1,7 +1,8 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
+import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.util.toSafeUri
+import com.yesferal.hornsapp.core.domain.util.SafeUri
 import java.util.*
 
 data class GetConcert(
@@ -30,15 +31,15 @@ data class GetConcert(
             id = this._id,
             name = this.name,
             description = this.description,
-            trailerUrl = this.trailerUrl?.toSafeUri(),
-            facebookUrl = facebookUrl?.toSafeUri(),
+            trailerUrl = SafeUri(this.trailerUrl),
+            facebookUrl = SafeUri(facebookUrl),
             headlinerImage = this.headlinerImage,
-            dateTime = this.dateTime,
+            dateTime = HaDate(this.dateTime?.time),
             genre = this.genre,
             tags = this.tags,
             venue = this.venue?.mapToVenue(),
             bands = this.bands?.map { it.mapToBand() },
-            ticketingUrl = this.ticketingUrl?.toSafeUri(),
+            ticketingUrl = SafeUri(this.ticketingUrl),
             ticketingHost = this.ticketingHost,
             isFavorite = isFavorite
         )

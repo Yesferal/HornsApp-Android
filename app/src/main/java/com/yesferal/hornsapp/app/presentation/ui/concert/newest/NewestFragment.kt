@@ -11,7 +11,6 @@ import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFra
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.hadi_android.getViewModel
-import java.net.URI
 
 class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     CarouselViewData.Listener, UpcomingViewData.Listener {
@@ -40,7 +39,7 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
         startConcertActivity(newestViewData.asParcelable())
     }
 
-    override fun onTicketingClick(ticketingUrl: URI?) {
+    override fun onTicketingClick(ticketingUrl: String) {
         startExternalActivity(ticketingUrl)
     }
 

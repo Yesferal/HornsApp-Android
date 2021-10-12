@@ -8,10 +8,10 @@ import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.core.domain.util.SafeUri
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
-import java.net.URI
 
 data class TitleViewData(
     val title: String?,
@@ -45,7 +45,7 @@ data class CarouselViewData(
     val image: String?,
     val time: String?,
     val genre: String?,
-    val ticketingUrl: URI?,
+    val ticketingUrl: SafeUri?,
     val ticketingHost: String?
 ) : InteractiveDelegate<CarouselViewData.Listener>, Parcelable {
 
@@ -57,7 +57,7 @@ data class CarouselViewData(
 
     interface Listener : DelegateListener {
         fun onClick(carouselViewData: CarouselViewData)
-        fun onTicketingClick(ticketingUrl: URI?)
+        fun onTicketingClick(ticketingUrl: String)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
@@ -70,10 +70,10 @@ data class CarouselViewData(
 
         val buyTicketsTextView = view.findViewById<TextView>(R.id.buyTicketsTextView)
 
-        ticketingUrl?.let {
+        ticketingUrl?.getAbsoluteUri()?.let { url ->
             buyTicketsTextView.setUpWith(ticketingHost ?: view.context.getString(R.string.go_now))
             buyTicketsTextView.setOnClickListener {
-                listener.onTicketingClick(ticketingUrl)
+                listener.onTicketingClick(url)
             }
         } ?: kotlin.run {
             buyTicketsTextView.visibility = View.GONE

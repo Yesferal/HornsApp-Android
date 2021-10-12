@@ -10,9 +10,9 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.core.domain.entity.Venue
+import com.yesferal.hornsapp.core.domain.util.SafeUri
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
-import java.net.URI
 
 data class ConcertViewState(
     val concert: ConcertViewData? = null,
@@ -30,12 +30,12 @@ data class ConcertViewData(
     val dateTime: String?,
     val day: String?,
     val month: String?,
-    val trailerUrl: URI?,
-    val facebookUrl: URI?,
+    val trailerUrl: SafeUri?,
+    val facebookUrl: SafeUri?,
     var isFavorite: Boolean,
     val genre: String?,
     val ticketingHost: String? = null,
-    val ticketingUrl: URI? = null,
+    val ticketingUrl: SafeUri? = null,
     val venue: Venue? = null,
 )
 

@@ -3,8 +3,8 @@ package com.yesferal.hornsapp.app.framework.room.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import java.util.*
 
 @Entity
 data class RoomConcert(
@@ -18,7 +18,7 @@ data class RoomConcert(
         id = id,
         name = name,
         headlinerImage = headlinerImage,
-        dateTime = Date().apply { time = timeInMillis?: 0 },
+        dateTime = HaDate(timeInMillis),
         genre = genre,
         tags = null,
         isFavorite = true

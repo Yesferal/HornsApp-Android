@@ -11,10 +11,6 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
-import com.yesferal.hornsapp.core.domain.util.dayFormatted
-import com.yesferal.hornsapp.core.domain.util.monthFormatted
-import com.yesferal.hornsapp.core.domain.util.timeFormatted
-import com.yesferal.hornsapp.core.domain.util.yearFormatted
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

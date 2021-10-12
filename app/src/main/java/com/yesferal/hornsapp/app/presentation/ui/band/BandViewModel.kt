@@ -2,8 +2,8 @@ package com.yesferal.hornsapp.app.presentation.ui.band
 
 import androidx.lifecycle.*
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.core.domain.common.Result
 import com.yesferal.hornsapp.core.domain.usecase.GetBandUseCase
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,10 +21,10 @@ class BandViewModel(
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
                 when (val result = getBandUseCase(id)) {
-                    is Result.Success -> {
+                    is HaResult.Success -> {
                         BandViewState(band = result.value)
                     }
-                    is Result.Error -> {
+                    is HaResult.Error -> {
                         BandViewState(errorMessageId = R.string.error_default)
                     }
                 }

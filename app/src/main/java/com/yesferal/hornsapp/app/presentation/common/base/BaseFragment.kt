@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
-import java.net.URI
 
 abstract class BaseFragment : Fragment(), LayoutBinding {
 
@@ -33,13 +32,11 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
     }
 
     protected fun startExternalActivity(
-        uri: URI?,
+        uri: String,
         externalPackage: String,
         onError: () -> Unit = { showToast(R.string.error_app_not_found) }
     ) {
-        if (uri == null) return
-
-        val androidUri = Uri.parse(uri.toString())
+        val androidUri = Uri.parse(uri)
         val intent = Intent(Intent.ACTION_VIEW, androidUri)
 
         intent.setPackage(externalPackage)
@@ -50,10 +47,8 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
         }
     }
 
-    fun startExternalActivity(uri: URI?) {
-        if (uri == null) return
-
-        val androidUri = Uri.parse(uri.toString())
+    fun startExternalActivity(uri: String) {
+        val androidUri = Uri.parse(uri)
         startActivity(Intent(Intent.ACTION_VIEW, androidUri))
     }
 }

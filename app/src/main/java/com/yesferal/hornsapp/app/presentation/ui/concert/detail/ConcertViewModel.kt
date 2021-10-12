@@ -7,18 +7,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.ViewEffect
-import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateFavoriteConcertUseCase
-import com.yesferal.hornsapp.core.domain.util.dateTimeFormatted
-import com.yesferal.hornsapp.core.domain.util.dayFormatted
-import com.yesferal.hornsapp.core.domain.util.monthFormatted
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class ConcertViewModel(
     id: String,
@@ -39,7 +36,7 @@ class ConcertViewModel(
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertUseCase(id)) {
-                    is Result.Success -> {
+                    is HaResult.Success -> {
                         val concert = result.value
                         getFavoriteConcertsUseCase()
                             .map { it.id }
@@ -81,7 +78,7 @@ class ConcertViewModel(
                             bands = bandsViewData
                         )
                     }
-                    is Result.Error -> {
+                    is HaResult.Error -> {
                         ConcertViewState(errorMessageId = R.string.error_default)
                     }
                 }
@@ -100,7 +97,7 @@ class ConcertViewModel(
                     concertViewData.id,
                     concertViewData.name,
                     concertViewData.headlinerImage,
-                    Date().apply { time = concertViewData.timeInMillis ?: 0 },
+                    HaDate(concertViewData.timeInMillis),
                     concertViewData.genre,
                     null,
                     isChecked

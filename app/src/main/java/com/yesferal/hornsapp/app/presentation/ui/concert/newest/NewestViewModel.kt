@@ -10,17 +10,12 @@ import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.core.domain.util.dateTimeFormatted
-import com.yesferal.hornsapp.core.domain.util.dayFormatted
-import com.yesferal.hornsapp.core.domain.util.monthFormatted
-import com.yesferal.hornsapp.core.domain.util.timeFormatted
-import com.yesferal.hornsapp.core.domain.util.yearFormatted
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +27,7 @@ import java.util.*
 
 class NewestViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val drawerRepository: DrawerRepository
 ) : ViewModel() {
 
     private val _stateNewest = MutableLiveData<DelegateViewState>()
@@ -41,7 +36,7 @@ class NewestViewModel(
 
     init {
         viewModelScope.launch {
-            settingsRepository.getNewestDrawer().collect {
+            drawerRepository.getNewestDrawer().collect {
                 onRender(it)
             }
         }
@@ -56,7 +51,7 @@ class NewestViewModel(
     private suspend fun getNewestConcerts(newestDrawer: List<ScreenDrawer>) =
         withContext(Dispatchers.IO) {
             when (val result = getConcertsUseCase()) {
-                is Result.Success -> {
+                is HaResult.Success -> {
                     val concerts = result.value
 
                     if (concerts.isEmpty()) {
@@ -90,7 +85,7 @@ class NewestViewModel(
 
                     return@withContext DelegateViewState(delegates)
                 }
-                is Result.Error -> {
+                is HaResult.Error -> {
                     return@withContext DelegateViewState(
                         delegates = listOf(
                             ErrorViewData(
@@ -220,12 +215,12 @@ class NewestViewModel(
 
 class NewestViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            SettingsRepository::class.java
-        ).newInstance(getConcertsUseCase, settingsRepository)
+            DrawerRepository::class.java
+        ).newInstance(getConcertsUseCase, drawerRepository)
     }
 }

@@ -4,7 +4,7 @@ import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.core.domain.entity.Band
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.common.Result
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.lang.Exception
@@ -13,7 +13,7 @@ class RetrofitDataSource(
     private val service: Service
 ) : ConcertRemoteDataSource, BandRemoteDataSource {
 
-    override suspend fun getConcerts(): Result<List<Concert>> {
+    override suspend fun getConcerts(): HaResult<List<Concert>> {
         return service
             .safeCall { getConcerts() }
             .mapToResult {
@@ -23,7 +23,7 @@ class RetrofitDataSource(
 
     override suspend fun getConcert(
         id: String
-    ): Result<Concert> {
+    ): HaResult<Concert> {
         return service
             .safeCall { getConcertBy(id) }
             .mapToResult { it.mapToConcert() }
@@ -31,7 +31,7 @@ class RetrofitDataSource(
 
     override suspend fun getBand(
         id: String
-    ): Result<Band> {
+    ): HaResult<Band> {
         return service
             .safeCall { getBandBy(id) }
             .mapToResult { it.mapToBand() }
@@ -49,13 +49,13 @@ class RetrofitDataSource(
 
     private fun <INPUT, OUTPUT> Response<INPUT>.mapToResult(
         func: Response<INPUT>.(INPUT) -> OUTPUT
-    ): Result<OUTPUT> {
+    ): HaResult<OUTPUT> {
         return if (isSuccessful) {
             body()?.let {
-                Result.Success(func(it))
-            } ?: Result.Error
+                HaResult.Success(func(it))
+            } ?: HaResult.Error
         } else {
-            Result.Error
+            HaResult.Error
         }
     }
 }

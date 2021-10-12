@@ -25,6 +25,8 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.entity.Venue
+import com.yesferal.hornsapp.core.domain.util.SafeUri
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
 import java.net.URI
@@ -168,18 +170,14 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             concertViewModel.onFavoriteImageViewClick(concert, isChecked)
         }
 
-        enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
+        enableTicketPurchase(concert.ticketingUrl, concert.ticketingHost)
 
         venueTextView.apply {
             setImageView(R.drawable.ic_map)
             setText(concert.venue?.name, getString(R.string.go_to_maps))
             setOnClickListener {
                 concert.venue?.let {
-                    val latitude = it.latitude
-                    val longitude = it.longitude
-                    val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(it.name)}")
-
-                    startGoogleMaps(uri)
+                    startGoogleMaps(it)
                 }
             }
         }
@@ -206,17 +204,17 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     }
 
     private fun enableTicketPurchase(
-        ticketingHost: String?,
-        ticketingUrl: URI?
+        ticketingUrl: SafeUri?,
+        ticketingHost: String?
     ) {
-        ticketingUrl?.let {
+        ticketingUrl?.getAbsoluteUri()?.let { url ->
             ticketTextView.apply {
                 setImageView(R.drawable.ic_ticket)
                 setText(getString(R.string.available_on))
             }
             buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
             buyTicketsTextView.setOnClickListener {
-                startExternalActivity(ticketingUrl)
+                startExternalActivity(url)
             }
         } ?: kotlin.run {
             ticketTextView.visibility = View.GONE
@@ -224,16 +222,13 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
     }
 
-    private fun showFacebook(facebookUrl: URI?) {
-        facebookUrl?.let {
+    private fun showFacebook(facebookUrl: SafeUri?) {
+        facebookUrl?.getAbsoluteUri()?.let { url ->
             facebookTextView.apply {
                 setImageView(R.drawable.ic_facebook)
                 setText(getString(R.string.fan_page), getString(R.string.go_to_event))
                 setOnClickListener {
-                    val event = facebookUrl.path.replace("/events", "event")
-                    val facebookAppUri = URI("fb://$event")
-
-                    startFacebook(facebookUrl, facebookAppUri)
+                    startFacebook(url)
                 }
             }
         } ?: kotlin.run {
@@ -241,13 +236,13 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
     }
 
-    private fun showYoutube(youtubeTrailer: URI?) {
-        youtubeTrailer?.let {
+    private fun showYoutube(youtubeTrailer: SafeUri?) {
+        youtubeTrailer?.getAbsoluteUri()?.let { url ->
             youtubeTextView.apply {
                 setImageView(R.drawable.ic_youtube)
                 setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
                 setOnClickListener {
-                    startExternalActivity(youtubeTrailer)
+                    startExternalActivity(url)
                 }
             }
         } ?: kotlin.run {
@@ -268,7 +263,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         view?.findViewById<TextView>(R.id.errorTextView)?.text = getString(messageId)
     }
 
-    private fun startFacebook(facebookUri: URI, facebookAppUri: URI) {
+    private fun startFacebook(facebookUri: String) {
+        val event = URI(facebookUri).path.replace("/events", "event")
+        val facebookAppUri = "fb://$event"
+
         startExternalActivity(
             facebookAppUri,
             getString(R.string.facebook_package),
@@ -277,7 +275,12 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             })
     }
 
-    private fun startGoogleMaps(uri: URI) {
+    private fun startGoogleMaps(venue: Venue) {
+        val latitude = venue.latitude
+        val longitude = venue.longitude
+        val query = Uri.encode(venue.name)
+        val uri = "geo:${latitude},${longitude}?q=${query}"
+
         startExternalActivity(uri, getString(R.string.maps_package))
     }
 
