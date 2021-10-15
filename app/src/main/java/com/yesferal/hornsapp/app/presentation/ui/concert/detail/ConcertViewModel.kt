@@ -46,15 +46,17 @@ class ConcertViewModel(
                                 }
                             }
 
+                        val haDate = HaDate(concert.dateTime)
+
                         val concertViewData = ConcertViewData(
                             concert.id,
                             concert.name,
                             concert.headlinerImage,
                             concert.description,
-                            concert.dateTime?.time,
-                            concert.dateTime?.dateTimeFormatted(),
-                            concert.dateTime?.dayFormatted(),
-                            concert.dateTime?.monthFormatted(),
+                            haDate.time,
+                            haDate.dateTimeFormatted(),
+                            haDate.dayFormatted(),
+                            haDate.monthFormatted(),
                             concert.trailerUrl,
                             concert.facebookUrl,
                             concert.isFavorite,
@@ -97,7 +99,7 @@ class ConcertViewModel(
                     concertViewData.id,
                     concertViewData.name,
                     concertViewData.headlinerImage,
-                    HaDate(concertViewData.timeInMillis),
+                    concertViewData.timeInMillis,
                     concertViewData.genre,
                     null,
                     isChecked

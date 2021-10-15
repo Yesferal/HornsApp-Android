@@ -10,6 +10,7 @@ import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
+import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -42,16 +43,17 @@ class FavoritesViewModel(
                     )
                 } else {
                     val delegates = favorites
-                        .sortedWith(compareBy { it.dateTime?.time })
+                        .sortedWith(compareBy { it.dateTime })
                         .map {
+                            val haDate = HaDate(it.dateTime)
                             UpcomingViewData(
                                 id = it.id,
                                 image = it.headlinerImage,
-                                day = it.dateTime?.dayFormatted(),
-                                month = it.dateTime?.monthFormatted(),
-                                year = it.dateTime?.yearFormatted(),
+                                day = haDate.dayFormatted(),
+                                month = haDate.monthFormatted(),
+                                year = haDate.yearFormatted(),
                                 name = it.name,
-                                time = it.dateTime?.timeFormatted(),
+                                time = haDate.timeFormatted(),
                                 genre = it.genre
                             )
                         }

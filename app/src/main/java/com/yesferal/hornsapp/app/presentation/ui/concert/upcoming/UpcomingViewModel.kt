@@ -10,6 +10,7 @@ import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
+import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
@@ -93,16 +94,17 @@ class UpcomingViewModel(
                 val delegates = mutableListOf<Delegate>().apply {
                     add(mapCategories(categories))
                     addAll(concerts
-                        .sortedWith(compareBy { it.dateTime?.time })
+                        .sortedWith(compareBy { it.dateTime })
                         .map {
+                            val haDate = HaDate(it.dateTime)
                             UpcomingViewData(
                                 id = it.id,
                                 image = it.headlinerImage,
-                                day = it.dateTime?.dayFormatted(),
-                                month = it.dateTime?.monthFormatted(),
-                                year = it.dateTime?.yearFormatted(),
+                                day = haDate.dayFormatted(),
+                                month = haDate.monthFormatted(),
+                                year = haDate.yearFormatted(),
                                 name = it.name,
-                                time = it.dateTime?.timeFormatted(),
+                                time = haDate.timeFormatted(),
                                 genre = it.genre
                             )
                         }

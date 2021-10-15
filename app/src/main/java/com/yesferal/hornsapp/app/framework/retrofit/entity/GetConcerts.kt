@@ -1,6 +1,5 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
-import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.util.SafeUri
 import java.util.*
@@ -23,7 +22,7 @@ data class GetConcerts(
             id = this._id,
             name = this.name,
             headlinerImage = this.headlinerImage,
-            dateTime = HaDate(this.dateTime?.time),
+            dateTime = this.dateTime?.time,
             genre = this.genre,
             tags = this.tags,
             ticketingUrl = SafeUri(this.ticketingUrl),
