@@ -8,7 +8,6 @@ import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.core.domain.util.SafeUri
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
@@ -45,7 +44,7 @@ data class CarouselViewData(
     val image: String?,
     val time: String?,
     val genre: String?,
-    val ticketingUrl: SafeUri?,
+    val ticketingUrl: String?,
     val ticketingHost: String?
 ) : InteractiveDelegate<CarouselViewData.Listener>, Parcelable {
 
@@ -70,7 +69,7 @@ data class CarouselViewData(
 
         val buyTicketsTextView = view.findViewById<TextView>(R.id.buyTicketsTextView)
 
-        ticketingUrl?.getAbsoluteUri()?.let { url ->
+        ticketingUrl?.let { url ->
             buyTicketsTextView.setUpWith(ticketingHost ?: view.context.getString(R.string.go_now))
             buyTicketsTextView.setOnClickListener {
                 listener.onTicketingClick(url)

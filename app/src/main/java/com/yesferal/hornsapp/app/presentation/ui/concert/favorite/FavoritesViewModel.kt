@@ -7,10 +7,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -43,17 +46,16 @@ class FavoritesViewModel(
                     )
                 } else {
                     val delegates = favorites
-                        .sortedWith(compareBy { it.dateTime })
+                        .sortedWith(compareBy { it.timeInMillis })
                         .map {
-                            val haDate = HaDate(it.dateTime)
                             UpcomingViewData(
                                 id = it.id,
                                 image = it.headlinerImage,
-                                day = haDate.dayFormatted(),
-                                month = haDate.monthFormatted(),
-                                year = haDate.yearFormatted(),
+                                day = it.timeInMillis.dayFormatted(),
+                                month = it.timeInMillis.monthFormatted(),
+                                year = it.timeInMillis.yearFormatted(),
                                 name = it.name,
-                                time = haDate.timeFormatted(),
+                                time = it.timeInMillis.timeFormatted(),
                                 genre = it.genre
                             )
                         }

@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
 import com.yesferal.hornsapp.app.presentation.common.render.ViewEffect
-import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
@@ -46,17 +48,15 @@ class ConcertViewModel(
                                 }
                             }
 
-                        val haDate = HaDate(concert.dateTime)
-
                         val concertViewData = ConcertViewData(
                             concert.id,
                             concert.name,
                             concert.headlinerImage,
                             concert.description,
-                            haDate.time,
-                            haDate.dateTimeFormatted(),
-                            haDate.dayFormatted(),
-                            haDate.monthFormatted(),
+                            concert.timeInMillis,
+                            concert.timeInMillis.dateTimeFormatted(),
+                            concert.timeInMillis.dayFormatted(),
+                            concert.timeInMillis.monthFormatted(),
                             concert.trailerUrl,
                             concert.facebookUrl,
                             concert.isFavorite,

@@ -15,7 +15,7 @@ class RoomDataSource(
                 concert.id,
                 concert.name,
                 concert.headlinerImage,
-                concert.dateTime,
+                concert.timeInMillis,
                 concert.genre
             )
         )
@@ -29,7 +29,7 @@ class RoomDataSource(
                 concert.id,
                 concert.name,
                 concert.headlinerImage,
-                concert.dateTime,
+                concert.timeInMillis,
                 concert.genre
             )
         )

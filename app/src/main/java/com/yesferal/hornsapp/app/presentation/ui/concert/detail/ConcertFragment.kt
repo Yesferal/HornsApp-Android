@@ -26,7 +26,6 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.Venue
-import com.yesferal.hornsapp.core.domain.util.SafeUri
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
 import java.net.URI
@@ -204,10 +203,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     }
 
     private fun enableTicketPurchase(
-        ticketingUrl: SafeUri?,
+        ticketingUrl: String?,
         ticketingHost: String?
     ) {
-        ticketingUrl?.getAbsoluteUri()?.let { url ->
+        ticketingUrl?.let { url ->
             ticketTextView.apply {
                 setImageView(R.drawable.ic_ticket)
                 setText(getString(R.string.available_on))
@@ -222,8 +221,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
     }
 
-    private fun showFacebook(facebookUrl: SafeUri?) {
-        facebookUrl?.getAbsoluteUri()?.let { url ->
+    private fun showFacebook(facebookUrl: String?) {
+        facebookUrl?.let { url ->
             facebookTextView.apply {
                 setImageView(R.drawable.ic_facebook)
                 setText(getString(R.string.fan_page), getString(R.string.go_to_event))
@@ -236,8 +235,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
     }
 
-    private fun showYoutube(youtubeTrailer: SafeUri?) {
-        youtubeTrailer?.getAbsoluteUri()?.let { url ->
+    private fun showYoutube(youtubeTrailer: String?) {
+        youtubeTrailer?.let { url ->
             youtubeTextView.apply {
                 setImageView(R.drawable.ic_youtube)
                 setText(getString(R.string.official_video), getString(R.string.go_to_youtube))

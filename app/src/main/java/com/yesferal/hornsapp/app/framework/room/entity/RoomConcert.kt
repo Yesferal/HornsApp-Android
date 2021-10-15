@@ -17,7 +17,7 @@ data class RoomConcert(
         id = id,
         name = name,
         headlinerImage = headlinerImage,
-        dateTime = timeInMillis,
+        timeInMillis = timeInMillis,
         genre = genre,
         tags = null,
         isFavorite = true

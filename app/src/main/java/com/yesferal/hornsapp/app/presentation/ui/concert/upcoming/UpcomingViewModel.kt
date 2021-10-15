@@ -7,10 +7,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
@@ -94,17 +97,16 @@ class UpcomingViewModel(
                 val delegates = mutableListOf<Delegate>().apply {
                     add(mapCategories(categories))
                     addAll(concerts
-                        .sortedWith(compareBy { it.dateTime })
+                        .sortedWith(compareBy { it.timeInMillis })
                         .map {
-                            val haDate = HaDate(it.dateTime)
                             UpcomingViewData(
                                 id = it.id,
                                 image = it.headlinerImage,
-                                day = haDate.dayFormatted(),
-                                month = haDate.monthFormatted(),
-                                year = haDate.yearFormatted(),
+                                day = it.timeInMillis.dayFormatted(),
+                                month = it.timeInMillis.monthFormatted(),
+                                year = it.timeInMillis.yearFormatted(),
                                 name = it.name,
-                                time = haDate.timeFormatted(),
+                                time = it.timeInMillis.timeFormatted(),
                                 genre = it.genre
                             )
                         }

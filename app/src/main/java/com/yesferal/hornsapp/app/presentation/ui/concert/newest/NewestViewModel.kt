@@ -8,10 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
+import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
-import com.yesferal.hornsapp.core.domain.common.HaDate
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
@@ -156,12 +160,11 @@ class NewestViewModel(
         return concerts.reversed()
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
             .map {
-                val haDate = HaDate(it.dateTime)
                 CarouselViewData(
                     id = it.id,
                     image = it.headlinerImage,
                     name = it.name,
-                    time = haDate.dateTimeFormatted(),
+                    time = it.timeInMillis.dateTimeFormatted(),
                     genre = it.genre,
                     ticketingUrl = it.ticketingUrl,
                     ticketingHost = it.ticketingHost
@@ -174,14 +177,13 @@ class NewestViewModel(
         screenDrawer: ScreenDrawer
     ): List<Delegate> {
         return concerts
-            .sortedWith(compareBy { it.dateTime })
+            .sortedWith(compareBy { it.timeInMillis })
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
             .map { concert ->
-                val haDate = HaDate(concert.dateTime)
                 NewestViewData(
                     id = concert.id,
-                    day = haDate.dayFormatted(),
-                    month = haDate.monthFormatted(),
+                    day = concert.timeInMillis.dayFormatted(),
+                    month = concert.timeInMillis.monthFormatted(),
                     name = concert.name,
                     ticketingHostName = concert.ticketingHost
                 )
@@ -195,15 +197,14 @@ class NewestViewModel(
         return concerts.filter { it.tags?.contains(screenDrawer.condition?.value) == true }
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
             .map { concert ->
-                val haDate = HaDate(concert.dateTime)
                 UpcomingViewData(
                     id = concert.id,
                     image = concert.headlinerImage,
-                    day = haDate.dayFormatted(),
-                    month = haDate.monthFormatted(),
-                    year = haDate.yearFormatted(),
+                    day = concert.timeInMillis.dayFormatted(),
+                    month = concert.timeInMillis.monthFormatted(),
+                    year = concert.timeInMillis.yearFormatted(),
                     name = concert.name,
-                    time = haDate.timeFormatted(),
+                    time = concert.timeInMillis.timeFormatted(),
                     genre = concert.genre
                 )
             }
