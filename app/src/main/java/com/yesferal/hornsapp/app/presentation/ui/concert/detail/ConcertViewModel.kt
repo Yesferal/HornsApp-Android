@@ -40,6 +40,7 @@ class ConcertViewModel(
                 when (val result = getConcertUseCase(id)) {
                     is HaResult.Success -> {
                         val concert = result.value
+                        // TODO ("Move this logic to getConcertUseCase")
                         getFavoriteConcertsUseCase()
                             .map { it.id }
                             .let { favorites ->

@@ -10,8 +10,14 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.hadi_android.hadi
 
 abstract class BaseFragment : Fragment(), LayoutBinding {
+
+    val navigator by lazy {
+        hadi().resolve<Navigator<Fragment>>()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

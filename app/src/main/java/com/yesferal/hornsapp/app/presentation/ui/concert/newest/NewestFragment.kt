@@ -3,13 +3,13 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
@@ -48,10 +48,11 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     }
 
     private fun startConcertActivity(parcelableViewData: ParcelableViewData) {
-        findNavController().navigate(
-            HomeFragmentDirections
-                .actionHomeToConcert(parcelableViewData)
-        )
+        val direction = Direction.Build()
+            .to(ScreenType.ConcertDetail)
+            .with(parcelableViewData)
+            .build()
+        navigator.navigate(this, direction)
     }
 
     companion object {

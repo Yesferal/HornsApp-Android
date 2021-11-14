@@ -2,11 +2,11 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.favorite
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class FavoritesFragment : DelegateAdapterFragment(), UpcomingViewData.Listener {
@@ -31,9 +31,11 @@ class FavoritesFragment : DelegateAdapterFragment(), UpcomingViewData.Listener {
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
-        findNavController().navigate(
-            HomeFragmentDirections.actionHomeToConcert(upcomingViewData.asParcelable())
-        )
+        val direction = Direction.Build()
+            .to(ScreenType.ConcertDetail)
+            .with(upcomingViewData.asParcelable())
+            .build()
+        navigator.navigate(this, direction)
     }
 
     companion object {

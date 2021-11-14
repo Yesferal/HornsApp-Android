@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.hadi_android.getViewModel
@@ -57,7 +57,7 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
         nextTextView.setOnClickListener {
             onBoardingViewModel.updateVisibilityOnBoarding()
-            findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingToHome())
+            navigator.navigate(this, ScreenType.Home.asDirection())
         }
     }
 

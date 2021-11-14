@@ -1,13 +1,12 @@
 package com.yesferal.hornsapp.app.presentation.ui.settings
 
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
+import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 interface EasterEggsApplier {
     fun versionSuffix() = "DEV"
 
-    fun Fragment.onAppImageViewClick() {
-        findNavController().navigate(HomeFragmentDirections.actionHomeToSettings())
+    fun BaseFragment.onAppImageViewClick() {
+        navigator.navigate(this, ScreenType.Setting.asDirection())
     }
 }

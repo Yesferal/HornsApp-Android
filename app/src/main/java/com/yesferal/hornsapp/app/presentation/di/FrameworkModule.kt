@@ -1,11 +1,13 @@
 package com.yesferal.hornsapp.app.presentation.di
 
+import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.file.FileReaderManager
 import com.yesferal.hornsapp.app.framework.logger.YLogger
+import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitFactory
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
@@ -22,6 +24,7 @@ import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSour
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.dependency.Factory
 import com.yesferal.hornsapp.hadi.dependency.Singleton
@@ -125,5 +128,9 @@ fun Container.registerFrameworkModule() {
 
     this register Singleton {
         AdManager(adUnitIds = AdUnitIds())
+    }
+
+    this register Singleton<Navigator<Fragment>> {
+        AppNavigator()
     }
 }

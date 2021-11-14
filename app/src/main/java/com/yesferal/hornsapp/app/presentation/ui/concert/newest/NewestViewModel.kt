@@ -109,6 +109,10 @@ class NewestViewModel(
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
+        if (delegates.isEmpty()) {
+            return
+        }
+
         this.add(
             RowDelegate.Builder().addItems(delegates).addBackground(R.color.background)
                 .addElevation(4F).build()
