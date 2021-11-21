@@ -1,12 +1,15 @@
 package com.yesferal.hornsapp.app.framework.room
 
 import com.yesferal.hornsapp.app.framework.room.entity.RoomConcert
-import com.yesferal.hornsapp.data.abstraction.storage.ConcertStorageDataSource
-import com.yesferal.hornsapp.domain.entity.Concert
+import com.yesferal.hornsapp.core.data.abstraction.storage.ConcertStorageDataSource
+import com.yesferal.hornsapp.core.domain.entity.Concert
 
 class RoomDataSource(
     private val concertDao: ConcertDao
 ) : ConcertStorageDataSource {
+
+    private var concertsCached: List<Concert>? = null
+
     override suspend fun insertFavoriteConcert(
         concert: Concert
     ) {
@@ -15,7 +18,7 @@ class RoomDataSource(
                 concert.id,
                 concert.name,
                 concert.headlinerImage,
-                concert.dateTime?.time,
+                concert.timeInMillis,
                 concert.genre
             )
         )
@@ -29,7 +32,7 @@ class RoomDataSource(
                 concert.id,
                 concert.name,
                 concert.headlinerImage,
-                concert.dateTime?.time,
+                concert.timeInMillis,
                 concert.genre
             )
         )
@@ -37,7 +40,15 @@ class RoomDataSource(
 
     override suspend fun getFavoriteConcerts(): List<Concert> {
         return concertDao.getAll().map {
-            it.mapTo()
+            it.mapAsFavoriteConcert()
         }
+    }
+
+    override fun getConcertCached(): List<Concert>? {
+        return concertsCached
+    }
+
+    override fun updateConcertCached(concerts: List<Concert>?) {
+        concertsCached = concerts
     }
 }

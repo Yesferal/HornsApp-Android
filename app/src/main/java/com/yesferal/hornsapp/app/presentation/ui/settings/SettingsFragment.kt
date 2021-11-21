@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
-import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
+import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class SettingsFragment : RenderFragment<SettingsState>() {
 

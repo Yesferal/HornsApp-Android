@@ -4,14 +4,14 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewModelFactory
-import com.yesferal.hornsapp.app.presentation.ui.favorite.FavoritesViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.main.MainViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.settings.SettingsViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashViewModelFactory
-import com.yesferal.hornsapp.hada.container.Container
-import com.yesferal.hornsapp.hada.dependency.Factory
+import com.yesferal.hornsapp.hadi.container.Container
+import com.yesferal.hornsapp.hadi.dependency.Factory
 
 fun Container.registerPresentationModule() {
     this register Factory {
@@ -23,27 +23,29 @@ fun Container.registerPresentationModule() {
     this register Factory {
         HomeViewModelFactory(
             getConcertsUseCase = resolve(),
-            settingsRepository = resolve()
+            drawerRepository = resolve()
         )
     }
 
     this register Factory {
         FavoritesViewModelFactory(
-            getFavoriteConcertsUseCase = resolve()
+            getFavoriteConcertsUseCase = resolve(),
+            settingsRepository = resolve()
         )
     }
 
     this register Factory {
         UpcomingViewModelFactory(
             getConcertsUseCase = resolve(),
-            settingsRepository = resolve()
+            settingsRepository = resolve(),
+            drawerRepository = resolve()
         )
     }
 
     this register Factory {
         NewestViewModelFactory(
             getConcertsUseCase = resolve(),
-            settingsRepository = resolve()
+            drawerRepository = resolve()
         )
     }
 
@@ -51,7 +53,6 @@ fun Container.registerPresentationModule() {
         ConcertViewModelFactory(
             id = id,
             getConcertUseCase = resolve(),
-            getFavoriteConcertsUseCase = resolve(),
             updateFavoriteConcertUseCase = resolve()
         )
     }
@@ -67,7 +68,7 @@ fun Container.registerPresentationModule() {
         OnBoardingViewModelFactory(
             getConcertsUseCase = resolve(),
             updateVisibilityOnBoardingUseCase = resolve(),
-            settingsRepository = resolve()
+            drawerRepository = resolve()
         )
     }
 

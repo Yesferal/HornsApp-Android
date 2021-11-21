@@ -1,18 +1,17 @@
-package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
+package com.yesferal.hornsapp.app.presentation.ui.concert.favorite
 
 import android.os.Bundle
 import android.view.View
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
-class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
-    UpcomingViewData.Listener {
+class FavoritesFragment : DelegateAdapterFragment(), UpcomingViewData.Listener {
 
-    lateinit var viewModel: UpcomingViewModel
+    private lateinit var viewModel: FavoritesViewModel
 
     override fun onViewCreated(
         view: View,
@@ -20,13 +19,15 @@ class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        delegateRecyclerView.addItemDecoration(RecyclerViewVerticalDecorator(paddingBottom = 8))
+        delegateRecyclerView.addItemDecoration(RecyclerViewVerticalDecorator(8, 8))
 
-        viewModel = getViewModel<UpcomingViewModel, UpcomingViewModelFactory>()
+        viewModel = getViewModel<FavoritesViewModel, FavoritesViewModelFactory>()
 
-        viewModel.stateUpcoming.observe(viewLifecycleOwner) {
+        viewModel.stateFavorite.observe(viewLifecycleOwner) {
             render(it)
         }
+
+        viewModel.getFavoriteConcerts()
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
@@ -37,11 +38,7 @@ class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
         navigator.navigate(this, direction)
     }
 
-    override fun onClick(categoryViewData: CategoryViewData) {
-        viewModel.onCategoryClick(categoryViewData)
-    }
-
     companion object {
-        fun newInstance() = UpcomingFragment()
+        fun newInstance() = FavoritesFragment()
     }
 }

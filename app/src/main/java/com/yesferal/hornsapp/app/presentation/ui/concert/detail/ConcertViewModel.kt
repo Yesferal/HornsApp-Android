@@ -7,23 +7,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.ViewEffect
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.usecase.GetConcertUseCase
-import com.yesferal.hornsapp.domain.usecase.GetFavoriteConcertsUseCase
-import com.yesferal.hornsapp.domain.usecase.UpdateFavoriteConcertUseCase
-import com.yesferal.hornsapp.domain.util.dateTimeFormatted
-import com.yesferal.hornsapp.domain.util.dayFormatted
-import com.yesferal.hornsapp.domain.util.monthFormatted
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
+import com.yesferal.hornsapp.core.domain.usecase.UpdateFavoriteConcertUseCase
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class ConcertViewModel(
     id: String,
     getConcertUseCase: GetConcertUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<ConcertViewState>()
@@ -37,43 +30,15 @@ class ConcertViewModel(
 
     init {
         viewModelScope.launch {
-            _state.value = withContext(Dispatchers.IO) {
+            val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertUseCase(id)) {
-                    is Result.Success -> {
+                    is HaResult.Success -> {
                         val concert = result.value
-                        getFavoriteConcertsUseCase()
-                            .map { it.id }
-                            .let { favorites ->
-                                if (favorites.contains(concert.id)) {
-                                    concert.isFavorite = true
-                                }
-                            }
 
-                        val concertViewData = ConcertViewData(
-                            concert.id,
-                            concert.name,
-                            concert.headlinerImage,
-                            concert.description,
-                            concert.dateTime?.time,
-                            concert.dateTime?.dateTimeFormatted(),
-                            concert.dateTime?.dayFormatted(),
-                            concert.dateTime?.monthFormatted(),
-                            concert.trailerUrl,
-                            concert.facebookUrl,
-                            concert.isFavorite,
-                            concert.genre,
-                            concert.ticketingHost,
-                            concert.ticketingUrl,
-                            concert.venue
-                        )
+                        val concertViewData = ConcertViewData(concert)
 
                         val bandsViewData = concert.bands?.map { band ->
-                            BandViewData(
-                                band.id,
-                                band.name,
-                                band.membersImage,
-                                band.genre
-                            )
+                            BandViewData(band)
                         }
 
                         ConcertViewState(
@@ -81,11 +46,12 @@ class ConcertViewModel(
                             bands = bandsViewData
                         )
                     }
-                    is Result.Error -> {
+                    is HaResult.Error -> {
                         ConcertViewState(errorMessageId = R.string.error_default)
                     }
                 }
             }
+            _state.value = state
         }
     }
 
@@ -95,17 +61,7 @@ class ConcertViewModel(
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val concert = Concert(
-                    concertViewData.id,
-                    concertViewData.name,
-                    concertViewData.headlinerImage,
-                    Date().apply { time = concertViewData.timeInMillis ?: 0 },
-                    concertViewData.genre,
-                    null,
-                    isChecked
-                )
-
-                updateFavoriteConcertUseCase(concert)
+                updateFavoriteConcertUseCase(concertViewData.concert, isChecked)
             }
 
             if (isChecked) {
@@ -118,19 +74,16 @@ class ConcertViewModel(
 class ConcertViewModelFactory(
     private val id: String,
     private val getConcertUseCase: GetConcertUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
             GetConcertUseCase::class.java,
-            GetFavoriteConcertsUseCase::class.java,
             UpdateFavoriteConcertUseCase::class.java
         ).newInstance(
             id,
             getConcertUseCase,
-            getFavoriteConcertsUseCase,
             updateFavoriteConcertUseCase
         )
     }

@@ -11,15 +11,9 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
-import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
-
-data class UpcomingViewState(
-    val items: List<Delegate>? = null,
-    val isLoading: Boolean = false
-)
+import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
+import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
+import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
 
 data class UpcomingViewData(
     val id: String,
@@ -30,7 +24,7 @@ data class UpcomingViewData(
     val year: String?,
     val time: String?,
     val genre: String?
-) : ViewDelegate<UpcomingViewData.Listener>(), Parcelable {
+) : InteractiveDelegate<UpcomingViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_upcoming
 
@@ -66,11 +60,11 @@ data class UpcomingViewData(
 data class ErrorViewData(
     @DrawableRes val imageId: Int,
     @StringRes val errorMessage: Int
-) : NonInteractiveViewDelegate() {
+) : NonInteractiveDelegate {
 
     override val layout = R.layout.custom_error
 
-    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+    override fun onBindViewDelegate(view: View) {
         view.findViewById<TextView>(R.id.errorTextView)
             .setUpWith(view.context.getString(errorMessage))
     }

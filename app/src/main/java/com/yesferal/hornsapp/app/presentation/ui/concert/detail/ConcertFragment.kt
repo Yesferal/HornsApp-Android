@@ -25,10 +25,10 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
-import com.yesferal.hornsapp.app.presentation.di.hada.getViewModel
-import com.yesferal.hornsapp.multitype.DelegateAdapter
+import com.yesferal.hornsapp.core.domain.entity.Venue
+import com.yesferal.hornsapp.delegate.DelegateAdapter
+import com.yesferal.hornsapp.hadi_android.getViewModel
 import java.net.URI
-import java.util.*
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
@@ -159,27 +159,23 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     }
 
     private fun show(concert: ConcertViewData) {
-        titleTextView.setUpWith(concert.name)
+        titleTextView.setUpWith(concert.concert.name)
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
 
-        favoriteImageView.isChecked = concert.isFavorite
+        favoriteImageView.isChecked = concert.concert.isFavorite
         favoriteImageView.setOnCheckedChangeListener { isChecked ->
             concertViewModel.onFavoriteImageViewClick(concert, isChecked)
         }
 
-        enableTicketPurchase(concert.ticketingHost, concert.ticketingUrl)
+        enableTicketPurchase(concert.concert.ticketingUrl, concert.concert.ticketingHost)
 
         venueTextView.apply {
             setImageView(R.drawable.ic_map)
-            setText(concert.venue?.name, getString(R.string.go_to_maps))
+            setText(concert.concert.venue?.name, getString(R.string.go_to_maps))
             setOnClickListener {
-                concert.venue?.let {
-                    val latitude = it.latitude
-                    val longitude = it.longitude
-                    val uri = URI("geo:${latitude},${longitude}?q=${Uri.encode(it.name)}")
-
-                    startGoogleMaps(uri)
+                concert.concert.venue?.let {
+                    startGoogleMaps(it)
                 }
             }
         }
@@ -194,29 +190,29 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
         descriptionTextView.apply {
             setImageView(R.drawable.ic_information)
-            setText(getString(R.string.about), concert.description)
+            setText(getString(R.string.about), concert.concert.description)
         }
 
-        showYoutube(concert.trailerUrl)
-        showFacebook(concert.facebookUrl)
+        showYoutube(concert.concert.trailerUrl)
+        showFacebook(concert.concert.facebookUrl)
     }
 
     private fun show(bands: List<BandViewData>) {
-        delegateAdapter.updateItems(bands)
+        delegateAdapter.updateDelegates(bands)
     }
 
     private fun enableTicketPurchase(
-        ticketingHost: String?,
-        ticketingUrl: URI?
+        ticketingUrl: String?,
+        ticketingHost: String?
     ) {
-        ticketingUrl?.let {
+        ticketingUrl?.let { url ->
             ticketTextView.apply {
                 setImageView(R.drawable.ic_ticket)
                 setText(getString(R.string.available_on))
             }
             buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
             buyTicketsTextView.setOnClickListener {
-                startExternalActivity(ticketingUrl)
+                startExternalActivity(url)
             }
         } ?: kotlin.run {
             ticketTextView.visibility = View.GONE
@@ -224,16 +220,13 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
     }
 
-    private fun showFacebook(facebookUrl: URI?) {
-        facebookUrl?.let {
+    private fun showFacebook(facebookUrl: String?) {
+        facebookUrl?.let { url ->
             facebookTextView.apply {
                 setImageView(R.drawable.ic_facebook)
                 setText(getString(R.string.fan_page), getString(R.string.go_to_event))
                 setOnClickListener {
-                    val event = facebookUrl.path.replace("/events", "event")
-                    val facebookAppUri = URI("fb://$event")
-
-                    startFacebook(facebookUrl, facebookAppUri)
+                    startFacebook(url)
                 }
             }
         } ?: kotlin.run {
@@ -241,13 +234,13 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
     }
 
-    private fun showYoutube(youtubeTrailer: URI?) {
-        youtubeTrailer?.let {
+    private fun showYoutube(youtubeTrailer: String?) {
+        youtubeTrailer?.let { url ->
             youtubeTextView.apply {
                 setImageView(R.drawable.ic_youtube)
                 setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
                 setOnClickListener {
-                    startExternalActivity(youtubeTrailer)
+                    startExternalActivity(url)
                 }
             }
         } ?: kotlin.run {
@@ -268,7 +261,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         view?.findViewById<TextView>(R.id.errorTextView)?.text = getString(messageId)
     }
 
-    private fun startFacebook(facebookUri: URI, facebookAppUri: URI) {
+    private fun startFacebook(facebookUri: String) {
+        val event = URI(facebookUri).path.replace("/events", "event")
+        val facebookAppUri = "fb://$event"
+
         startExternalActivity(
             facebookAppUri,
             getString(R.string.facebook_package),
@@ -277,7 +273,12 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             })
     }
 
-    private fun startGoogleMaps(uri: URI) {
+    private fun startGoogleMaps(venue: Venue) {
+        val latitude = venue.latitude
+        val longitude = venue.longitude
+        val query = Uri.encode(venue.name)
+        val uri = "geo:${latitude},${longitude}?q=${query}"
+
         startExternalActivity(uri, getString(R.string.maps_package))
     }
 
@@ -286,15 +287,11 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     ) {
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = getString(R.string.calendar_action_type)
-        intent.putExtra(CalendarContract.Events.TITLE, concertViewData.name)
-        val dtStart = concertViewData
-            .timeInMillis
-            ?.minus(TimeZone.getDefault().rawOffset + TimeZone.getDefault().dstSavings)
-            ?: 0
-        intent.putExtra("beginTime", dtStart)
-        intent.putExtra("endTime", dtStart + (2 * 60 * 60 * 1000))
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.description)
-        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.venue?.name)
+        intent.putExtra(CalendarContract.Events.TITLE, concertViewData.concert.name)
+        intent.putExtra("beginTime", concertViewData.beginTime)
+        intent.putExtra("endTime", concertViewData.endTime)
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.concert.description)
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.concert.venue?.name)
         startActivity(intent)
     }
 }

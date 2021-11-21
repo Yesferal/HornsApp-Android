@@ -9,10 +9,10 @@
 -keepclassmembers class com.yesferal.hornsapp.app.framework.retrofit.entity.* {
     *;
 }
--keepclassmembers class com.yesferal.hornsapp.domain.entity.* {
+-keepclassmembers class com.yesferal.hornsapp.core.domain.entity.* {
     *;
 }
--keepclassmembers class com.yesferal.hornsapp.domain.entity.drawer.* {
+-keepclassmembers class com.yesferal.hornsapp.core.domain.entity.drawer.* {
     *;
 }
 # Navigation Component

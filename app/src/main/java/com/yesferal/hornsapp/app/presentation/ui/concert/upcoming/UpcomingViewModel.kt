@@ -6,36 +6,41 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
-import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.domain.util.dayFormatted
-import com.yesferal.hornsapp.domain.util.monthFormatted
-import com.yesferal.hornsapp.domain.util.timeFormatted
-import com.yesferal.hornsapp.domain.util.yearFormatted
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import com.yesferal.hornsapp.multitype.delegate.RowDelegate
+import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
+import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
+import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.core.domain.util.HaResult
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
+import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UpcomingViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val drawerRepository: DrawerRepository
 ) : ViewModel() {
 
-    private val _stateUpcoming = MutableLiveData<UpcomingViewState>()
-    val stateUpcoming: LiveData<UpcomingViewState>
+    private val _stateUpcoming = MutableLiveData<DelegateViewState>()
+    val stateUpcoming: LiveData<DelegateViewState>
         get() = _stateUpcoming
 
     private lateinit var categoryDrawer: List<CategoryDrawer>
 
     init {
         viewModelScope.launch {
-            settingsRepository.getCategoryDrawer().collect {
+            delay(settingsRepository.screenDelay)
+            drawerRepository.getCategoryDrawer().collect {
                 categoryDrawer = it
                 onRender()
             }
@@ -69,10 +74,8 @@ class UpcomingViewModel(
                 )
             }
 
-        val categoryHorizontalMargin = 16
-
         when (val result = getConcertsUseCase()) {
-            is Result.Success -> {
+            is HaResult.Success -> {
                 val concerts = result.value
                     .filter {
                         categoryKey == CategoryDrawer.ALL ||
@@ -80,12 +83,9 @@ class UpcomingViewModel(
                     }
 
                 if (concerts.isEmpty()) {
-                    return@withContext UpcomingViewState(
-                        items = listOf(
-                            RowDelegate.Builder()
-                                .addItems(categories)
-                                .addHorizontalMargin(categoryHorizontalMargin)
-                                .build(),
+                    return@withContext DelegateViewState(
+                        delegates = listOf(
+                            mapCategories(categories),
                             ErrorViewData(
                                 R.drawable.ic_music_note,
                                 R.string.error_no_items
@@ -94,41 +94,31 @@ class UpcomingViewModel(
                     )
                 }
 
-                val items = mutableListOf<Delegate>().apply {
-                    add(
-                        RowDelegate.Builder()
-                            .addItems(categories)
-                            .addHorizontalMargin(categoryHorizontalMargin)
-                            .build()
-                    )
+                val delegates = mutableListOf<Delegate>().apply {
+                    add(mapCategories(categories))
                     addAll(concerts
-                        .sortedWith(compareBy { it.dateTime?.time })
+                        .sortedWith(compareBy { it.timeInMillis })
                         .map {
                             UpcomingViewData(
                                 id = it.id,
                                 image = it.headlinerImage,
-                                day = it.dateTime?.dayFormatted(),
-                                month = it.dateTime?.monthFormatted(),
-                                year = it.dateTime?.yearFormatted(),
+                                day = it.timeInMillis.dayFormatted(),
+                                month = it.timeInMillis.monthFormatted(),
+                                year = it.timeInMillis.yearFormatted(),
                                 name = it.name,
-                                time = it.dateTime?.timeFormatted(),
+                                time = it.timeInMillis.timeFormatted(),
                                 genre = it.genre
                             )
                         }
                     )
                 }
 
-                return@withContext UpcomingViewState(
-                    items = items.toList()
-                )
+                return@withContext DelegateViewState(delegates.toList())
             }
-            is Result.Error -> {
-                return@withContext UpcomingViewState(
-                    items = listOf(
-                        RowDelegate.Builder()
-                            .addItems(categories)
-                            .addHorizontalMargin(categoryHorizontalMargin)
-                            .build(),
+            is HaResult.Error -> {
+                return@withContext DelegateViewState(
+                    delegates = listOf(
+                        mapCategories(categories),
                         ErrorViewData(
                             R.drawable.ic_music_note,
                             R.string.error_no_items
@@ -138,16 +128,25 @@ class UpcomingViewModel(
             }
         }
     }
+
+    private fun mapCategories(categories: List<Delegate>): Delegate {
+        return RowDelegate.Builder()
+            .addItems(categories)
+            .addHorizontalMargin(16)
+            .build()
+    }
 }
 
 class UpcomingViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            SettingsRepository::class.java
-        ).newInstance(getConcertsUseCase, settingsRepository)
+            SettingsRepository::class.java,
+            DrawerRepository::class.java
+        ).newInstance(getConcertsUseCase, settingsRepository, drawerRepository)
     }
 }

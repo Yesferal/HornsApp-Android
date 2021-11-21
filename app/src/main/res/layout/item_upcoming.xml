@@ -5,7 +5,8 @@
     android:id="@+id/containerLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/margin_small">
+    android:background="@color/background"
+    android:paddingVertical="@dimen/margin_small">
 
     <View
         android:layout_width="0dp"

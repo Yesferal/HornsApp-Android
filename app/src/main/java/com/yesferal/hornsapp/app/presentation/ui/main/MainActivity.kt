@@ -12,7 +12,7 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdViewData
-import com.yesferal.hornsapp.app.presentation.di.hada.hada
+import com.yesferal.hornsapp.hadi_android.hadi
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProvider(
             viewModelStore,
-            hada().resolve<MainViewModelFactory>()
+            hadi().resolve<MainViewModelFactory>()
         ).get(MainViewModel::class.java)
 
         adContainerLayout = findViewById(R.id.adContainerLayout)

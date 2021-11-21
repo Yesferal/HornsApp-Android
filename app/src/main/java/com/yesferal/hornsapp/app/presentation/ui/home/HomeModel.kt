@@ -1,8 +1,8 @@
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import androidx.annotation.StringRes
-import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
 
 data class HomeViewState(
     val screens: List<Pair<ScreenDrawer.Type, String>>? = null,

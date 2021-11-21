@@ -6,20 +6,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
+import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.domain.common.Result
-import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.entity.drawer.ConditionDrawer
-import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
-import com.yesferal.hornsapp.domain.usecase.GetConcertsUseCase
-import com.yesferal.hornsapp.domain.util.dateTimeFormatted
-import com.yesferal.hornsapp.domain.util.dayFormatted
-import com.yesferal.hornsapp.domain.util.monthFormatted
-import com.yesferal.hornsapp.domain.util.timeFormatted
-import com.yesferal.hornsapp.domain.util.yearFormatted
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
-import com.yesferal.hornsapp.multitype.delegate.RowDelegate
+import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
+import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.core.domain.util.HaResult
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
+import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,16 +32,16 @@ import java.util.*
 
 class NewestViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val drawerRepository: DrawerRepository
 ) : ViewModel() {
 
-    private val _stateNewest = MutableLiveData<NewestViewState>()
-    val stateNewest: LiveData<NewestViewState>
+    private val _stateNewest = MutableLiveData<DelegateViewState>()
+    val stateNewest: LiveData<DelegateViewState>
         get() = _stateNewest
 
     init {
         viewModelScope.launch {
-            settingsRepository.getNewestDrawer().collect {
+            drawerRepository.getNewestDrawer().collect {
                 onRender(it)
             }
         }
@@ -53,12 +56,17 @@ class NewestViewModel(
     private suspend fun getNewestConcerts(newestDrawer: List<ScreenDrawer>) =
         withContext(Dispatchers.IO) {
             when (val result = getConcertsUseCase()) {
-                is Result.Success -> {
+                is HaResult.Success -> {
                     val concerts = result.value
 
                     if (concerts.isEmpty()) {
-                        return@withContext NewestViewState(
-                            errorMessage = R.string.error_no_items,
+                        return@withContext DelegateViewState(
+                            delegates = listOf(
+                                ErrorViewData(
+                                    R.drawable.ic_music_note,
+                                    R.string.error_no_items
+                                )
+                            )
                         )
                     }
 
@@ -80,14 +88,16 @@ class NewestViewModel(
                         }
                     }
 
-                    // Divider height should be 50dp: This is equals to Ad size
-                    delegates.includeDivider(50)
-
-                    return@withContext NewestViewState(delegates)
+                    return@withContext DelegateViewState(delegates)
                 }
-                is Result.Error -> {
-                    return@withContext NewestViewState(
-                        errorMessage = R.string.error_no_items,
+                is HaResult.Error -> {
+                    return@withContext DelegateViewState(
+                        delegates = listOf(
+                            ErrorViewData(
+                                R.drawable.ic_music_note,
+                                R.string.error_no_items
+                            )
+                        )
                     )
                 }
             }
@@ -99,8 +109,15 @@ class NewestViewModel(
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
-        this.add(RowDelegate.Builder().addItems(delegates).build())
-        this.includeDivider(24)
+        if (delegates.isEmpty()) {
+            return
+        }
+
+        this.add(
+            RowDelegate.Builder().addItems(delegates).addBackground(R.color.background)
+                .addElevation(4F).build()
+        )
+        this.addVerticalDivider(24)
     }
 
     private fun MutableList<Delegate>.includeVerticalSection(
@@ -119,7 +136,7 @@ class NewestViewModel(
 
         this.add(TitleViewData(screenDrawer.title?.text, subtitle))
         this.addAll(delegates)
-        this.includeDivider(24)
+        this.addVerticalDivider(24)
     }
 
     private fun getConcertDelegates(
@@ -151,7 +168,7 @@ class NewestViewModel(
                     id = it.id,
                     image = it.headlinerImage,
                     name = it.name,
-                    time = it.dateTime?.dateTimeFormatted(),
+                    time = it.timeInMillis.dateTimeFormatted(),
                     genre = it.genre,
                     ticketingUrl = it.ticketingUrl,
                     ticketingHost = it.ticketingHost
@@ -164,13 +181,13 @@ class NewestViewModel(
         screenDrawer: ScreenDrawer
     ): List<Delegate> {
         return concerts
-            .sortedWith(compareBy { it.dateTime?.time })
+            .sortedWith(compareBy { it.timeInMillis })
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
             .map { concert ->
                 NewestViewData(
                     id = concert.id,
-                    day = concert.dateTime?.dayFormatted(),
-                    month = concert.dateTime?.monthFormatted(),
+                    day = concert.timeInMillis.dayFormatted(),
+                    month = concert.timeInMillis.monthFormatted(),
                     name = concert.name,
                     ticketingHostName = concert.ticketingHost
                 )
@@ -187,11 +204,11 @@ class NewestViewModel(
                 UpcomingViewData(
                     id = concert.id,
                     image = concert.headlinerImage,
-                    day = concert.dateTime?.dayFormatted(),
-                    month = concert.dateTime?.monthFormatted(),
-                    year = concert.dateTime?.yearFormatted(),
+                    day = concert.timeInMillis.dayFormatted(),
+                    month = concert.timeInMillis.monthFormatted(),
+                    year = concert.timeInMillis.yearFormatted(),
                     name = concert.name,
-                    time = concert.dateTime?.timeFormatted(),
+                    time = concert.timeInMillis.timeFormatted(),
                     genre = concert.genre
                 )
             }
@@ -201,22 +218,18 @@ class NewestViewModel(
         screenDrawer: ScreenDrawer
     ) {
         this.add(HomeCardViewData(screenDrawer.title?.text, screenDrawer.subtitle?.text))
-        this.includeDivider(24)
-    }
-
-    private fun MutableList<Delegate>.includeDivider(height: Int) {
-        this.add(DividerDelegate(height = height, background = R.color.divider))
+        this.addVerticalDivider(24)
     }
 }
 
 class NewestViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val settingsRepository: SettingsRepository
+    private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            SettingsRepository::class.java
-        ).newInstance(getConcertsUseCase, settingsRepository)
+            DrawerRepository::class.java
+        ).newInstance(getConcertsUseCase, drawerRepository)
     }
 }

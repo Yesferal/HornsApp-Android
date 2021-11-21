@@ -1,7 +1,6 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
-import com.yesferal.hornsapp.domain.entity.Concert
-import com.yesferal.hornsapp.domain.util.*
+import com.yesferal.hornsapp.core.domain.entity.Concert
 import java.util.*
 
 data class GetConcerts(
@@ -18,16 +17,15 @@ data class GetConcerts(
         
         val isFavorite = false
 
-        return Concert(
-            id = this._id,
-            name = this.name,
-            headlinerImage = this.headlinerImage,
-            dateTime = this.dateTime,
-            genre = this.genre,
-            tags = this.tags,
-            ticketingUrl = this.ticketingUrl?.toSafeUri(),
-            ticketingHost = this.ticketingHost,
-            isFavorite = isFavorite
-        )
+        return Concert.Builder(this._id)
+            .addName(this.name)
+            .addHeadlinerImage(this.headlinerImage)
+            .addTimeInMillis(this.dateTime?.time)
+            .addGenre(this.genre)
+            .addTags(this.tags)
+            .addTicketingUrl(this.ticketingUrl)
+            .addTicketingHost(this.ticketingHost)
+            .isFavorite(isFavorite)
+            .build()
     }
 }

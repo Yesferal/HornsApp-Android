@@ -1,35 +1,38 @@
-package com.yesferal.hornsapp.domain.util
+package com.yesferal.hornsapp.app.presentation.common.extension
 
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.formattedWith(pattern: String): String? {
+fun Long?.formattedWith(pattern: String): String? {
+    if (this == null) {
+        return null
+    }
+
     return try {
         val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
-        simpleDateFormat.format(this)
+        simpleDateFormat.format(Date(this))
     } catch (e: Exception) {
         null
     }
 }
 
-fun Date.dateTimeFormatted(): String? {
+fun Long?.dateTimeFormatted(): String? {
     return formattedWith("EEE dd, MMMM YYYY")
 }
 
-fun Date.dayFormatted(): String? {
+fun Long?.dayFormatted(): String? {
     return formattedWith("dd")
 }
 
-fun Date.monthFormatted(): String? {
+fun Long?.monthFormatted(): String? {
     return formattedWith("MMM")?.substring(0,3)
 }
 
-fun Date.yearFormatted(): String? {
+fun Long?.yearFormatted(): String? {
     return formattedWith("YYYY")
 }
 
-fun Date.timeFormatted(): String? {
+fun Long?.timeFormatted(): String? {
     return formattedWith("HH:mm a")
 }

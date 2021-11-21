@@ -1,12 +1,12 @@
 package com.yesferal.hornsapp.app.framework.socketio
 
 import com.google.gson.Gson
-import com.yesferal.hornsapp.data.abstraction.remote.DrawerRemoteDataSource
-import com.yesferal.hornsapp.data.abstraction.storage.DrawerStorageDataSource
-import com.yesferal.hornsapp.domain.abstraction.Logger
-import com.yesferal.hornsapp.domain.entity.drawer.AppDrawer
-import com.yesferal.hornsapp.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.data.abstraction.remote.DrawerRemoteDataSource
+import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
+import com.yesferal.hornsapp.core.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.entity.drawer.AppDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
