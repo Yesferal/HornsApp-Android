@@ -8,7 +8,7 @@ interface ConcertDao {
     @Query("SELECT * FROM RoomConcert")
     fun getAll(): List<RoomConcert>
 
-    @Insert (onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(roomConcert: RoomConcert)
 
     @Delete

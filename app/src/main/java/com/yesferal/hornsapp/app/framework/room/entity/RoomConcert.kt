@@ -13,13 +13,11 @@ data class RoomConcert(
     @ColumnInfo val timeInMillis: Long?,
     @ColumnInfo val genre: String?,
 ) {
-    fun mapTo() = Concert(
-        id = id,
-        name = name,
-        headlinerImage = headlinerImage,
-        timeInMillis = timeInMillis,
-        genre = genre,
-        tags = null,
-        isFavorite = true
-    )
+    fun mapAsFavoriteConcert() = Concert.Builder(id)
+        .addName(name)
+        .addHeadlinerImage(headlinerImage)
+        .addTimeInMillis(timeInMillis)
+        .addGenre(genre)
+        .isFavorite(true)
+        .build()
 }

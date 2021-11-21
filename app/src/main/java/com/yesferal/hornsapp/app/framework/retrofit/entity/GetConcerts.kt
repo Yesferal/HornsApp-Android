@@ -17,16 +17,15 @@ data class GetConcerts(
         
         val isFavorite = false
 
-        return Concert(
-            id = this._id,
-            name = this.name,
-            headlinerImage = this.headlinerImage,
-            timeInMillis = this.dateTime?.time,
-            genre = this.genre,
-            tags = this.tags,
-            ticketingUrl = this.ticketingUrl,
-            ticketingHost = this.ticketingHost,
-            isFavorite = isFavorite
-        )
+        return Concert.Builder(this._id)
+            .addName(this.name)
+            .addHeadlinerImage(this.headlinerImage)
+            .addTimeInMillis(this.dateTime?.time)
+            .addGenre(this.genre)
+            .addTags(this.tags)
+            .addTicketingUrl(this.ticketingUrl)
+            .addTicketingHost(this.ticketingHost)
+            .isFavorite(isFavorite)
+            .build()
     }
 }

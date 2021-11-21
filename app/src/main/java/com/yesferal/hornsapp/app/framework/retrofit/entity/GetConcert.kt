@@ -25,21 +25,20 @@ data class GetConcert(
 
         val isFavorite = false
 
-        return Concert(
-            id = this._id,
-            name = this.name,
-            description = this.description,
-            trailerUrl = this.trailerUrl,
-            facebookUrl = facebookUrl,
-            headlinerImage = this.headlinerImage,
-            timeInMillis = this.dateTime?.time,
-            genre = this.genre,
-            tags = this.tags,
-            venue = this.venue?.mapToVenue(),
-            bands = this.bands?.map { it.mapToBand() },
-            ticketingUrl = this.ticketingUrl,
-            ticketingHost = this.ticketingHost,
-            isFavorite = isFavorite
-        )
+        return Concert.Builder(this._id)
+            .addName(this.name)
+            .addDescription(this.description)
+            .addTrailerUrl(this.trailerUrl)
+            .addFacebookUrl(facebookUrl)
+            .addHeadlinerImage(this.headlinerImage)
+            .addTimeInMillis(this.dateTime?.time)
+            .addGenre(this.genre)
+            .addTags(this.tags)
+            .addVenue(this.venue?.mapToVenue())
+            .addBands(this.bands?.map { it.mapToBand() })
+            .addTicketingUrl(this.ticketingUrl)
+            .addTicketingHost(this.ticketingHost)
+            .isFavorite(isFavorite)
+            .build()
     }
 }

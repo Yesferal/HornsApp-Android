@@ -6,13 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
-import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
-import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
 import com.yesferal.hornsapp.app.presentation.common.render.ViewEffect
-import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
-import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateFavoriteConcertUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +17,6 @@ import kotlinx.coroutines.withContext
 class ConcertViewModel(
     id: String,
     getConcertUseCase: GetConcertUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<ConcertViewState>()
@@ -40,40 +34,11 @@ class ConcertViewModel(
                 when (val result = getConcertUseCase(id)) {
                     is HaResult.Success -> {
                         val concert = result.value
-                        // TODO ("Move this logic to getConcertUseCase")
-                        getFavoriteConcertsUseCase()
-                            .map { it.id }
-                            .let { favorites ->
-                                if (favorites.contains(concert.id)) {
-                                    concert.isFavorite = true
-                                }
-                            }
 
-                        val concertViewData = ConcertViewData(
-                            concert.id,
-                            concert.name,
-                            concert.headlinerImage,
-                            concert.description,
-                            concert.timeInMillis,
-                            concert.timeInMillis.dateTimeFormatted(),
-                            concert.timeInMillis.dayFormatted(),
-                            concert.timeInMillis.monthFormatted(),
-                            concert.trailerUrl,
-                            concert.facebookUrl,
-                            concert.isFavorite,
-                            concert.genre,
-                            concert.ticketingHost,
-                            concert.ticketingUrl,
-                            concert.venue
-                        )
+                        val concertViewData = ConcertViewData(concert)
 
                         val bandsViewData = concert.bands?.map { band ->
-                            BandViewData(
-                                band.id,
-                                band.name,
-                                band.membersImage,
-                                band.genre
-                            )
+                            BandViewData(band)
                         }
 
                         ConcertViewState(
@@ -96,17 +61,7 @@ class ConcertViewModel(
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val concert = Concert(
-                    concertViewData.id,
-                    concertViewData.name,
-                    concertViewData.headlinerImage,
-                    concertViewData.timeInMillis,
-                    concertViewData.genre,
-                    null,
-                    isChecked
-                )
-
-                updateFavoriteConcertUseCase(concert)
+                updateFavoriteConcertUseCase(concertViewData.concert, isChecked)
             }
 
             if (isChecked) {
@@ -119,19 +74,16 @@ class ConcertViewModel(
 class ConcertViewModelFactory(
     private val id: String,
     private val getConcertUseCase: GetConcertUseCase,
-    private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
             GetConcertUseCase::class.java,
-            GetFavoriteConcertsUseCase::class.java,
             UpdateFavoriteConcertUseCase::class.java
         ).newInstance(
             id,
             getConcertUseCase,
-            getFavoriteConcertsUseCase,
             updateFavoriteConcertUseCase
         )
     }

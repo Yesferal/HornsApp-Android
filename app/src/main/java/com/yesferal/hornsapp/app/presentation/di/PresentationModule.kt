@@ -53,7 +53,6 @@ fun Container.registerPresentationModule() {
         ConcertViewModelFactory(
             id = id,
             getConcertUseCase = resolve(),
-            getFavoriteConcertsUseCase = resolve(),
             updateFavoriteConcertUseCase = resolve()
         )
     }

@@ -29,7 +29,6 @@ import com.yesferal.hornsapp.core.domain.entity.Venue
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
 import java.net.URI
-import java.util.*
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
@@ -160,22 +159,22 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     }
 
     private fun show(concert: ConcertViewData) {
-        titleTextView.setUpWith(concert.name)
+        titleTextView.setUpWith(concert.concert.name)
         dayTextView.setUpWith(concert.day)
         monthTextView.setUpWith(concert.month)
 
-        favoriteImageView.isChecked = concert.isFavorite
+        favoriteImageView.isChecked = concert.concert.isFavorite
         favoriteImageView.setOnCheckedChangeListener { isChecked ->
             concertViewModel.onFavoriteImageViewClick(concert, isChecked)
         }
 
-        enableTicketPurchase(concert.ticketingUrl, concert.ticketingHost)
+        enableTicketPurchase(concert.concert.ticketingUrl, concert.concert.ticketingHost)
 
         venueTextView.apply {
             setImageView(R.drawable.ic_map)
-            setText(concert.venue?.name, getString(R.string.go_to_maps))
+            setText(concert.concert.venue?.name, getString(R.string.go_to_maps))
             setOnClickListener {
-                concert.venue?.let {
+                concert.concert.venue?.let {
                     startGoogleMaps(it)
                 }
             }
@@ -191,11 +190,11 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
         descriptionTextView.apply {
             setImageView(R.drawable.ic_information)
-            setText(getString(R.string.about), concert.description)
+            setText(getString(R.string.about), concert.concert.description)
         }
 
-        showYoutube(concert.trailerUrl)
-        showFacebook(concert.facebookUrl)
+        showYoutube(concert.concert.trailerUrl)
+        showFacebook(concert.concert.facebookUrl)
     }
 
     private fun show(bands: List<BandViewData>) {
@@ -288,15 +287,11 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     ) {
         val intent = Intent(Intent.ACTION_EDIT)
         intent.type = getString(R.string.calendar_action_type)
-        intent.putExtra(CalendarContract.Events.TITLE, concertViewData.name)
-        val dtStart = concertViewData
-            .timeInMillis
-            ?.minus(TimeZone.getDefault().rawOffset + TimeZone.getDefault().dstSavings)
-            ?: 0
-        intent.putExtra("beginTime", dtStart)
-        intent.putExtra("endTime", dtStart + (2 * 60 * 60 * 1000))
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.description)
-        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.venue?.name)
+        intent.putExtra(CalendarContract.Events.TITLE, concertViewData.concert.name)
+        intent.putExtra("beginTime", concertViewData.beginTime)
+        intent.putExtra("endTime", concertViewData.endTime)
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.concert.description)
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.concert.venue?.name)
         startActivity(intent)
     }
 }
