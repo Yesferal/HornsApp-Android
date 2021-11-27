@@ -6,6 +6,7 @@ import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetDefaultEnvironmentUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetFavoriteConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetSettingsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetUpcomingConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetVisibilityOnBoardingUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateFavoriteConcertUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateSettingsUseCase
@@ -72,6 +73,12 @@ fun Container.registerDomainModule() {
     this register Factory {
         UpdateVisibilityOnBoardingUseCase(
             settingsRepository = resolve()
+        )
+    }
+
+    this register Factory {
+        GetUpcomingConcertsUseCase(
+            concertRepository = resolve()
         )
     }
 }
