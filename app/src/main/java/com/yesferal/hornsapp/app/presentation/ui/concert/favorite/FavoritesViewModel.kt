@@ -46,7 +46,6 @@ class FavoritesViewModel(
                     )
                 } else {
                     val delegates = favorites
-                        .sortedWith(compareBy { it.timeInMillis })
                         .map {
                             UpcomingViewData(
                                 id = it.id,
