@@ -68,7 +68,8 @@ fun Container.registerPresentationModule() {
         OnBoardingViewModelFactory(
             getConcertsUseCase = resolve(),
             updateVisibilityOnBoardingUseCase = resolve(),
-            drawerRepository = resolve()
+            drawerRepository = resolve(),
+            filterConcertsByCategoryUseCase = resolve()
         )
     }
 

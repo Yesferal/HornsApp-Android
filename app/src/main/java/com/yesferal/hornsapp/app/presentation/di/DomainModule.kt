@@ -1,5 +1,6 @@
 package com.yesferal.hornsapp.app.presentation.di
 
+import com.yesferal.hornsapp.core.domain.usecase.FilterConcertsByCategoryUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetBandUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
@@ -78,7 +79,12 @@ fun Container.registerDomainModule() {
 
     this register Factory {
         GetUpcomingConcertsUseCase(
-            concertRepository = resolve()
+            concertRepository = resolve(),
+            filterConcertsByCategoryUseCase = resolve()
         )
+    }
+
+    this register Factory {
+        FilterConcertsByCategoryUseCase()
     }
 }
