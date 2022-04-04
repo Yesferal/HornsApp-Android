@@ -21,7 +21,7 @@ data class GetConcert(
 ) {
     fun mapToConcert(): Concert {
 
-        val facebookUrl = socialNetworks?.first()
+        val facebookUrl = socialNetworks?.firstOrNull()
 
         val isFavorite = false
 
