@@ -26,7 +26,7 @@
     {
       "key":"CAROUSEL_VIEW",
       "condition":{
-        "key":"SORT_BY_NEWEST_DATE",
+        "key":"PICK_FROM_DEFAULT_VALUES",
         "count":1
       }
     },

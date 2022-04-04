@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
@@ -153,8 +154,37 @@ class NewestViewModel(
             ConditionDrawer.Type.SORT_BY_NEWEST_DATE -> {
                 sortByNewestDate(concerts, screenDrawer)
             }
+            ConditionDrawer.Type.PICK_FROM_DEFAULT_VALUES -> {
+                val concertsFiltered = pickFromDefaultValues(concerts, screenDrawer)
+                return if (concertsFiltered.isEmpty()) {
+                    sortByNewestDate(concerts, screenDrawer)
+                } else {
+                    concertsFiltered
+                }
+            }
             else -> listOf()
         }
+    }
+
+    private fun pickFromDefaultValues(
+        concerts: List<Concert>,
+        screenDrawer: ScreenDrawer
+    ): List<Delegate> {
+        YLogger.d("Values: ${screenDrawer.condition?.defaultValues}")
+        return concerts
+            .filter { screenDrawer.condition?.defaultValues?.contains(it.id) == true }
+            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .map {
+                CarouselViewData(
+                    id = it.id,
+                    image = it.headlinerImage,
+                    name = it.name,
+                    time = it.timeInMillis.dateTimeFormatted(),
+                    genre = it.genre,
+                    ticketingUrl = it.ticketingUrl,
+                    ticketingHost = it.ticketingHost
+                )
+            }
     }
 
     private fun sortByNewestDate(
@@ -198,7 +228,8 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ScreenDrawer
     ): List<Delegate> {
-        return concerts.filter { it.tags?.contains(screenDrawer.condition?.value) == true }
+        return concerts.reversed()
+            .filter { it.tags?.contains(screenDrawer.condition?.value) == true }
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
             .map { concert ->
                 UpcomingViewData(
