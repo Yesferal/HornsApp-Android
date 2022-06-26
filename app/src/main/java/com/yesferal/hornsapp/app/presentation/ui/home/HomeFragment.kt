@@ -97,7 +97,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
     }
 
     private fun showChildFragmentTitles(screens: List<Pair<ScreenDrawer.Type, String>>) {
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, screens.map { it.first })
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, FragmentFactory(), screens.map { it.first })
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
@@ -140,18 +140,14 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
 private class ScreenSlidePagerAdapter(
     activity: Fragment,
+    private val fragmentFactory: FragmentFactory,
     private val screens: List<ScreenDrawer.Type>
 ) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = screens.size
 
     override fun createFragment(position: Int): Fragment {
-        return when (screens[position]) {
-            ScreenDrawer.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
-            ScreenDrawer.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
-            ScreenDrawer.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
-            else -> ErrorFragment.newInstance()
-        }
+        return fragmentFactory.getFragment(type = screens[position])
     }
 }
 

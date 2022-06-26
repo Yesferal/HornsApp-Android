@@ -9,9 +9,10 @@ import com.yesferal.hornsapp.app.framework.file.FileReaderManager
 import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
-import com.yesferal.hornsapp.app.framework.retrofit.RetrofitFactory
+import com.yesferal.hornsapp.app.framework.retrofit.ApiFactory
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
+import com.yesferal.hornsapp.app.framework.retrofit.AuthenticationInterceptor
 import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
@@ -64,12 +65,13 @@ fun Container.registerFrameworkModule() {
         val defaultEnvironment = resolve<PreferencesDataSource>()
             .getDefaultEnvironment()
         val apiConstants = ApiConstants()
-
-        RetrofitFactory(
-            authorization = apiConstants.authorizations[defaultEnvironment],
-            baseUrl = apiConstants.environments[defaultEnvironment].second,
-            gson = resolve()
-        ).retrofit
+        val authorization = apiConstants.authorizations[defaultEnvironment]
+        ApiFactory.Builder()
+            .addBaseUrl(apiConstants.environments[defaultEnvironment].second)
+            .addInterceptors(listOf(AuthenticationInterceptor(authorization)))
+            .addConverter(resolve())
+            .build()
+            .getFramework(ApiFactory.ApiFramework.CONTENT_RETROFIT)
     }
 
     this register Singleton {
