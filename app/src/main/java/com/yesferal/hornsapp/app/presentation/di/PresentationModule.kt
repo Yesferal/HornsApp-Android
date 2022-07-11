@@ -1,3 +1,4 @@
+/* Copyright © 2021 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
@@ -16,7 +17,7 @@ import com.yesferal.hornsapp.hadi.dependency.Factory
 fun Container.registerPresentationModule() {
     this register Factory {
         MainViewModelFactory(
-            adManager = resolve()
+            businessModelFactoryProducer = resolve()
         )
     }
 
