@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiFactory private constructor(
+class ApiProvider private constructor(
     private val interceptors: List<Interceptor>,
     private val baseUrl: String,
     private val gson: Gson?
@@ -60,8 +60,8 @@ class ApiFactory private constructor(
             this.gson = gson
         }
 
-        fun build(): ApiFactory {
-            return ApiFactory(interceptors, baseUrl, gson)
+        fun build(): ApiProvider {
+            return ApiProvider(interceptors, baseUrl, gson)
         }
     }
 }

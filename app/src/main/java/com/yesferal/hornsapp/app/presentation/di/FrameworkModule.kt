@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.app.framework.file.FileReaderManager
 import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
-import com.yesferal.hornsapp.app.framework.retrofit.ApiFactory
+import com.yesferal.hornsapp.app.framework.retrofit.ApiProvider
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
 import com.yesferal.hornsapp.app.framework.retrofit.AuthenticationInterceptor
@@ -67,12 +67,12 @@ fun Container.registerFrameworkModule() {
             .getDefaultEnvironment()
         val apiConstants = ApiConstants()
         val authorization = apiConstants.authorizations[defaultEnvironment]
-        ApiFactory.Builder()
+        ApiProvider.Builder()
             .addBaseUrl(apiConstants.environments[defaultEnvironment].second)
             .addInterceptors(listOf(AuthenticationInterceptor(authorization)))
             .addConverter(resolve())
             .build()
-            .getFramework(ApiFactory.ApiFramework.CONTENT_RETROFIT)
+            .getFramework(ApiProvider.ApiFramework.CONTENT_RETROFIT)
     }
 
     this register Singleton {
