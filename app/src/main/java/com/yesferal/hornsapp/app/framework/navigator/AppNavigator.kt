@@ -3,7 +3,6 @@ package com.yesferal.hornsapp.app.framework.navigator
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
@@ -15,18 +14,19 @@ import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingFragmentDi
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileFragment
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragment
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
+import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 
-class AppNavigator : Navigator<Fragment> {
+class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
     override fun navigate(view: Fragment, direction: Direction) {
         val from = view.toDirectionType()
         val to = direction.to
 
-        YLogger.d("navigate from: $from ($view)")
-        YLogger.d("navigate to: $to")
+        logger.d("navigate from: $from ($view)")
+        logger.d("navigate to: $to")
         val navDirections = when (to) {
             ScreenType.Home -> getDirectionToHome(from)
             ScreenType.OnBoarding -> getDirectionToOnBoarding(from)

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
@@ -17,6 +16,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
+import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
@@ -33,7 +33,8 @@ import java.util.*
 
 class NewestViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val logger: Logger
 ) : ViewModel() {
 
     private val _stateNewest = MutableLiveData<DelegateViewState>()
@@ -170,7 +171,7 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ScreenDrawer
     ): List<Delegate> {
-        YLogger.d("Values: ${screenDrawer.condition?.defaultValues}")
+        logger.d("Values: ${screenDrawer.condition?.defaultValues}")
         return concerts
             .filter { screenDrawer.condition?.defaultValues?.contains(it.id) == true }
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
@@ -255,12 +256,14 @@ class NewestViewModel(
 
 class NewestViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val logger: Logger
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            DrawerRepository::class.java
-        ).newInstance(getConcertsUseCase, drawerRepository)
+            DrawerRepository::class.java,
+            Logger::class.java
+        ).newInstance(getConcertsUseCase, drawerRepository, logger)
     }
 }

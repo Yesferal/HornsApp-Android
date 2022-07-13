@@ -1,4 +1,4 @@
-/* Copyright © 2021 HornsApp. All rights reserved. */
+/* Copyright © 2022 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.di
 
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.framework.file.FileReaderManager
-import com.yesferal.hornsapp.app.framework.logger.YLogger
+import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiProvider
@@ -125,8 +125,8 @@ fun Container.registerFrameworkModule() {
         resolve<SocketIoDataSource>()
     }
 
-    this register Factory<Logger> {
-        YLogger
+    this register Factory {
+        ChainLoggerProvider.provideLogger()
     }
 
     this register Factory {
@@ -141,6 +141,6 @@ fun Container.registerFrameworkModule() {
     }
 
     this register Singleton<Navigator<Fragment>> {
-        AppNavigator()
+        AppNavigator(logger = resolve())
     }
 }
