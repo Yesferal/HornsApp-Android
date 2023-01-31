@@ -37,8 +37,10 @@ class ConcertViewModel(
 
                         val concertViewData = ConcertViewData(concert)
 
+                        var count = 0
                         val bandsViewData = concert.bands?.map { band ->
-                            BandViewData(band)
+                            count++
+                            BandViewData(band, count.toString(), concert.bands?.size.toString())
                         }
 
                         ConcertViewState(

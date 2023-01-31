@@ -110,13 +110,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="8dp"
                 android:layout_marginEnd="@dimen/margin_big"
-                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
                 app:tabBackground="@drawable/selector_dot_indicator"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
                 app:layout_constraintStart_toStartOf="@+id/bandsViewPager"
                 app:layout_constraintEnd_toEndOf="@+id/bandsViewPager"
-                app:layout_constraintBottom_toBottomOf="@+id/bandsViewPager"/>
+                app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"/>
 
             <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
                 android:id="@+id/ticketTextView"
@@ -134,7 +134,7 @@
                 android:layout_margin="@dimen/margin_big"
                 style="@style/HornsApp.Button"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/bandsViewPager"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView

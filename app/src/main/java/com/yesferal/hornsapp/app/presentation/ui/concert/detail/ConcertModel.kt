@@ -38,7 +38,9 @@ data class ConcertViewData(
 }
 
 data class BandViewData(
-    val band: Band
+    val band: Band,
+    val position: String,
+    val total: String
 ) : InteractiveDelegate<BandViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_band
@@ -53,6 +55,7 @@ data class BandViewData(
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.itemTextView).text = band.name
+        view.findViewById<TextView>(R.id.countTextView).text = "$position/$total"
 
         val itemImageView = view.findViewById<ShapeableImageView>(R.id.itemImageView)
         itemImageView.setAllCornersRounded()
