@@ -35,7 +35,7 @@
         android:textStyle="bold"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
-        app:layout_constraintEnd_toEndOf="@id/concertImageForegroundView"
+        app:layout_constraintEnd_toStartOf="@id/buyTicketsTextView"
         app:layout_constraintTop_toBottomOf="@+id/concertImageView"/>
 
     <ImageView
