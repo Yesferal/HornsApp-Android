@@ -7,6 +7,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
@@ -69,13 +70,8 @@ data class CarouselViewData(
 
         val buyTicketsTextView = view.findViewById<TextView>(R.id.buyTicketsTextView)
 
-        ticketingUrl?.let { url ->
-            buyTicketsTextView.setUpWith(ticketingHost ?: view.context.getString(R.string.go_now))
-            buyTicketsTextView.setOnClickListener {
-                listener.onTicketingClick(url)
-            }
-        } ?: kotlin.run {
-            buyTicketsTextView.visibility = View.GONE
+        buyTicketsTextView.setUpCTA(ticketingHost, ticketingUrl) {
+            ticketingUrl?.let { listener.onTicketingClick(it) }
         }
 
         view.setOnClickListener {

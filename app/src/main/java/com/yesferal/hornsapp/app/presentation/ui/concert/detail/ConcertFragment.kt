@@ -23,6 +23,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.ScalePageTransformat
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.Venue
@@ -205,18 +206,15 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         ticketingUrl: String?,
         ticketingHost: String?
     ) {
-        ticketingUrl?.let { url ->
-            ticketTextView.apply {
-                setImageView(R.drawable.ic_ticket)
-                setText(getString(R.string.available_on))
-            }
-            buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
-            buyTicketsTextView.setOnClickListener {
-                startExternalActivity(url)
-            }
-        } ?: kotlin.run {
-            ticketTextView.visibility = View.GONE
-            buyTicketsTextView.visibility = View.GONE
+        buyTicketsTextView.setUpCTA(ticketingHost, ticketingUrl) {
+            ticketingUrl?.let { startExternalActivity(it) }
+        }
+
+        ticketTextView.setImageView(R.drawable.ic_ticket)
+        if (ticketingUrl.isNullOrEmpty()) {
+            ticketTextView.setText(getString(R.string.available_soon))
+        } else {
+            ticketTextView.setText(getString(R.string.available_on))
         }
     }
 

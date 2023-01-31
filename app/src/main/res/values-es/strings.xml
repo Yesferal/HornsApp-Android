@@ -13,7 +13,7 @@
     <string name="settings_force_crash_button">Error</string>
 
     <!-- Messages -->
-    <string name="go_now">Ir Ahora</string>
+    <string name="buy_here">Comprar aquí</string>
     <string name="add_to_favorite">Se añadió a tus favoritos</string>
     <string name="about">Acerca de</string>
     <string name="go_to_maps">Ir a Google Map</string>
@@ -23,6 +23,7 @@
     <string name="go_to_youtube">Ir a Youtube</string>
     <string name="add_to_calendar">"Añadir al Calendario"</string>
     <string name="available_on">Disponible en</string>
+    <string name="available_soon">Próximamente</string>
     <string name="try_again">Volver a intentar</string>
     <string name="share_with_friends">Compartir con amigos</string>
     <string name="share_hornsapp_message">¿Estás buscando nuevos conciertos en Lima? Descarga HornsApp (Rock &amp; Metal): https://play.google.com/store/apps/details?id=com.yesferal.hornsapp</string>
