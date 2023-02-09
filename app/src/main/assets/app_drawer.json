@@ -1,110 +1,119 @@
 {
-  "screens":[
+  "_id": "6145745816f26725560c903f",
+  "screens": [
     {
-      "key":"NEWEST_FRAGMENT",
-      "title":{
-        "en":"Newest",
-        "es":"Novedades"
+      "title": {
+        "en": "Newest",
+        "es": "Novedades"
+      },
+      "key": "NEWEST_FRAGMENT"
+    },
+    {
+      "title": {
+        "en": "Upcoming",
+        "es": "Próximos"
+      },
+      "key": "UPCOMING_FRAGMENT"
+    },
+    {
+      "title": {
+        "en": "Favorites",
+        "es": "Favoritos"
+      },
+      "key": "FAVORITE_FRAGMENT"
+    }
+  ],
+  "newest": [
+    {
+      "key": "CAROUSEL_VIEW",
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "count": 1,
+        "defaultValues": [
+          "63d31c6ba0b745f9f2e9e72f"
+        ]
       }
     },
     {
-      "key":"UPCOMING_FRAGMENT",
-      "title":{
-        "en":"Upcoming",
-        "es":"Próximos"
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Metal never dies",
+        "es": "El Metal nunca muere"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "METAL",
+        "count": "3"
       }
     },
     {
-      "key":"FAVORITE_FRAGMENT",
-      "title":{
-        "en":"Favorites",
-        "es":"Favoritos"
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Upcoming",
+        "es": "Próximos"
+      },
+      "condition": {
+        "key": "SORT_BY_UPCOMING_DATE",
+        "count": 3
+      }
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Keep on rocking",
+        "es": "El Rock es prioridad"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "ROCK",
+        "count": 2
+      }
+    },
+    {
+      "key": "HOME_CARD_VIEW",
+      "title": {
+        "en": "Save your favorites",
+        "es": "Guarda tus favoritos"
+      },
+      "subtitle": {
+        "en": "Save your favorite concerts, so you can find them later.",
+        "es": "Guardar tus conciertos favoritos, y asi encontrarlos luego."
+      }
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Mellow Pop music",
+        "es": "Musica suave y relajante"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "POP",
+        "count": 3
       }
     }
   ],
-  "newest":[
+  "categories": [
     {
-      "key":"CAROUSEL_VIEW",
-      "condition":{
-        "key":"PICK_FROM_DEFAULT_VALUES",
-        "count":1
-      }
-    },
-    {
-      "key":"VERTICAL_LIST_VIEW",
-      "title":{
-        "en":"Upcoming",
-        "es":"Próximos"
+      "title": {
+        "en": "Metal",
+        "es": "Metal"
       },
-      "condition":{
-        "key":"SORT_BY_UPCOMING_DATE",
-        "count":3
-      }
+      "key": "METAL"
     },
     {
-      "key":"VERTICAL_LIST_VIEW",
-      "title":{
-        "en":"Keep on rocking",
-        "es":"El Rock debe ser prioridad"
+      "title": {
+        "en": "Pop",
+        "es": "Pop"
       },
-      "condition":{
-        "key":"FILTER_BY_CATEGORY",
-        "value":"ROCK",
-        "count":2
-      }
+      "key": "POP"
     },
     {
-      "key":"HOME_CARD_VIEW",
-      "title":{
-        "en":"Save your favorites",
-        "es":"Guarda tus favoritos"
+      "title": {
+        "en": "Rock",
+        "es": "Rock"
       },
-      "subtitle":{
-        "en":"You can save your favorite concerts, so you can find them later.",
-        "es":"Puedes guardar tus conciertos favoritos, y asi encontrarlos luego."
-      }
-    },
-    {
-      "key":"VERTICAL_LIST_VIEW",
-      "title":{
-        "en":"Metal never dies",
-        "es":"El Metal nunca muere"
-      },
-      "condition":{
-        "key":"FILTER_BY_CATEGORY",
-        "value":"METAL",
-        "count":3
-      }
-    }
-  ],
-  "categories":[
-    {
-      "key":"INDIE",
-      "title":{
-        "en":"Indie",
-        "es":"Indie"
-      }
-    },
-    {
-      "key":"METAL",
-      "title":{
-        "en":"Metal",
-        "es":"Metal"
-      }
-    },
-    {
-      "key":"POP",
-      "title":{
-        "en":"Pop",
-        "es":"Pop"
-      }
-    },
-    {
-      "key":"ROCK",
-      "title":{
-        "en":"Rock",
-        "es":"Rock"
-      }
+      "key": "ROCK"
     }
   ]
 }
