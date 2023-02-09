@@ -61,7 +61,7 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
             versionTextView.setImageView(R.drawable.ic_information)
             val version = StringBuilder()
                 .append(versionName)
-                .append(".")
+                .append("+")
                 .append(versionCode)
                 .append("-")
                 .append(suffix)
