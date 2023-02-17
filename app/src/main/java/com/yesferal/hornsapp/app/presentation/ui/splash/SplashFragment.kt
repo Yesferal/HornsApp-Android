@@ -40,9 +40,9 @@ class SplashFragment : RenderFragment<SplashState>() {
 
     override fun render(viewState: SplashState) {
         val directionType = if (viewState.onBoardingVisibility) {
-            ScreenType.OnBoarding
+            ScreenType.ON_BOARDING
         } else {
-            ScreenType.Home
+            ScreenType.HOME
         }
         initMotionLayout(directionType)
     }

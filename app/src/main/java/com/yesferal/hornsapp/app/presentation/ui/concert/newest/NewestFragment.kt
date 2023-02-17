@@ -49,7 +49,7 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
 
     private fun startConcertActivity(parcelableViewData: ParcelableViewData) {
         val direction = Direction.Build()
-            .to(ScreenType.ConcertDetail)
+            .to(ScreenType.CONCERT_DETAIL)
             .with(parcelableViewData)
             .build()
         navigator.navigate(this, direction)

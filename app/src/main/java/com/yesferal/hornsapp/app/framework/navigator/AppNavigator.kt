@@ -28,10 +28,10 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
         logger.d("navigate from: $from ($view)")
         logger.d("navigate to: $to")
         val navDirections = when (to) {
-            ScreenType.Home -> getDirectionToHome(from)
-            ScreenType.OnBoarding -> getDirectionToOnBoarding(from)
-            ScreenType.Setting -> getDirectionToSettings(from)
-            ScreenType.ConcertDetail -> getDirectionToConcertDetail(from, direction.parameter)
+            ScreenType.HOME -> getDirectionToHome(from)
+            ScreenType.ON_BOARDING -> getDirectionToOnBoarding(from)
+            ScreenType.SETTING -> getDirectionToSettings(from)
+            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(from, direction.parameter)
             else -> null
         }
         navDirections?.let { view.findNavController().navigate(it) }
@@ -40,32 +40,32 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
     private fun Fragment.toDirectionType(): ScreenType {
         return when (this) {
             is HomeFragment, is NewestFragment, is UpcomingFragment,
-            is FavoritesFragment -> ScreenType.Home
-            is ProfileFragment -> ScreenType.Profile
-            is SplashFragment -> ScreenType.Splash
-            is OnBoardingFragment -> ScreenType.OnBoarding
-            else -> ScreenType.None
+            is FavoritesFragment -> ScreenType.HOME
+            is ProfileFragment -> ScreenType.PROFILE
+            is SplashFragment -> ScreenType.SPLASH
+            is OnBoardingFragment -> ScreenType.ON_BOARDING
+            else -> ScreenType.NONE
         }
     }
 
     private fun getDirectionToHome(from: ScreenType): NavDirections? {
         return when (from) {
-            ScreenType.OnBoarding -> OnBoardingFragmentDirections.actionOnBoardingToHome()
-            ScreenType.Splash -> SplashFragmentDirections.actionSplashToHome()
+            ScreenType.ON_BOARDING -> OnBoardingFragmentDirections.actionOnBoardingToHome()
+            ScreenType.SPLASH -> SplashFragmentDirections.actionSplashToHome()
             else -> null
         }
     }
 
     private fun getDirectionToOnBoarding(from: ScreenType): NavDirections? {
         return when (from) {
-            ScreenType.Splash -> SplashFragmentDirections.actionSplashToOnBoarding()
+            ScreenType.SPLASH -> SplashFragmentDirections.actionSplashToOnBoarding()
             else -> null
         }
     }
 
     private fun getDirectionToSettings(from: ScreenType): NavDirections? {
         return when (from) {
-            ScreenType.Profile -> HomeFragmentDirections.actionHomeToSettings()
+            ScreenType.PROFILE -> HomeFragmentDirections.actionHomeToSettings()
             else -> null
         }
     }
@@ -75,7 +75,7 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
         parameters: NavViewData?
     ): NavDirections? {
         return when (from) {
-            ScreenType.Home -> {
+            ScreenType.HOME -> {
                 if (parameters is ParcelableViewData) {
                     HomeFragmentDirections.actionHomeToConcert(parameters)
                 } else {

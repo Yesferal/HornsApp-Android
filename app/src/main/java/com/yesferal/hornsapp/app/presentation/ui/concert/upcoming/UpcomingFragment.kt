@@ -31,7 +31,7 @@ class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
         val direction = Direction.Build()
-            .to(ScreenType.ConcertDetail)
+            .to(ScreenType.CONCERT_DETAIL)
             .with(upcomingViewData.asParcelable())
             .build()
         navigator.navigate(this, direction)
