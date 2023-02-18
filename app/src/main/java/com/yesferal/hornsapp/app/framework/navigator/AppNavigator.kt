@@ -1,9 +1,14 @@
 package com.yesferal.hornsapp.app.framework.navigator
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.base.asParcelable
+import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
+import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertFragment
+import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
@@ -11,6 +16,7 @@ import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingFragment
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingFragmentDirections
+import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileFragment
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragment
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
@@ -32,6 +38,8 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
             ScreenType.ON_BOARDING -> getDirectionToOnBoarding(from)
             ScreenType.SETTING -> getDirectionToSettings(from)
             ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(from, direction.parameter)
+            ScreenType.PROFILE -> getDirectionToProfile(view)
+            ScreenType.BAND_DETAIL -> getDirectionToBandDetail(view, direction.parameter)
             else -> null
         }
         navDirections?.let { view.findNavController().navigate(it) }
@@ -44,6 +52,7 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
             is ProfileFragment -> ScreenType.PROFILE
             is SplashFragment -> ScreenType.SPLASH
             is OnBoardingFragment -> ScreenType.ON_BOARDING
+            is ConcertFragment -> ScreenType.CONCERT_DETAIL
             else -> ScreenType.NONE
         }
     }
@@ -84,5 +93,31 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
             }
             else -> null
         }
+    }
+
+    private fun getDirectionToProfile(
+        view: Fragment
+    ): NavDirections? {
+        view.childFragmentManager.let { manager ->
+            ProfileBottomSheetFragment.newInstance(Bundle()).apply {
+                show(manager, tag)
+            }
+        }
+        return null
+    }
+
+    private fun getDirectionToBandDetail(
+        view: Fragment,
+        parameters: NavViewData?
+    ): NavDirections? {
+        view.childFragmentManager.let {
+            val bundle = Bundle()
+            bundle.putParcelable(EXTRA_PARAM_PARCELABLE, parameters?.asParcelable())
+
+            BandBottomSheetFragment.newInstance(bundle).apply {
+                show(it, tag)
+            }
+        }
+        return null
     }
 }

@@ -16,12 +16,9 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
-import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
-import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class HomeFragment : RenderFragment<HomeViewState>() {
@@ -50,11 +47,10 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
         hornsAppImageView.setOnClickListener {
-            childFragmentManager.let { manager ->
-                ProfileBottomSheetFragment.newInstance(Bundle()).apply {
-                    show(manager, tag)
-                }
-            }
+            val direction = Direction.Build()
+                .to(ScreenType.PROFILE)
+                .build()
+            navigator.navigate(this, direction)
         }
 
         homeViewModel = getViewModel<HomeViewModel, HomeViewModelFactory>()

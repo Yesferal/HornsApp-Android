@@ -20,13 +20,14 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.common.custom.ScalePageTransformation
-import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.Venue
+import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
 import java.net.URI
@@ -58,6 +59,17 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private lateinit var youtubeTextView: ImageTextView
     private lateinit var customProgressBar: View
     private lateinit var stubView: ViewStub
+
+    private val bandViewDataListener =
+        object : BandViewData.Listener {
+            override fun onClick(bandViewData: BandViewData) {
+                val direction = Direction.Build()
+                    .to(ScreenType.BAND_DETAIL)
+                    .with(bandViewData.asParcelable())
+                    .build()
+                navigator.navigate(this@ConcertFragment, direction)
+            }
+        }
 
     override fun onViewCreated(
         view: View,
@@ -110,7 +122,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
     private fun setUpBandsViewPager() {
         delegateAdapter = DelegateAdapter.Builder()
-            .setListener(instanceAdapterListener())
+            .setListener(bandViewDataListener)
             .build()
 
         val bigMargin = 24F
@@ -293,17 +305,3 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         startActivity(intent)
     }
 }
-
-private fun ConcertFragment.instanceAdapterListener() =
-    object : BandViewData.Listener {
-        override fun onClick(bandViewData: BandViewData) {
-            childFragmentManager.let {
-                val bundle = Bundle()
-                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, bandViewData.asParcelable())
-
-                BandBottomSheetFragment.newInstance(bundle).apply {
-                    show(it, tag)
-                }
-            }
-        }
-    }

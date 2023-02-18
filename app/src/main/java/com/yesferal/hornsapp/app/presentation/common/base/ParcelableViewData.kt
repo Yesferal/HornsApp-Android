@@ -9,3 +9,5 @@ class ParcelableViewData(
         override val id: String,
         override val name: String?
 ) : Parcelable, NavViewData
+
+fun NavViewData.asParcelable() = ParcelableViewData(this.id, this.name)
