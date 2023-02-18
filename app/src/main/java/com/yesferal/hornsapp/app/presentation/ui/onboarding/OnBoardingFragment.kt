@@ -57,7 +57,7 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
         nextTextView.setOnClickListener {
             onBoardingViewModel.updateVisibilityOnBoarding()
-            navigator.navigate(this, ScreenType.HOME.asDirection())
+            ScreenType.HOME.asDirection().navigateTo()
         }
     }
 

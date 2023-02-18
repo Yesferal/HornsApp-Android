@@ -7,6 +7,6 @@ interface EasterEggsApplier {
     fun versionSuffix() = "DEV"
 
     fun BaseFragment.onAppImageViewClick() {
-        navigator.navigate(this, ScreenType.SETTING.asDirection())
+        ScreenType.SETTING.asDirection().navigateTo()
     }
 }

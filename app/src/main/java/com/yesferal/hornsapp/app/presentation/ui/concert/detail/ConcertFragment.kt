@@ -26,7 +26,6 @@ import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.Venue
-import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
@@ -63,11 +62,9 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private val bandViewDataListener =
         object : BandViewData.Listener {
             override fun onClick(bandViewData: BandViewData) {
-                val direction = Direction.Build()
-                    .to(ScreenType.BAND_DETAIL)
-                    .with(bandViewData.asParcelable())
-                    .build()
-                navigator.navigate(this@ConcertFragment, direction)
+                ScreenType.BAND_DETAIL
+                    .asDirection(bandViewData.asParcelable())
+                    .navigateTo()
             }
         }
 

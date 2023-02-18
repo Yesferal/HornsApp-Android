@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.hadi_android.hadi
 
@@ -56,5 +57,9 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
     fun startExternalActivity(uri: String) {
         val androidUri = Uri.parse(uri)
         startActivity(Intent(Intent.ACTION_VIEW, androidUri))
+    }
+
+    fun Direction.navigateTo() {
+        navigator.navigate(this@BaseFragment, this)
     }
 }
