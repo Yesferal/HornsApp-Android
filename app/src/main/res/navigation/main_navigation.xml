@@ -5,53 +5,43 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/fragment_splash">
 
+    <!-- ACTION SECTION -->
+    <action
+        android:id="@+id/action_to_home"
+        app:destination="@+id/fragment_home" />
+
+    <action
+        android:id="@+id/action_to_concert"
+        app:destination="@+id/fragment_concert"
+        app:enterAnim="@anim/slide_in"
+        app:popExitAnim="@anim/slide_out" />
+
+    <action
+        android:id="@+id/action_to_settings"
+        app:destination="@+id/fragment_settings" />
+
+    <action
+        android:id="@+id/action_to_on_boarding"
+        app:destination="@+id/fragment_on_boarding" />
+
+    <!-- FRAGMENT SECTION -->
     <fragment
         android:id="@+id/fragment_splash"
         android:name="com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragment"
         android:label="splash_fragment"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_splash_to_on_boarding"
-            app:destination="@+id/fragment_on_boarding"
-            app:popUpTo="@id/fragment_splash"
-            app:popUpToInclusive="true"/>
-
-        <action
-            android:id="@+id/action_splash_to_home"
-            app:destination="@+id/fragment_home"
-            app:popUpTo="@id/fragment_splash"
-            app:popUpToInclusive="true"/>
-    </fragment>
+        tools:layout="@layout/fragment_splash" />
 
     <fragment
         android:id="@+id/fragment_on_boarding"
         android:name="com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingFragment"
         android:label="on_boarding_fragment"
-        tools:layout="@layout/fragment_on_boarding">
-        <action
-            android:id="@+id/action_on_boarding_to_home"
-            app:destination="@+id/fragment_home"
-            app:popUpTo="@id/fragment_on_boarding"
-            app:popUpToInclusive="true"/>
-    </fragment>
+        tools:layout="@layout/fragment_on_boarding" />
 
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_home_to_concert"
-            app:destination="@+id/fragment_concert"
-            app:enterAnim="@anim/slide_in"
-            app:popExitAnim="@anim/slide_out"
-            app:popUpTo="@id/fragment_concert"/>
-
-        <action
-            android:id="@+id/action_home_to_settings"
-            app:destination="@+id/fragment_settings"
-            app:popUpTo="@id/fragment_settings"/>
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/fragment_concert"
@@ -60,14 +50,14 @@
         tools:layout="@layout/fragment_concert">
         <argument
             android:name="concert"
-            app:nullable="true"
             android:defaultValue="@null"
-            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData" />
+            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData"
+            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_settings"
         android:name="com.yesferal.hornsapp.app.presentation.ui.settings.SettingsFragment"
         android:label="settings_fragment"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings" />
 </navigation>
