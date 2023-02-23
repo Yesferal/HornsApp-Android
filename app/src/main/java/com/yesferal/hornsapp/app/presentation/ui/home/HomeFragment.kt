@@ -63,7 +63,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
                         isEnabled = false
                         activity?.onBackPressed()
                     } else {
-                        concertsViewPager.currentItem = concertsViewPager.currentItem - 1
+                        navigateToTab(tab = 0)
                     }
                 }
             })
@@ -127,6 +127,10 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
     private fun hideError() {
         stubViewInflated.visibility = View.GONE
+    }
+
+    fun navigateToTab(tab: Int) {
+        concertsViewPager.currentItem = tab
     }
 }
 

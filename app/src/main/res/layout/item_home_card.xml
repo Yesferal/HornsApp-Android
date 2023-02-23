@@ -41,4 +41,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/subtitleTextView"
         app:layout_constraintDimensionRatio="1:1"/>
 
+    <TextView
+        android:id="@+id/goNowTicketsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_big"
+        android:text="@string/see_more"
+        style="@style/HornsApp.Button"
+        android:textColor="@color/accent"
+        android:backgroundTint="@color/background"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

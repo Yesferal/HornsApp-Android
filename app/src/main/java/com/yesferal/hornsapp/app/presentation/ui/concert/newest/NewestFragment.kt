@@ -8,11 +8,14 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
-    CarouselViewData.Listener, UpcomingViewData.Listener {
+    CarouselViewData.Listener, UpcomingViewData.Listener, HomeCardViewData.Listener,
+    TitleViewData.Listener {
 
     private lateinit var viewModel: NewestViewModel
 
@@ -44,6 +47,22 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
         startConcertActivity(upcomingViewData.asParcelable())
+    }
+
+    override fun onClick(homeCardViewData: HomeCardViewData) {
+        navigateToStringDirection(homeCardViewData.deeplink, homeCardViewData.asParcelable())
+    }
+
+    override fun onClick(titleViewData: TitleViewData) {
+        navigateToStringDirection(titleViewData.deeplink, titleViewData.asParcelable())
+    }
+
+    private fun navigateToStringDirection(deeplink: String?, navViewData: NavViewData?) {
+        Direction.Build()
+            .to(deeplink.orEmpty())
+            .with(navViewData)
+            .build()
+            .navigateTo()
     }
 
     private fun startConcertActivity(parcelableViewData: ParcelableViewData) {

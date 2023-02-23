@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.yesferal.hornsapp.app.presentation.common.base.asParcelable
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
+import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
@@ -23,19 +24,28 @@ class AppNavigator(private val logger: Logger) : Navigator<Fragment> {
         logger.d("navigate from: $view")
         logger.d("navigate to: $to")
         val navDirections = when (to) {
-            ScreenType.HOME -> getDirectionToHome()
+            ScreenType.HOME -> getDirectionToHome(view, tab = 0)
             ScreenType.ON_BOARDING -> getDirectionToOnBoarding()
             ScreenType.SETTING -> getDirectionToSettings()
             ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(direction.parameter)
             ScreenType.PROFILE -> getDirectionToProfile(view)
             ScreenType.BAND_DETAIL -> getDirectionToBandDetail(view, direction.parameter)
+            ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
+            ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
             else -> null
         }
         navDirections?.let { view.findNavController().navigate(it) }
     }
 
-    private fun getDirectionToHome(): NavDirections {
-        return SplashFragmentDirections.actionToHome()
+    private fun getDirectionToHome(view: Fragment, tab: Int): NavDirections? {
+        return if (view.parentFragment is HomeFragment) {
+            logger.d("Its parent is HomeFragment, so we will navigate into a specific TAB #${tab}")
+            (view.parentFragment as HomeFragment).navigateToTab(tab)
+            null
+        } else {
+            logger.d("Its parent is NOT HomeFragment, so we will navigate into HOME")
+            SplashFragmentDirections.actionToHome()
+        }
     }
 
     private fun getDirectionToOnBoarding(): NavDirections {

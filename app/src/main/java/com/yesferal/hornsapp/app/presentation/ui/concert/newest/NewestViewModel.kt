@@ -28,8 +28,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.StringBuilder
-import java.util.*
 
 class NewestViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
@@ -132,11 +130,14 @@ class NewestViewModel(
             return
         }
 
-        val subtitle = screenDrawer.condition?.value?.let {
-            StringBuilder().append("#").append(it).toString()
-        }
-
-        this.add(TitleViewData(screenDrawer.title?.text, subtitle))
+        this.add(
+            TitleViewData(
+                screenDrawer.id,
+                screenDrawer.title?.text,
+                screenDrawer.subtitle?.text,
+                screenDrawer.deeplink
+            )
+        )
         this.addAll(delegates)
         this.addVerticalDivider(24)
     }
@@ -249,7 +250,14 @@ class NewestViewModel(
     private fun MutableList<Delegate>.includeHomeCardSection(
         screenDrawer: ScreenDrawer
     ) {
-        this.add(HomeCardViewData(screenDrawer.title?.text, screenDrawer.subtitle?.text))
+        this.add(
+            HomeCardViewData(
+                screenDrawer.id,
+                screenDrawer.title?.text,
+                screenDrawer.subtitle?.text,
+                screenDrawer.deeplink
+            )
+        )
         this.addVerticalDivider(24)
     }
 }
