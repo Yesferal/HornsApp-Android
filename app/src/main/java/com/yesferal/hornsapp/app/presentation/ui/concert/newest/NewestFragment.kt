@@ -1,9 +1,11 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
@@ -42,7 +44,7 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     }
 
     override fun onTicketingClick(ticketingUrl: String) {
-        startExternalActivity(ticketingUrl)
+        startExternalActivity(ExternalNavViewData(ticketingUrl))
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {

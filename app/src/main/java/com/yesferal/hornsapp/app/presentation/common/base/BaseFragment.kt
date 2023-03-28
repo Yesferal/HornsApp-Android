@@ -1,7 +1,6 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.base
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.hadi
 
 abstract class BaseFragment : Fragment(), LayoutBinding {
@@ -38,25 +38,11 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
         ).show()
     }
 
-    protected fun startExternalActivity(
-        uri: String,
-        externalPackage: String,
-        onError: () -> Unit = { showToast(R.string.error_app_not_found) }
-    ) {
-        val androidUri = Uri.parse(uri)
-        val intent = Intent(Intent.ACTION_VIEW, androidUri)
-
-        intent.setPackage(externalPackage)
-        activity?.let {
-            intent.resolveActivity(it.packageManager)?.let {
-                startActivity(intent)
-            } ?: kotlin.run { onError() }
-        }
-    }
-
-    fun startExternalActivity(uri: String) {
-        val androidUri = Uri.parse(uri)
-        startActivity(Intent(Intent.ACTION_VIEW, androidUri))
+    fun startExternalActivity(navViewData: NavViewData) {
+        Direction.Build().to(ScreenType.WEB_VIEW)
+            .with(navViewData)
+            .build()
+            .navigateTo()
     }
 
     fun Direction.navigateTo() {

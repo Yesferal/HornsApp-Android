@@ -38,8 +38,4 @@
     <string name="error_app_not_found">You don\'t have this app installed.</string>
     <string name="error_no_favorite_yet">You haven\'t saved any concert yet.</string>
 
-    <!-- Packages -->
-    <string name="facebook_package">com.facebook.katana</string>
-    <string name="maps_package">com.google.android.apps.maps</string>
-    <string name="calendar_action_type">vnd.android.cursor.item/event</string>
 </resources>

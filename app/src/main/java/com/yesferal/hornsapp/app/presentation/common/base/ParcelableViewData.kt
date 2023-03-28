@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.base
 
 import android.os.Parcelable
@@ -9,5 +10,3 @@ class ParcelableViewData(
         override val id: String,
         override val name: String?
 ) : Parcelable, NavViewData
-
-fun NavViewData.asParcelable() = ParcelableViewData(this.id, this.name)
