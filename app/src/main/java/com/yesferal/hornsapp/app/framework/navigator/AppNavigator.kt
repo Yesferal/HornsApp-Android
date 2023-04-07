@@ -30,6 +30,9 @@ class AppNavigator(private val logger: Logger, private val navigator: Navigator<
         }
         navDirections?.let {
             logger.d("navigate from: $view to fragment: $to")
+            direction.popBackStackId?.let { popBackStackId ->
+                view.findNavController().popBackStack(popBackStackId, true)
+            }
             view.findNavController().navigate(it)
         } ?: kotlin.run {
             navigator?.navigate(view, direction)

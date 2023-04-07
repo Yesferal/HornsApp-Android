@@ -137,7 +137,7 @@ class UpcomingViewModelFactory(
     private val settingsRepository: SettingsRepository,
     private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetUpcomingConcertsUseCase::class.java,
             SettingsRepository::class.java,

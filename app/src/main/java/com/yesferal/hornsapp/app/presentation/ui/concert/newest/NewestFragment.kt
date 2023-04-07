@@ -68,8 +68,10 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     }
 
     private fun startConcertActivity(parcelableViewData: ParcelableViewData) {
-        ScreenType.CONCERT_DETAIL
-            .asDirection(parcelableViewData)
+        Direction.Build()
+            .to(ScreenType.CONCERT_DETAIL)
+            .with(parcelableViewData)
+            .build()
             .navigateTo()
     }
 

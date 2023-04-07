@@ -74,7 +74,7 @@ class OnBoardingViewModelFactory(
     private val drawerRepository: DrawerRepository,
     private val filterConcertsByCategoryUseCase: FilterConcertsByCategoryUseCase
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             UpdateVisibilityOnBoardingUseCase::class.java,

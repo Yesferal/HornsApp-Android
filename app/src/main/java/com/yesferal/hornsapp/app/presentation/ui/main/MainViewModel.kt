@@ -24,7 +24,7 @@ class MainViewModel(
 class MainViewModelFactory(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             BusinessModelFactoryProducer::class.java
         ).newInstance(businessModelFactoryProducer)

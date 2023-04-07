@@ -65,7 +65,7 @@ class HomeViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             DrawerRepository::class.java

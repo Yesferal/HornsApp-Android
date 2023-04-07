@@ -78,7 +78,7 @@ class ConcertViewModelFactory(
     private val getConcertUseCase: GetConcertUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
             GetConcertUseCase::class.java,

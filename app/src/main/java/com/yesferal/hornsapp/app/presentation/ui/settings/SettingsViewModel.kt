@@ -35,7 +35,7 @@ class SettingsViewModelFactory(
     private val getSettingsUseCase: GetSettingsUseCase,
     private val updateSettingsUseCase: UpdateSettingsUseCase
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetDefaultEnvironmentUseCase::class.java,
             GetSettingsUseCase::class.java,

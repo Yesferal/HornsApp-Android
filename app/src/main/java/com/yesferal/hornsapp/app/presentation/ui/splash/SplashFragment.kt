@@ -6,6 +6,7 @@ import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
@@ -50,7 +51,11 @@ class SplashFragment : RenderFragment<SplashState>() {
     private fun initMotionLayout(screenType: ScreenType) {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                screenType.asDirection().navigateTo()
+                Direction.Build()
+                    .to(screenType)
+                    .popBackStack(R.id.fragment_splash)
+                    .build()
+                    .navigateTo()
             }
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}

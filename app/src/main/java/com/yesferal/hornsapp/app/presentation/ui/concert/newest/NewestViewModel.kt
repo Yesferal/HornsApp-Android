@@ -267,7 +267,7 @@ class NewestViewModelFactory(
     private val drawerRepository: DrawerRepository,
     private val logger: Logger
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             DrawerRepository::class.java,

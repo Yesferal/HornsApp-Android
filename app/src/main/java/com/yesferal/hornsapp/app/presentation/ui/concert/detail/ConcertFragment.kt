@@ -61,8 +61,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private val bandViewDataListener =
         object : BandViewData.Listener {
             override fun onClick(bandViewData: BandViewData) {
-                ScreenType.BAND_DETAIL
-                    .asDirection(bandViewData.asParcelable())
+                Direction.Build()
+                    .to(ScreenType.BAND_DETAIL)
+                    .with(bandViewData.asParcelable())
+                    .build()
                     .navigateTo()
             }
         }
