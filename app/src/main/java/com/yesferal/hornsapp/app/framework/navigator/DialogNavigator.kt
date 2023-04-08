@@ -9,19 +9,21 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
-class DialogNavigator(private val logger: Logger, private val navigator: Navigator<Fragment>? = null): Navigator<Fragment> {
+class DialogNavigator(
+    private val logger: Logger,
+    private val fragmentNavigator: FragmentNavigator? = null
+) : FragmentNavigator {
 
-    override fun navigate(view: Fragment, direction: Direction) {
-        val to = direction.to
+    override fun navigate(view: Fragment, navigator: Navigator) {
+        val to = navigator.to
 
         val hornsBottomSheetFragment = when (to) {
             ScreenType.PROFILE -> getDirectionToProfile()
-            ScreenType.BAND_DETAIL -> getDirectionToBandDetail(direction.parameter)
+            ScreenType.BAND_DETAIL -> getDirectionToBandDetail(navigator.parameter)
             else -> null
         }
 
@@ -29,7 +31,7 @@ class DialogNavigator(private val logger: Logger, private val navigator: Navigat
             logger.d("navigate from: $view to dialog: $to")
             it.show(view.childFragmentManager, view.tag)
         }?: kotlin.run {
-            navigator?.navigate(view, direction)
+            fragmentNavigator?.navigate(view, navigator)
         }
     }
 

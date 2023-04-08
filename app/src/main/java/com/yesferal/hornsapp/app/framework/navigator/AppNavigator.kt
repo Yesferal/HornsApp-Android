@@ -9,33 +9,32 @@ import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 
-class AppNavigator(private val logger: Logger, private val navigator: Navigator<Fragment>? = null) :
-    Navigator<Fragment> {
-    override fun navigate(view: Fragment, direction: Direction) {
-        val to = direction.to
+class AppNavigator(private val logger: Logger, private val fragmentNavigator: FragmentNavigator? = null) :
+    FragmentNavigator {
+    override fun navigate(view: Fragment, navigator: Navigator) {
+        val to = navigator.to
 
         val navDirections = when (to) {
             ScreenType.HOME -> getDirectionToHome(view, tab = 0)
             ScreenType.ON_BOARDING -> getDirectionToOnBoarding()
             ScreenType.SETTING -> getDirectionToSettings()
-            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(direction.parameter)
+            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(navigator.parameter)
             ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
             ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
             else -> null
         }
         navDirections?.let {
             logger.d("navigate from: $view to fragment: $to")
-            direction.popBackStackId?.let { popBackStackId ->
+            navigator.popBackStackId?.let { popBackStackId ->
                 view.findNavController().popBackStack(popBackStackId, true)
             }
             view.findNavController().navigate(it)
         } ?: kotlin.run {
-            navigator?.navigate(view, direction)
+            fragmentNavigator?.navigate(view, navigator)
         }
     }
 

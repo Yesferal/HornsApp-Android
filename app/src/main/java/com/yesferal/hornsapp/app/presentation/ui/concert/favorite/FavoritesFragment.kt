@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.favorite
 
 import android.os.Bundle
@@ -5,7 +6,7 @@ import android.view.View
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
@@ -31,7 +32,7 @@ class FavoritesFragment : DelegateAdapterFragment(), UpcomingViewData.Listener {
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
-        Direction.Build()
+        Navigator.Builder()
             .to(ScreenType.CONCERT_DETAIL)
             .with(upcomingViewData.asParcelable())
             .build()

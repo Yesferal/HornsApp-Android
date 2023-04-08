@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
@@ -17,7 +18,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
@@ -47,7 +48,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
         hornsAppImageView.setOnClickListener {
-            Direction.Build()
+            Navigator.Builder()
                 .to(ScreenType.PROFILE)
                 .build()
                 .navigateTo()

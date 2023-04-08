@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 class ProfileFragment : BaseFragment(), EasterEggsApplier {
@@ -43,7 +43,7 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
             getString(R.string.use_your_favorite_apps)
         )
         shareTextView.setOnClickListener {
-            Direction.Build()
+            Navigator.Builder()
                 .to(ScreenType.MESSAGE)
                 .with(MessageViewData(getString(R.string.share_hornsapp_message)))
                 .build()

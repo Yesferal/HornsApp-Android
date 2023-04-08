@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
@@ -16,8 +16,8 @@ import com.yesferal.hornsapp.hadi_android.hadi
 
 abstract class BaseFragment : Fragment(), LayoutBinding {
 
-    val navigator by lazy {
-        hadi().resolve<Navigator<Fragment>>()
+    private val fragmentNavigator by lazy {
+        hadi().resolve<FragmentNavigator>()
     }
 
     override fun onCreateView(
@@ -39,13 +39,14 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
     }
 
     fun startExternalActivity(navViewData: NavViewData) {
-        Direction.Build().to(ScreenType.WEB_VIEW)
+        Navigator.Builder()
+            .to(ScreenType.WEB_VIEW)
             .with(navViewData)
             .build()
             .navigateTo()
     }
 
-    fun Direction.navigateTo() {
-        navigator.navigate(this@BaseFragment, this)
+    fun Navigator.navigateTo() {
+        fragmentNavigator.navigate(this@BaseFragment, this)
     }
 }

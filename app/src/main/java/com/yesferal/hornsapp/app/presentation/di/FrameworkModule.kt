@@ -1,7 +1,6 @@
 /* Copyright © 2022 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.di
 
-import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
@@ -11,6 +10,7 @@ import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.navigator.DialogNavigator
 import com.yesferal.hornsapp.app.framework.navigator.ExternalNavigator
+import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiProvider
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
@@ -27,7 +27,6 @@ import com.yesferal.hornsapp.core.data.abstraction.storage.ConcertStorageDataSou
 import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
-import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.dependency.Factory
 import com.yesferal.hornsapp.hadi.dependency.Singleton
@@ -141,12 +140,13 @@ fun Container.registerFrameworkModule() {
         )
     }
 
-    this register Singleton<Navigator<Fragment>> {
+    this register Singleton<FragmentNavigator> {
         val externalNavigator = ExternalNavigator(logger = resolve())
-        val dialogNavigator = DialogNavigator(logger = resolve(), navigator = externalNavigator)
+        val dialogNavigator =
+            DialogNavigator(logger = resolve(), fragmentNavigator = externalNavigator)
         AppNavigator(
             logger = resolve(),
-            navigator = dialogNavigator
+            fragmentNavigator = dialogNavigator
         )
     }
 }

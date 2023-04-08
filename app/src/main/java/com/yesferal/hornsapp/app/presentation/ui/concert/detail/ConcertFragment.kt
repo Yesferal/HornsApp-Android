@@ -25,7 +25,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.Venue
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
@@ -61,7 +61,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private val bandViewDataListener =
         object : BandViewData.Listener {
             override fun onClick(bandViewData: BandViewData) {
-                Direction.Build()
+                Navigator.Builder()
                     .to(ScreenType.BAND_DETAIL)
                     .with(bandViewData.asParcelable())
                     .build()
@@ -274,7 +274,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     }
 
     private fun startGoogleMaps(venue: Venue) {
-        Direction.Build().to(ScreenType.MAP)
+        Navigator.Builder()
+            .to(ScreenType.MAP)
             .with(VenueViewData(venue))
             .build()
             .navigateTo()
@@ -283,7 +284,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private fun startCalendar(
         concertViewData: ConcertViewData
     ) {
-        Direction.Build().to(ScreenType.CALENDAR)
+        Navigator.Builder()
+            .to(ScreenType.CALENDAR)
             .with(concertViewData)
             .build()
             .navigateTo()

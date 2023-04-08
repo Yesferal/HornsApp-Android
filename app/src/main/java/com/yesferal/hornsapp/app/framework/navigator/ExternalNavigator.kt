@@ -9,43 +9,42 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.VenueViewData
 import com.yesferal.hornsapp.app.presentation.ui.profile.MessageViewData
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.navigator.Direction
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 class ExternalNavigator(
     private val logger: Logger,
-    private val navigator: Navigator<Fragment>? = null
-) : Navigator<Fragment> {
+    private val fragmentNavigator: FragmentNavigator? = null
+) : FragmentNavigator {
     private val MAP_PACKAGE = "com.google.android.apps.maps"
     private val FACEBOOK_PACKAGE = "com.facebook.katana"
     private val CALENDAR_ACTION = "vnd.android.cursor.item/event"
 
-    override fun navigate(view: Fragment, direction: Direction) {
-        val intent = when (direction.to) {
-            ScreenType.WEB_VIEW -> navigateToWebView(direction)
-            ScreenType.CALENDAR -> navigateToCalendar(direction)
-            ScreenType.MAP -> navigateToMap(direction)
-            ScreenType.MESSAGE -> navigateToMessage(direction)
+    override fun navigate(view: Fragment, navigator: Navigator) {
+        val intent = when (navigator.to) {
+            ScreenType.WEB_VIEW -> navigateToWebView(navigator)
+            ScreenType.CALENDAR -> navigateToCalendar(navigator)
+            ScreenType.MAP -> navigateToMap(navigator)
+            ScreenType.MESSAGE -> navigateToMessage(navigator)
             else -> null
         }
 
         intent?.let {
             try {
-                logger.d("navigate from: $view to external view: ${direction.to}")
+                logger.d("navigate from: $view to external view: ${navigator.to}")
                 view.startActivity(intent)
             } catch (e: Exception) {
-                val parameterId = direction.parameter?.id.orEmpty()
+                val parameterId = navigator.parameter?.id.orEmpty()
                 val message = "Navigator Error. Parameter Id: $parameterId. Exception: $e."
                 logger.e(message)
             }
         }?: kotlin.run {
-            navigator?.navigate(view, direction)
+            fragmentNavigator?.navigate(view, navigator)
         }
     }
 
-    private fun navigateToWebView(direction: Direction): Intent? {
-        val navViewData = direction.parameter
+    private fun navigateToWebView(navigator: Navigator): Intent? {
+        val navViewData = navigator.parameter
         if (navViewData !is ExternalNavViewData) {
             return null
         }
@@ -54,8 +53,8 @@ class ExternalNavigator(
         return Intent(Intent.ACTION_VIEW, navViewData.androidUri)
     }
 
-    private fun navigateToCalendar(direction: Direction): Intent? {
-        val navViewData = direction.parameter
+    private fun navigateToCalendar(navigator: Navigator): Intent? {
+        val navViewData = navigator.parameter
         if (navViewData !is ConcertViewData) {
             return null
         }
@@ -71,8 +70,8 @@ class ExternalNavigator(
         return intent
     }
 
-    private fun navigateToMap(direction: Direction): Intent? {
-        val navViewData = direction.parameter
+    private fun navigateToMap(navigator: Navigator): Intent? {
+        val navViewData = navigator.parameter
         if (navViewData !is VenueViewData) {
             return null
         }
@@ -80,8 +79,8 @@ class ExternalNavigator(
         return Intent(Intent.ACTION_VIEW, navViewData.androidUri)
     }
 
-    private fun navigateToMessage(direction: Direction): Intent? {
-        val navViewData = direction.parameter
+    private fun navigateToMessage(navigator: Navigator): Intent? {
+        val navViewData = navigator.parameter
         if (navViewData !is MessageViewData) {
             return null
         }
