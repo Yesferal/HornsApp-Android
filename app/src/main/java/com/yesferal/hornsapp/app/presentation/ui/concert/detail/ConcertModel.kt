@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
@@ -18,6 +19,7 @@ import com.yesferal.hornsapp.core.domain.entity.Band
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.Venue
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import java.util.*
@@ -35,23 +37,25 @@ data class ConcertViewData(
     val dateTime: String? = concert.timeInMillis.dateTimeFormatted()
     val day: String? = concert.timeInMillis.dayFormatted()
     val month: String? = concert.timeInMillis.monthFormatted()
-    val beginTime = concert.timeInMillis
+    private val beginTime = concert.timeInMillis
         ?.minus(TimeZone.getDefault().rawOffset + TimeZone.getDefault().dstSavings)
         ?: 0
-    val endTime = beginTime + (2 * 60 * 60 * 1000)
-    override val id: String
-        get() = concert.id
-    override val name: String?
-        get() = concert.name
+    private val endTime = beginTime + (2 * 60 * 60 * 1000)
+
+    override fun toMap(): Parameters {
+        return Parameters().apply {
+            put(FragmentNavigator.PARAM_TITLE, concert.name.orEmpty())
+            put(FragmentNavigator.PARAM_BEGIN_TIME, beginTime)
+            put(FragmentNavigator.PARAM_END_TIME, endTime)
+            put(FragmentNavigator.PARAM_DESCRIPTION, concert.description.orEmpty())
+            put(FragmentNavigator.PARAM_EVENT_LOCATION, concert.venue?.name.orEmpty())
+        }
+    }
 }
 
 data class VenueViewData(
     val venue: Venue
 ) : NavViewData {
-    override val id: String
-        get() = venue.id
-    override val name: String?
-        get() = venue.name
     private val query = Uri.encode(venue.name)
     private val uri = StringBuilder()
         .append("geo:")
@@ -62,7 +66,11 @@ data class VenueViewData(
         .append(query.orEmpty())
         .toString()
 
-    val androidUri: Uri = Uri.parse(uri)
+    override fun toMap(): Parameters {
+        return Parameters().apply {
+            put(FragmentNavigator.PARAM_ANDROID_URI, uri)
+        }
+    }
 }
 
 data class BandViewData(

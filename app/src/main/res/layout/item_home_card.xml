@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_favorite"
+        android:src="@drawable/ic_music_note"
         android:padding="@dimen/margin_small"
         app:tint="@android:color/white"
         app:layout_constraintTop_toTopOf="@+id/titleTextView"

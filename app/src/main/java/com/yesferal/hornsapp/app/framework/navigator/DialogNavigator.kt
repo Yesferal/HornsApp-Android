@@ -9,8 +9,8 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 class DialogNavigator(
@@ -23,7 +23,7 @@ class DialogNavigator(
 
         val hornsBottomSheetFragment = when (to) {
             ScreenType.PROFILE -> getDirectionToProfile()
-            ScreenType.BAND_DETAIL -> getDirectionToBandDetail(navigator.parameter)
+            ScreenType.BAND_DETAIL -> getDirectionToBandDetail(navigator.parameters)
             else -> null
         }
 
@@ -41,11 +41,13 @@ class DialogNavigator(
     }
 
     private fun getDirectionToBandDetail(
-        parameters: NavViewData?
+        parameters: Parameters?
     ): HornsBottomSheetFragment? {
-        return if (parameters is ParcelableViewData) {
+        val parcelable = parameters?.get<ParcelableViewData>(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
+
+        return if (parcelable is ParcelableViewData) {
                 val bundle = Bundle()
-                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, parameters)
+                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, parcelable)
 
                 BandBottomSheetFragment.newInstance(bundle)
             } else {

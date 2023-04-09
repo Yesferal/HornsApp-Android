@@ -1,13 +1,17 @@
 /* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.base
 
-import android.net.Uri
+import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 
 class ExternalNavViewData(
-    uri: String
+    private val uri: String
 ) : NavViewData {
-    override val id = uri
-    override val name = uri
-    val androidUri: Uri = Uri.parse(uri)
+
+    override fun toMap(): Parameters {
+        return Parameters().apply {
+            put(FragmentNavigator.PARAM_ANDROID_URI, uri)
+        }
+    }
 }

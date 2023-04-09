@@ -135,7 +135,7 @@ class NewestViewModel(
                 screenDrawer.id,
                 screenDrawer.title?.text,
                 screenDrawer.subtitle?.text,
-                screenDrawer.deeplink
+                screenDrawer.navigation
             )
         )
         this.addAll(delegates)
@@ -255,7 +255,8 @@ class NewestViewModel(
                 screenDrawer.id,
                 screenDrawer.title?.text,
                 screenDrawer.subtitle?.text,
-                screenDrawer.deeplink
+                screenDrawer.color,
+                screenDrawer.navigation
             )
         )
         this.addVerticalDivider(24)

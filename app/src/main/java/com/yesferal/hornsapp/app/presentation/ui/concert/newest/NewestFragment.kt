@@ -10,7 +10,6 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
@@ -52,17 +51,16 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     }
 
     override fun onClick(homeCardViewData: HomeCardViewData) {
-        navigateToStringDirection(homeCardViewData.deeplink, homeCardViewData.asParcelable())
+        Navigator.Builder()
+            .to(homeCardViewData.navigation?.key.orEmpty())
+            .with(homeCardViewData.navigation)
+            .build()
+            .navigateTo()
     }
 
     override fun onClick(titleViewData: TitleViewData) {
-        navigateToStringDirection(titleViewData.deeplink, titleViewData.asParcelable())
-    }
-
-    private fun navigateToStringDirection(deeplink: String?, navViewData: NavViewData?) {
         Navigator.Builder()
-            .to(deeplink.orEmpty())
-            .with(navViewData)
+            .to(titleViewData.navigation?.key.orEmpty())
             .build()
             .navigateTo()
     }

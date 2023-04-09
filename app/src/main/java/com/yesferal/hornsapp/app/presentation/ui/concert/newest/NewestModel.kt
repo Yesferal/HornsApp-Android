@@ -1,5 +1,7 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +12,7 @@ import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 
@@ -17,14 +20,10 @@ data class TitleViewData(
     val id: String?,
     val title: String?,
     val subtitle: String?,
-    val deeplink: String?
-) : InteractiveDelegate<TitleViewData.Listener>, Parcelable {
+    val navigation: Parameters?
+) : InteractiveDelegate<TitleViewData.Listener> {
 
     override val layout = R.layout.item_newest_title
-
-    override fun asParcelable(): ParcelableViewData {
-        return ParcelableViewData(id.orEmpty(), title)
-    }
 
     interface Listener : DelegateListener {
         fun onClick(titleViewData: TitleViewData)
@@ -33,16 +32,16 @@ data class TitleViewData(
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
         view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
-        deeplink?.let {
+        navigation?.let {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.arrowView).visibility = View.VISIBLE
+            view.setOnClickListener {
+                listener.onClick(this)
+            }
         } ?: kotlin.run {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
             view.findViewById<ImageView>(R.id.arrowView).visibility = View.GONE
-        }
-
-        view.setOnClickListener {
-            listener.onClick(this)
+            view.setOnClickListener { }
         }
     }
 }
@@ -51,8 +50,9 @@ data class HomeCardViewData(
     val id: String?,
     val title: String?,
     val subtitle: String?,
-    val deeplink: String?
-) : InteractiveDelegate<HomeCardViewData.Listener>, Parcelable {
+    val color: String?,
+    val navigation: Parameters?
+) : InteractiveDelegate<HomeCardViewData.Listener> {
 
     override val layout = R.layout.item_home_card
 
@@ -60,22 +60,26 @@ data class HomeCardViewData(
         fun onClick(homeCardViewData: HomeCardViewData)
     }
 
-    override fun asParcelable(): ParcelableViewData {
-        return ParcelableViewData(id.orEmpty(), title)
-    }
-
     override fun onBindViewDelegate(view: View, listener: Listener) {
+        color?.let {
+            try {
+                view.setBackgroundColor(Color.parseColor(it))
+                view.findViewById<TextView>(R.id.goNowTicketsTextView)
+                    .setTextColor(Color.parseColor(it))
+            } catch (e: Exception) {
+            }
+        }
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
         view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
 
-        deeplink?.let {
+        navigation?.let {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.VISIBLE
+            view.setOnClickListener {
+                listener.onClick(this)
+            }
         }?: kotlin.run {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.GONE
-        }
-
-        view.setOnClickListener {
-            listener.onClick(this)
+            view.setOnClickListener { }
         }
     }
 }

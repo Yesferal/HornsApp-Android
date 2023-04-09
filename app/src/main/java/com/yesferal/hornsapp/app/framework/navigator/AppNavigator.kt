@@ -10,8 +10,8 @@ import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
-import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 
 class AppNavigator(private val logger: Logger, private val fragmentNavigator: FragmentNavigator? = null) :
     FragmentNavigator {
@@ -22,7 +22,7 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
             ScreenType.HOME -> getDirectionToHome(view, tab = 0)
             ScreenType.ON_BOARDING -> getDirectionToOnBoarding()
             ScreenType.SETTING -> getDirectionToSettings()
-            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(navigator.parameter)
+            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(navigator.parameters)
             ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
             ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
             else -> null
@@ -58,11 +58,12 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
     }
 
     private fun getDirectionToConcertDetail(
-        parameters: NavViewData?
+        parameters: Parameters?
     ): NavDirections? {
-        if (parameters is ParcelableViewData) {
-            return HomeFragmentDirections.actionToConcert(parameters)
-        }
-        return null
+        val parcelable = parameters?.get<ParcelableViewData>(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
+
+        return if (parcelable is ParcelableViewData) {
+            return HomeFragmentDirections.actionToConcert(parcelable)
+        } else { null }
     }
 }
