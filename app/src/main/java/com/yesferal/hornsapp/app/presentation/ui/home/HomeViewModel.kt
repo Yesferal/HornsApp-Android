@@ -46,13 +46,13 @@ class HomeViewModel(
     }
 
     private suspend fun getConcerts() = withContext(Dispatchers.IO) {
-        when (val result = getConcertsUseCase()) {
+        when (getConcertsUseCase()) {
             is HaResult.Success -> {
                 val screens = homeDrawer.map {
                     Pair(it.type, it.title?.text.orEmpty())
                 }
 
-                HomeViewState(screens, concerts = result.value)
+                HomeViewState(screens)
             }
             is HaResult.Error -> {
                 HomeViewState(errorMessage = R.string.error_default, allowRetry = true)
@@ -65,7 +65,7 @@ class HomeViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             DrawerRepository::class.java

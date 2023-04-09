@@ -1,3 +1,4 @@
+/* Copyright © 2021 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
@@ -16,7 +17,7 @@ import com.yesferal.hornsapp.hadi.dependency.Factory
 fun Container.registerPresentationModule() {
     this register Factory {
         MainViewModelFactory(
-            adManager = resolve()
+            businessModelFactoryProducer = resolve()
         )
     }
 
@@ -36,7 +37,7 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         UpcomingViewModelFactory(
-            getConcertsUseCase = resolve(),
+            getUpcomingConcertsUseCase = resolve(),
             settingsRepository = resolve(),
             drawerRepository = resolve()
         )
@@ -45,7 +46,8 @@ fun Container.registerPresentationModule() {
     this register Factory {
         NewestViewModelFactory(
             getConcertsUseCase = resolve(),
-            drawerRepository = resolve()
+            drawerRepository = resolve(),
+            logger = resolve()
         )
     }
 
@@ -68,7 +70,8 @@ fun Container.registerPresentationModule() {
         OnBoardingViewModelFactory(
             getConcertsUseCase = resolve(),
             updateVisibilityOnBoardingUseCase = resolve(),
-            drawerRepository = resolve()
+            drawerRepository = resolve(),
+            filterConcertsByCategoryUseCase = resolve()
         )
     }
 

@@ -26,7 +26,8 @@
         <activity
             android:name=".presentation.ui.main.MainActivity"
             android:theme="@style/HornsApp.Splash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,4 +37,7 @@
 
     </application>
 
+    <queries>
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
 </manifest>

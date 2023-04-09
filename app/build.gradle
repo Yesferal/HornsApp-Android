@@ -32,13 +32,13 @@ if (project.file('src/release/release.properties').exists()) {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.yesferal.hornsapp"
         minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 13
-        versionName "2.1.0"
+        targetSdkVersion 31
+        versionCode 18
+        versionName "2.2.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake { cppFlags "" }
@@ -98,7 +98,8 @@ dependencies {
     // Own Libraries
     implementation 'com.github.Yesferal:HornsApp-DI:1.2.2'
     implementation 'com.github.Yesferal:HornsApp-Android-DI:1.2.2'
-    implementation 'com.github.Yesferal:HornsApp-Core:0.5.1'
+    // MavenLocal Core: com.yesferal.hornsapp.core:HornsApp-Core-jvm:
+    implementation 'com.github.Yesferal:HornsApp-Core:0.5.11'
     implementation 'com.github.Yesferal:DelegateAdapter:1.5.3'
 
     // ViewPager
@@ -125,6 +126,9 @@ dependencies {
     implementation('io.socket:socket.io-client:2.0.1') {
         exclude group: 'org.json', module: 'json'
     }
+
+    // required to avoid crash on Android 12 API 31
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
     // Test Library
     testImplementation 'junit:junit:4.13.2'

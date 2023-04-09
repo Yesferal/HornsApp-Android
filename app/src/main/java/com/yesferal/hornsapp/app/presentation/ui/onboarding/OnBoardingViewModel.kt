@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.core.domain.usecase.FilterConcertsByCategoryUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateVisibilityOnBoardingUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
@@ -20,7 +21,8 @@ import kotlinx.coroutines.withContext
 class OnBoardingViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val filterConcertsByCategoryUseCase: FilterConcertsByCategoryUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<OnBoardingViewState>()
 
@@ -41,13 +43,11 @@ class OnBoardingViewModel(
                 when (val result = getConcertsUseCase()) {
                     is HaResult.Success -> {
                         val concerts = result.value
-                        val delegates = mutableListOf<Delegate>()
                         val categoryDelegates = categoryDrawer.map { drawer ->
-                            val amount = concerts.filter {
-                                it.tags?.contains(drawer.key) == true
-                            }.size
+                            val amount = filterConcertsByCategoryUseCase(concerts, drawer.key).size
                             OnBoardingCategoryViewData(drawer.title?.text.orEmpty(), amount)
                         }
+                        val delegates = mutableListOf<Delegate>()
                         delegates.add(DividerDelegate(width = 24))
                         delegates.addAll(categoryDelegates)
                         delegates.add(DividerDelegate(width = 24))
@@ -71,13 +71,15 @@ class OnBoardingViewModel(
 class OnBoardingViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val filterConcertsByCategoryUseCase: FilterConcertsByCategoryUseCase
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             UpdateVisibilityOnBoardingUseCase::class.java,
-            DrawerRepository::class.java
-        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase, drawerRepository)
+            DrawerRepository::class.java,
+            FilterConcertsByCategoryUseCase::class.java
+        ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase, drawerRepository, filterConcertsByCategoryUseCase)
     }
 }

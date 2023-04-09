@@ -37,8 +37,10 @@ class ConcertViewModel(
 
                         val concertViewData = ConcertViewData(concert)
 
+                        var count = 0
                         val bandsViewData = concert.bands?.map { band ->
-                            BandViewData(band)
+                            count++
+                            BandViewData(band, count.toString(), concert.bands?.size.toString())
                         }
 
                         ConcertViewState(
@@ -76,7 +78,7 @@ class ConcertViewModelFactory(
     private val getConcertUseCase: GetConcertUseCase,
     private val updateFavoriteConcertUseCase: UpdateFavoriteConcertUseCase
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
             GetConcertUseCase::class.java,

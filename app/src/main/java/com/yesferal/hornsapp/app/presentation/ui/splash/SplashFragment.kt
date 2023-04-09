@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.splash
 
 import android.os.Bundle
@@ -6,6 +7,7 @@ import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
@@ -40,9 +42,9 @@ class SplashFragment : RenderFragment<SplashState>() {
 
     override fun render(viewState: SplashState) {
         val directionType = if (viewState.onBoardingVisibility) {
-            ScreenType.OnBoarding
+            ScreenType.ON_BOARDING
         } else {
-            ScreenType.Home
+            ScreenType.HOME
         }
         initMotionLayout(directionType)
     }
@@ -50,7 +52,11 @@ class SplashFragment : RenderFragment<SplashState>() {
     private fun initMotionLayout(screenType: ScreenType) {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                navigator.navigate(this@SplashFragment, screenType.asDirection())
+                Navigator.Builder()
+                    .to(screenType)
+                    .popBackStack(R.id.fragment_splash)
+                    .build()
+                    .navigateTo()
             }
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}

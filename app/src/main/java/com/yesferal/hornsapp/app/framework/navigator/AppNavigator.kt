@@ -1,88 +1,69 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.navigator
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.yesferal.hornsapp.app.framework.logger.YLogger
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
-import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingFragment
-import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingFragmentDirections
-import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileFragment
-import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragment
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
-import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 
-class AppNavigator : Navigator<Fragment> {
-    override fun navigate(view: Fragment, direction: Direction) {
-        val from = view.toDirectionType()
-        val to = direction.to
+class AppNavigator(private val logger: Logger, private val fragmentNavigator: FragmentNavigator? = null) :
+    FragmentNavigator {
+    override fun navigate(view: Fragment, navigator: Navigator) {
+        val to = navigator.to
 
-        YLogger.d("navigate from: $from ($view)")
-        YLogger.d("navigate to: $to")
         val navDirections = when (to) {
-            ScreenType.Home -> getDirectionToHome(from)
-            ScreenType.OnBoarding -> getDirectionToOnBoarding(from)
-            ScreenType.Setting -> getDirectionToSettings(from)
-            ScreenType.ConcertDetail -> getDirectionToConcertDetail(from, direction.parameter)
+            ScreenType.HOME -> getDirectionToHome(view, tab = 0)
+            ScreenType.ON_BOARDING -> getDirectionToOnBoarding()
+            ScreenType.SETTING -> getDirectionToSettings()
+            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(navigator.parameters)
+            ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
+            ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
             else -> null
         }
-        navDirections?.let { view.findNavController().navigate(it) }
-    }
-
-    private fun Fragment.toDirectionType(): ScreenType {
-        return when (this) {
-            is HomeFragment, is NewestFragment, is UpcomingFragment,
-            is FavoritesFragment -> ScreenType.Home
-            is ProfileFragment -> ScreenType.Profile
-            is SplashFragment -> ScreenType.Splash
-            is OnBoardingFragment -> ScreenType.OnBoarding
-            else -> ScreenType.None
-        }
-    }
-
-    private fun getDirectionToHome(from: ScreenType): NavDirections? {
-        return when (from) {
-            ScreenType.OnBoarding -> OnBoardingFragmentDirections.actionOnBoardingToHome()
-            ScreenType.Splash -> SplashFragmentDirections.actionSplashToHome()
-            else -> null
+        navDirections?.let {
+            logger.d("navigate from: $view to fragment: $to")
+            navigator.popBackStackId?.let { popBackStackId ->
+                view.findNavController().popBackStack(popBackStackId, true)
+            }
+            view.findNavController().navigate(it)
+        } ?: kotlin.run {
+            fragmentNavigator?.navigate(view, navigator)
         }
     }
 
-    private fun getDirectionToOnBoarding(from: ScreenType): NavDirections? {
-        return when (from) {
-            ScreenType.Splash -> SplashFragmentDirections.actionSplashToOnBoarding()
-            else -> null
+    private fun getDirectionToHome(view: Fragment, tab: Int): NavDirections? {
+        return if (view.parentFragment is HomeFragment) {
+            logger.d("Its parent is HomeFragment, so we will navigate into a specific TAB #${tab}")
+            (view.parentFragment as HomeFragment).navigateToTab(tab)
+            null
+        } else {
+            logger.d("Its parent is NOT HomeFragment, so we will navigate into HOME")
+            SplashFragmentDirections.actionToHome()
         }
     }
 
-    private fun getDirectionToSettings(from: ScreenType): NavDirections? {
-        return when (from) {
-            ScreenType.Profile -> HomeFragmentDirections.actionHomeToSettings()
-            else -> null
-        }
+    private fun getDirectionToOnBoarding(): NavDirections {
+        return SplashFragmentDirections.actionToOnBoarding()
+    }
+
+    private fun getDirectionToSettings(): NavDirections {
+        return HomeFragmentDirections.actionToSettings()
     }
 
     private fun getDirectionToConcertDetail(
-        from: ScreenType,
-        parameters: NavViewData?
+        parameters: Parameters?
     ): NavDirections? {
-        return when (from) {
-            ScreenType.Home -> {
-                if (parameters is ParcelableViewData) {
-                    HomeFragmentDirections.actionHomeToConcert(parameters)
-                } else {
-                    null
-                }
-            }
-            else -> null
-        }
+        val parcelable = parameters?.get<ParcelableViewData>(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
+
+        return if (parcelable is ParcelableViewData) {
+            return HomeFragmentDirections.actionToConcert(parcelable)
+        } else { null }
     }
 }

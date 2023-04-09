@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.os.Bundle
@@ -16,12 +17,9 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
-import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
-import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class HomeFragment : RenderFragment<HomeViewState>() {
@@ -50,11 +48,10 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
         hornsAppImageView.setOnClickListener {
-            childFragmentManager.let { manager ->
-                ProfileBottomSheetFragment.newInstance(Bundle()).apply {
-                    show(manager, tag)
-                }
-            }
+            Navigator.Builder()
+                .to(ScreenType.PROFILE)
+                .build()
+                .navigateTo()
         }
 
         homeViewModel = getViewModel<HomeViewModel, HomeViewModelFactory>()
@@ -71,7 +68,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
                         isEnabled = false
                         activity?.onBackPressed()
                     } else {
-                        concertsViewPager.currentItem = concertsViewPager.currentItem - 1
+                        navigateToTab(tab = 0)
                     }
                 }
             })
@@ -97,7 +94,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
     }
 
     private fun showChildFragmentTitles(screens: List<Pair<ScreenDrawer.Type, String>>) {
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, screens.map { it.first })
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, FragmentFactory(), screens.map { it.first })
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
@@ -136,22 +133,22 @@ class HomeFragment : RenderFragment<HomeViewState>() {
     private fun hideError() {
         stubViewInflated.visibility = View.GONE
     }
+
+    fun navigateToTab(tab: Int) {
+        concertsViewPager.currentItem = tab
+    }
 }
 
 private class ScreenSlidePagerAdapter(
     activity: Fragment,
+    private val fragmentFactory: FragmentFactory,
     private val screens: List<ScreenDrawer.Type>
 ) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = screens.size
 
     override fun createFragment(position: Int): Fragment {
-        return when (screens[position]) {
-            ScreenDrawer.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
-            ScreenDrawer.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
-            ScreenDrawer.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
-            else -> ErrorFragment.newInstance()
-        }
+        return fragmentFactory.getFragment(type = screens[position])
     }
 }
 

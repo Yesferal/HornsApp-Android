@@ -1,17 +1,21 @@
+/* Copyright © 2022 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.di
 
-import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.gson.Gson
-import com.yesferal.hornsapp.app.framework.adMob.AdManager
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
+import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.framework.file.FileReaderManager
-import com.yesferal.hornsapp.app.framework.logger.YLogger
+import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
+import com.yesferal.hornsapp.app.framework.navigator.DialogNavigator
+import com.yesferal.hornsapp.app.framework.navigator.ExternalNavigator
+import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
-import com.yesferal.hornsapp.app.framework.retrofit.RetrofitFactory
+import com.yesferal.hornsapp.app.framework.retrofit.ApiProvider
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
+import com.yesferal.hornsapp.app.framework.retrofit.AuthenticationInterceptor
 import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
@@ -23,8 +27,6 @@ import com.yesferal.hornsapp.core.data.abstraction.storage.ConcertStorageDataSou
 import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
-import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.dependency.Factory
 import com.yesferal.hornsapp.hadi.dependency.Singleton
@@ -64,12 +66,13 @@ fun Container.registerFrameworkModule() {
         val defaultEnvironment = resolve<PreferencesDataSource>()
             .getDefaultEnvironment()
         val apiConstants = ApiConstants()
-
-        RetrofitFactory(
-            authorization = apiConstants.authorizations[defaultEnvironment],
-            baseUrl = apiConstants.environments[defaultEnvironment].second,
-            gson = resolve()
-        ).retrofit
+        val authorization = apiConstants.authorizations[defaultEnvironment]
+        ApiProvider.Builder()
+            .addBaseUrl(apiConstants.environments[defaultEnvironment].second)
+            .addInterceptors(listOf(AuthenticationInterceptor(authorization)))
+            .addConverter(resolve())
+            .build()
+            .getFramework(ApiProvider.ApiFramework.CONTENT_RETROFIT)
     }
 
     this register Singleton {
@@ -122,15 +125,28 @@ fun Container.registerFrameworkModule() {
         resolve<SocketIoDataSource>()
     }
 
-    this register Factory<Logger> {
-        YLogger
+    this register Factory {
+        ChainLoggerProvider.provideLogger()
     }
 
-    this register Singleton {
-        AdManager(adUnitIds = AdUnitIds())
+    this register Factory {
+        BusinessModelFactoryProducer.BusinessModel.FREE
     }
 
-    this register Singleton<Navigator<Fragment>> {
-        AppNavigator()
+    this register Factory {
+        BusinessModelFactoryProducer(
+            adUnitIds = AdUnitIds(),
+            businessModel = resolve()
+        )
+    }
+
+    this register Singleton<FragmentNavigator> {
+        val externalNavigator = ExternalNavigator(logger = resolve())
+        val dialogNavigator =
+            DialogNavigator(logger = resolve(), fragmentNavigator = externalNavigator)
+        AppNavigator(
+            logger = resolve(),
+            fragmentNavigator = dialogNavigator
+        )
     }
 }

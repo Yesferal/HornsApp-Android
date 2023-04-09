@@ -1,6 +1,6 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.profile
 
-import android.content.Intent
 import android.content.pm.PackageInfo
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,8 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 class ProfileFragment : BaseFragment(), EasterEggsApplier {
 
@@ -41,11 +43,11 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
             getString(R.string.use_your_favorite_apps)
         )
         shareTextView.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_hornsapp_message))
-            intent.type = "text/plain"
-            startActivity(intent)
+            Navigator.Builder()
+                .to(ScreenType.MESSAGE)
+                .with(MessageViewData(getString(R.string.share_hornsapp_message)))
+                .build()
+                .navigateTo()
         }
     }
 
@@ -61,7 +63,7 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
             versionTextView.setImageView(R.drawable.ic_information)
             val version = StringBuilder()
                 .append(versionName)
-                .append(".")
+                .append("+")
                 .append(versionCode)
                 .append("-")
                 .append(suffix)

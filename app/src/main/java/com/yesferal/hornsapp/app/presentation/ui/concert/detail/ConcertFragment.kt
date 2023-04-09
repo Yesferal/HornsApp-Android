@@ -1,9 +1,7 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.CalendarContract
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewStub
@@ -17,18 +15,20 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.common.custom.ScalePageTransformation
-import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.core.domain.entity.Venue
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
-import java.net.URI
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
@@ -57,6 +57,17 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private lateinit var youtubeTextView: ImageTextView
     private lateinit var customProgressBar: View
     private lateinit var stubView: ViewStub
+
+    private val bandViewDataListener =
+        object : BandViewData.Listener {
+            override fun onClick(bandViewData: BandViewData) {
+                Navigator.Builder()
+                    .to(ScreenType.BAND_DETAIL)
+                    .with(bandViewData.asParcelable())
+                    .build()
+                    .navigateTo()
+            }
+        }
 
     override fun onViewCreated(
         view: View,
@@ -109,7 +120,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
     private fun setUpBandsViewPager() {
         delegateAdapter = DelegateAdapter.Builder()
-            .setListener(instanceAdapterListener())
+            .setListener(bandViewDataListener)
             .build()
 
         val bigMargin = 24F
@@ -205,18 +216,15 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         ticketingUrl: String?,
         ticketingHost: String?
     ) {
-        ticketingUrl?.let { url ->
-            ticketTextView.apply {
-                setImageView(R.drawable.ic_ticket)
-                setText(getString(R.string.available_on))
-            }
-            buyTicketsTextView.setUpWith(ticketingHost ?: getString(R.string.go_now))
-            buyTicketsTextView.setOnClickListener {
-                startExternalActivity(url)
-            }
-        } ?: kotlin.run {
-            ticketTextView.visibility = View.GONE
-            buyTicketsTextView.visibility = View.GONE
+        buyTicketsTextView.setUpCTA(ticketingHost, ticketingUrl) {
+            ticketingUrl?.let { startExternalActivity(ExternalNavViewData(it)) }
+        }
+
+        ticketTextView.setImageView(R.drawable.ic_ticket)
+        if (ticketingUrl.isNullOrEmpty()) {
+            ticketTextView.setText(getString(R.string.available_soon))
+        } else {
+            ticketTextView.setText(getString(R.string.available_on))
         }
     }
 
@@ -240,7 +248,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
                 setImageView(R.drawable.ic_youtube)
                 setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
                 setOnClickListener {
-                    startExternalActivity(url)
+                    startExternalActivity(ExternalNavViewData(url))
                 }
             }
         } ?: kotlin.run {
@@ -262,50 +270,24 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     }
 
     private fun startFacebook(facebookUri: String) {
-        val event = URI(facebookUri).path.replace("/events", "event")
-        val facebookAppUri = "fb://$event"
-
-        startExternalActivity(
-            facebookAppUri,
-            getString(R.string.facebook_package),
-            onError = {
-                startExternalActivity(facebookUri)
-            })
+        startExternalActivity(ExternalNavViewData(facebookUri))
     }
 
     private fun startGoogleMaps(venue: Venue) {
-        val latitude = venue.latitude
-        val longitude = venue.longitude
-        val query = Uri.encode(venue.name)
-        val uri = "geo:${latitude},${longitude}?q=${query}"
-
-        startExternalActivity(uri, getString(R.string.maps_package))
+        Navigator.Builder()
+            .to(ScreenType.MAP)
+            .with(VenueViewData(venue))
+            .build()
+            .navigateTo()
     }
 
     private fun startCalendar(
         concertViewData: ConcertViewData
     ) {
-        val intent = Intent(Intent.ACTION_EDIT)
-        intent.type = getString(R.string.calendar_action_type)
-        intent.putExtra(CalendarContract.Events.TITLE, concertViewData.concert.name)
-        intent.putExtra("beginTime", concertViewData.beginTime)
-        intent.putExtra("endTime", concertViewData.endTime)
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, concertViewData.concert.description)
-        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, concertViewData.concert.venue?.name)
-        startActivity(intent)
+        Navigator.Builder()
+            .to(ScreenType.CALENDAR)
+            .with(concertViewData)
+            .build()
+            .navigateTo()
     }
 }
-
-private fun ConcertFragment.instanceAdapterListener() =
-    object : BandViewData.Listener {
-        override fun onClick(bandViewData: BandViewData) {
-            childFragmentManager.let {
-                val bundle = Bundle()
-                bundle.putParcelable(EXTRA_PARAM_PARCELABLE, bandViewData.asParcelable())
-
-                BandBottomSheetFragment.newInstance(bundle).apply {
-                    show(it, tag)
-                }
-            }
-        }
-    }

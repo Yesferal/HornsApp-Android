@@ -13,7 +13,8 @@
     <string name="settings_force_crash_button">Crash</string>
 
     <!-- Messages -->
-    <string name="go_now">Go Now</string>
+    <string name="buy_here">Buy Now</string>
+    <string name="see_more">See more</string>
     <string name="add_to_favorite">Added to favorite</string>
     <string name="about">About</string>
     <string name="go_to_maps">Go to Google Map</string>
@@ -23,6 +24,7 @@
     <string name="go_to_youtube">Go to Youtube</string>
     <string name="add_to_calendar">"Add to Calendar"</string>
     <string name="available_on">Available on</string>
+    <string name="available_soon">Available soon</string>
     <string name="try_again">Try again</string>
     <string name="share_with_friends">Shared with friends</string>
     <string name="share_hornsapp_message">Are you looking for concerts at Lima? Download HornsApp (Rock &amp; Metal): https://play.google.com/store/apps/details?id=com.yesferal.hornsapp</string>
@@ -36,8 +38,4 @@
     <string name="error_app_not_found">You don\'t have this app installed.</string>
     <string name="error_no_favorite_yet">You haven\'t saved any concert yet.</string>
 
-    <!-- Packages -->
-    <string name="facebook_package">com.facebook.katana</string>
-    <string name="maps_package">com.google.android.apps.maps</string>
-    <string name="calendar_action_type">vnd.android.cursor.item/event</string>
 </resources>

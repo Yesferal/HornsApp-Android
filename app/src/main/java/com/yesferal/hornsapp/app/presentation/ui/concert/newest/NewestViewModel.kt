@@ -16,6 +16,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
+import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
 import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
@@ -27,12 +28,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.StringBuilder
-import java.util.*
 
 class NewestViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val logger: Logger
 ) : ViewModel() {
 
     private val _stateNewest = MutableLiveData<DelegateViewState>()
@@ -130,11 +130,14 @@ class NewestViewModel(
             return
         }
 
-        val subtitle = screenDrawer.condition?.value?.let {
-            StringBuilder().append("#").append(it).toString()
-        }
-
-        this.add(TitleViewData(screenDrawer.title?.text, subtitle))
+        this.add(
+            TitleViewData(
+                screenDrawer.id,
+                screenDrawer.title?.text,
+                screenDrawer.subtitle?.text,
+                screenDrawer.navigation
+            )
+        )
         this.addAll(delegates)
         this.addVerticalDivider(24)
     }
@@ -153,8 +156,37 @@ class NewestViewModel(
             ConditionDrawer.Type.SORT_BY_NEWEST_DATE -> {
                 sortByNewestDate(concerts, screenDrawer)
             }
+            ConditionDrawer.Type.PICK_FROM_DEFAULT_VALUES -> {
+                val concertsFiltered = pickFromDefaultValues(concerts, screenDrawer)
+                return if (concertsFiltered.isEmpty()) {
+                    sortByNewestDate(concerts, screenDrawer)
+                } else {
+                    concertsFiltered
+                }
+            }
             else -> listOf()
         }
+    }
+
+    private fun pickFromDefaultValues(
+        concerts: List<Concert>,
+        screenDrawer: ScreenDrawer
+    ): List<Delegate> {
+        logger.d("Values: ${screenDrawer.condition?.defaultValues}")
+        return concerts
+            .filter { screenDrawer.condition?.defaultValues?.contains(it.id) == true }
+            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .map {
+                CarouselViewData(
+                    id = it.id,
+                    image = it.headlinerImage,
+                    name = it.name,
+                    time = it.timeInMillis.dateTimeFormatted(),
+                    genre = it.genre,
+                    ticketingUrl = it.ticketingUrl,
+                    ticketingHost = it.ticketingHost
+                )
+            }
     }
 
     private fun sortByNewestDate(
@@ -198,7 +230,8 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ScreenDrawer
     ): List<Delegate> {
-        return concerts.filter { it.tags?.contains(screenDrawer.condition?.value) == true }
+        return concerts.reversed()
+            .filter { it.tags?.contains(screenDrawer.condition?.value) == true }
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
             .map { concert ->
                 UpcomingViewData(
@@ -217,19 +250,29 @@ class NewestViewModel(
     private fun MutableList<Delegate>.includeHomeCardSection(
         screenDrawer: ScreenDrawer
     ) {
-        this.add(HomeCardViewData(screenDrawer.title?.text, screenDrawer.subtitle?.text))
+        this.add(
+            HomeCardViewData(
+                screenDrawer.id,
+                screenDrawer.title?.text,
+                screenDrawer.subtitle?.text,
+                screenDrawer.color,
+                screenDrawer.navigation
+            )
+        )
         this.addVerticalDivider(24)
     }
 }
 
 class NewestViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: DrawerRepository,
+    private val logger: Logger
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            DrawerRepository::class.java
-        ).newInstance(getConcertsUseCase, drawerRepository)
+            DrawerRepository::class.java,
+            Logger::class.java
+        ).newInstance(getConcertsUseCase, drawerRepository, logger)
     }
 }

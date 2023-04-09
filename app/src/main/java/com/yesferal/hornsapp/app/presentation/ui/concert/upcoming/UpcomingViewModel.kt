@@ -15,7 +15,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.Catego
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.core.domain.usecase.GetUpcomingConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.RowDelegate
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UpcomingViewModel(
-    private val getConcertsUseCase: GetConcertsUseCase,
+    private val getUpcomingConcertsUseCase: GetUpcomingConcertsUseCase,
     private val settingsRepository: SettingsRepository,
     private val drawerRepository: DrawerRepository
 ) : ViewModel() {
@@ -74,13 +74,9 @@ class UpcomingViewModel(
                 )
             }
 
-        when (val result = getConcertsUseCase()) {
+        when (val result = getUpcomingConcertsUseCase(categoryKey)) {
             is HaResult.Success -> {
                 val concerts = result.value
-                    .filter {
-                        categoryKey == CategoryDrawer.ALL ||
-                                it.tags?.contains(categoryKey) == true
-                    }
 
                 if (concerts.isEmpty()) {
                     return@withContext DelegateViewState(
@@ -97,7 +93,6 @@ class UpcomingViewModel(
                 val delegates = mutableListOf<Delegate>().apply {
                     add(mapCategories(categories))
                     addAll(concerts
-                        .sortedWith(compareBy { it.timeInMillis })
                         .map {
                             UpcomingViewData(
                                 id = it.id,
@@ -138,15 +133,15 @@ class UpcomingViewModel(
 }
 
 class UpcomingViewModelFactory(
-    private val getConcertsUseCase: GetConcertsUseCase,
+    private val getUpcomingConcertsUseCase: GetUpcomingConcertsUseCase,
     private val settingsRepository: SettingsRepository,
     private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
-            GetConcertsUseCase::class.java,
+            GetUpcomingConcertsUseCase::class.java,
             SettingsRepository::class.java,
             DrawerRepository::class.java
-        ).newInstance(getConcertsUseCase, settingsRepository, drawerRepository)
+        ).newInstance(getUpcomingConcertsUseCase, settingsRepository, drawerRepository)
     }
 }

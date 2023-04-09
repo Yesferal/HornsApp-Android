@@ -46,7 +46,6 @@ class FavoritesViewModel(
                     )
                 } else {
                     val delegates = favorites
-                        .sortedWith(compareBy { it.timeInMillis })
                         .map {
                             UpcomingViewData(
                                 id = it.id,
@@ -72,7 +71,7 @@ class FavoritesViewModelFactory(
     private val getFavoriteConcertsUseCase: GetFavoriteConcertsUseCase,
     private val settingsRepository: SettingsRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetFavoriteConcertsUseCase::class.java,
             SettingsRepository::class.java

@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.onboarding
 
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -57,7 +59,11 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
 
         nextTextView.setOnClickListener {
             onBoardingViewModel.updateVisibilityOnBoarding()
-            navigator.navigate(this, ScreenType.Home.asDirection())
+            Navigator.Builder()
+                .to(ScreenType.HOME)
+                .popBackStack(R.id.fragment_on_boarding)
+                .build()
+                .navigateTo()
         }
     }
 

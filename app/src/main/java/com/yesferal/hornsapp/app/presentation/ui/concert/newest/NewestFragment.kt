@@ -1,19 +1,22 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.core.domain.navigator.Direction
+import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
-    CarouselViewData.Listener, UpcomingViewData.Listener {
+    CarouselViewData.Listener, UpcomingViewData.Listener, HomeCardViewData.Listener,
+    TitleViewData.Listener {
 
     private lateinit var viewModel: NewestViewModel
 
@@ -40,19 +43,34 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     }
 
     override fun onTicketingClick(ticketingUrl: String) {
-        startExternalActivity(ticketingUrl)
+        startExternalActivity(ExternalNavViewData(ticketingUrl))
     }
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
         startConcertActivity(upcomingViewData.asParcelable())
     }
 
+    override fun onClick(homeCardViewData: HomeCardViewData) {
+        Navigator.Builder()
+            .to(homeCardViewData.navigation?.key.orEmpty())
+            .with(homeCardViewData.navigation)
+            .build()
+            .navigateTo()
+    }
+
+    override fun onClick(titleViewData: TitleViewData) {
+        Navigator.Builder()
+            .to(titleViewData.navigation?.key.orEmpty())
+            .build()
+            .navigateTo()
+    }
+
     private fun startConcertActivity(parcelableViewData: ParcelableViewData) {
-        val direction = Direction.Build()
-            .to(ScreenType.ConcertDetail)
+        Navigator.Builder()
+            .to(ScreenType.CONCERT_DETAIL)
             .with(parcelableViewData)
             .build()
-        navigator.navigate(this, direction)
+            .navigateTo()
     }
 
     companion object {
