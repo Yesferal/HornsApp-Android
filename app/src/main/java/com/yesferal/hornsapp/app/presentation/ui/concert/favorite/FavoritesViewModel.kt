@@ -39,7 +39,7 @@ class FavoritesViewModel(
                     DelegateViewState(
                         delegates = listOf(
                             ErrorViewData(
-                                R.drawable.ic_music_note,
+                                R.drawable.ic_favorite,
                                 R.string.error_no_favorite_yet
                             )
                         )

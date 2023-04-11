@@ -15,6 +15,10 @@
 -keepclassmembers class com.yesferal.hornsapp.core.domain.entity.drawer.* {
     *;
 }
+-keepclassmembers class com.yesferal.hornsapp.core.domain.navigator.Parameters {
+    *;
+}
+
 # Navigation Component
 -keepnames class com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 

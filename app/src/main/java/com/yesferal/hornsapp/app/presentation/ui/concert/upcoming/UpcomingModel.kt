@@ -1,6 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -65,6 +66,8 @@ data class ErrorViewData(
     override val layout = R.layout.custom_error
 
     override fun onBindViewDelegate(view: View) {
+        view.findViewById<ImageView>(R.id.errorImageView)
+            .setImageResource(imageId)
         view.findViewById<TextView>(R.id.errorTextView)
             .setUpWith(view.context.getString(errorMessage))
     }
