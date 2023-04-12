@@ -30,20 +30,8 @@
         "key": "PICK_FROM_DEFAULT_VALUES",
         "count": 1,
         "defaultValues": [
-          "63d31c6ba0b745f9f2e9e72f"
+          "123"
         ]
-      }
-    },
-    {
-      "key": "VERTICAL_LIST_VIEW",
-      "title": {
-        "en": "Metal never dies",
-        "es": "El Metal nunca muere"
-      },
-      "condition": {
-        "key": "FILTER_BY_CATEGORY",
-        "value": "METAL",
-        "count": "3"
       }
     },
     {
@@ -55,7 +43,62 @@
       "condition": {
         "key": "SORT_BY_UPCOMING_DATE",
         "count": 3
+      },
+      "navigation": {
+        "key": "UPCOMING"
       }
+    },
+    {
+      "key": "HOME_CARD_VIEW",
+      "title": {
+        "en": "Follow us on TikTok",
+        "es": "Síguenos en TikTok"
+      },
+      "subtitle": {
+        "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
+        "es": "¿Sabias acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
+        }
+      },
+      "color": "#000000"
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "Metal never dies",
+        "es": "Metal nunca muere"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "METAL",
+        "count": "3"
+      },
+      "subtitle": {
+        "en": "#METAL",
+        "es": "#METAL"
+      }
+    },
+    {
+      "key": "HOME_CARD_VIEW",
+      "title": {
+        "en": "Follow us on Instagram",
+        "es": "Síguenos en Instagram"
+      },
+      "subtitle": {
+        "en": "Did you know about our IG? Follow us and keep up posted.",
+        "es": "¿Sabias acerca de nuestras redes? Síguenos y mantente informado."
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
+        }
+      },
+      "color": "#4f5bd5"
     },
     {
       "key": "VERTICAL_LIST_VIEW",
@@ -67,6 +110,10 @@
         "key": "FILTER_BY_CATEGORY",
         "value": "ROCK",
         "count": 2
+      },
+      "subtitle": {
+        "en": "#ROCK",
+        "es": "#ROCK"
       }
     },
     {
@@ -76,20 +123,28 @@
         "es": "Guarda tus favoritos"
       },
       "subtitle": {
-        "en": "Save your favorite concerts, so you can find them later.",
-        "es": "Guardar tus conciertos favoritos, y asi encontrarlos luego."
-      }
+        "en": "You can save your favorite concerts, so you can find them easily later.",
+        "es": "Puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
+      },
+      "navigation": {
+        "key": "FAVORITE"
+      },
+      "color": "#d1150c"
     },
     {
       "key": "VERTICAL_LIST_VIEW",
       "title": {
         "en": "Mellow Pop music",
-        "es": "Musica suave y relajante"
+        "es": "Música suave y relajante"
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
         "value": "POP",
         "count": 3
+      },
+      "subtitle": {
+        "en": "#POP #LIMA",
+        "es": "#POP #LIMA"
       }
     }
   ],

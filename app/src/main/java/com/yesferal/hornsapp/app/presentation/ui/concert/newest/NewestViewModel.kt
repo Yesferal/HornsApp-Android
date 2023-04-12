@@ -159,7 +159,7 @@ class NewestViewModel(
             ConditionDrawer.Type.PICK_FROM_DEFAULT_VALUES -> {
                 val concertsFiltered = pickFromDefaultValues(concerts, screenDrawer)
                 return if (concertsFiltered.isEmpty()) {
-                    sortByNewestDate(concerts, screenDrawer)
+                    sortRandomly(concerts, screenDrawer)
                 } else {
                     concertsFiltered
                 }
@@ -176,6 +176,27 @@ class NewestViewModel(
         return concerts
             .filter { screenDrawer.condition?.defaultValues?.contains(it.id) == true }
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .map {
+                CarouselViewData(
+                    id = it.id,
+                    image = it.headlinerImage,
+                    name = it.name,
+                    time = it.timeInMillis.dateTimeFormatted(),
+                    genre = it.genre,
+                    ticketingUrl = it.ticketingUrl,
+                    ticketingHost = it.ticketingHost
+                )
+            }
+    }
+
+    private fun sortRandomly(
+        concerts: List<Concert>,
+        screenDrawer: ScreenDrawer
+    ): List<Delegate> {
+        return concerts
+            .shuffled()
+            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .sortedWith(compareBy { it.timeInMillis })
             .map {
                 CarouselViewData(
                     id = it.id,
@@ -230,9 +251,11 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ScreenDrawer
     ): List<Delegate> {
-        return concerts.reversed()
+        return concerts
             .filter { it.tags?.contains(screenDrawer.condition?.value) == true }
+            .shuffled()
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .sortedWith(compareBy { it.timeInMillis })
             .map { concert ->
                 UpcomingViewData(
                     id = concert.id,
