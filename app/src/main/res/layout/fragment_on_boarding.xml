@@ -19,7 +19,7 @@
         android:layout_height="0dp"
         android:background="@drawable/shape_gradient_top_to_bottom"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.15"/>
+        app:layout_constraintHeight_percent="0.10"/>
 
     <View
         android:id="@+id/startView"
@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/shape_gradient_left_to_right"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.66"/>
+        app:layout_constraintWidth_percent="0.75"/>
 
     <TextView
         android:id="@+id/titleTextView"
