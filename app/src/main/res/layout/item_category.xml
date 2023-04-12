@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/containerLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/text_medium"
+    android:layout_marginHorizontal="@dimen/margin_tiny"
+    android:layout_marginVertical="@dimen/margin_small"
+    android:background="@drawable/shape_rectangle_border_rounded_24dp"
+    android:backgroundTint="@color/secondaryText"
     android:paddingHorizontal="@dimen/margin_tiny"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingVertical="@dimen/margin_tiny">
 
     <TextView
         android:id="@+id/nameTextView"
+        style="@style/HornsApp.TextView.Subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_border_rounded_24dp"
-        android:backgroundTint="@color/secondaryText"
-        android:textColor="@color/secondaryText"
-        android:paddingVertical="@dimen/margin_small"
         android:paddingHorizontal="@dimen/margin_medium"
-        style="@style/HornsApp.TextView.Subtitle"
+        android:paddingVertical="@dimen/margin_small"
+        android:textColor="@color/secondaryText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/crossImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:padding="@dimen/margin_tiny"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_cross"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/nameTextView"
+        app:layout_constraintStart_toEndOf="@+id/nameTextView"
+        app:layout_constraintTop_toTopOf="@+id/nameTextView"
+        app:tint="@color/accent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

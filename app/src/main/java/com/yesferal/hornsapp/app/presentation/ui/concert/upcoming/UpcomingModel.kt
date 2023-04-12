@@ -1,3 +1,4 @@
+/* Copyright © 2022 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import android.view.View

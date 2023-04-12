@@ -1,3 +1,4 @@
+/* Copyright © 2022 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.file
 
 import android.content.Context
