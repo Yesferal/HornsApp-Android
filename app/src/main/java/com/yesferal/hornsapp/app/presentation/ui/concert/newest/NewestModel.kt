@@ -161,9 +161,10 @@ data class NewestViewData(
 
 fun ImageView.setImageIcon(icon: String?) {
     val DRAWABLE_TYPE = "drawable"
-    val DEF_ICON = "ic_music_note"
+    val DEF_ICON = "music_note"
+    val PREFIX = "ic_"
 
     val defaultIcon = icon ?: DEF_ICON
-    val iconIdentifier = resources.getIdentifier(defaultIcon, DRAWABLE_TYPE, context.packageName)
+    val iconIdentifier = resources.getIdentifier(PREFIX + defaultIcon, DRAWABLE_TYPE, context.packageName)
     setImageResource(iconIdentifier)
 }

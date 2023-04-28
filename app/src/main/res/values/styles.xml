@@ -61,4 +61,8 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">@font/aileron_heavy</item>
     </style>
+
+    <style name="HornsApp.Button.Filter" parent="HornsApp.TextView.Subtitle">
+        <item name="android:fontFamily">@font/aileron_heavy</item>
+    </style>
 </resources>
