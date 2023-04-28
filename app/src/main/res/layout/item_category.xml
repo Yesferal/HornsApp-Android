@@ -19,6 +19,7 @@
         android:paddingHorizontal="@dimen/margin_medium"
         android:paddingVertical="@dimen/margin_small"
         android:textColor="@color/secondaryText"
+        android:fontFamily="@font/aileron_heavy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

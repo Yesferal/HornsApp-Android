@@ -182,26 +182,32 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         enableTicketPurchase(concert.concert.ticketingUrl, concert.concert.ticketingHost)
 
         venueTextView.apply {
-            setImageView(R.drawable.ic_map)
-            setText(concert.concert.venue?.name, getString(R.string.go_to_maps))
-            setOnClickListener {
-                concert.concert.venue?.let {
-                    startGoogleMaps(it)
+            concert.concert.venue?.name?.let { venueName ->
+                setImageView(R.drawable.ic_map)
+                setText(venueName, getString(R.string.go_to_maps))
+                setOnClickListener {
+                    concert.concert.venue?.let {
+                        startGoogleMaps(it)
+                    }
                 }
-            }
+            }?: kotlin.run { venueTextView.visibility = View.GONE }
         }
 
         datetimeTextView.apply {
-            setImageView(R.drawable.ic_calendar)
-            setText(concert.dateTime, getString(R.string.add_to_calendar))
-            setOnClickListener {
-                startCalendar(concert)
-            }
+            concert.dateTime?.let {
+                setImageView(R.drawable.ic_calendar)
+                setText(concert.dateTime, getString(R.string.add_to_calendar))
+                setOnClickListener {
+                    startCalendar(concert)
+                }
+            }?: kotlin.run { datetimeTextView.visibility = View.GONE }
         }
 
         descriptionTextView.apply {
-            setImageView(R.drawable.ic_information)
-            setText(getString(R.string.about), concert.concert.description)
+            concert.concert.description?.let { description ->
+                setImageView(R.drawable.ic_information)
+                setText(getString(R.string.about), description)
+            }?: kotlin.run { descriptionTextView.visibility = View.GONE }
         }
 
         showYoutube(concert.concert.trailerUrl)
