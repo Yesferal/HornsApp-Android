@@ -1,12 +1,14 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.entity.drawer.TextDrawer
 import java.util.*
 
 data class GetConcert(
     val _id: String,
     val name: String?,
-    val description: String?,
+    val about: TextDrawer?,
     val posterImage: String?,
     val trailerUrl: String?,
     val socialNetworks: List<String>?,
@@ -27,7 +29,7 @@ data class GetConcert(
 
         return Concert.Builder(this._id)
             .addName(this.name)
-            .addDescription(this.description)
+            .addDescription(this.about?.text)
             .addTrailerUrl(this.trailerUrl)
             .addFacebookUrl(facebookUrl)
             .addHeadlinerImage(this.headlinerImage)

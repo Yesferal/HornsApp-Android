@@ -224,7 +224,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         if (ticketingUrl.isNullOrEmpty()) {
             ticketTextView.setText(getString(R.string.available_soon))
         } else {
-            ticketTextView.setText(getString(R.string.available_on))
+            ticketTextView.setText(getString(R.string.available_on), getString(R.string.buy_here) )
         }
     }
 

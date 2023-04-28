@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.custom
 
 import android.content.Context
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 
 class ImageTextView @JvmOverloads constructor(
     context: Context,
@@ -37,23 +39,11 @@ class ImageTextView @JvmOverloads constructor(
         itemImageView.setImageResource(id)
     }
 
-    fun setText(title: String?) {
-        title?.let {
-            visibility = View.VISIBLE
-            titleTextView.text = it
-        } ?: kotlin.run { visibility = View.GONE }
-    }
-
     fun setText(
         title: String?,
-        description: String?
+        description: String? = null
     ) {
-        setText(title)
-        description?.let {
-            subtitleTextView.visibility = View.VISIBLE
-            subtitleTextView.text = description
-        } ?: kotlin.run {
-            subtitleTextView.visibility = View.GONE
-        }
+        titleTextView.setUpWith(title)
+        subtitleTextView.setUpWith(description)
     }
 }
