@@ -135,7 +135,8 @@ class NewestViewModel(
                 screenDrawer.id,
                 screenDrawer.title?.text,
                 screenDrawer.subtitle?.text,
-                screenDrawer.navigation
+                screenDrawer.navigation,
+                screenDrawer.icon
             )
         )
         this.addAll(delegates)
@@ -279,7 +280,8 @@ class NewestViewModel(
                 screenDrawer.title?.text,
                 screenDrawer.subtitle?.text,
                 screenDrawer.color,
-                screenDrawer.navigation
+                screenDrawer.navigation,
+                screenDrawer.icon
             )
         )
         this.addVerticalDivider(24)

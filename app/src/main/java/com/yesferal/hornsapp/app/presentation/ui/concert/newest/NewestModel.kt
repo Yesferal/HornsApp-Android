@@ -20,7 +20,8 @@ data class TitleViewData(
     val id: String?,
     val title: String?,
     val subtitle: String?,
-    val navigation: Parameters?
+    val navigation: Parameters?,
+    val icon: String?
 ) : InteractiveDelegate<TitleViewData.Listener> {
 
     override val layout = R.layout.item_newest_title
@@ -32,6 +33,7 @@ data class TitleViewData(
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
         view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
+        view.findViewById<ImageView>(R.id.titleImageView).setImageIcon(icon)
         navigation?.let {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.arrowView).visibility = View.VISIBLE
@@ -51,7 +53,8 @@ data class HomeCardViewData(
     val title: String?,
     val subtitle: String?,
     val color: String?,
-    val navigation: Parameters?
+    val navigation: Parameters?,
+    val icon: String?
 ) : InteractiveDelegate<HomeCardViewData.Listener> {
 
     override val layout = R.layout.item_home_card
@@ -71,7 +74,7 @@ data class HomeCardViewData(
         }
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
         view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
-
+        view.findViewById<ImageView>(R.id.appImageView).setImageIcon(icon)
         navigation?.let {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.VISIBLE
             view.setOnClickListener {
@@ -154,4 +157,13 @@ data class NewestViewData(
         view.findViewById<TextView>(R.id.dayTextView).setUpWith(day)
         view.findViewById<TextView>(R.id.monthTextView).setUpWith(month)
     }
+}
+
+fun ImageView.setImageIcon(icon: String?) {
+    val DRAWABLE_TYPE = "drawable"
+    val DEF_ICON = "ic_music_note"
+
+    val defaultIcon = icon ?: DEF_ICON
+    val iconIdentifier = resources.getIdentifier(defaultIcon, DRAWABLE_TYPE, context.packageName)
+    setImageResource(iconIdentifier)
 }
