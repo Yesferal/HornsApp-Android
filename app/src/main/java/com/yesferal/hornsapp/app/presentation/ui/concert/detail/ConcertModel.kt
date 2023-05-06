@@ -68,7 +68,9 @@ data class VenueViewData(
 
     override fun toMap(): Parameters {
         return Parameters().apply {
-            put(FragmentNavigator.PARAM_ANDROID_URI, uri)
+            if (venue.name != null && venue.latitude != null && venue.longitude != null) {
+                put(FragmentNavigator.PARAM_ANDROID_URI, uri)
+            }
         }
     }
 }

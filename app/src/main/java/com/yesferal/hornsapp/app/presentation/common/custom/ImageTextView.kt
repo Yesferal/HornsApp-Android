@@ -19,6 +19,7 @@ class ImageTextView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var itemImageView: ImageView
+    private var arrowView: ImageView
     private var titleTextView: TextView
     private var subtitleTextView: TextView
 
@@ -27,6 +28,7 @@ class ImageTextView @JvmOverloads constructor(
         inflater.inflate(R.layout.custom_image_text_view, this, true)
 
         itemImageView = findViewById(R.id.itemImageView)
+        arrowView = findViewById(R.id.arrowView)
         titleTextView = findViewById(R.id.titleTextView)
         subtitleTextView = findViewById(R.id.subtitleTextView)
 
@@ -45,5 +47,13 @@ class ImageTextView @JvmOverloads constructor(
     ) {
         titleTextView.setUpWith(title)
         subtitleTextView.setUpWith(description)
+    }
+
+    fun showArrow() {
+        arrowView.visibility = View.VISIBLE
+    }
+
+    fun hideArrow() {
+        arrowView.visibility = View.GONE
     }
 }

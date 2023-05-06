@@ -49,6 +49,18 @@
         android:layout_marginEnd="@dimen/margin_big"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         app:layout_constraintStart_toEndOf="@+id/imageBackgroundView"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@+id/arrowView"/>
 
+    <ImageView
+        android:id="@+id/arrowView"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_next"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleTextView"
+        app:tint="@color/secondaryText" />
 </merge>

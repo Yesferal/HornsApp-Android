@@ -182,9 +182,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         enableTicketPurchase(concert.concert.ticketingUrl, concert.concert.ticketingHost)
 
         venueTextView.apply {
-            concert.concert.venue?.name?.let { venueName ->
+            concert.concert.venue?.shortName?.let { venueName ->
                 setImageView(R.drawable.ic_map)
                 setText(venueName, getString(R.string.go_to_maps))
+                showArrow()
                 setOnClickListener {
                     concert.concert.venue?.let {
                         startGoogleMaps(it)
@@ -197,6 +198,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             concert.dateTime?.let {
                 setImageView(R.drawable.ic_calendar)
                 setText(concert.dateTime, getString(R.string.add_to_calendar))
+                showArrow()
                 setOnClickListener {
                     startCalendar(concert)
                 }
@@ -207,6 +209,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             concert.concert.description?.let { description ->
                 setImageView(R.drawable.ic_information)
                 setText(getString(R.string.about), description)
+                hideArrow()
             }?: kotlin.run { descriptionTextView.visibility = View.GONE }
         }
 
@@ -232,6 +235,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         } else {
             ticketTextView.setText(getString(R.string.available_on), getString(R.string.buy_here) )
         }
+        ticketTextView.hideArrow()
     }
 
     private fun showFacebook(facebookUrl: String?) {
@@ -239,6 +243,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             facebookTextView.apply {
                 setImageView(R.drawable.ic_facebook)
                 setText(getString(R.string.fan_page), getString(R.string.go_to_event))
+                showArrow()
                 setOnClickListener {
                     startFacebook(url)
                 }
@@ -253,6 +258,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             youtubeTextView.apply {
                 setImageView(R.drawable.ic_youtube)
                 setText(getString(R.string.official_video), getString(R.string.go_to_youtube))
+                showArrow()
                 setOnClickListener {
                     startExternalActivity(ExternalNavViewData(url))
                 }

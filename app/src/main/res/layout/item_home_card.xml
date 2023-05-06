@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:maxLines="3"
+        android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/appImageView"/>
