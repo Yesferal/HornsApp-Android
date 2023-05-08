@@ -69,25 +69,6 @@
       "icon": "calendar"
     },
     {
-      "key": "HOME_CARD_VIEW",
-      "title": {
-        "en": "Follow us on TikTok",
-        "es": "Síguenos en TikTok"
-      },
-      "subtitle": {
-        "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
-        "es": "¿Sabias acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
-        }
-      },
-      "color": "#000000",
-      "icon": "tiktok"
-    },
-    {
       "key": "VERTICAL_LIST_VIEW",
       "title": {
         "en": "Metal never dies",
@@ -106,27 +87,27 @@
     {
       "key": "HOME_CARD_VIEW",
       "title": {
-        "en": "Follow us on Instagram",
-        "es": "Síguenos en Instagram"
+        "en": "Follow us on TikTok",
+        "es": "Síguenos en TikTok"
       },
       "subtitle": {
-        "en": "Did you know about our IG? Follow us and keep up posted.",
-        "es": "¿Sabias acerca de nuestras redes? Síguenos y mantente informado."
+        "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
+        "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
+          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
         }
       },
-      "color": "#4f5bd5",
-      "icon": "instagram"
+      "color": "#000000",
+      "icon": "tiktok"
     },
     {
       "key": "VERTICAL_LIST_VIEW",
       "title": {
         "en": "Keep on rocking",
-        "es": "El Rock es prioridad"
+        "es": "Siempre el Rock es prioridad"
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
@@ -141,12 +122,47 @@
     {
       "key": "HOME_CARD_VIEW",
       "title": {
+        "en": "Follow us on Instagram",
+        "es": "Síguenos en Instagram"
+      },
+      "subtitle": {
+        "en": "Did you know about our IG? Follow us and keep up posted.",
+        "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
+        }
+      },
+      "color": "#4f5bd5",
+      "icon": "instagram"
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "title": {
+        "en": "K-Pop is a lifestyle",
+        "es": "K-Pop es un estilo de vida"
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "K-POP",
+        "count": 3
+      },
+      "subtitle": {
+        "en": "#K-POP",
+        "es": "#K-POP"
+      }
+    },
+    {
+      "key": "HOME_CARD_VIEW",
+      "title": {
         "en": "Save your favorites",
         "es": "Guarda tus favoritos"
       },
       "subtitle": {
-        "en": "You can save your favorite concerts, so you can find them easily later.",
-        "es": "Puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
+        "en": "You can save your favorite concerts now, so you can find them easily later.",
+        "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
       },
       "navigation": {
         "key": "FAVORITE"
@@ -157,8 +173,8 @@
     {
       "key": "VERTICAL_LIST_VIEW",
       "title": {
-        "en": "Mellow Pop music",
-        "es": "Música suave y relajante"
+        "en": "We love Pop music",
+        "es": "Amamos la música pop"
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
@@ -166,8 +182,8 @@
         "count": 3
       },
       "subtitle": {
-        "en": "#POP #LIMA",
-        "es": "#POP #LIMA"
+        "en": "#POP",
+        "es": "#POP"
       }
     }
   ],
@@ -181,6 +197,13 @@
     },
     {
       "title": {
+        "en": "Rock",
+        "es": "Rock"
+      },
+      "key": "ROCK"
+    },
+    {
+      "title": {
         "en": "Pop",
         "es": "Pop"
       },
@@ -188,10 +211,10 @@
     },
     {
       "title": {
-        "en": "Rock",
-        "es": "Rock"
+        "en": "K-Pop",
+        "es": "K-Pop"
       },
-      "key": "ROCK"
+      "key": "K-POP"
     }
   ]
 }
