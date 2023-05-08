@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.upcoming
 
 import androidx.lifecycle.LiveData
@@ -21,7 +22,6 @@ import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -90,23 +90,30 @@ class UpcomingViewModel(
                     )
                 }
 
+                var year = String()
                 val delegates = mutableListOf<Delegate>().apply {
                     add(mapCategories(categories))
-                    addAll(concerts
-                        .map {
-                            UpcomingViewData(
-                                id = it.id,
-                                image = it.headlinerImage,
-                                day = it.timeInMillis.dayFormatted(),
-                                month = it.timeInMillis.monthFormatted(),
-                                year = it.timeInMillis.yearFormatted(),
-                                name = it.name,
-                                time = it.timeInMillis.timeFormatted(),
-                                genre = it.genre
-                            )
-                        }
-                    )
                 }
+
+                concerts
+                    .map {
+                        val concertYear = it.timeInMillis.yearFormatted()
+                        if (concertYear != null && year != it.timeInMillis.yearFormatted()) {
+                            year = concertYear
+                            delegates.add(YearViewData(year))
+                        }
+
+                        delegates.add(UpcomingViewData(
+                            id = it.id,
+                            image = it.headlinerImage,
+                            day = it.timeInMillis.dayFormatted(),
+                            month = it.timeInMillis.monthFormatted(),
+                            year = it.timeInMillis.yearFormatted(),
+                            name = it.name,
+                            time = it.timeInMillis.timeFormatted(),
+                            genre = it.genre
+                        ))
+                    }
 
                 return@withContext DelegateViewState(delegates.toList())
             }

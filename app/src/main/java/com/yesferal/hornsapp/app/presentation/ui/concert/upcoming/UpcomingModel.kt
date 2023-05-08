@@ -59,6 +59,18 @@ data class UpcomingViewData(
     }
 }
 
+data class YearViewData(
+    val year: String
+) : NonInteractiveDelegate {
+
+    override val layout = R.layout.item_year
+
+    override fun onBindViewDelegate(view: View) {
+        view.findViewById<TextView>(R.id.titleTextView)
+            .setUpWith("#$year")
+    }
+}
+
 data class ErrorViewData(
     @DrawableRes val imageId: Int,
     @StringRes val errorMessage: Int

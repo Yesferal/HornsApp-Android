@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/arrowView"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_marginEnd="@dimen/margin_big"
         android:contentDescription="@null"
         android:src="@drawable/ic_next"
