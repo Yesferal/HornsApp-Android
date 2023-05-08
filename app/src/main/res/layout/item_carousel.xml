@@ -44,7 +44,7 @@
         android:layout_height="12dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_calendar"
-        android:layout_marginHorizontal="@dimen/margin_big"
+        android:layout_marginHorizontal="@dimen/margin_medium"
         app:layout_constraintTop_toTopOf="@+id/timeTextView"
         app:layout_constraintStart_toStartOf="@id/concertImageView"
         app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_marginVertical="@dimen/margin_tiny"
+        android:layout_marginVertical="@dimen/margin_small"
         app:layout_constraintStart_toEndOf="@id/timeImageView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"/>
 
@@ -65,7 +65,7 @@
         android:layout_height="12dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_music_note"
-        android:layout_marginHorizontal="@dimen/margin_big"
+        android:layout_marginHorizontal="@dimen/margin_medium"
         app:layout_constraintTop_toTopOf="@+id/genreTextView"
         app:layout_constraintStart_toStartOf="@id/concertImageView"
         app:layout_constraintBottom_toBottomOf="@+id/genreTextView"

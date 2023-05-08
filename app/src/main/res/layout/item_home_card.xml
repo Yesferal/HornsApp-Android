@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         style="@style/HornsApp.TextView.Title"
         android:textColor="@android:color/white"
-        android:maxLines="2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/appImageView"/>
@@ -23,8 +22,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:maxLines="3"
         android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/appImageView"/>

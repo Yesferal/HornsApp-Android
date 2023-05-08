@@ -11,6 +11,7 @@
         <item name="bottomSheetDialogTheme">@style/HornsApp.BottomSheetDialogTheme</item>
 
         <item name="android:fontFamily">@font/aileron_regular</item>
+        <item name="android:lineSpacingExtra">5sp</item>
     </style>
 
     <style name="HornsApp.TextView.Subtitle" parent="@android:style/TextAppearance">
