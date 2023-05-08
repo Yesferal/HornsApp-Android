@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
         android:textAlignment="center"
+        android:textColor="@color/secondaryText"
         style="@style/HornsApp.TextView.Subtitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
