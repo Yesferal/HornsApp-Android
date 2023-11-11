@@ -16,6 +16,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.Catego
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetUpcomingConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -35,7 +36,7 @@ class UpcomingViewModel(
     val stateUpcoming: LiveData<DelegateViewState>
         get() = _stateUpcoming
 
-    private lateinit var categoryDrawer: List<CategoryDrawer>
+    private lateinit var categoryDrawer: List<ViewDrawer>
 
     init {
         viewModelScope.launch {
@@ -58,23 +59,23 @@ class UpcomingViewModel(
             if (categoryViewData.isSelected) {
                 _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.ALL)
             } else {
-                _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.categoryKey)
+                _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.condition)
             }
         }
     }
 
     private suspend fun getUpcomingConcertsWith(
-        categoryKey: String
+        categoryCondition: String
     ) = withContext(Dispatchers.IO) {
         val categories = categoryDrawer.map { category ->
                 CategoryViewData(
-                    category.key.orEmpty(),
-                    category.title?.text.orEmpty(),
-                    categoryKey == category.key
+                    category.condition?.value.orEmpty(),
+                    category.data?.title?.text.orEmpty(),
+                    categoryCondition == category.condition?.value
                 )
             }
 
-        when (val result = getUpcomingConcertsUseCase(categoryKey)) {
+        when (val result = getUpcomingConcertsUseCase(categoryCondition)) {
             is HaResult.Success -> {
                 val concerts = result.value
 

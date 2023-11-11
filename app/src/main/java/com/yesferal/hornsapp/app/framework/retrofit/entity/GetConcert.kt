@@ -2,13 +2,13 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.entity.drawer.TextDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
 import java.util.*
 
 data class GetConcert(
     val _id: String,
     val name: String?,
-    val about: TextDrawer?,
+    val about: LocalizedString?,
     val posterImage: String?,
     val trailerUrl: String?,
     val socialNetworks: List<String>?,

@@ -2,15 +2,15 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Band
-import com.yesferal.hornsapp.core.domain.entity.drawer.TextDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
 
 data class GetBand(
     val _id: String,
     val name: String?,
-    val about: TextDrawer?,
+    val about: LocalizedString?,
     val membersImage: String?,
     val logoImage: String?,
-    val countryTextDrawer: TextDrawer?,
+    val countryTextDrawer: LocalizedString?,
     val genre: String?
 ) {
     fun mapToBand(): Band {

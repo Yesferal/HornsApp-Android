@@ -2,23 +2,29 @@
   "_id": "6145745816f26725560c903f",
   "screens": [
     {
-      "title": {
-        "en": "Newest",
-        "es": "Novedades"
+      "data": {
+        "title": {
+          "en": "Newest",
+          "es": "Novedades"
+        }
       },
       "key": "NEWEST_FRAGMENT"
     },
     {
-      "title": {
-        "en": "Upcoming",
-        "es": "Próximos"
+      "data": {
+        "title": {
+          "en": "Upcoming",
+          "es": "Próximos"
+        }
       },
       "key": "UPCOMING_FRAGMENT"
     },
     {
-      "title": {
-        "en": "Favorites",
-        "es": "Favoritos"
+      "data": {
+        "title": {
+          "en": "Favorites",
+          "es": "Favoritos"
+        }
       },
       "key": "FAVORITE_FRAGMENT"
     }
@@ -36,28 +42,33 @@
     },
     {
       "key": "HOME_CARD_VIEW",
-      "title": {
-        "en": "Spotify: Cynic @ Lima",
-        "es": "Spotify: Cynic en Lima"
-      },
-      "subtitle": {
-        "en": "Did you know about our setlist on Spotify? There are a bunch of them waiting for you.",
-        "es": "¿Sabías acerca de nuestras setlists en Spotify? Hay muchas esperando por ti."
+      "data": {
+        "title": {
+          "en": "Spotify: Cynic @ Lima",
+          "es": "Spotify: Cynic en Lima"
+        },
+        "subtitle": {
+          "en": "Did you know about our setlist on Spotify? There are a bunch of them waiting for you.",
+          "es": "¿Sabías acerca de nuestras setlists en Spotify? Hay muchas esperando por ti."
+        },
+        "color": "#1DB954",
+        "icon": "spotify"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
           "param_android_uri": "https://open.spotify.com/playlist/6Q0XajzqJqnhJrv6mGTWrF?si=604c991d72f643e9"
         }
-      },
-      "color": "#1DB954",
-      "icon": "spotify"
+      }
     },
     {
       "key": "VERTICAL_LIST_VIEW",
-      "title": {
-        "en": "Upcoming",
-        "es": "Próximos"
+      "data": {
+        "title": {
+          "en": "Upcoming",
+          "es": "Próximos"
+        },
+        "icon": "calendar"
       },
       "condition": {
         "key": "SORT_BY_UPCOMING_DATE",
@@ -65,156 +76,159 @@
       },
       "navigation": {
         "key": "UPCOMING"
-      },
-      "icon": "calendar"
+      }
     },
     {
       "key": "VERTICAL_LIST_VIEW",
-      "title": {
-        "en": "Metal never dies",
-        "es": "Metal nunca muere"
+      "data": {
+        "title": {
+          "en": "Metal never dies",
+          "es": "Metal nunca muere"
+        },
+        "subtitle": {
+          "en": "#METAL",
+          "es": "#METAL"
+        }
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
         "value": "METAL",
         "count": "3"
-      },
-      "subtitle": {
-        "en": "#METAL",
-        "es": "#METAL"
       }
     },
     {
       "key": "HOME_CARD_VIEW",
-      "title": {
-        "en": "Follow us on TikTok",
-        "es": "Síguenos en TikTok"
-      },
-      "subtitle": {
-        "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
-        "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
+      "data": {
+        "title": {
+          "en": "Follow us on TikTok",
+          "es": "Síguenos en TikTok"
+        },
+        "subtitle": {
+          "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
+          "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
+        },
+        "color": "#000000",
+        "icon": "tiktok"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
           "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
         }
-      },
-      "color": "#000000",
-      "icon": "tiktok"
+      }
     },
     {
       "key": "VERTICAL_LIST_VIEW",
-      "title": {
-        "en": "Keep on rocking",
-        "es": "Siempre el Rock es prioridad"
+      "data": {
+        "title": {
+          "en": "Keep on rocking",
+          "es": "Siempre el Rock es prioridad"
+        },
+        "subtitle": {
+          "en": "#ROCK",
+          "es": "#ROCK"
+        }
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
         "value": "ROCK",
         "count": 2
-      },
-      "subtitle": {
-        "en": "#ROCK",
-        "es": "#ROCK"
       }
     },
     {
       "key": "HOME_CARD_VIEW",
-      "title": {
-        "en": "Follow us on Instagram",
-        "es": "Síguenos en Instagram"
-      },
-      "subtitle": {
-        "en": "Did you know about our IG? Follow us and keep up posted.",
-        "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
+      "data": {
+        "title": {
+          "en": "Follow us on Instagram",
+          "es": "Síguenos en Instagram"
+        },
+        "subtitle": {
+          "en": "Did you know about our IG? Follow us and keep up posted.",
+          "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
+        },
+        "color": "#4f5bd5",
+        "icon": "instagram"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
           "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
         }
-      },
-      "color": "#4f5bd5",
-      "icon": "instagram"
-    },
-    {
-      "key": "VERTICAL_LIST_VIEW",
-      "title": {
-        "en": "K-Pop is a lifestyle",
-        "es": "K-Pop es un estilo de vida"
-      },
-      "condition": {
-        "key": "FILTER_BY_CATEGORY",
-        "value": "K-POP",
-        "count": 3
-      },
-      "subtitle": {
-        "en": "#K-POP",
-        "es": "#K-POP"
       }
     },
     {
-      "key": "HOME_CARD_VIEW",
-      "title": {
-        "en": "Save your favorites",
-        "es": "Guarda tus favoritos"
-      },
-      "subtitle": {
-        "en": "You can save your favorite concerts now, so you can find them easily later.",
-        "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
-      },
-      "navigation": {
-        "key": "FAVORITE"
-      },
-      "color": "#d1150c",
-      "icon": "favorite"
-    },
-    {
       "key": "VERTICAL_LIST_VIEW",
-      "title": {
-        "en": "We love Pop music",
-        "es": "Amamos la música pop"
+      "data": {
+        "title": {
+          "en": "We love Pop music",
+          "es": "Amamos la música pop"
+        },
+        "subtitle": {
+          "en": "#POP",
+          "es": "#POP"
+        }
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
         "value": "POP",
         "count": 3
+      }
+    },
+    {
+      "key": "HOME_CARD_VIEW",
+      "data": {
+        "title": {
+          "en": "Save your favorites",
+          "es": "Guarda tus favoritos"
+        },
+        "subtitle": {
+          "en": "You can save your favorite concerts now, so you can find them easily later.",
+          "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
+        },
+        "color": "#d1150c",
+        "icon": "favorite"
       },
-      "subtitle": {
-        "en": "#POP",
-        "es": "#POP"
+      "navigation": {
+        "key": "FAVORITE"
       }
     }
   ],
   "categories": [
     {
-      "title": {
-        "en": "Metal",
-        "es": "Metal"
+      "key": "METAL",
+      "data": {
+        "title": {
+          "en": "Metal",
+          "es": "Metal"
+        }
       },
-      "key": "METAL"
+      "condition": {
+        "value": "METAL"
+      }
     },
     {
-      "title": {
-        "en": "Rock",
-        "es": "Rock"
+      "key": "ROCK",
+      "data": {
+        "title": {
+          "en": "Rock",
+          "es": "Rock"
+        }
       },
-      "key": "ROCK"
+      "condition": {
+        "value": "ROCK"
+      }
     },
     {
-      "title": {
-        "en": "Pop",
-        "es": "Pop"
+      "key": "POP",
+      "data": {
+        "title": {
+          "en": "Pop",
+          "es": "Pop"
+        }
       },
-      "key": "POP"
-    },
-    {
-      "title": {
-        "en": "K-Pop",
-        "es": "K-Pop"
-      },
-      "key": "K-POP"
+      "condition": {
+        "value": "POP"
+      }
     }
   ]
 }

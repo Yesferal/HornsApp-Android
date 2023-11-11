@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import androidx.lifecycle.LiveData
@@ -19,13 +20,12 @@ import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
-import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -47,13 +47,13 @@ class NewestViewModel(
         }
     }
 
-    private fun onRender(newestDrawer: List<ScreenDrawer>) {
+    private fun onRender(newestDrawer: List<ViewDrawer>) {
         viewModelScope.launch {
             _stateNewest.value = getNewestConcerts(newestDrawer)
         }
     }
 
-    private suspend fun getNewestConcerts(newestDrawer: List<ScreenDrawer>) =
+    private suspend fun getNewestConcerts(newestDrawer: List<ViewDrawer>) =
         withContext(Dispatchers.IO) {
             when (val result = getConcertsUseCase()) {
                 is HaResult.Success -> {
@@ -73,13 +73,13 @@ class NewestViewModel(
                     val delegates = mutableListOf<Delegate>()
                     newestDrawer.forEach {
                         when (it.type) {
-                            ScreenDrawer.Type.CAROUSEL_VIEW -> {
+                            ViewDrawer.Type.CAROUSEL_VIEW -> {
                                 delegates.includeCarouselSection(concerts, it)
                             }
-                            ScreenDrawer.Type.VERTICAL_LIST_VIEW -> {
+                            ViewDrawer.Type.VERTICAL_LIST_VIEW -> {
                                 delegates.includeVerticalSection(concerts, it)
                             }
-                            ScreenDrawer.Type.HOME_CARD_VIEW -> {
+                            ViewDrawer.Type.HOME_CARD_VIEW -> {
                                 delegates.includeHomeCardSection(it)
                             }
                             else -> {
@@ -105,7 +105,7 @@ class NewestViewModel(
 
     private fun MutableList<Delegate>.includeCarouselSection(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
@@ -122,7 +122,7 @@ class NewestViewModel(
 
     private fun MutableList<Delegate>.includeVerticalSection(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
@@ -132,11 +132,10 @@ class NewestViewModel(
 
         this.add(
             TitleViewData(
-                screenDrawer.id,
-                screenDrawer.title?.text,
-                screenDrawer.subtitle?.text,
+                screenDrawer.data?.title?.text,
+                screenDrawer.data?.subtitle?.text,
                 screenDrawer.navigation,
-                screenDrawer.icon
+                screenDrawer.data?.icon
             )
         )
         this.addAll(delegates)
@@ -145,7 +144,7 @@ class NewestViewModel(
 
     private fun getConcertDelegates(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ): List<Delegate> {
         return when (screenDrawer.condition?.type) {
             ConditionDrawer.Type.SORT_BY_UPCOMING_DATE -> {
@@ -171,7 +170,7 @@ class NewestViewModel(
 
     private fun pickFromDefaultValues(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ): List<Delegate> {
         logger.d("Values: ${screenDrawer.condition?.defaultValues}")
         return concerts
@@ -192,7 +191,7 @@ class NewestViewModel(
 
     private fun sortRandomly(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ): List<Delegate> {
         return concerts
             .shuffled()
@@ -213,7 +212,7 @@ class NewestViewModel(
 
     private fun sortByNewestDate(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ): List<Delegate> {
         return concerts.reversed()
             .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
@@ -232,7 +231,7 @@ class NewestViewModel(
 
     private fun sortByUpcomingDate(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ): List<Delegate> {
         return concerts
             .sortedWith(compareBy { it.timeInMillis })
@@ -250,7 +249,7 @@ class NewestViewModel(
 
     private fun filterByCategory(
         concerts: List<Concert>,
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ): List<Delegate> {
         return concerts
             .filter { it.tags?.contains(screenDrawer.condition?.value) == true }
@@ -272,16 +271,15 @@ class NewestViewModel(
     }
 
     private fun MutableList<Delegate>.includeHomeCardSection(
-        screenDrawer: ScreenDrawer
+        screenDrawer: ViewDrawer
     ) {
         this.add(
             HomeCardViewData(
-                screenDrawer.id,
-                screenDrawer.title?.text,
-                screenDrawer.subtitle?.text,
-                screenDrawer.color,
+                screenDrawer.data?.title?.text,
+                screenDrawer.data?.subtitle?.text,
+                screenDrawer.data?.color,
                 screenDrawer.navigation,
-                screenDrawer.icon
+                screenDrawer.data?.icon
             )
         )
         this.addVerticalDivider(24)

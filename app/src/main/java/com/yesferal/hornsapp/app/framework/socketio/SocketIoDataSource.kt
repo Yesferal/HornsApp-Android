@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.socketio
 
 import com.google.gson.Gson
@@ -5,8 +6,7 @@ import com.yesferal.hornsapp.core.data.abstraction.remote.DrawerRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.drawer.AppDrawer
-import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,17 +24,17 @@ class SocketIoDataSource(
 
     private val _homeDrawer =
         MutableStateFlow(drawerStorageDataSource.getAppDrawer().screens ?: listOf())
-    override val homeDrawer: StateFlow<List<ScreenDrawer>>
+    override val homeDrawer: StateFlow<List<ViewDrawer>>
         get() = _homeDrawer
 
     private val _newestDrawer =
         MutableStateFlow(drawerStorageDataSource.getAppDrawer().newest ?: listOf())
-    override val newestDrawer: StateFlow<List<ScreenDrawer>>
+    override val newestDrawer: StateFlow<List<ViewDrawer>>
         get() = _newestDrawer
 
     private val _categoryDrawer =
         MutableStateFlow(drawerStorageDataSource.getAppDrawer().categories ?: listOf())
-    override val categoryDrawer: StateFlow<List<CategoryDrawer>>
+    override val categoryDrawer: StateFlow<List<ViewDrawer>>
         get() = _categoryDrawer
 
     init {

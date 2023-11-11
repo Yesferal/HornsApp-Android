@@ -17,7 +17,6 @@ import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 
 data class TitleViewData(
-    val id: String?,
     val title: String?,
     val subtitle: String?,
     val navigation: Parameters?,
@@ -49,7 +48,6 @@ data class TitleViewData(
 }
 
 data class HomeCardViewData(
-    val id: String?,
     val title: String?,
     val subtitle: String?,
     val color: String?,

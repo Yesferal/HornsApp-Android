@@ -12,8 +12,8 @@ import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 
 data class CategoryViewData(
-    val categoryKey: String,
-    val name: String,
+    val condition: String,
+    val label: String,
     val isSelected: Boolean = false
 ) : InteractiveDelegate<CategoryViewData.Listener> {
 
@@ -37,14 +37,14 @@ data class CategoryViewData(
         if (isSelected) {
             crossImageView.visibility = View.VISIBLE
             nameTextView.setPadding(dpWidth, nameTextView.paddingTop, 0, nameTextView.paddingBottom)
-            nameTextView.setUpWith(name)
+            nameTextView.setUpWith(label)
             val selectedColor = ContextCompat.getColorStateList(view.context, R.color.accent)
             nameTextView.setTextColor(selectedColor)
             view.backgroundTintList = selectedColor
         } else {
             crossImageView.visibility = View.GONE
             nameTextView.setPadding(dpWidth, nameTextView.paddingTop, dpWidth, nameTextView.paddingBottom)
-            nameTextView.setUpWith(name)
+            nameTextView.setUpWith(label)
             val unselectedColor =
                 ContextCompat.getColorStateList(view.context, R.color.secondaryText)
             nameTextView.setTextColor(unselectedColor)

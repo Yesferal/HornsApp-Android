@@ -1,3 +1,4 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import androidx.lifecycle.LiveData
@@ -7,11 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
-import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,7 +23,7 @@ class HomeViewModel(
     val state: LiveData<HomeViewState>
         get() = _state
 
-    private lateinit var homeDrawer: List<ScreenDrawer>
+    private lateinit var homeDrawer: List<ViewDrawer>
 
     init {
         viewModelScope.launch {
@@ -49,7 +49,7 @@ class HomeViewModel(
         when (getConcertsUseCase()) {
             is HaResult.Success -> {
                 val screens = homeDrawer.map {
-                    Pair(it.type, it.title?.text.orEmpty())
+                    Pair(it.type, it.data?.title?.text.orEmpty())
                 }
 
                 HomeViewState(screens)

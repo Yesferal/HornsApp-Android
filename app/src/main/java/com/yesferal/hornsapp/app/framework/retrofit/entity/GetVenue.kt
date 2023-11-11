@@ -2,12 +2,12 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Venue
-import com.yesferal.hornsapp.core.domain.entity.drawer.TextDrawer
+import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
 
 data class GetVenue (
     val _id: String,
     val name: String?,
-    val shortName: TextDrawer?,
+    val shortName: LocalizedString?,
     val latitude: String?,
     val longitude: String?
 ) {
