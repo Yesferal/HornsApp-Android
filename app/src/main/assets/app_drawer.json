@@ -41,6 +41,12 @@
       }
     },
     {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 50
+      }
+    },
+    {
       "key": "HOME_CARD_VIEW",
       "data": {
         "title": {
@@ -97,6 +103,12 @@
       }
     },
     {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      }
+    },
+    {
       "key": "HOME_CARD_VIEW",
       "data": {
         "title": {
@@ -136,6 +148,12 @@
       }
     },
     {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      }
+    },
+    {
       "key": "HOME_CARD_VIEW",
       "data": {
         "title": {
@@ -172,6 +190,12 @@
         "key": "FILTER_BY_CATEGORY",
         "value": "POP",
         "count": 3
+      }
+    },
+    {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
       }
     },
     {

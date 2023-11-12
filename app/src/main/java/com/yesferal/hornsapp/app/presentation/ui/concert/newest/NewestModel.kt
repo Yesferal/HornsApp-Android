@@ -3,18 +3,22 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.newest
 
 import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.extension.addBottomView
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
+import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
 
 data class TitleViewData(
     val title: String?,
@@ -165,4 +169,25 @@ fun ImageView.setImageIcon(icon: String?) {
     val defaultIcon = icon ?: DEF_ICON
     val iconIdentifier = resources.getIdentifier(PREFIX + defaultIcon, DRAWABLE_TYPE, context.packageName)
     setImageResource(iconIdentifier)
+}
+
+data class AdViewData(
+    val abstractViewFactory: AbstractViewFactory,
+    val height: Int?
+) : NonInteractiveDelegate {
+    val BANNER_SIZE = 50
+
+    override val layout = R.layout.item_ad_view
+
+    override fun onBindViewDelegate(view: View) {
+        val safeHeight: Int = if (height != 50 && height != 100 && height != 250) {
+            BANNER_SIZE
+        } else {
+            height
+        }
+
+        if (view is ViewGroup) {
+            view.addBottomView(abstractViewFactory, safeHeight)
+        }
+    }
 }

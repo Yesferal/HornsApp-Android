@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class NewestViewModel(
+    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getConcertsUseCase: GetConcertsUseCase,
     private val drawerRepository: DrawerRepository,
     private val logger: Logger
@@ -81,6 +83,9 @@ class NewestViewModel(
                             }
                             ViewDrawer.Type.HOME_CARD_VIEW -> {
                                 delegates.includeHomeCardSection(it)
+                            }
+                            ViewDrawer.Type.AD_VIEW -> {
+                                delegates.includeAdViewSection(it)
                             }
                             else -> {
                                 return@forEach
@@ -284,18 +289,32 @@ class NewestViewModel(
         )
         this.addVerticalDivider(24)
     }
+
+    private fun MutableList<Delegate>.includeAdViewSection(
+        viewDrawer: ViewDrawer
+    ) {
+        this.add(
+            AdViewData(
+                businessModelFactoryProducer.getViewFactory(),
+                viewDrawer.data?.height,
+            )
+        )
+        this.addVerticalDivider(24)
+    }
 }
 
 class NewestViewModelFactory(
+    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getConcertsUseCase: GetConcertsUseCase,
     private val drawerRepository: DrawerRepository,
     private val logger: Logger
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
+            BusinessModelFactoryProducer::class.java,
             GetConcertsUseCase::class.java,
             DrawerRepository::class.java,
             Logger::class.java
-        ).newInstance(getConcertsUseCase, drawerRepository, logger)
+        ).newInstance(businessModelFactoryProducer, getConcertsUseCase, drawerRepository, logger)
     }
 }

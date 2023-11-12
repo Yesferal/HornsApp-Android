@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.MobileAds
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
 import com.yesferal.hornsapp.hadi_android.hadi
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +40,9 @@ class MainActivity : AppCompatActivity() {
         adContainerLayout = findViewById(R.id.adContainerLayout)
 
         mainViewModel.viewFactory.observe(this) {
-            adContainerLayout.addBottomView(it)
+            // TODO: Evaluate if we need this
+            // or we just use Ads as Recycler Ad Item
+            //adContainerLayout.addBottomView(it, 50)
         }
 
         setupReceiver()
@@ -55,10 +56,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(broadcastReceiver)
-    }
-
-    private fun FrameLayout.addBottomView(viewFactory: AbstractViewFactory) {
-        removeAllViews()
-        addView(viewFactory.drawView(context, AbstractViewFactory.Type.MAIN))
     }
 }

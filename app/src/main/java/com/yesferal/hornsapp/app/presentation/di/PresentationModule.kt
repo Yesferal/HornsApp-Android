@@ -45,6 +45,7 @@ fun Container.registerPresentationModule() {
 
     this register Factory {
         NewestViewModelFactory(
+            businessModelFactoryProducer = resolve(),
             getConcertsUseCase = resolve(),
             drawerRepository = resolve(),
             logger = resolve()

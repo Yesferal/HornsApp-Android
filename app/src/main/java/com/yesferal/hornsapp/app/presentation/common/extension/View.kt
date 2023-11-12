@@ -2,7 +2,11 @@ package com.yesferal.hornsapp.app.presentation.common.extension
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
 
 fun View.fadeIn() {
     alpha = 0f
@@ -23,4 +27,20 @@ fun View.fadeOut() {
                 visibility = View.GONE
             }
         })
+}
+
+fun ViewGroup.addBottomView(viewFactory: AbstractViewFactory, size: Int) {
+    removeAllViews()
+    val viewBackground = View(this.context)
+    viewBackground.layoutParams = LinearLayout.LayoutParams(width, parseIntToDp(size.toFloat()))
+    addView(viewBackground)
+    addView(viewFactory.drawView(context, AbstractViewFactory.Type.MAIN, size))
+}
+
+fun View.parseIntToDp(dp: Float): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        resources.displayMetrics
+    ).toInt()
 }

@@ -14,5 +14,5 @@ interface AbstractViewFactory {
         MAIN
     }
 
-    fun drawView(context: Context, type: Type): View
+    fun drawView(context: Context, type: Type, size: Int): View
 }
