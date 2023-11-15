@@ -1,6 +1,8 @@
 /* Copyright © 2022 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.di
 
+import android.content.Context
+import android.content.pm.PackageInfo
 import androidx.room.Room
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
@@ -11,6 +13,7 @@ import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.navigator.DialogNavigator
 import com.yesferal.hornsapp.app.framework.navigator.ExternalNavigator
 import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
+import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.app.framework.preferences.PreferencesDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiProvider
 import com.yesferal.hornsapp.app.framework.retrofit.RetrofitDataSource
@@ -117,7 +120,8 @@ fun Container.registerFrameworkModule() {
             gson = resolve(),
             logger = resolve(),
             baseUrl = apiConstants.environments[defaultEnvironment].second,
-            drawerStorageDataSource = resolve()
+            drawerStorageDataSource = resolve(),
+            packageInfoDataSource = resolve()
         )
     }
 
@@ -148,5 +152,14 @@ fun Container.registerFrameworkModule() {
             logger = resolve(),
             fragmentNavigator = dialogNavigator
         )
+    }
+
+    this register Singleton {
+        val context: Context = resolve()
+        val packageInfo: PackageInfo = context
+            .packageManager
+            .getPackageInfo(context.packageName, 0)
+
+        PackageInfoDataSource(packageInfo = packageInfo)
     }
 }

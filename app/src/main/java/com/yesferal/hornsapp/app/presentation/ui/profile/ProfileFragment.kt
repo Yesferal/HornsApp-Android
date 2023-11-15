@@ -1,17 +1,17 @@
 /* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.profile
 
-import android.content.pm.PackageInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import androidx.core.content.pm.PackageInfoCompat
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
+import com.yesferal.hornsapp.hadi_android.hadi
 
 class ProfileFragment : BaseFragment(), EasterEggsApplier {
 
@@ -52,24 +52,20 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
     }
 
     private fun setUpVersion(suffix: String) {
-        activity?.let { activityNonNull ->
-            val packageInfo: PackageInfo = activityNonNull
-                .packageManager
-                .getPackageInfo(activityNonNull.packageName, 0)
+        val packageInfoDataSource = hadi().resolve<PackageInfoDataSource>()
+        val versionName: String = packageInfoDataSource.getVersionName()
+        val versionCode: Long = packageInfoDataSource.getVersionCode()
 
-            val versionName: String = packageInfo.versionName
-            val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
+        versionTextView.setImageView(R.drawable.ic_information)
+        val version = StringBuilder()
+            .append(versionName)
+            .append("+")
+            .append(versionCode)
+            .append("-")
+            .append(suffix)
+            .toString()
 
-            versionTextView.setImageView(R.drawable.ic_information)
-            val version = StringBuilder()
-                .append(versionName)
-                .append("+")
-                .append(versionCode)
-                .append("-")
-                .append(suffix)
-
-            versionTextView.setText(getString(R.string.version), version.toString())
-        }
+        versionTextView.setText(getString(R.string.version), version)
     }
 
     private fun setUpPreferences() {

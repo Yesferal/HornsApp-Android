@@ -2,6 +2,7 @@
 package com.yesferal.hornsapp.app.framework.socketio
 
 import com.google.gson.Gson
+import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.DrawerRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
@@ -11,14 +12,18 @@ import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.lang.StringBuilder
 import java.net.URI
 
 class SocketIoDataSource(
     private val gson: Gson,
     private val logger: Logger,
     baseUrl: String,
-    drawerStorageDataSource: DrawerStorageDataSource
+    drawerStorageDataSource: DrawerStorageDataSource,
+    packageInfoDataSource: PackageInfoDataSource
 ) : DrawerRemoteDataSource {
+    private val VERSION = "versionCode"
+    private val PLATFORM = "platform"
 
     private lateinit var socket: Socket
 
@@ -39,7 +44,17 @@ class SocketIoDataSource(
 
     init {
         try {
+            val versionCode = packageInfoDataSource.getVersionCode()
             val options = IO.Options()
+            options.query = StringBuilder()
+                .append(VERSION)
+                .append("=")
+                .append(versionCode)
+                .append("&")
+                .append(PLATFORM)
+                .append("=")
+                .append("android")
+                .toString()
             socket = IO.socket(URI(baseUrl), options)
             logger.d("Success: " + socket.id())
         } catch (e: Exception) {
@@ -53,9 +68,9 @@ class SocketIoDataSource(
         }
 
         socket.on("updateDrawer") {
-            logger.d("Socket On (updateDrawer): ${it[0]}")
             lateinit var appDrawer: AppDrawer
             try {
+                logger.d("Socket On (updateDrawer): ${it[0]}")
                 appDrawer = gson.fromJson(it[0].toString(), AppDrawer::class.java)
                 drawerStorageDataSource.updateAppDrawer(appDrawer)
                 _homeDrawer.value = appDrawer.screens ?: listOf()
