@@ -37,8 +37,8 @@ android {
         applicationId "com.yesferal.hornsapp"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 22
-        versionName "2.2.7"
+        versionCode 23
+        versionName "2.3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake { cppFlags "" }
@@ -99,6 +99,7 @@ dependencies {
     implementation 'com.github.Yesferal:HornsApp-DI:1.2.2'
     implementation 'com.github.Yesferal:HornsApp-Android-DI:1.2.2'
     // MavenLocal Core: com.yesferal.hornsapp.core:HornsApp-Core-jvm:
+    //implementation 'com.yesferal.hornsapp.core:HornsApp-Core-jvm:10.5.15'
     implementation 'com.github.Yesferal:HornsApp-Core:0.5.14'
     implementation 'com.github.Yesferal:DelegateAdapter:1.5.3'
 
@@ -110,8 +111,10 @@ dependencies {
 
     // Google
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.0'
     implementation 'com.google.android.gms:play-services-ads:20.4.0'
+
+    // Import the BoM for the Firebase platform
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.0'
     implementation 'com.google.firebase:firebase-crashlytics:18.2.4'
 
     // Navigation
