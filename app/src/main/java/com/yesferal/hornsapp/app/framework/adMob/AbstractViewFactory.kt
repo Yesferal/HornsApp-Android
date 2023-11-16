@@ -10,9 +10,5 @@ import android.view.View
  * @author Yesferal
  */
 interface AbstractViewFactory {
-    enum class Type {
-        MAIN
-    }
-
-    fun drawView(context: Context, type: Type, size: Int): View
+    fun drawView(context: Context, type: AdUnitIds.Type, size: Int): View
 }

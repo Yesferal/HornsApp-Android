@@ -1,6 +1,7 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.adMob
 
-class AdUnitIds {
+class ReleaseAdUnitIds: AdUnitId {
 
     companion object {
         init {

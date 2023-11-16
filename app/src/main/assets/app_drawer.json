@@ -44,6 +44,12 @@
       "key": "AD_VIEW",
       "data": {
         "height": 50
+      },
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "defaultValues": [
+          "FIRST_NEWEST_LIST"
+        ]
       }
     },
     {
@@ -85,6 +91,18 @@
       }
     },
     {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      },
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "defaultValues": [
+          "SECOND_NEWEST_LIST"
+        ]
+      }
+    },
+    {
       "key": "VERTICAL_LIST_VIEW",
       "data": {
         "title": {
@@ -100,12 +118,6 @@
         "key": "FILTER_BY_CATEGORY",
         "value": "METAL",
         "count": "3"
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
       }
     },
     {
@@ -130,6 +142,18 @@
       }
     },
     {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      },
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "defaultValues": [
+          "FIRST_NEWEST_LIST"
+        ]
+      }
+    },
+    {
       "key": "VERTICAL_LIST_VIEW",
       "data": {
         "title": {
@@ -145,12 +169,6 @@
         "key": "FILTER_BY_CATEGORY",
         "value": "ROCK",
         "count": 2
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
       }
     },
     {
@@ -175,6 +193,18 @@
       }
     },
     {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      },
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "defaultValues": [
+          "SECOND_NEWEST_LIST"
+        ]
+      }
+    },
+    {
       "key": "VERTICAL_LIST_VIEW",
       "data": {
         "title": {
@@ -190,12 +220,6 @@
         "key": "FILTER_BY_CATEGORY",
         "value": "POP",
         "count": 3
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
       }
     },
     {

@@ -10,4 +10,5 @@ fun Container.registerAppDependencies(context: Context) {
     registerDataModule()
     registerFrameworkModule()
     registerPresentationModule()
+    registerBuildVariantModule()
 }

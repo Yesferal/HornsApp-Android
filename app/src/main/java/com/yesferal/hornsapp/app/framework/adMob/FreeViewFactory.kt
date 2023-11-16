@@ -16,10 +16,8 @@ class FreeViewFactory(private val adUnitIds: AdUnitIds): AbstractViewFactory {
 
     private fun adRequest() = AdRequest.Builder().build()
 
-    override fun drawView(context: Context, type: AbstractViewFactory.Type, size: Int): View {
-        return when(type) {
-            AbstractViewFactory.Type.MAIN -> getAdView(context, getAdViewData(size))
-        }
+    override fun drawView(context: Context, type: AdUnitIds.Type, size: Int): View {
+        return getAdView(context, getAdViewData(size, type))
     }
 
     private fun getAdView(context: Context, adViewData: AdViewData): AdView {
@@ -31,14 +29,14 @@ class FreeViewFactory(private val adUnitIds: AdUnitIds): AbstractViewFactory {
         return adView
     }
 
-    private fun getAdViewData(size: Int): AdViewData {
+    private fun getAdViewData(size: Int, type: AdUnitIds.Type): AdViewData {
         val adSize = when (size) {
             50 -> AdSize.BANNER
             100 -> AdSize.LARGE_BANNER
             250 -> AdSize.MEDIUM_RECTANGLE
             else -> AdSize.BANNER
         }
-        val adUnitId = adUnitIds.concertsBannerAdUnitId()
+        val adUnitId = adUnitIds.getAdUnitBy(type)
         val adRequest = adRequest()
 
         return AdViewData(adSize, adUnitId, adRequest)

@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
+import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.addBottomView
@@ -173,13 +174,18 @@ fun ImageView.setImageIcon(icon: String?) {
 
 data class AdViewData(
     val abstractViewFactory: AbstractViewFactory,
-    val height: Int?
+    val height: Int?,
+    val type: AdUnitIds.Type?
 ) : NonInteractiveDelegate {
     val BANNER_SIZE = 50
 
     override val layout = R.layout.item_ad_view
 
     override fun onBindViewDelegate(view: View) {
+        if (height == null || type == null) {
+            return
+        }
+
         val safeHeight: Int = if (height != 50 && height != 100 && height != 250) {
             BANNER_SIZE
         } else {
@@ -187,7 +193,7 @@ data class AdViewData(
         }
 
         if (view is ViewGroup) {
-            view.addBottomView(abstractViewFactory, safeHeight)
+            view.addBottomView(abstractViewFactory, type, safeHeight)
         }
     }
 }

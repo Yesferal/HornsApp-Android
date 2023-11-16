@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import androidx.room.Room
 import com.google.gson.Gson
-import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.framework.file.FileReaderManager
 import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
@@ -139,7 +138,7 @@ fun Container.registerFrameworkModule() {
 
     this register Factory {
         BusinessModelFactoryProducer(
-            adUnitIds = AdUnitIds(),
+            adUnitIds = resolve(),
             businessModel = resolve()
         )
     }

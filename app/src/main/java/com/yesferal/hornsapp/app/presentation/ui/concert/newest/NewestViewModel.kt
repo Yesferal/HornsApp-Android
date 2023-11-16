@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
@@ -297,6 +298,9 @@ class NewestViewModel(
             AdViewData(
                 businessModelFactoryProducer.getViewFactory(),
                 viewDrawer.data?.height,
+                viewDrawer.condition?.defaultValues?.first()?.let {
+                    AdUnitIds.Type.valueOf(it)
+                }
             )
         )
         this.addVerticalDivider(24)

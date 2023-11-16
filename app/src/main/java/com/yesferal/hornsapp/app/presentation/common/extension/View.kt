@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
+import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 
 fun View.fadeIn() {
     alpha = 0f
@@ -29,12 +30,12 @@ fun View.fadeOut() {
         })
 }
 
-fun ViewGroup.addBottomView(viewFactory: AbstractViewFactory, size: Int) {
+fun ViewGroup.addBottomView(viewFactory: AbstractViewFactory, type: AdUnitIds.Type, size: Int) {
     removeAllViews()
     val viewBackground = View(this.context)
     viewBackground.layoutParams = LinearLayout.LayoutParams(width, parseIntToDp(size.toFloat()))
     addView(viewBackground)
-    addView(viewFactory.drawView(context, AbstractViewFactory.Type.MAIN, size))
+    addView(viewFactory.drawView(context, type, size))
 }
 
 fun View.parseIntToDp(dp: Float): Int {

@@ -10,9 +10,7 @@ import android.view.View
  * @author Yesferal
  */
 class PremiumViewFactory: AbstractViewFactory {
-    override fun drawView(context: Context, type: AbstractViewFactory.Type, size: Int): View {
-        return when(type) {
-            AbstractViewFactory.Type.MAIN -> View(context)
-        }
+    override fun drawView(context: Context, type: AdUnitIds.Type, size: Int): View {
+        return View(context)
     }
 }
