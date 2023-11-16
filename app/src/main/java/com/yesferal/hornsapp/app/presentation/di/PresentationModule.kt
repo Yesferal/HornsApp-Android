@@ -39,7 +39,8 @@ fun Container.registerPresentationModule() {
         UpcomingViewModelFactory(
             getUpcomingConcertsUseCase = resolve(),
             settingsRepository = resolve(),
-            drawerRepository = resolve()
+            drawerRepository = resolve(),
+            businessModelFactoryProducer = resolve()
         )
     }
 

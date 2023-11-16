@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
+import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
+import com.yesferal.hornsapp.app.presentation.ui.concert.newest.AdViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
 import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
@@ -27,6 +30,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UpcomingViewModel(
+    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getUpcomingConcertsUseCase: GetUpcomingConcertsUseCase,
     private val settingsRepository: SettingsRepository,
     private val drawerRepository: DrawerRepository
@@ -92,6 +96,7 @@ class UpcomingViewModel(
                 }
 
                 var year = String()
+                val NUMBER_OF_FIRST_BANNER_ROW = 4
                 val delegates = mutableListOf<Delegate>().apply {
                     add(mapCategories(categories))
                 }
@@ -116,6 +121,24 @@ class UpcomingViewModel(
                         ))
                     }
 
+                for (item: Int in 0..(delegates.size / NUMBER_OF_FIRST_BANNER_ROW)) {
+                    val height = if (item == 0) {
+                        50
+                    } else {
+                        250
+                    }
+                    val adUnitId = if (item % 2 == 0) {
+                        AdUnitIds.Type.SECOND_UPCOMING_LIST
+                    } else {
+                        AdUnitIds.Type.FIRST_UPCOMING_LIST
+                    }
+                    val adViewData = AdViewData(
+                        businessModelFactoryProducer.getViewFactory(),
+                        height,
+                        adUnitId
+                    )
+                    delegates.safeInsert(NUMBER_OF_FIRST_BANNER_ROW * (item + 1), adViewData)
+                }
                 return@withContext DelegateViewState(delegates.toList())
             }
             is HaResult.Error -> {
@@ -138,18 +161,26 @@ class UpcomingViewModel(
             .addHorizontalMargin(16)
             .build()
     }
+
+    private fun MutableList<Delegate>.safeInsert(i: Int, delegate: Delegate) {
+        if (i <= size) {
+            this.add(i, delegate)
+        }
+    }
 }
 
 class UpcomingViewModelFactory(
+    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getUpcomingConcertsUseCase: GetUpcomingConcertsUseCase,
     private val settingsRepository: SettingsRepository,
     private val drawerRepository: DrawerRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
+            BusinessModelFactoryProducer::class.java,
             GetUpcomingConcertsUseCase::class.java,
             SettingsRepository::class.java,
             DrawerRepository::class.java
-        ).newInstance(getUpcomingConcertsUseCase, settingsRepository, drawerRepository)
+        ).newInstance(businessModelFactoryProducer, getUpcomingConcertsUseCase, settingsRepository, drawerRepository)
     }
 }
