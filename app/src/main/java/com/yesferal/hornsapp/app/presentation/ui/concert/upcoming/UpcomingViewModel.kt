@@ -12,6 +12,7 @@ import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.safeInsert
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.AdViewData
@@ -128,9 +129,9 @@ class UpcomingViewModel(
                         250
                     }
                     val adUnitId = if (item % 2 == 0) {
-                        AdUnitIds.Type.SECOND_UPCOMING_LIST
-                    } else {
                         AdUnitIds.Type.FIRST_UPCOMING_LIST
+                    } else {
+                        AdUnitIds.Type.SECOND_UPCOMING_LIST
                     }
                     val adViewData = AdViewData(
                         businessModelFactoryProducer.getViewFactory(),
@@ -139,6 +140,7 @@ class UpcomingViewModel(
                     )
                     delegates.safeInsert(NUMBER_OF_FIRST_BANNER_ROW * (item + 1), adViewData)
                 }
+
                 return@withContext DelegateViewState(delegates.toList())
             }
             is HaResult.Error -> {
@@ -160,12 +162,6 @@ class UpcomingViewModel(
             .addItems(categories)
             .addHorizontalMargin(16)
             .build()
-    }
-
-    private fun MutableList<Delegate>.safeInsert(i: Int, delegate: Delegate) {
-        if (i <= size) {
-            this.add(i, delegate)
-        }
     }
 }
 

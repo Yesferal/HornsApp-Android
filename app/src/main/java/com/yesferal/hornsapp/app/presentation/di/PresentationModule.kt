@@ -31,7 +31,8 @@ fun Container.registerPresentationModule() {
     this register Factory {
         FavoritesViewModelFactory(
             getFavoriteConcertsUseCase = resolve(),
-            settingsRepository = resolve()
+            settingsRepository = resolve(),
+            businessModelFactoryProducer = resolve()
         )
     }
 
