@@ -298,9 +298,7 @@ class NewestViewModel(
             AdViewData(
                 businessModelFactoryProducer.getViewFactory(),
                 viewDrawer.data?.height,
-                viewDrawer.condition?.defaultValues?.first()?.let {
-                    AdUnitIds.Type.valueOf(it)
-                }
+                AdUnitIds.valueOfOrNull(viewDrawer.condition?.defaultValues?.first())
             )
         )
         this.addVerticalDivider(24)

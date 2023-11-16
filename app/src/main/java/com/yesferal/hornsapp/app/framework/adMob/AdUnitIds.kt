@@ -1,7 +1,26 @@
 /* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.adMob
 
+import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
+
 interface AdUnitIds {
+    companion object {
+        fun valueOfOrNull(value: String?): Type? {
+            if (value == null) {
+                return null
+            }
+
+            return try {
+                val type = Type.valueOf(value)
+
+                type
+            } catch (e: Exception) {
+                ChainLoggerProvider.provideLogger().e("AdUnitIds::Type: Error: $e")
+                null
+            }
+        }
+    }
+
     enum class Type {
         FIRST_BAND_DETAIL,
         FIRST_CONCERT_DETAIL,
