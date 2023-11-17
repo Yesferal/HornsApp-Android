@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewStub
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -15,10 +16,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
+import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.common.custom.ScalePageTransformation
+import com.yesferal.hornsapp.app.presentation.common.extension.addBottomView
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
@@ -29,6 +33,7 @@ import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.hadi_android.getViewModel
+import com.yesferal.hornsapp.hadi_android.hadi
 
 const val EXTRA_PARAM_PARCELABLE = "EXTRA_PARAM_PARCELABLE"
 
@@ -45,6 +50,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private lateinit var titleTextView: TextView
     private lateinit var bandsViewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
+    private lateinit var firstAdLayout: FrameLayout
+    private lateinit var secondAdLayout: FrameLayout
     private lateinit var dayTextView: TextView
     private lateinit var monthTextView: TextView
     private lateinit var favoriteImageView: CheckBoxImageView
@@ -85,6 +92,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         titleTextView = view.findViewById(R.id.titleTextView)
         bandsViewPager = view.findViewById(R.id.bandsViewPager)
         tabLayout = view.findViewById(R.id.tabLayout)
+        firstAdLayout = view.findViewById(R.id.firstAdLayout)
+        secondAdLayout = view.findViewById(R.id.secondAdLayout)
         dayTextView = view.findViewById(R.id.dayTextView)
         monthTextView = view.findViewById(R.id.monthTextView)
         favoriteImageView = view.findViewById(R.id.favoriteImageView)
@@ -116,6 +125,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         concertViewModel.effect.observe(viewLifecycleOwner) {
             render(it)
         }
+
+        val abstractViewFactory = hadi().resolve<BusinessModelFactoryProducer>().getViewFactory()
+        firstAdLayout.addBottomView(abstractViewFactory, AdUnitIds.Type.FIRST_CONCERT_DETAIL, 50)
+        secondAdLayout.addBottomView(abstractViewFactory, AdUnitIds.Type.SECOND_CONCERT_DETAIL, 250)
     }
 
     private fun setUpBandsViewPager() {

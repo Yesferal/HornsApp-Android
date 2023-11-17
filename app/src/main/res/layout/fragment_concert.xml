@@ -137,12 +137,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/tabLayout"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+            <FrameLayout
+                android:id="@+id/firstAdLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/buyTicketsTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
                 android:id="@+id/venueTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_big"
-                app:layout_constraintTop_toBottomOf="@+id/buyTicketsTextView"
+                app:layout_constraintTop_toBottomOf="@+id/firstAdLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -173,12 +182,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+            <FrameLayout
+                android:id="@+id/secondAdLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
+                app:layout_constraintTop_toBottomOf="@+id/youtubeTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
                 android:id="@+id/descriptionTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_big"
-                app:layout_constraintTop_toBottomOf="@+id/youtubeTextView"
+                app:layout_constraintTop_toBottomOf="@+id/secondAdLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
