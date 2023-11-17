@@ -34,7 +34,7 @@ interface AdUnitIds {
     }
 
     fun getAdUnitBy(type: Type): String {
-        return when(type) {
+        val adUnitId = when(type) {
             Type.FIRST_BAND_DETAIL -> getFirstBandDetail()
             Type.FIRST_CONCERT_DETAIL -> getFirstConcertDetail()
             Type.FIRST_FAVORITE_LIST -> getFirstFavoriteList()
@@ -45,6 +45,8 @@ interface AdUnitIds {
             Type.SECOND_NEWEST_LIST -> getSecondNewestList()
             Type.SECOND_UPCOMING_LIST -> getSecondUpcomingList()
         }
+
+        return adUnitId
     }
 
     fun getFirstBandDetail(): String
