@@ -56,21 +56,19 @@
       "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Follow us on Spotify",
-          "es": "Síguenos en Spotify"
+          "en": "Follow us on TikTok",
+          "es": "Síguenos en TikTok"
         },
         "subtitle": {
-          "en": "Did you know about our setlist on Spotify? There are a bunch of them waiting for you.",
-          "es": "¿Sabías acerca de nuestras setlists en Spotify? Hay muchas esperando por ti."
+          "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
+          "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
         },
-        "backgroundColor": "#1DB954",
-        "textColor": "#000000",
-        "icon": "spotify"
+        "icon": "tiktok"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
+          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
         }
       }
     },
@@ -125,19 +123,21 @@
       "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Follow us on TikTok",
-          "es": "Síguenos en TikTok"
+          "en": "Follow us on Spotify",
+          "es": "Síguenos en Spotify"
         },
         "subtitle": {
-          "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
-          "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
+          "en": "Did you know about our setlist on Spotify? There are a bunch of them waiting for you.",
+          "es": "¿Sabías acerca de nuestras setlists en Spotify? Hay muchas esperando por ti."
         },
-        "icon": "tiktok"
+        "backgroundColor": "#1DB954",
+        "textColor": "#000000",
+        "icon": "spotify"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
+          "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
         }
       }
     },
