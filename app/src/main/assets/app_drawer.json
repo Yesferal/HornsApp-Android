@@ -53,23 +53,24 @@
       }
     },
     {
-      "key": "HOME_CARD_VIEW",
+      "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Spotify: Cynic @ Lima",
-          "es": "Spotify: Cynic en Lima"
+          "en": "Follow us on Spotify",
+          "es": "Síguenos en Spotify"
         },
         "subtitle": {
           "en": "Did you know about our setlist on Spotify? There are a bunch of them waiting for you.",
           "es": "¿Sabías acerca de nuestras setlists en Spotify? Hay muchas esperando por ti."
         },
-        "color": "#1DB954",
+        "backgroundColor": "#1DB954",
+        "textColor": "#000000",
         "icon": "spotify"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://open.spotify.com/playlist/6Q0XajzqJqnhJrv6mGTWrF?si=604c991d72f643e9"
+          "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
         }
       }
     },
@@ -121,7 +122,7 @@
       }
     },
     {
-      "key": "HOME_CARD_VIEW",
+      "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
           "en": "Follow us on TikTok",
@@ -131,7 +132,6 @@
           "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
           "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
         },
-        "color": "#000000",
         "icon": "tiktok"
       },
       "navigation": {
@@ -172,7 +172,7 @@
       }
     },
     {
-      "key": "HOME_CARD_VIEW",
+      "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
           "en": "Follow us on Instagram",
@@ -182,7 +182,7 @@
           "en": "Did you know about our IG? Follow us and keep up posted.",
           "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
         },
-        "color": "#4f5bd5",
+        "backgroundColor": "#4f5bd5",
         "icon": "instagram"
       },
       "navigation": {
@@ -223,7 +223,7 @@
       }
     },
     {
-      "key": "HOME_CARD_VIEW",
+      "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
           "en": "Save your favorites",
@@ -233,7 +233,7 @@
           "en": "You can save your favorite concerts now, so you can find them easily later.",
           "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
         },
-        "color": "#d1150c",
+        "backgroundColor": "#d1150c",
         "icon": "favorite"
       },
       "navigation": {

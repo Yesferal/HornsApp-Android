@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
@@ -31,7 +32,7 @@ data class TitleViewData(
     override val layout = R.layout.item_newest_title
 
     interface Listener : DelegateListener {
-        fun onClick(titleViewData: TitleViewData)
+        fun onClick(parameters: Parameters)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
@@ -42,7 +43,7 @@ data class TitleViewData(
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.arrowView).visibility = View.VISIBLE
             view.setOnClickListener {
-                listener.onClick(this)
+                listener.onClick(navigation)
             }
         } ?: kotlin.run {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
@@ -55,7 +56,8 @@ data class TitleViewData(
 data class HomeCardViewData(
     val title: String?,
     val subtitle: String?,
-    val color: String?,
+    val backgroundColor: String?,
+    val textColor: String?,
     val navigation: Parameters?,
     val icon: String?
 ) : InteractiveDelegate<HomeCardViewData.Listener> {
@@ -63,25 +65,71 @@ data class HomeCardViewData(
     override val layout = R.layout.item_home_card
 
     interface Listener : DelegateListener {
-        fun onClick(homeCardViewData: HomeCardViewData)
+        fun onClick(parameters: Parameters)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        color?.let {
+        backgroundColor?.let { backgroundColorNotNull ->
             try {
-                view.setBackgroundColor(Color.parseColor(it))
-                view.findViewById<TextView>(R.id.goNowTicketsTextView)
-                    .setTextColor(Color.parseColor(it))
-            } catch (e: Exception) {
+                view.setBackgroundColor(Color.parseColor(backgroundColorNotNull))
+            } catch (e: Exception) { }
+        }?: kotlin.run {
+            view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.primaryText))
+        }
+        view.findViewById<TextView>(R.id.goNowTicketsTextView).also { goNowTicketsTextView ->
+            backgroundColor?.let { backgroundColorNotNull ->
+                try {
+                    goNowTicketsTextView.setTextColor(Color.parseColor(backgroundColorNotNull))
+                } catch (e: Exception) { }
+            }?: kotlin.run {
+                goNowTicketsTextView.setTextColor(ContextCompat.getColor(view.context, R.color.primaryText))
+            }
+            textColor?.let { textColorNotNull ->
+                try {
+                    goNowTicketsTextView.background.setTint(
+                        Color.parseColor(
+                            textColorNotNull
+                        )
+                    )
+                } catch (e: Exception) { }
+            }?: kotlin.run {
+                goNowTicketsTextView.background.setTint(ContextCompat.getColor(view.context, R.color.background))
             }
         }
-        view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
-        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
-        view.findViewById<ImageView>(R.id.appImageView).setImageIcon(icon)
+        view.findViewById<TextView>(R.id.titleTextView).also { titleTextView ->
+            titleTextView.setUpWith(title)
+            try {
+                textColor?.let {
+                    titleTextView.setTextColor(Color.parseColor(it))
+                }?: kotlin.run {
+                    titleTextView.setTextColor(ContextCompat.getColor(view.context, R.color.background))
+                }
+            } catch (e: Exception) { }
+        }
+        view.findViewById<TextView>(R.id.subtitleTextView).also { subtitleTextView ->
+            subtitleTextView.setUpWith(subtitle)
+            try {
+                textColor?.let {
+                    subtitleTextView.setTextColor(Color.parseColor(it))
+                }?: kotlin.run {
+                    subtitleTextView.setTextColor(ContextCompat.getColor(view.context, R.color.background))
+                }
+            } catch (e: Exception) { }
+        }
+        view.findViewById<ImageView>(R.id.appImageView).also { appImageView ->
+            appImageView.setImageIcon(icon)
+            try {
+                textColor?.let {
+                    appImageView.setColorFilter(Color.parseColor(it))
+                }?: kotlin.run {
+                    appImageView.setColorFilter(ContextCompat.getColor(view.context, R.color.background))
+                }
+            } catch (e: Exception) { }
+        }
         navigation?.let {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.VISIBLE
             view.setOnClickListener {
-                listener.onClick(this)
+                listener.onClick(navigation)
             }
         }?: kotlin.run {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.GONE
@@ -195,5 +243,36 @@ data class AdViewData(
         if (view is ViewGroup) {
             view.addBottomView(abstractViewFactory, type, safeHeight)
         }
+    }
+}
+
+data class ImageHomeCardViewData(
+    val title: String?,
+    val subtitle: String?,
+    val navigation: Parameters?,
+    val image: String?
+) : InteractiveDelegate<ImageHomeCardViewData.Listener> {
+
+    override val layout = R.layout.item_image_home_card
+
+    interface Listener : DelegateListener {
+        fun onClick(parameters: Parameters)
+    }
+
+    override fun onBindViewDelegate(view: View, listener: Listener) {
+        view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
+        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
+        navigation?.let {
+            view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
+            view.setOnClickListener {
+                listener.onClick(navigation)
+            }
+        }?: kotlin.run {
+            view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
+            view.setOnClickListener { }
+        }
+
+        val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
+        concertImageView.load(image)
     }
 }

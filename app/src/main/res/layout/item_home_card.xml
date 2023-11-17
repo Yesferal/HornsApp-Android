@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/margin_medium"
-    android:background="@color/accent"
+    android:background="@color/primaryText"
     android:elevation="4dp">
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_marginVertical="@dimen/margin_big"
         android:text="@string/see_more"
         style="@style/HornsApp.Button"
-        android:textColor="@color/accent"
+        android:textColor="@color/primaryText"
         android:backgroundTint="@color/background"
         app:layout_constraintTop_toBottomOf="@+id/subtitleTextView"
         app:layout_constraintStart_toStartOf="parent"/>

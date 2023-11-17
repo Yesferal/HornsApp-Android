@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/concertImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="1.6:1"/>
+
+    <View
+        android:id="@+id/concertImageForegroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@color/primary"
+        android:alpha="0.4"
+        app:layout_constraintTop_toTopOf="@+id/concertImageView"
+        app:layout_constraintStart_toStartOf="@+id/concertImageView"
+        app:layout_constraintEnd_toEndOf="@+id/concertImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:textStyle="bold"
+        style="@style/HornsApp.TextView.Title"
+        app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
+        app:layout_constraintEnd_toStartOf="@id/seeMoreTextView"
+        app:layout_constraintTop_toBottomOf="@+id/concertImageView"/>
+
+    <TextView
+        android:id="@+id/subtitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:layout_marginVertical="@dimen/margin_small"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintEnd_toStartOf="@id/seeMoreTextView"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <TextView
+        android:id="@+id/seeMoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        style="@style/HornsApp.Button"
+        app:layout_constraintTop_toTopOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

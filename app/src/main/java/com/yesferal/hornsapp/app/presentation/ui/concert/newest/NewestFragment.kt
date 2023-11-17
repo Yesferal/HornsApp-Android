@@ -11,6 +11,7 @@ import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVertical
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
@@ -50,17 +51,10 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
         startConcertActivity(upcomingViewData.asParcelable())
     }
 
-    override fun onClick(homeCardViewData: HomeCardViewData) {
+    override fun onClick(parameters: Parameters) {
         Navigator.Builder()
-            .to(homeCardViewData.navigation?.key.orEmpty())
-            .with(homeCardViewData.navigation)
-            .build()
-            .navigateTo()
-    }
-
-    override fun onClick(titleViewData: TitleViewData) {
-        Navigator.Builder()
-            .to(titleViewData.navigation?.key.orEmpty())
+            .to(parameters.key.orEmpty())
+            .with(parameters)
             .build()
             .navigateTo()
     }

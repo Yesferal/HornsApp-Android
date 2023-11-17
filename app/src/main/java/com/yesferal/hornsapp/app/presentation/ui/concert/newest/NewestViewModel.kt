@@ -82,7 +82,7 @@ class NewestViewModel(
                             ViewDrawer.Type.VERTICAL_LIST_VIEW -> {
                                 delegates.includeVerticalSection(concerts, it)
                             }
-                            ViewDrawer.Type.HOME_CARD_VIEW -> {
+                            ViewDrawer.Type.ICON_HOME_CARD_VIEW -> {
                                 delegates.includeHomeCardSection(it)
                             }
                             ViewDrawer.Type.AD_VIEW -> {
@@ -283,7 +283,8 @@ class NewestViewModel(
             HomeCardViewData(
                 screenDrawer.data?.title?.text,
                 screenDrawer.data?.subtitle?.text,
-                screenDrawer.data?.color,
+                screenDrawer.data?.backgroundColor,
+                screenDrawer.data?.textColor,
                 screenDrawer.navigation,
                 screenDrawer.data?.icon
             )
