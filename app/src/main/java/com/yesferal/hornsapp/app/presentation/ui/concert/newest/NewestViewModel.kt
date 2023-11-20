@@ -83,7 +83,10 @@ class NewestViewModel(
                                 delegates.includeVerticalSection(concerts, it)
                             }
                             ViewDrawer.Type.ICON_HOME_CARD_VIEW -> {
-                                delegates.includeHomeCardSection(it)
+                                delegates.includeIconHomeCardSection(it)
+                            }
+                            ViewDrawer.Type.IMAGE_HOME_CARD_VIEW -> {
+                                delegates.includeImageHomeCardSection(it)
                             }
                             ViewDrawer.Type.AD_VIEW -> {
                                 delegates.includeAdViewSection(it)
@@ -276,17 +279,38 @@ class NewestViewModel(
             }
     }
 
-    private fun MutableList<Delegate>.includeHomeCardSection(
+    private fun MutableList<Delegate>.includeIconHomeCardSection(
         screenDrawer: ViewDrawer
     ) {
         this.add(
-            HomeCardViewData(
+            IconHomeCardViewData(
                 screenDrawer.data?.title?.text,
                 screenDrawer.data?.subtitle?.text,
                 screenDrawer.data?.backgroundColor,
                 screenDrawer.data?.textColor,
                 screenDrawer.navigation,
                 screenDrawer.data?.icon
+            )
+        )
+        this.addVerticalDivider(24)
+    }
+
+    private fun MutableList<Delegate>.includeImageHomeCardSection(
+        screenDrawer: ViewDrawer
+    ) {
+        this.add(
+            TitleViewData(
+                screenDrawer.data?.title?.text,
+                screenDrawer.data?.subtitle?.text,
+                null,
+                screenDrawer.data?.icon
+            )
+        )
+        this.add(
+            ImageHomeCardViewData(
+                screenDrawer.data?.description?.text,
+                screenDrawer.navigation,
+                screenDrawer.data?.imageUrl
             )
         )
         this.addVerticalDivider(24)

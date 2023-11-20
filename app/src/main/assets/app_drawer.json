@@ -4,8 +4,8 @@
     {
       "data": {
         "title": {
-          "en": "Newest",
-          "es": "Novedades"
+          "en": "Home",
+          "es": "Inicio"
         }
       },
       "key": "NEWEST_FRAGMENT"
@@ -36,7 +36,7 @@
         "key": "PICK_FROM_DEFAULT_VALUES",
         "count": 1,
         "defaultValues": [
-          "643eb477b76f0e727ce05e3c"
+          "654c127b2abbec731aea7482"
         ]
       }
     },
@@ -123,21 +123,20 @@
       "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Follow us on Spotify",
-          "es": "Síguenos en Spotify"
+          "en": "Follow us on Instagram",
+          "es": "Síguenos en Instagram"
         },
         "subtitle": {
-          "en": "Did you know about our setlist on Spotify? There are a bunch of them waiting for you.",
-          "es": "¿Sabías acerca de nuestras setlists en Spotify? Hay muchas esperando por ti."
+          "en": "Did you know about our IG? Follow us and keep up posted.",
+          "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
         },
-        "backgroundColor": "#1DB954",
-        "textColor": "#000000",
-        "icon": "spotify"
+        "backgroundColor": "#4f5bd5",
+        "icon": "instagram"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
+          "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
         }
       }
     },
@@ -151,6 +150,31 @@
         "defaultValues": [
           "FIRST_NEWEST_LIST"
         ]
+      }
+    },
+    {
+      "key": "IMAGE_HOME_CARD_VIEW",
+      "data": {
+        "title": {
+          "en": "Alestorm @ Wacken 23",
+          "es": "Alestorm en Wacken 23"
+        },
+        "subtitle": {
+          "en": "#SPOTIFY #PLAYLIST",
+          "es": "#SPOTIFY #PLAYLIST"
+        },
+        "description": {
+          "en": "Did you know about our playlists on Spotify? There are a bunch of them waiting for you.",
+          "es": "¿Sabías acerca de nuestras playlists en Spotify? Hay muchas esperando por ti."
+        },
+        "icon": "spotify",
+        "imageUrl": "https://www.nationalrockreview.com/wp-content/uploads/2018/02/alestorm-northumbriainstitute-newcastle_uk-20180211-adamkennedy-13-e1518553501334.jpg"
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://open.spotify.com/playlist/2tm8XiZrd1KF3t2LiJaYxY?si=19e62d9e6ce6435b"
+        }
       }
     },
     {
@@ -175,20 +199,21 @@
       "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Follow us on Instagram",
-          "es": "Síguenos en Instagram"
+          "en": "Follow us on Spotify",
+          "es": "Síguenos en Spotify"
         },
         "subtitle": {
-          "en": "Did you know about our IG? Follow us and keep up posted.",
-          "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
+          "en": "Did you know about our playlists on Spotify? There are a bunch of them waiting for you.",
+          "es": "¿Sabías acerca de nuestras playlists en Spotify? Hay muchas esperando por ti."
         },
-        "backgroundColor": "#4f5bd5",
-        "icon": "instagram"
+        "backgroundColor": "#1DB954",
+        "textColor": "#000000",
+        "icon": "spotify"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
+          "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
         }
       }
     },

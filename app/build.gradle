@@ -98,9 +98,9 @@ dependencies {
     // Own Libraries
     implementation 'com.github.Yesferal:HornsApp-DI:1.2.2'
     implementation 'com.github.Yesferal:HornsApp-Android-DI:1.2.2'
-    // MavenLocal Core: com.yesferal.hornsapp.core:HornsApp-Core-jvm:
-    implementation 'com.yesferal.hornsapp.core:HornsApp-Core-jvm:20.5.15'
-    //implementation 'com.github.Yesferal:HornsApp-Core:0.5.14'
+    // MavenLocal Core: com.yesferal.hornsapp.core:HornsApp-Core-jvm
+    //implementation 'com.yesferal.hornsapp.core:HornsApp-Core-jvm:60.5.15'
+    implementation 'com.github.Yesferal:HornsApp-Core:0.5.15'
     implementation 'com.github.Yesferal:DelegateAdapter:1.5.3'
 
     // ViewPager

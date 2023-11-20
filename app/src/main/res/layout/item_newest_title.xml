@@ -21,20 +21,22 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_tiny"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleImageView"/>
+        app:layout_constraintStart_toEndOf="@+id/titleImageView"
+        app:layout_constraintEnd_toStartOf="@+id/seeMoreTextView"/>
 
     <TextView
         android:id="@+id/subtitleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_tiny"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"/>
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintEnd_toStartOf="@+id/seeMoreTextView"/>
 
     <TextView
         android:id="@+id/seeMoreTextView"

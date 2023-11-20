@@ -16,8 +16,8 @@ import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
-    CarouselViewData.Listener, UpcomingViewData.Listener, HomeCardViewData.Listener,
-    TitleViewData.Listener {
+    CarouselViewData.Listener, UpcomingViewData.Listener, IconHomeCardViewData.Listener,
+    TitleViewData.Listener, ImageHomeCardViewData.Listener {
 
     private lateinit var viewModel: NewestViewModel
 

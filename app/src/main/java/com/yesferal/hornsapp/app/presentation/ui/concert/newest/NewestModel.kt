@@ -15,6 +15,7 @@ import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.addBottomView
 import com.yesferal.hornsapp.app.presentation.common.extension.load
+import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
@@ -53,14 +54,14 @@ data class TitleViewData(
     }
 }
 
-data class HomeCardViewData(
+data class IconHomeCardViewData(
     val title: String?,
     val subtitle: String?,
     val backgroundColor: String?,
     val textColor: String?,
     val navigation: Parameters?,
     val icon: String?
-) : InteractiveDelegate<HomeCardViewData.Listener> {
+) : InteractiveDelegate<IconHomeCardViewData.Listener> {
 
     override val layout = R.layout.item_home_card
 
@@ -247,8 +248,9 @@ data class AdViewData(
 }
 
 data class ImageHomeCardViewData(
-    val title: String?,
-    val subtitle: String?,
+    //val title: String?,
+    //val subtitle: String?,
+    val description: String?,
     val navigation: Parameters?,
     val image: String?
 ) : InteractiveDelegate<ImageHomeCardViewData.Listener> {
@@ -260,8 +262,7 @@ data class ImageHomeCardViewData(
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
-        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
+        view.findViewById<TextView>(R.id.descriptionTextView).setUpWith(description)
         navigation?.let {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
             view.setOnClickListener {
@@ -273,6 +274,7 @@ data class ImageHomeCardViewData(
         }
 
         val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
+        concertImageView.setAllCornersRounded()
         concertImageView.load(image)
     }
 }
