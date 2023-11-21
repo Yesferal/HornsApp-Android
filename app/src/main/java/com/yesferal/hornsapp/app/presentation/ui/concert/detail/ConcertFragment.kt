@@ -254,8 +254,8 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
     private fun showFacebook(facebookUrl: String?) {
         facebookUrl?.let { url ->
             facebookTextView.apply {
-                setImageView(R.drawable.ic_facebook)
-                setText(getString(R.string.fan_page), getString(R.string.go_to_event))
+                setImageView(R.drawable.ic_instagram)
+                setText(getString(R.string.fan_page), getString(R.string.go_now))
                 showArrow()
                 setOnClickListener {
                     startFacebook(url)

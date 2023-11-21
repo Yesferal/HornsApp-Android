@@ -302,7 +302,7 @@ class NewestViewModel(
             TitleViewData(
                 screenDrawer.data?.title?.text,
                 screenDrawer.data?.subtitle?.text,
-                null,
+                screenDrawer.navigation,
                 screenDrawer.data?.icon
             )
         )

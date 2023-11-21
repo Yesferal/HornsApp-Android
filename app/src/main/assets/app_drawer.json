@@ -53,6 +53,23 @@
       }
     },
     {
+      "key": "VERTICAL_LIST_VIEW",
+      "data": {
+        "title": {
+          "en": "Upcoming",
+          "es": "Próximos"
+        },
+        "icon": "calendar"
+      },
+      "condition": {
+        "key": "SORT_BY_UPCOMING_DATE",
+        "count": 3
+      },
+      "navigation": {
+        "key": "UPCOMING"
+      }
+    },
+    {
       "key": "ICON_HOME_CARD_VIEW",
       "data": {
         "title": {
@@ -73,23 +90,6 @@
       }
     },
     {
-      "key": "VERTICAL_LIST_VIEW",
-      "data": {
-        "title": {
-          "en": "Upcoming",
-          "es": "Próximos"
-        },
-        "icon": "calendar"
-      },
-      "condition": {
-        "key": "SORT_BY_UPCOMING_DATE",
-        "count": 3
-      },
-      "navigation": {
-        "key": "UPCOMING"
-      }
-    },
-    {
       "key": "AD_VIEW",
       "data": {
         "height": 250
@@ -102,6 +102,27 @@
       }
     },
     {
+      "key": "IMAGE_HOME_CARD_VIEW",
+      "data": {
+        "title": {
+          "en": "In Flames at Summer Breeze 2023",
+          "es": "In Flames en Summer Breeze 2023"
+        },
+        "subtitle": {
+          "en": "#youtube #video",
+          "es": "#youtube #video"
+        },
+        "icon": "youtube",
+        "imageUrl": "https://www.metal-hammer.de/wp-content/uploads/2023/08/28/09/in-flames-summer-breeze-19-08-2023-12-992x560.jpg"
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.youtube.com/watch?v=34BHbbQmr7s"
+        }
+      }
+    },
+    {
       "key": "VERTICAL_LIST_VIEW",
       "data": {
         "title": {
@@ -109,8 +130,8 @@
           "es": "Metal nunca muere"
         },
         "subtitle": {
-          "en": "#METAL",
-          "es": "#METAL"
+          "en": "#metal",
+          "es": "#metal"
         }
       },
       "condition": {
@@ -156,16 +177,12 @@
       "key": "IMAGE_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Alestorm @ Wacken 23",
-          "es": "Alestorm en Wacken 23"
+          "en": "Alestorm at Wacken 2023",
+          "es": "Alestorm en Wacken 2023"
         },
         "subtitle": {
-          "en": "#SPOTIFY #PLAYLIST",
-          "es": "#SPOTIFY #PLAYLIST"
-        },
-        "description": {
-          "en": "Did you know about our playlists on Spotify? There are a bunch of them waiting for you.",
-          "es": "¿Sabías acerca de nuestras playlists en Spotify? Hay muchas esperando por ti."
+          "en": "#spotify #playlist",
+          "es": "#spotify #playlist"
         },
         "icon": "spotify",
         "imageUrl": "https://www.nationalrockreview.com/wp-content/uploads/2018/02/alestorm-northumbriainstitute-newcastle_uk-20180211-adamkennedy-13-e1518553501334.jpg"
@@ -181,18 +198,18 @@
       "key": "VERTICAL_LIST_VIEW",
       "data": {
         "title": {
-          "en": "Keep on rocking",
-          "es": "Siempre el Rock es prioridad"
+          "en": "European festivals",
+          "es": "Festivales Europeos"
         },
         "subtitle": {
-          "en": "#ROCK",
-          "es": "#ROCK"
+          "en": "#europe",
+          "es": "#europa"
         }
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
-        "value": "ROCK",
-        "count": 2
+        "value": "EUROPE",
+        "count": 3
       }
     },
     {
@@ -207,7 +224,7 @@
           "es": "¿Sabías acerca de nuestras playlists en Spotify? Hay muchas esperando por ti."
         },
         "backgroundColor": "#1DB954",
-        "textColor": "#000000",
+        "textColor": "#29303e",
         "icon": "spotify"
       },
       "navigation": {
@@ -230,20 +247,41 @@
       }
     },
     {
+      "key": "IMAGE_HOME_CARD_VIEW",
+      "data": {
+        "title": {
+          "en": "Bloodstock Open Air 2024",
+          "es": "Bloodstock Open Air 2024"
+        },
+        "subtitle": {
+          "en": "#instagram #announcement",
+          "es": "#instagram #anuncio"
+        },
+        "icon": "instagram",
+        "imageUrl": "https://publish.theticketfactory.com/cache/f/4/7/6/7/4/f47674a70135e788450ec798c973099c8cab79c0.jpg"
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.instagram.com/p/CzD4vLstO3Z/"
+        }
+      }
+    },
+    {
       "key": "VERTICAL_LIST_VIEW",
       "data": {
         "title": {
-          "en": "We love Pop music",
-          "es": "Amamos la música pop"
+          "en": "Keep on rocking",
+          "es": "Siempre el Rock es prioridad"
         },
         "subtitle": {
-          "en": "#POP",
-          "es": "#POP"
+          "en": "#rock",
+          "es": "#rock"
         }
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
-        "value": "POP",
+        "value": "ROCK",
         "count": 3
       }
     },
@@ -258,11 +296,72 @@
           "en": "You can save your favorite concerts now, so you can find them easily later.",
           "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
         },
-        "backgroundColor": "#d1150c",
         "icon": "favorite"
       },
       "navigation": {
         "key": "FAVORITE"
+      }
+    },
+    {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      },
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "defaultValues": [
+          "FIRST_NEWEST_LIST"
+        ]
+      }
+    },
+    {
+      "key": "IMAGE_HOME_CARD_VIEW",
+      "data": {
+        "title": {
+          "en": "Iron Maiden at Hellfest 2023",
+          "es": "Iron Maiden en Hellfest 2023"
+        },
+        "subtitle": {
+          "en": "#setlist #hellfest",
+          "es": "#setlist #hellfest"
+        },
+        "imageUrl": "https://www.ironmaiden.com/media/news/10305903.jpg"
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.setlist.fm/setlist/iron-maiden/2023/val-de-moine-clisson-france-2ba62cbe.html"
+        }
+      }
+    },
+    {
+      "key": "VERTICAL_LIST_VIEW",
+      "data": {
+        "title": {
+          "en": "American festivals",
+          "es": "Festivales Americanos"
+        },
+        "subtitle": {
+          "en": "#america",
+          "es": "#américa"
+        }
+      },
+      "condition": {
+        "key": "FILTER_BY_CATEGORY",
+        "value": "AMERICA",
+        "count": 3
+      }
+    },
+    {
+      "key": "AD_VIEW",
+      "data": {
+        "height": 250
+      },
+      "condition": {
+        "key": "PICK_FROM_DEFAULT_VALUES",
+        "defaultValues": [
+          "SECOND_NEWEST_LIST"
+        ]
       }
     }
   ],
@@ -292,15 +391,27 @@
       }
     },
     {
-      "key": "POP",
+      "key": "AMERICA",
       "data": {
         "title": {
-          "en": "Pop",
-          "es": "Pop"
+          "en": "America",
+          "es": "América"
         }
       },
       "condition": {
-        "value": "POP"
+        "value": "AMERICA"
+      }
+    },
+    {
+      "key": "EUROPE",
+      "data": {
+        "title": {
+          "en": "Europe",
+          "es": "Europa"
+        }
+      },
+      "condition": {
+        "value": "EUROPE"
       }
     }
   ]

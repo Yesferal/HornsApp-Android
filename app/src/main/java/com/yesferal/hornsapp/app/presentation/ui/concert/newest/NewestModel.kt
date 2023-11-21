@@ -248,8 +248,6 @@ data class AdViewData(
 }
 
 data class ImageHomeCardViewData(
-    //val title: String?,
-    //val subtitle: String?,
     val description: String?,
     val navigation: Parameters?,
     val image: String?
@@ -264,7 +262,7 @@ data class ImageHomeCardViewData(
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.descriptionTextView).setUpWith(description)
         navigation?.let {
-            view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
+            view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
             view.setOnClickListener {
                 listener.onClick(navigation)
             }
