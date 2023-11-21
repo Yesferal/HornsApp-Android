@@ -168,7 +168,7 @@ class NewestViewModel(
             ConditionDrawer.Type.PICK_FROM_DEFAULT_VALUES -> {
                 val concertsFiltered = pickFromDefaultValues(concerts, screenDrawer)
                 return if (concertsFiltered.isEmpty()) {
-                    sortRandomly(concerts, screenDrawer)
+                    sortByNewestDate(concerts, screenDrawer)
                 } else {
                     concertsFiltered
                 }
@@ -223,8 +223,9 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ViewDrawer
     ): List<Delegate> {
-        return concerts.reversed()
-            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+        return concerts
+            .takeLast(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .reversed()
             .map {
                 CarouselViewData(
                     id = it.id,
