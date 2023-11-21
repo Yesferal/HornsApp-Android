@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/margin_medium"
+    android:paddingBottom="@dimen/margin_medium"
+    android:paddingStart="@dimen/margin_big"
+    android:paddingEnd="@dimen/margin_big">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/reviewImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="1.6:1"/>
+
+    <View
+        android:id="@+id/concertImageForegroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:backgroundTint="@color/primary"
+        android:alpha="0.4"
+        app:layout_constraintTop_toTopOf="@+id/reviewImageView"
+        app:layout_constraintStart_toStartOf="@+id/reviewImageView"
+        app:layout_constraintEnd_toEndOf="@+id/reviewImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/reviewImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

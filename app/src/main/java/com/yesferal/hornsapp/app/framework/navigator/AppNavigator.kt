@@ -25,6 +25,7 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
             ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(navigator.parameters)
             ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
             ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
+            ScreenType.REVIEW -> getDirectionToReview()
             else -> null
         }
         navDirections?.let {
@@ -55,6 +56,10 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
 
     private fun getDirectionToSettings(): NavDirections {
         return HomeFragmentDirections.actionToSettings()
+    }
+
+    private fun getDirectionToReview(): NavDirections {
+        return HomeFragmentDirections.actionToReview()
     }
 
     private fun getDirectionToConcertDetail(

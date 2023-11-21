@@ -21,6 +21,10 @@
         app:destination="@+id/fragment_settings" />
 
     <action
+        android:id="@+id/action_to_review"
+        app:destination="@+id/fragment_review" />
+
+    <action
         android:id="@+id/action_to_on_boarding"
         app:destination="@+id/fragment_on_boarding" />
 
@@ -50,6 +54,18 @@
         tools:layout="@layout/fragment_concert">
         <argument
             android:name="concert"
+            android:defaultValue="@null"
+            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_review"
+        android:name="com.yesferal.hornsapp.app.presentation.ui.review.ReviewFragment"
+        android:label="review_fragment"
+        tools:layout="@layout/fragment_delegate_adapter">
+        <argument
+            android:name="review"
             android:defaultValue="@null"
             app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData"
             app:nullable="true" />

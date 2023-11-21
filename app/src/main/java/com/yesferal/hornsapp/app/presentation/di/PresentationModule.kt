@@ -9,6 +9,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesViewM
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.main.MainViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.onboarding.OnBoardingViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.review.ReviewViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.settings.SettingsViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashViewModelFactory
 import com.yesferal.hornsapp.hadi.container.Container
@@ -89,6 +90,13 @@ fun Container.registerPresentationModule() {
     this register Factory {
         SplashViewModelFactory(
             getVisibilityOnBoardingUseCase = resolve()
+        )
+    }
+
+    this register Factory {
+        ReviewViewModelFactory(
+            businessModelFactoryProducer = resolve(),
+            getConcertsUseCase = resolve()
         )
     }
 }
