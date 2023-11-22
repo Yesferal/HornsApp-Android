@@ -96,7 +96,7 @@ fun Container.registerPresentationModule() {
     this register Factory {
         ReviewViewModelFactory(
             businessModelFactoryProducer = resolve(),
-            getConcertsUseCase = resolve()
+            getReviewUseCase = resolve()
         )
     }
 }

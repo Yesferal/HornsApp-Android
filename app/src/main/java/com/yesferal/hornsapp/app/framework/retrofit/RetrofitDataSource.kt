@@ -1,9 +1,12 @@
+/* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.retrofit
 
 import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
+import com.yesferal.hornsapp.core.data.abstraction.remote.ReviewRemoteDataSource
 import com.yesferal.hornsapp.core.domain.entity.Band
 import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenRender
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -11,7 +14,7 @@ import java.lang.Exception
 
 class RetrofitDataSource(
     private val service: Service
-) : ConcertRemoteDataSource, BandRemoteDataSource {
+) : ConcertRemoteDataSource, BandRemoteDataSource, ReviewRemoteDataSource {
 
     override suspend fun getConcerts(): HaResult<List<Concert>> {
         return service
@@ -35,6 +38,14 @@ class RetrofitDataSource(
         return service
             .safeCall { getBandBy(id) }
             .mapToResult { it.mapToBand() }
+    }
+
+    override suspend fun getReview(
+        id: String
+    ): HaResult<ScreenRender> {
+        return service
+            .safeCall { getReviewBy(id) }
+            .mapToResult { it.mapToScreenRender() }
     }
 
     private suspend fun <INPUT> Service.safeCall(

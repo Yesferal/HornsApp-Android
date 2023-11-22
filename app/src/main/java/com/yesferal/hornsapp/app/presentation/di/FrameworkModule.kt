@@ -25,6 +25,7 @@ import com.yesferal.hornsapp.app.framework.socketio.SocketIoDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.DrawerRemoteDataSource
+import com.yesferal.hornsapp.core.data.abstraction.remote.ReviewRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.ConcertStorageDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
@@ -90,6 +91,10 @@ fun Container.registerFrameworkModule() {
     }
 
     this register Factory<BandRemoteDataSource> {
+        resolve<RetrofitDataSource>()
+    }
+
+    this register Factory<ReviewRemoteDataSource> {
         resolve<RetrofitDataSource>()
     }
 

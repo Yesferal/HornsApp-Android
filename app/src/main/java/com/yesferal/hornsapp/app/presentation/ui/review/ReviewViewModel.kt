@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
-import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
+import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
+import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.usecase.GetReviewUseCase
+import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +21,7 @@ import kotlinx.coroutines.withContext
 
 class ReviewViewModel(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
-    private val getConcertsUseCase: GetConcertsUseCase
+    private val getReviewUseCase: GetReviewUseCase
     ) : ViewModel() {
 
     private val _stateReview = MutableLiveData<DelegateViewState>()
@@ -27,19 +31,45 @@ class ReviewViewModel(
     init {
         viewModelScope.launch {
             val stateReview = withContext(Dispatchers.IO) {
-                /// TODO: Replace with remote data
-                val delegates = mutableListOf<Delegate>()
-                delegates.add(TitleReviewViewData("Title Here"))
-                delegates.add(ImageReviewViewData("https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2023/10/Taylor-Mayorga-600x337.png"))
-                delegates.add(DescriptionReviewViewData("Title Hasdasdadasdasdblakjsdbflkasdfkasdflkjasldfkasldkflaksjd flkasj dflk asdlkf alsdnfalksdnf knsdkfjnlaskdjnflaksjndflajsdnflaksnjdflkajsdfere"))
-                delegates.add(ImageReviewViewData("https://www.brooklynvegan.com/files/2016/04/health-coachella-05.jpg"))
-                delegates.add(TitleViewData("SubTitle", "Sub Subtitle", null, null))
-                delegates.add(DescriptionReviewViewData("Title Hasdasdadasdasdblakjsdbflkasdfkasdflkjasldfkasldkflaksjd flkasj dflk asdlkf alsdnfalksdnf knsdkfjnlaskdjnflaksjndflajsdnflaksnjdflkajsdfere"))
-                delegates.add(ImageReviewViewData("https://www.brooklynvegan.com/files/2016/04/health-coachella-05.jpg"))
-                delegates.add(TitleViewData("SubTitle", "Sub Subtitle", null, null))
-                delegates.add(DescriptionReviewViewData("Title Hasdasdadasdasdblakjsdbflkasdfkasdflkjasldfkasldkflaksjd flkasj dflk asdlkf alsdnfalksdnf knsdkfjnlaskdjnflaksjndflajsdnflaksnjdflkajsdfere"))
+                when (val result = getReviewUseCase("655c8b47d261c2527bd7a118")) {
+                    is HaResult.Success -> {
+                        val delegates = mutableListOf<Delegate>()
+                        result.value.views?.forEach {
+                            when(it.type) {
+                                ViewDrawer.Type.TITLE_REVIEW_CARD_VIEW -> {
+                                    delegates.add(TitleReviewViewData(it.data?.title?.text))
+                                }
+                                ViewDrawer.Type.SUBTITLE_REVIEW_CARD_VIEW -> {
+                                    delegates.add(TitleViewData(
+                                        it.data?.title?.text,
+                                        it.data?.subtitle?.text,
+                                        it.navigation,
+                                        it.data?.icon
+                                    ))
+                                }
+                                ViewDrawer.Type.IMAGE_REVIEW_CARD_VIEW -> {
+                                    delegates.add(ImageReviewViewData(it.data?. imageUrl))
+                                }
+                                ViewDrawer.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
+                                    delegates.add(DescriptionReviewViewData(it.data?.description?.text))
+                                }
+                                else -> { }
+                            }
+                        }
 
-                DelegateViewState(delegates)
+                        return@withContext DelegateViewState(delegates)
+                    }
+                    is HaResult.Error -> {
+                        return@withContext DelegateViewState(
+                            delegates = listOf(
+                                ErrorViewData(
+                                    R.drawable.ic_music_note,
+                                    R.string.error_default
+                                )
+                            )
+                        )
+                    }
+                }
             }
 
             _stateReview.value = stateReview
@@ -49,12 +79,12 @@ class ReviewViewModel(
 
 class ReviewViewModelFactory(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
-    private val getConcertsUseCase: GetConcertsUseCase
+    private val getReviewUseCase: GetReviewUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             BusinessModelFactoryProducer::class.java,
-            GetConcertsUseCase::class.java
-        ).newInstance(businessModelFactoryProducer, getConcertsUseCase)
+            GetReviewUseCase::class.java
+        ).newInstance(businessModelFactoryProducer, getReviewUseCase)
     }
 }

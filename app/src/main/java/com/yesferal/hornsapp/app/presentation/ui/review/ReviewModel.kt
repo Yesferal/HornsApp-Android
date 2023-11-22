@@ -27,7 +27,7 @@ data class ImageReviewViewData(
 }
 
 data class DescriptionReviewViewData(
-    val reviewText: String
+    val reviewText: String?
 ): NonInteractiveDelegate {
     override val layout: Int
         get() = R.layout.item_review_description
@@ -39,7 +39,7 @@ data class DescriptionReviewViewData(
 }
 
 data class TitleReviewViewData(
-    val reviewText: String
+    val reviewText: String?
 ): InteractiveDelegate<TitleReviewViewData.Listener> {
     override val layout: Int
         get() = R.layout.item_review_title
