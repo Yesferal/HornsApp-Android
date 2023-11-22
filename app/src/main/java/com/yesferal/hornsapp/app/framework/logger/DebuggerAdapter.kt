@@ -12,7 +12,7 @@ import com.yesferal.hornsapp.core.domain.abstraction.Logger
  * @author Yesferal
  */
 class DebuggerAdapter(private val nextLevelLogger: Logger?): Logger {
-    private val TAG = "Logger"
+    private val TAG = "DebugLogger"
 
     override fun d(message: String) {
         nextLevelLogger?.d(message)

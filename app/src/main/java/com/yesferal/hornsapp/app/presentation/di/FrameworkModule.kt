@@ -42,7 +42,8 @@ fun Container.registerFrameworkModule() {
             name = "hornsapp-shared-preferences.sp",
             apiConstants = ApiConstants(),
             gson = resolve(),
-            fileReaderManager = resolve()
+            fileReaderManager = resolve(),
+            packageInfoDataSource = resolve()
         )
     }
 
