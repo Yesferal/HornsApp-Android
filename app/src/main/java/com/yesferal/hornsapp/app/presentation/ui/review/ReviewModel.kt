@@ -16,12 +16,14 @@ import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
 
 data class ImageReviewViewData(
-    val imageUrl: String?
+    val imageUrl: String?,
+    val description: String?
 ): NonInteractiveDelegate {
     override val layout: Int
         get() = R.layout.item_review_image
 
     override fun onBindViewDelegate(view: View) {
+        view.findViewById<TextView>(R.id.descriptionTextView).setUpWith(description)
         val reviewImageView = view.findViewById<ShapeableImageView>(R.id.reviewImageView)
         reviewImageView.setAllCornersRounded()
         reviewImageView.load(imageUrl)

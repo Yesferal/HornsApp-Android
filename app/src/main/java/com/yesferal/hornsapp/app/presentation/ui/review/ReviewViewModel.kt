@@ -49,7 +49,7 @@ class ReviewViewModel(
                                     ))
                                 }
                                 ViewDrawer.Type.IMAGE_REVIEW_CARD_VIEW -> {
-                                    delegates.add(ImageReviewViewData(it.data?. imageUrl))
+                                    delegates.add(ImageReviewViewData(it.data?.imageUrl, it.data?.description?.text))
                                 }
                                 ViewDrawer.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
                                     delegates.add(DescriptionReviewViewData(it.data?.description?.text))
