@@ -83,7 +83,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         super.onViewCreated(view, savedInstanceState)
 
         val concert = args.concert
-        if (concert == null) {
+        if (concert?.id == null) {
             activity?.onBackPressed()
             return
         }

@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.app.presentation.ui.review
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
@@ -12,12 +13,19 @@ import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class ReviewFragment : DelegateAdapterFragment(), TitleViewData.Listener, TitleReviewViewData.Listener {
     private lateinit var viewModel: ReviewViewModel
+    private val args: ReviewFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val review = args.review
+        if (review?.id == null) {
+            activity?.onBackPressed()
+            return
+        }
+
         delegateRecyclerView.addItemDecoration(RecyclerViewVerticalDecorator())
-        viewModel = getViewModel<ReviewViewModel, ReviewViewModelFactory>()
+        viewModel = getViewModel<ReviewViewModel, ReviewViewModelFactory>(param = review.id)
         viewModel.stateReview.observe(viewLifecycleOwner) {
             render(it)
         }

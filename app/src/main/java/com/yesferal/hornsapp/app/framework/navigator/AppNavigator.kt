@@ -4,6 +4,7 @@ package com.yesferal.hornsapp.app.framework.navigator
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
@@ -22,10 +23,14 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
             ScreenType.HOME -> getDirectionToHome(view, tab = 0)
             ScreenType.ON_BOARDING -> getDirectionToOnBoarding()
             ScreenType.SETTING -> getDirectionToSettings()
-            ScreenType.CONCERT_DETAIL -> getDirectionToConcertDetail(navigator.parameters)
+            ScreenType.CONCERT_DETAIL -> getDirectionToDetail(navigator.parameters) {
+                getDirectionToConcertDetail(it)
+            }
             ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
             ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
-            ScreenType.REVIEW -> getDirectionToReview()
+            ScreenType.REVIEW -> getDirectionToDetail(navigator.parameters) {
+                getDirectionToReview(it)
+            }
             else -> null
         }
         navDirections?.let {
@@ -58,17 +63,38 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         return HomeFragmentDirections.actionToSettings()
     }
 
-    private fun getDirectionToReview(): NavDirections {
-        return HomeFragmentDirections.actionToReview()
+    private fun getDirectionToDetail(
+        parameters: Parameters?,
+        func: (ParcelableViewData) -> NavDirections
+    ): NavDirections? {
+        val parcelable = parameters?.getParcelableViewData(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
+
+        return if (parcelable is ParcelableViewData) {
+            func(parcelable)
+        } else { null }
+    }
+
+    private fun Parameters?.getParcelableViewData(key: String): ParcelableViewData? {
+        return this?.get<ParcelableViewData>(key)
+            ?: try {
+                val json = this?.parameters?.get(key).toString()
+                val parcelableViewDataFromString =
+                    Gson().fromJson(json, ParcelableViewData::class.java)
+                parcelableViewDataFromString
+            } catch (e: Exception) {
+                null
+            }
+    }
+
+    private fun getDirectionToReview(
+        parcelableViewData: ParcelableViewData
+    ): NavDirections {
+        return HomeFragmentDirections.actionToReview(parcelableViewData)
     }
 
     private fun getDirectionToConcertDetail(
-        parameters: Parameters?
-    ): NavDirections? {
-        val parcelable = parameters?.get<ParcelableViewData>(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
-
-        return if (parcelable is ParcelableViewData) {
-            return HomeFragmentDirections.actionToConcert(parcelable)
-        } else { null }
+        parcelableViewData: ParcelableViewData
+    ): NavDirections {
+        return HomeFragmentDirections.actionToConcert(parcelableViewData)
     }
 }

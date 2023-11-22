@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class ParcelableViewData(
-        val id: String,
+        val id: String?,
         val name: String?
 ) : Parcelable, NavViewData {
         override fun toMap(): Parameters {

@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ReviewViewModel(
+    id: String,
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getReviewUseCase: GetReviewUseCase
     ) : ViewModel() {
@@ -31,7 +32,7 @@ class ReviewViewModel(
     init {
         viewModelScope.launch {
             val stateReview = withContext(Dispatchers.IO) {
-                when (val result = getReviewUseCase("655c8b47d261c2527bd7a118")) {
+                when (val result = getReviewUseCase(id)) {
                     is HaResult.Success -> {
                         val delegates = mutableListOf<Delegate>()
                         result.value.views?.forEach {
@@ -78,13 +79,19 @@ class ReviewViewModel(
 }
 
 class ReviewViewModelFactory(
+    private val id: String,
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getReviewUseCase: GetReviewUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
+            String::class.java,
             BusinessModelFactoryProducer::class.java,
             GetReviewUseCase::class.java
-        ).newInstance(businessModelFactoryProducer, getReviewUseCase)
+        ).newInstance(
+            id,
+            businessModelFactoryProducer,
+            getReviewUseCase
+        )
     }
 }
