@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.app.presentation.ui.review.ProgressBarViewData
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 
@@ -21,6 +22,7 @@ abstract class DelegateAdapterFragment : RenderFragment<DelegateViewState>(), De
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         delegateAdapter = DelegateAdapter.Builder()
+            .addItem(ProgressBarViewData(visible = true))
             .setListener(this)
             .build()
     }

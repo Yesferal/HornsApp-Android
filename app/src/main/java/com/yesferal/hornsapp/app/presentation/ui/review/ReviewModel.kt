@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
+import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
@@ -23,6 +25,22 @@ data class ImageReviewViewData(
         val reviewImageView = view.findViewById<ShapeableImageView>(R.id.reviewImageView)
         reviewImageView.setAllCornersRounded()
         reviewImageView.load(imageUrl)
+    }
+}
+
+data class ProgressBarViewData(
+    val visible: Boolean
+): NonInteractiveDelegate {
+    override val layout: Int
+        get() = R.layout.custom_view_progress_bar
+
+    override fun onBindViewDelegate(view: View) {
+        val customProgressBar = view.findViewById<View>(R.id.customProgressBar)
+        if (visible) {
+            customProgressBar.fadeIn()
+        }else {
+            customProgressBar.fadeOut()
+        }
     }
 }
 
