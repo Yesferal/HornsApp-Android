@@ -106,20 +106,20 @@
       "key": "IMAGE_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Wacken Friday, 5 August 2023",
-          "es": "Wacken 5 de agosto, 2023"
+          "en": "Bloodstock Open Air 2024",
+          "es": "Bloodstock Open Air 2024"
         },
         "subtitle": {
-          "en": "#tiktok #video",
-          "es": "#tiktok #video"
+          "en": "#instagram #announcement",
+          "es": "#instagram #anuncio"
         },
-        "icon": "tiktok",
-        "imageUrl": "https://metalshockfinland.files.wordpress.com/2017/08/wacken-open-air.jpg?w=480"
+        "icon": "instagram",
+        "imageUrl": "https://i.ytimg.com/vi/Jrnx1fiXmeI/maxresdefault.jpg"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe/video/7275671660118822150"
+          "param_android_uri": "https://www.instagram.com/p/CzD4vLstO3Z/"
         }
       }
     },
@@ -251,20 +251,20 @@
       "key": "IMAGE_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Bloodstock Open Air 2024",
-          "es": "Bloodstock Open Air 2024"
+          "en": "Wacken Friday, 5 August 2023",
+          "es": "Wacken 5 de agosto, 2023"
         },
         "subtitle": {
-          "en": "#instagram #announcement",
-          "es": "#instagram #anuncio"
+          "en": "#tiktok #video",
+          "es": "#tiktok #video"
         },
-        "icon": "instagram",
-        "imageUrl": "https://publish.theticketfactory.com/cache/f/4/7/6/7/4/f47674a70135e788450ec798c973099c8cab79c0.jpg"
+        "icon": "tiktok",
+        "imageUrl": "https://metal.b-cdn.net/wp-content/uploads/2022/08/wacken2023-lineup-headliner-1.jpeg"
       },
       "navigation": {
         "key": "WEB_VIEW",
         "parameters": {
-          "param_android_uri": "https://www.instagram.com/p/CzD4vLstO3Z/"
+          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe/video/7275671660118822150"
         }
       }
     },
@@ -319,19 +319,21 @@
       "key": "IMAGE_HOME_CARD_VIEW",
       "data": {
         "title": {
-          "en": "Iron Maiden at Hellfest 2023",
-          "es": "Iron Maiden en Hellfest 2023"
+          "en": "Iron Maiden at Power Trip 2023",
+          "es": "Iron Maiden en Power Trip 2023"
         },
         "subtitle": {
-          "en": "#setlist #hellfest",
-          "es": "#setlist #hellfest"
+          "en": "#setlist",
+          "es": "#setlist"
         },
         "imageUrl": "https://www.ironmaiden.com/media/news/10305903.jpg"
       },
       "navigation": {
-        "key": "WEB_VIEW",
+        "key": "REVIEW",
         "parameters": {
-          "param_android_uri": "https://www.setlist.fm/setlist/iron-maiden/2023/val-de-moine-clisson-france-2ba62cbe.html"
+          "param_parcelable_view_data": {
+            "id": "655e9cb652ff4c82ea4a63da"
+          }
         }
       }
     },
@@ -377,7 +379,7 @@
           "es": "#youtube #video"
         },
         "icon": "youtube",
-        "imageUrl": "https://www.metal-hammer.de/wp-content/uploads/2023/08/28/09/in-flames-summer-breeze-19-08-2023-12-992x560.jpg"
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/57f2b82b29687fb32444a615/1662399330082-4ICDC7ACUZOVVZG9ZWN8/image-asset.jpeg"
       },
       "navigation": {
         "key": "WEB_VIEW",
