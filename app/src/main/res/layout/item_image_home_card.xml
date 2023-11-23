@@ -17,14 +17,13 @@
 
     <View
         android:id="@+id/concertImageForegroundView"
-        android:layout_width="0dp"
+        android:layout_width="48dp"
         android:layout_height="0dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/shape_rectangle_rounded_16dp"
+        android:background="@drawable/shape_rectangle_rounded_16dp_right"
         android:backgroundTint="@color/primary"
-        android:alpha="0.4"
+        android:alpha="0"
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
-        app:layout_constraintStart_toStartOf="@+id/concertImageView"
         app:layout_constraintEnd_toEndOf="@+id/concertImageView"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageView" />
 
@@ -47,6 +46,19 @@
         style="@style/HornsApp.Button"
         app:layout_constraintTop_toBottomOf="@+id/concertImageView"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/arrowView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_next"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/concertImageForegroundView"
+        app:layout_constraintEnd_toEndOf="@+id/concertImageForegroundView"
+        app:layout_constraintTop_toTopOf="@+id/concertImageForegroundView"
+        app:layout_constraintStart_toStartOf="@+id/concertImageForegroundView"
+        app:tint="@color/background" />
 
     <View
         android:layout_width="match_parent"
