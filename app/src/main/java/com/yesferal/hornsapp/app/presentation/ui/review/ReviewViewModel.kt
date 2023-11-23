@@ -54,6 +54,9 @@ class ReviewViewModel(
                                 ViewDrawer.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
                                     delegates.add(DescriptionReviewViewData(it.data?.description?.text))
                                 }
+                                ViewDrawer.Type.BUTTON_CARD_VIEW -> {
+                                    delegates.add(RenderButtonViewData(it.data?.title?.text, it.navigation))
+                                }
                                 else -> { }
                             }
                         }

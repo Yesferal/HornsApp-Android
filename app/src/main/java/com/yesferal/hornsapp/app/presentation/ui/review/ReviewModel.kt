@@ -11,6 +11,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
@@ -73,6 +74,32 @@ data class TitleReviewViewData(
 
         view.findViewById<ImageView>(R.id.closeImageView).setOnClickListener {
             listener.onCloseClick()
+        }
+    }
+}
+
+data class RenderButtonViewData(
+    val text: String?,
+    val navigation: Parameters?
+): InteractiveDelegate<RenderButtonViewData.Listener> {
+    override val layout: Int
+        get() = R.layout.item_render_button
+
+    interface Listener : DelegateListener {
+        fun onClick(parameters: Parameters)
+    }
+
+    override fun onBindViewDelegate(view: View, listener: Listener) {
+        val renderButtonTextView = view.findViewById<TextView>(R.id.renderButtonTextView)
+        navigation?.let {
+            renderButtonTextView.setUpWith(text)
+            renderButtonTextView.visibility = View.VISIBLE
+            view.setOnClickListener {
+                listener.onClick(navigation)
+            }
+        }?: kotlin.run {
+            renderButtonTextView.visibility = View.GONE
+            view.setOnClickListener { }
         }
     }
 }

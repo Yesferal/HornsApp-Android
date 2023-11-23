@@ -11,7 +11,7 @@ import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
-class ReviewFragment : DelegateAdapterFragment(), TitleViewData.Listener, TitleReviewViewData.Listener {
+class ReviewFragment : DelegateAdapterFragment(), TitleViewData.Listener, TitleReviewViewData.Listener, RenderButtonViewData.Listener {
     private lateinit var viewModel: ReviewViewModel
     private val args: ReviewFragmentArgs by navArgs()
 
