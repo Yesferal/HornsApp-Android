@@ -30,7 +30,7 @@
     <string name="share_hornsapp_message">Are you looking for concerts at Lima? Download HornsApp (Rock &amp; Metal): https://play.google.com/store/apps/details?id=com.yesferal.hornsapp</string>
     <string name="use_your_favorite_apps">Shared it using your favorite app</string>
     <string name="are_you_ready_for_tonight">Are you ready for tonight?</string>
-    <string name="let_find_out_together">Let\'s find together your next concert together.</string>
+    <string name="let_find_out_together">Let\'s find together your next concert.</string>
 
     <!-- Error Messages -->
     <string name="error_default">Something happened, check your connection and try again.</string>

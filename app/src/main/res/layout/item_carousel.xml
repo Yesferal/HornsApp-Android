@@ -21,7 +21,7 @@
         android:layout_height="0dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@color/primary"
-        android:alpha="0.4"
+        android:alpha="0"
         app:layout_constraintTop_toTopOf="@+id/concertImageView"
         app:layout_constraintStart_toStartOf="@+id/concertImageView"
         app:layout_constraintEnd_toEndOf="@+id/concertImageView"
