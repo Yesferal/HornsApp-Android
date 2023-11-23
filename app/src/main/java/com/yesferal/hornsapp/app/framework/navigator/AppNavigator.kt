@@ -4,8 +4,8 @@ package com.yesferal.hornsapp.app.framework.navigator
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.extension.getParcelableViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
@@ -72,18 +72,6 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         return if (parcelable is ParcelableViewData) {
             func(parcelable)
         } else { null }
-    }
-
-    private fun Parameters?.getParcelableViewData(key: String): ParcelableViewData? {
-        return this?.get<ParcelableViewData>(key)
-            ?: try {
-                val json = this?.parameters?.get(key).toString()
-                val parcelableViewDataFromString =
-                    Gson().fromJson(json, ParcelableViewData::class.java)
-                parcelableViewDataFromString
-            } catch (e: Exception) {
-                null
-            }
     }
 
     private fun getDirectionToReview(
