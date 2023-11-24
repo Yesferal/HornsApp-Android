@@ -356,6 +356,27 @@
       }
     },
     {
+      "key": "ICON_HOME_CARD_VIEW",
+      "data": {
+        "title": {
+          "en": "Follow us on Facebook",
+          "es": "Síguenos en Facebook"
+        },
+        "subtitle": {
+          "en": "Did you know about our Facebook? Follow us and keep up posted.",
+          "es": "¿Sabías acerca de nuestro Facebook? Síguenos y mantente informado."
+        },
+        "backgroundColor": "#3b5998",
+        "icon": "facebook"
+      },
+      "navigation": {
+        "key": "WEB_VIEW",
+        "parameters": {
+          "param_android_uri": "https://www.facebook.com/profile.php?id=100090226749195"
+        }
+      }
+    },
+    {
       "key": "AD_VIEW",
       "data": {
         "height": 250
