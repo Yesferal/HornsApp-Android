@@ -21,6 +21,9 @@
 
 # Navigation Component
 -keepnames class com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+-keepclassmembers class com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData {
+    *;
+}
 
 # ViewModel
 -keepclassmembers public class * extends androidx.lifecycle.ViewModel { public <init>(...); }
