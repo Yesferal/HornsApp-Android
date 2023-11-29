@@ -41,19 +41,19 @@ class ConcertViewModel(
                         val bandsViewData = mutableListOf<BandViewData>()
 
                         if (concert.bands.isNullOrEmpty()) {
-                            bandsViewData.add(BandViewData(null, "TBA", concert.headlinerImage, null, null))
+                            bandsViewData.add(BandViewData(null, "TBA", concert.headlinerImage, 0, 0))
                         } else {
-                            bandsViewData.add(BandViewData(null, "Headliners", concert.headlinerImage, null, null))
-                            concert.bands?.map { band ->
+                            concert.bands?.reversed()?.map { band ->
                                 count++
                                 bandsViewData.add(BandViewData(
                                     band.id,
                                     band.name,
                                     band.membersImage,
-                                    count.toString(),
-                                    concert.bands?.size.toString()
+                                    count,
+                                    concert.bands?.size
                                 ))
                             }
+                            bandsViewData.add(0, BandViewData(null, "Headliners", concert.headlinerImage, 0, concert.bands?.size))
                         }
 
                         ConcertViewState(

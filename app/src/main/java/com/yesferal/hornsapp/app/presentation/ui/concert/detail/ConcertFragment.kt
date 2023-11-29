@@ -74,6 +74,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
                     .build()
                     .navigateTo()
             }
+
+            override fun onSkipClick(position: Int) {
+                bandsViewPager.currentItem = position
+            }
         }
 
     override fun onViewCreated(

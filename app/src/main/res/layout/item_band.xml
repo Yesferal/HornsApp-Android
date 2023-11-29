@@ -51,4 +51,16 @@
         app:layout_constraintEnd_toEndOf="@id/itemImageView"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <ImageView
+        android:id="@+id/arrowView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:padding="@dimen/margin_small"
+        android:src="@drawable/ic_next"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:tint="@color/background" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

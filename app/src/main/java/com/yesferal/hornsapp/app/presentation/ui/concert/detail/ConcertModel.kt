@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.app.presentation.ui.concert.detail
 
 import android.net.Uri
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import com.google.android.material.imageview.ShapeableImageView
@@ -79,8 +80,8 @@ data class BandViewData(
     val id: String?,
     val name: String?,
     val imageUrl: String?,
-    val position: String?,
-    val total: String?
+    val position: Int,
+    val total: Int?
 ) : InteractiveDelegate<BandViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_band
@@ -91,20 +92,34 @@ data class BandViewData(
 
     interface Listener : DelegateListener {
         fun onClick(bandViewData: BandViewData)
+        fun onSkipClick(position: Int)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.itemTextView).setUpWith(name)
+        val safeTotal = total?: 0
 
-        val indicator = if(position != null && total != null) {
+        val indicator = if(position > 0 && safeTotal > 0) {
             StringBuilder()
                 .append(position)
                 .append("/")
-                .append(total)
+                .append(safeTotal)
                 .toString()
         } else {
             null
         }
+
+        val arrowView = view.findViewById<ImageView>(R.id.arrowView)
+        if (position >= safeTotal) {
+            arrowView.visibility = View.GONE
+            arrowView.setOnClickListener {}
+        } else {
+            arrowView.visibility = View.VISIBLE
+            arrowView.setOnClickListener {
+                listener.onSkipClick(position + 1)
+            }
+        }
+
         view.findViewById<TextView>(R.id.countTextView).setUpWith(indicator)
 
         val itemImageView = view.findViewById<ShapeableImageView>(R.id.itemImageView)
