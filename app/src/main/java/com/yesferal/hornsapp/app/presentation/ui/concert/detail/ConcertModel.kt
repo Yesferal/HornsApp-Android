@@ -15,7 +15,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
-import com.yesferal.hornsapp.core.domain.entity.Band
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.Venue
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
@@ -76,15 +76,17 @@ data class VenueViewData(
 }
 
 data class BandViewData(
-    val band: Band,
-    val position: String,
-    val total: String
+    val id: String?,
+    val name: String?,
+    val imageUrl: String?,
+    val position: String?,
+    val total: String?
 ) : InteractiveDelegate<BandViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_band
 
     override fun asParcelable(): ParcelableViewData {
-        return ParcelableViewData(band.id, band.name)
+        return ParcelableViewData(id, name)
     }
 
     interface Listener : DelegateListener {
@@ -92,19 +94,29 @@ data class BandViewData(
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        view.findViewById<TextView>(R.id.itemTextView).text = band.name
-        view.findViewById<TextView>(R.id.countTextView).text = StringBuilder()
-            .append(position)
-            .append("/")
-            .append(total)
-            .toString()
+        view.findViewById<TextView>(R.id.itemTextView).setUpWith(name)
+
+        val indicator = if(position != null && total != null) {
+            StringBuilder()
+                .append(position)
+                .append("/")
+                .append(total)
+                .toString()
+        } else {
+            null
+        }
+        view.findViewById<TextView>(R.id.countTextView).setUpWith(indicator)
 
         val itemImageView = view.findViewById<ShapeableImageView>(R.id.itemImageView)
         itemImageView.setAllCornersRounded()
-        itemImageView.load(band.membersImage)
+        itemImageView.load(imageUrl)
 
-        view.setOnClickListener {
-            listener.onClick(this)
+        id?.let {
+            view.setOnClickListener {
+                listener.onClick(this)
+            }
+        }?: kotlin.run {
+            view.setOnClickListener { }
         }
     }
 }

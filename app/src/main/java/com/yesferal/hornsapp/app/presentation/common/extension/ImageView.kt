@@ -1,6 +1,7 @@
 package com.yesferal.hornsapp.app.presentation.common.extension
 
 import android.util.TypedValue
+import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.google.android.material.imageview.ShapeableImageView
@@ -9,9 +10,11 @@ import com.squareup.picasso.Picasso
 
 fun ImageView.load(url: String?) {
     if (url.isNullOrEmpty()) {
+        this.visibility = View.INVISIBLE
         return
     }
 
+    this.visibility = View.VISIBLE
     Picasso.get()
         .load(url)
         .into(this)
