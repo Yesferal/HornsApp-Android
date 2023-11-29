@@ -41,6 +41,7 @@ class ConcertViewModel(
                         val bandsViewData = mutableListOf<BandViewData>()
 
                         if (concert.bands.isNullOrEmpty()) {
+                            // TODO: Use String En & Es to handle TBA, not hardcoded
                             bandsViewData.add(BandViewData(null, "TBA", concert.headlinerImage, 0, 0))
                         } else {
                             concert.bands?.reversed()?.map { band ->
@@ -53,6 +54,7 @@ class ConcertViewModel(
                                     concert.bands?.size
                                 ))
                             }
+                            // TODO: Use String En & Es to handle Headliners, not hardcoded
                             bandsViewData.add(0, BandViewData(null, "Headliners", concert.headlinerImage, 0, concert.bands?.size))
                         }
 
