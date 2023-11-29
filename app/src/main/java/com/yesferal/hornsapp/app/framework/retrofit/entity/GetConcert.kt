@@ -14,6 +14,7 @@ data class GetConcert(
     val socialNetworks: List<String>?,
     val headlinerImage: String?,
     val dateTime: Date?,
+    val totalDays: Int?,
     val genre: String?,
     val tags: List<String>?,
     val venue: GetVenue?,
@@ -41,6 +42,7 @@ data class GetConcert(
             .addTicketingUrl(this.ticketingUrl)
             .addTicketingHost(this.ticketingHost)
             .isFavorite(isFavorite)
+            .addTotalDays(this.totalDays)
             .build()
     }
 }

@@ -35,13 +35,26 @@ data class ConcertViewState(
 data class ConcertViewData(
     val concert: Concert
 ): NavViewData {
-    val dateTime: String? = concert.timeInMillis.dateTimeFormatted()
+    val dateTime: String? = concert.timeInMillis.dateTimeFormatted(concert.totalDays)
     val day: String? = concert.timeInMillis.dayFormatted()
     val month: String? = concert.timeInMillis.monthFormatted()
     private val beginTime = concert.timeInMillis
         ?.minus(TimeZone.getDefault().rawOffset + TimeZone.getDefault().dstSavings)
         ?: 0
-    private val endTime = beginTime + (2 * 60 * 60 * 1000)
+
+    /**
+     * beginTime: initial time
+     * (2 * oneHourInMilliseconds): TODO: Fix hour gap issue (10am (server hardcoded) + 2)
+     * TODO: due to the end should be 12 am, but that depends on that the festival
+     * (concert.totalDays?.minus(1)?: 0): Days
+     * 24: Hours
+     * 60: Sec
+     * 60: Min
+     * 1000: Milliseconds
+     */
+    private val oneHourInMilliseconds = 3600000
+    // TODO: Fix this value, cause is not accurate. The hour does not fit
+    private val endTime = beginTime + (2 * oneHourInMilliseconds) + ((concert.totalDays?.minus(1)?: 0) * 24 * 60 * 60 * 1000)
 
     override fun toMap(): Parameters {
         return Parameters().apply {
