@@ -7,21 +7,25 @@ import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
 data class GetBand(
     val _id: String,
     val name: String?,
+    val images: BandImages?,
     val about: LocalizedString?,
-    val membersImage: String?,
-    val logoImage: String?,
-    val countryTextDrawer: LocalizedString?,
-    val genre: String?
+    val country: LocalizedString?,
+    val formerIn: String?
 ) {
     fun mapToBand(): Band {
         return Band(
             id = this._id,
             name = this.name,
+            membersImage = this.images?.members,
+            logoImage = this.images?.logo,
             description = this.about?.text,
-            membersImage = this.membersImage,
-            logoImage = this.logoImage,
-            country = this.countryTextDrawer?.text,
-            genre = this.genre
+            country = this.country?.text,
+            genre = this.formerIn
         )
     }
 }
+
+class BandImages(
+    val logo: String?,
+    val members: String?,
+)
