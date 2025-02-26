@@ -53,7 +53,7 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
 
     private fun setUpVersion(suffix: String) {
         val packageInfoDataSource = hadi().resolve<PackageInfoDataSource>()
-        val versionName: String = packageInfoDataSource.getVersionName()
+        val versionName: String? = packageInfoDataSource.getVersionName()
         val versionCode: Long = packageInfoDataSource.getVersionCode()
 
         versionTextView.setImageView(R.drawable.ic_information)

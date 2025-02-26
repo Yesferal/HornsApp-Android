@@ -2,7 +2,7 @@
 
 buildscript {
     ext.versions = [
-            'jvmTarget': '1.8',
+            'jvmTarget': '17',
             'kotlin': '1.8.10',
             'coroutines': '1.4.1',
             'navigation': '2.5.3',
@@ -22,9 +22,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:8.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.gms:google-services:4.4.2'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
     }

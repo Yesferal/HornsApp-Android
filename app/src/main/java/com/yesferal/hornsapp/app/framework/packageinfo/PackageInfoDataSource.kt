@@ -11,7 +11,7 @@ class PackageInfoDataSource(
         return PackageInfoCompat.getLongVersionCode(packageInfo)
     }
 
-    fun getVersionName(): String {
+    fun getVersionName(): String? {
         return packageInfo.versionName
     }
 }
