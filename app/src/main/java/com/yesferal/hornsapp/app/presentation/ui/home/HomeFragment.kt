@@ -66,7 +66,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
                 override fun handleOnBackPressed() {
                     if (concertsViewPager.currentItem == 0) {
                         isEnabled = false
-                        activity?.onBackPressed()
+                        activity?.onBackPressedDispatcher?.onBackPressed()
                     } else {
                         navigateToTab(tab = 0)
                     }

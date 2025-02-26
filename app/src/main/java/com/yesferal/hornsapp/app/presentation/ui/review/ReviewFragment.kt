@@ -20,7 +20,7 @@ class ReviewFragment : DelegateAdapterFragment(), TitleViewData.Listener, TitleR
 
         val review = args.review
         if (review?.id == null) {
-            activity?.onBackPressed()
+            activity?.onBackPressedDispatcher?.onBackPressed()
             return
         }
 
@@ -44,6 +44,6 @@ class ReviewFragment : DelegateAdapterFragment(), TitleViewData.Listener, TitleR
     }
 
     override fun onCloseClick() {
-        activity?.onBackPressed()
+        activity?.onBackPressedDispatcher?.onBackPressed()
     }
 }

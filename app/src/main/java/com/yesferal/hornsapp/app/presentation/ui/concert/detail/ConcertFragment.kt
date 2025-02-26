@@ -88,7 +88,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
         val concert = args.concert
         if (concert?.id == null) {
-            activity?.onBackPressed()
+            activity?.onBackPressedDispatcher?.onBackPressed()
             return
         }
 
@@ -114,7 +114,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         setUpBandsViewPager()
 
         closeImageView.setOnClickListener {
-            activity?.onBackPressed()
+            activity?.onBackPressedDispatcher?.onBackPressed()
         }
 
         titleTextView.setUpWith(concert.name)

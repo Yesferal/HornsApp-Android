@@ -11,10 +11,10 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.addBottomView
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.getParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setTopCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
@@ -41,12 +41,12 @@ class BandFragment : RenderFragment<BandViewState>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = arguments?.getParcelable<ParcelableViewData>(
+        val item = arguments?.getParcelableViewData(
             EXTRA_PARAM_PARCELABLE
         )
 
         if (item == null) {
-            activity?.onBackPressed()
+            activity?.onBackPressedDispatcher?.onBackPressed()
             return
         }
 
