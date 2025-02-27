@@ -31,6 +31,24 @@
     *;
 }
 
+# Keep Android components
+#-keepclassmembers public class * extends android.app.Activity
+#-keepclassmembers public class * extends android.app.Application
+#-keepclassmembers public class * extends android.app.Service
+#-keepclassmembers public class * extends android.content.BroadcastReceiver
+#-keepclassmembers public class * extends android.content.ContentProvider
+#-keepclassmembers public class * extends android.app.backup.BackupAgentHelper
+#-keepclassmembers public class * extends android.preference.Preference
+#-dontnote com.android.vending.licensing.ILicensingService
+
+# Keep custom views
+-keep public class * extends android.view.View {
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public void set*(...);
+}
+
 # ViewModel
 -keepclassmembers public class * extends androidx.lifecycle.ViewModel { public <init>(...); }
 
