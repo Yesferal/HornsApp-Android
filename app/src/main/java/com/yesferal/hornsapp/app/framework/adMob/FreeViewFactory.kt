@@ -22,7 +22,7 @@ class FreeViewFactory(private val adUnitIds: AdUnitIds): AbstractViewFactory {
 
     private fun getAdView(context: Context, adViewData: AdViewData): AdView {
         val adView = AdView(context)
-        adView.adSize = adViewData.adSize
+        adView.setAdSize(adViewData.adSize)
         adView.adUnitId = adViewData.adUnitId
         adView.loadAd(adViewData.adRequest)
 

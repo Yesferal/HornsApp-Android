@@ -115,11 +115,11 @@ dependencies {
 
     // Google
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+    implementation 'com.google.android.gms:play-services-ads:24.0.0'
 
     // Import the BoM for the Firebase platform
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.2.4'
+    implementation 'com.google.firebase:firebase-analytics-ktx:22.2.0'
+    implementation 'com.google.firebase:firebase-crashlytics:19.4.0'
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
