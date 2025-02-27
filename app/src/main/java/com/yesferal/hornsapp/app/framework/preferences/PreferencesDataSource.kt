@@ -56,7 +56,7 @@ class PreferencesDataSource(
     override fun getAppDrawer(): AppDrawer {
         val appDrawer = gson.fromJson(getAppDrawerAsString(), AppDrawer::class.java)
 
-        ChainLoggerProvider.provideLogger().d("appDrawer.version: ${appDrawer?.versionCode}")
+        ChainLoggerProvider.provideLogger().d("appDrawer.versionCode: ${appDrawer?.versionCode}")
         ChainLoggerProvider.provideLogger().d("packageInfoDataSource.getVersionCode(): ${packageInfoDataSource.getVersionCode()}")
         if (appDrawer?.versionCode != packageInfoDataSource.getVersionCode()) {
             deleteAppDrawer()
