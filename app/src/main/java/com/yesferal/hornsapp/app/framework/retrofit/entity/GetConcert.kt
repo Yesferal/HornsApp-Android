@@ -39,12 +39,12 @@ data class GetConcert(
     }
 }
 
-class ConcertComponent (
+data class ConcertComponent (
     val name: String,
     val url: String,
 )
 
-class ConcertLinks (
+data class ConcertLinks (
     val key: String,
     val name: LocalizedString,
     val icon: String,

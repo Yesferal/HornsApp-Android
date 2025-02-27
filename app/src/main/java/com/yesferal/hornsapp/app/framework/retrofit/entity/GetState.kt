@@ -4,7 +4,7 @@ package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
 
-class GetState(
+data class GetState(
     val _id: String,
     val name: LocalizedString?,
 )

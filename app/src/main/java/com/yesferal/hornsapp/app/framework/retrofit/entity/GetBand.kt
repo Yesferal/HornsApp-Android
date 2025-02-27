@@ -25,7 +25,7 @@ data class GetBand(
     }
 }
 
-class BandImages(
+data class BandImages(
     val logo: String?,
     val members: String?,
 )
