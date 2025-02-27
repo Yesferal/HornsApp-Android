@@ -171,8 +171,17 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             show(concert = it)
         }
 
-        viewState.bands?.let {
-            show(bands = it)
+        viewState.bands.let {
+            if (it.isNullOrEmpty()) {
+                val headliner = viewState.concert?.concert?.headlinerImage
+                show(
+                    listOf(
+                        BandViewData(null, getString(R.string.tba), headliner, 0, 0)
+                    )
+                )
+            } else {
+                show(bands = it)
+            }
         }
 
         viewState.errorMessageId?.let {
@@ -208,7 +217,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
                         startGoogleMaps(it)
                     }
                 }
-            }?: kotlin.run { venueTextView.visibility = View.GONE }
+            } ?: kotlin.run { venueTextView.visibility = View.GONE }
         }
 
         datetimeTextView.apply {
@@ -219,7 +228,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
                 setOnClickListener {
                     startCalendar(concert)
                 }
-            }?: kotlin.run { datetimeTextView.visibility = View.GONE }
+            } ?: kotlin.run { datetimeTextView.visibility = View.GONE }
         }
 
         descriptionTextView.apply {
@@ -227,7 +236,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
                 setImageView(R.drawable.ic_information)
                 setText(getString(R.string.about), description)
                 hideArrow()
-            }?: kotlin.run { descriptionTextView.visibility = View.GONE }
+            } ?: kotlin.run { descriptionTextView.visibility = View.GONE }
         }
 
         showYoutube(concert.concert.trailerUrl)
@@ -250,7 +259,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         if (ticketingUrl.isNullOrEmpty()) {
             ticketTextView.setText(getString(R.string.available_soon))
         } else {
-            ticketTextView.setText(getString(R.string.available_on), getString(R.string.buy_here) )
+            ticketTextView.setText(getString(R.string.available_on), getString(R.string.buy_here))
         }
         ticketTextView.hideArrow()
     }

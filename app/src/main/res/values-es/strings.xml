@@ -31,6 +31,7 @@
     <string name="use_your_favorite_apps">Comparte usando tu app preferida</string>
     <string name="are_you_ready_for_tonight">Estás listo para hoy?</string>
     <string name="let_find_out_together">Encontremos juntos tu próximo concierto.</string>
+    <string name="tba">Por anunciar</string>
 
     <!-- Error Messages -->
     <string name="error_default">Ha ocurrido un error, revisa tu conexión a internet y vuelve a intentarlo.</string>
