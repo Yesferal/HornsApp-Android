@@ -112,7 +112,7 @@
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_music_note"
+        android:src="@drawable/ic_mic"
         android:layout_marginStart="@dimen/margin_big"
         android:layout_marginEnd="@dimen/margin_small"
         app:layout_constraintTop_toTopOf="@+id/genreTextView"

@@ -64,7 +64,7 @@
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_music_note"
+        android:src="@drawable/ic_mic"
         android:layout_marginHorizontal="@dimen/margin_medium"
         app:layout_constraintTop_toTopOf="@+id/genreTextView"
         app:layout_constraintStart_toStartOf="@id/concertImageView"
