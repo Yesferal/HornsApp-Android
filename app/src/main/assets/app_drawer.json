@@ -1,6 +1,7 @@
 {
-  "_id": "6145745816f26725560c903f",
-  "versionCode": 27,
+  "docVersion": 1,
+  "appVersion": 28,
+  "platform": "android",
   "screens": [
     {
       "data": {
@@ -35,8 +36,8 @@
       "key": "CAROUSEL_VIEW",
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "count": 1,
-        "defaultValues": [
+        "take": 1,
+        "values": [
           "0"
         ]
       }
@@ -48,7 +49,7 @@
       },
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "defaultValues": [
+        "values": [
           "FIRST_NEWEST_LIST"
         ]
       }
@@ -64,7 +65,7 @@
       },
       "condition": {
         "key": "SORT_BY_UPCOMING_DATE",
-        "count": 3
+        "take": 3
       },
       "navigation": {
         "key": "UPCOMING"
@@ -97,7 +98,7 @@
       },
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "defaultValues": [
+        "values": [
           "SECOND_NEWEST_LIST"
         ]
       }
@@ -137,8 +138,8 @@
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
-        "value": "METAL",
-        "count": "3"
+        "filter": "METAL",
+        "take": "3"
       }
     },
     {
@@ -169,7 +170,7 @@
       },
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "defaultValues": [
+        "values": [
           "FIRST_NEWEST_LIST"
         ]
       }
@@ -210,8 +211,8 @@
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
-        "value": "EUROPE",
-        "count": 3
+        "filter": "EUROPE",
+        "take": 3
       }
     },
     {
@@ -243,7 +244,7 @@
       },
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "defaultValues": [
+        "values": [
           "SECOND_NEWEST_LIST"
         ]
       }
@@ -283,8 +284,8 @@
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
-        "value": "ROCK",
-        "count": 3
+        "filter": "ROCK",
+        "take": 3
       }
     },
     {
@@ -311,7 +312,7 @@
       },
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "defaultValues": [
+        "values": [
           "FIRST_NEWEST_LIST"
         ]
       }
@@ -351,8 +352,8 @@
       },
       "condition": {
         "key": "FILTER_BY_CATEGORY",
-        "value": "AMERICA",
-        "count": 3
+        "filter": "AMERICA",
+        "take": 3
       }
     },
     {
@@ -383,7 +384,7 @@
       },
       "condition": {
         "key": "PICK_FROM_DEFAULT_VALUES",
-        "defaultValues": [
+        "values": [
           "SECOND_NEWEST_LIST"
         ]
       }
@@ -420,7 +421,7 @@
         }
       },
       "condition": {
-        "value": "METAL"
+        "filter": "METAL"
       }
     },
     {
@@ -432,7 +433,7 @@
         }
       },
       "condition": {
-        "value": "ROCK"
+        "filter": "ROCK"
       }
     },
     {
@@ -444,7 +445,7 @@
         }
       },
       "condition": {
-        "value": "AMERICA"
+        "filter": "AMERICA"
       }
     },
     {
@@ -456,7 +457,7 @@
         }
       },
       "condition": {
-        "value": "EUROPE"
+        "filter": "EUROPE"
       }
     }
   ]

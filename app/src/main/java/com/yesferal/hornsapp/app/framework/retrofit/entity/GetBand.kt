@@ -10,7 +10,8 @@ data class GetBand(
     val images: BandImages?,
     val about: LocalizedString?,
     val country: LocalizedString?,
-    val formerIn: String?
+    val formerIn: Int?,
+    val genres: List<String>?,
 ) {
     fun mapToBand(): Band {
         return Band(
@@ -18,9 +19,10 @@ data class GetBand(
             name = this.name,
             membersImage = this.images?.members,
             logoImage = this.images?.logo,
-            description = this.about?.text,
+            about = this.about?.text,
             country = this.country?.text,
-            genre = this.formerIn
+            formerIn = this.formerIn,
+            genres = this.genres
         )
     }
 }

@@ -7,17 +7,21 @@ import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
 data class GetVenue (
     val _id: String,
     val name: LocalizedString?,
+    val description: LocalizedString?,
     val mapSearchName: String?,
     val latitude: String?,
-    val longitude: String?
+    val longitude: String?,
+    val imageUrl: String?,
 ) {
     fun mapToVenue(): Venue {
         return Venue(
             this._id,
             this.name?.text,
+            this.description?.text,
             this.mapSearchName,
             this.latitude,
-            this.longitude
+            this.longitude,
+            this.imageUrl
         )
     }
 }

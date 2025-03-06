@@ -61,7 +61,7 @@ data class ConcertViewData(
             put(FragmentNavigator.PARAM_TITLE, concert.name.orEmpty())
             put(FragmentNavigator.PARAM_BEGIN_TIME, beginTime)
             put(FragmentNavigator.PARAM_END_TIME, endTime)
-            put(FragmentNavigator.PARAM_DESCRIPTION, concert.description.orEmpty())
+            put(FragmentNavigator.PARAM_DESCRIPTION, concert.about.orEmpty())
             put(FragmentNavigator.PARAM_EVENT_LOCATION, concert.venue?.name.orEmpty())
         }
     }
@@ -70,7 +70,7 @@ data class ConcertViewData(
 data class VenueViewData(
     val venue: Venue
 ) : NavViewData {
-    private val query = Uri.encode(venue.name)
+    private val query = Uri.encode(venue.mapSearchName)
     private val uri = StringBuilder()
         .append("geo:")
         .append(venue.latitude.orEmpty())
@@ -82,7 +82,7 @@ data class VenueViewData(
 
     override fun toMap(): Parameters {
         return Parameters().apply {
-            if (venue.name != null && venue.latitude != null && venue.longitude != null) {
+            if (venue.mapSearchName != null && venue.latitude != null && venue.longitude != null) {
                 put(FragmentNavigator.PARAM_ANDROID_URI, uri)
             }
         }

@@ -74,9 +74,9 @@ class UpcomingViewModel(
     ) = withContext(Dispatchers.IO) {
         val categories = categoryDrawer.map { category ->
                 CategoryViewData(
-                    category.condition?.value.orEmpty(),
+                    category.condition?.filter.orEmpty(),
                     category.data?.title?.text.orEmpty(),
-                    categoryCondition == category.condition?.value
+                    categoryCondition == category.condition?.filter
                 )
             }
 
@@ -112,13 +112,13 @@ class UpcomingViewModel(
 
                         delegates.add(UpcomingViewData(
                             id = it.id,
-                            image = it.headlinerImage,
+                            image = it.headlinerImageUrl,
                             day = it.timeInMillis.dayFormatted(),
                             month = it.timeInMillis.monthFormatted(),
                             year = it.timeInMillis.yearFormatted(),
                             name = it.name,
                             time = it.timeInMillis.timeFormatted(),
-                            genre = it.genre
+                            headlinerName = it.headlinerName
                         ))
                     }
 

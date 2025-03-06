@@ -142,11 +142,11 @@ data class IconHomeCardViewData(
 data class CarouselViewData(
     val id: String,
     val name: String?,
-    val image: String?,
     val time: String?,
-    val genre: String?,
+    val headlinerName: String?,
+    val headlinerUrl: String?,
     val ticketingUrl: String?,
-    val ticketingHost: String?
+    val ticketingName: String?
 ) : InteractiveDelegate<CarouselViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_carousel
@@ -163,14 +163,14 @@ data class CarouselViewData(
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
         view.findViewById<TextView>(R.id.timeTextView).setUpWith(time)
-        view.findViewById<TextView>(R.id.genreTextView).setUpWith(genre)
+        view.findViewById<TextView>(R.id.genreTextView).setUpWith(headlinerName)
 
         val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
-        concertImageView.load(image)
+        concertImageView.load(headlinerUrl)
 
         val buyTicketsTextView = view.findViewById<TextView>(R.id.buyTicketsTextView)
 
-        buyTicketsTextView.setUpCTA(ticketingHost, ticketingUrl) {
+        buyTicketsTextView.setUpCTA(ticketingName, ticketingUrl) {
             ticketingUrl?.let { listener.onTicketingClick(it) }
         }
 

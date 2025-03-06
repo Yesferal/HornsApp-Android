@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.framework.file.FileReaderManager
+import com.yesferal.hornsapp.app.framework.gson.GsonDataSource
 import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.navigator.AppNavigator
 import com.yesferal.hornsapp.app.framework.navigator.DialogNavigator
@@ -42,9 +43,16 @@ fun Container.registerFrameworkModule() {
             context = resolve(),
             name = "hornsapp-shared-preferences.sp",
             apiConstants = ApiConstants(),
-            gson = resolve(),
+            gsonDataSource = resolve(),
             fileReaderManager = resolve(),
             packageInfoDataSource = resolve()
+        )
+    }
+
+    this register Factory {
+        GsonDataSource(
+            resolve(),
+            resolve()
         )
     }
 

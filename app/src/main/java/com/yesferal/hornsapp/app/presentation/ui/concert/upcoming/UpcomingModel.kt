@@ -25,7 +25,7 @@ data class UpcomingViewData(
     val month: String?,
     val year: String?,
     val time: String?,
-    val genre: String?
+    val headlinerName: String?
 ) : InteractiveDelegate<UpcomingViewData.Listener>, Parcelable {
 
     override val layout = R.layout.item_upcoming
@@ -47,7 +47,7 @@ data class UpcomingViewData(
         view.findViewById<TextView>(R.id.dayTextView).setUpWith(day)
         view.findViewById<TextView>(R.id.monthTextView).setUpWith(month)
         view.findViewById<TextView>(R.id.timeTextView).setUpWith(time)
-        view.findViewById<TextView>(R.id.genreTextView).setUpWith(genre)
+        view.findViewById<TextView>(R.id.genreTextView).setUpWith(headlinerName)
 
         val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
         concertImageView.setAllCornersRounded()

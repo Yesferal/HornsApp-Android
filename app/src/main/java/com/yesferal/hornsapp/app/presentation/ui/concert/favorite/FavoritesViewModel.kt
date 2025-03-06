@@ -57,13 +57,13 @@ class FavoritesViewModel(
                             delegates.add(
                                 UpcomingViewData(
                                     id = it.id,
-                                    image = it.headlinerImage,
+                                    image = it.headlinerImageUrl,
                                     day = it.timeInMillis.dayFormatted(),
                                     month = it.timeInMillis.monthFormatted(),
                                     year = it.timeInMillis.yearFormatted(),
                                     name = it.name,
                                     time = it.timeInMillis.timeFormatted(),
-                                    genre = it.genre
+                                    headlinerName = it.headlinerName
                                 )
                             )
                         }

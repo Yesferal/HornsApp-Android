@@ -43,7 +43,7 @@ class OnBoardingViewModel(
                     is HaResult.Success -> {
                         val concerts = result.value
                         val categoryDelegates = categoryDrawer.map { drawer ->
-                            val amount = filterConcertsByCategoryUseCase(concerts, drawer.condition?.value).size
+                            val amount = filterConcertsByCategoryUseCase(concerts, drawer.condition?.filter).size
                             OnBoardingCategoryViewData(drawer.data?.title?.text.orEmpty(), amount)
                         }
                         val delegates = mutableListOf<Delegate>()

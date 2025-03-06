@@ -181,19 +181,18 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ViewDrawer
     ): List<Delegate> {
-        logger.d("Values: ${screenDrawer.condition?.defaultValues}")
         return concerts
-            .filter { screenDrawer.condition?.defaultValues?.contains(it.id) == true }
-            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .filter { screenDrawer.condition?.values?.contains(it.id) == true }
+            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
             .map {
                 CarouselViewData(
                     id = it.id,
-                    image = it.headlinerImage,
                     name = it.name,
                     time = it.timeInMillis.dateTimeFormatted(),
-                    genre = it.genre,
+                    headlinerName = it.headlinerName,
+                    headlinerUrl = it.headlinerImageUrl,
+                    ticketingName = it.ticketingName,
                     ticketingUrl = it.ticketingUrl,
-                    ticketingHost = it.ticketingHost
                 )
             }
     }
@@ -204,17 +203,17 @@ class NewestViewModel(
     ): List<Delegate> {
         return concerts
             .shuffled()
-            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
             .sortedWith(compareBy { it.timeInMillis })
             .map {
                 CarouselViewData(
                     id = it.id,
-                    image = it.headlinerImage,
                     name = it.name,
                     time = it.timeInMillis.dateTimeFormatted(),
-                    genre = it.genre,
+                    headlinerName = it.headlinerName,
+                    headlinerUrl = it.headlinerImageUrl,
+                    ticketingName = it.ticketingName,
                     ticketingUrl = it.ticketingUrl,
-                    ticketingHost = it.ticketingHost
                 )
             }
     }
@@ -224,17 +223,17 @@ class NewestViewModel(
         screenDrawer: ViewDrawer
     ): List<Delegate> {
         return concerts
-            .takeLast(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .takeLast(screenDrawer.condition?.take ?: Int.MAX_VALUE)
             .reversed()
             .map {
                 CarouselViewData(
                     id = it.id,
-                    image = it.headlinerImage,
                     name = it.name,
                     time = it.timeInMillis.dateTimeFormatted(),
-                    genre = it.genre,
+                    headlinerName = it.headlinerName,
+                    headlinerUrl = it.headlinerImageUrl,
+                    ticketingName = it.ticketingName,
                     ticketingUrl = it.ticketingUrl,
-                    ticketingHost = it.ticketingHost
                 )
             }
     }
@@ -245,14 +244,14 @@ class NewestViewModel(
     ): List<Delegate> {
         return concerts
             .sortedWith(compareBy { it.timeInMillis })
-            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
             .map { concert ->
                 NewestViewData(
                     id = concert.id,
                     day = concert.timeInMillis.dayFormatted(),
                     month = concert.timeInMillis.monthFormatted(),
                     name = concert.name,
-                    ticketingHostName = concert.ticketingHost
+                    ticketingHostName = concert.ticketingName
                 )
             }
     }
@@ -262,20 +261,20 @@ class NewestViewModel(
         screenDrawer: ViewDrawer
     ): List<Delegate> {
         return concerts
-            .filter { it.tags?.contains(screenDrawer.condition?.value) == true }
+            .filter { it.tags?.contains(screenDrawer.condition?.filter) == true }
             .shuffled()
-            .take(screenDrawer.condition?.count ?: Int.MAX_VALUE)
+            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
             .sortedWith(compareBy { it.timeInMillis })
             .map { concert ->
                 UpcomingViewData(
                     id = concert.id,
-                    image = concert.headlinerImage,
+                    image = concert.headlinerImageUrl,
                     day = concert.timeInMillis.dayFormatted(),
                     month = concert.timeInMillis.monthFormatted(),
                     year = concert.timeInMillis.yearFormatted(),
                     name = concert.name,
                     time = concert.timeInMillis.timeFormatted(),
-                    genre = concert.genre
+                    headlinerName = concert.headlinerName
                 )
             }
     }
@@ -324,7 +323,7 @@ class NewestViewModel(
             AdViewData(
                 businessModelFactoryProducer.getViewFactory(),
                 viewDrawer.data?.height,
-                AdUnitIds.valueOfOrNull(viewDrawer.condition?.defaultValues?.first())
+                AdUnitIds.valueOfOrNull(viewDrawer.condition?.values?.firstOrNull())
             )
         )
         this.addVerticalDivider(24)

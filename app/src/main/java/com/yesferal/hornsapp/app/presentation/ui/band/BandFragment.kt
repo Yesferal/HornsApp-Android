@@ -92,9 +92,9 @@ class BandFragment : RenderFragment<BandViewState>() {
     private fun show(band: Band) {
         membersImageView.load(band.membersImage)
         logoImageView.load(band.logoImage)
-        genreTextView.setUpWith(band.genre)
+        genreTextView.setUpWith(band.formerIn?.toString())
         countryTextView.setUpWith(band.country)
-        descriptionTextView.setUpWith(band.description)
+        descriptionTextView.setUpWith(band.about)
     }
 
     private fun showProgress() {

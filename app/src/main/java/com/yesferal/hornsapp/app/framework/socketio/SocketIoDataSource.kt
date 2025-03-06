@@ -28,17 +28,17 @@ class SocketIoDataSource(
     private lateinit var socket: Socket
 
     private val _homeDrawer =
-        MutableStateFlow(drawerStorageDataSource.getAppDrawer().screens ?: listOf())
+        MutableStateFlow(drawerStorageDataSource.getAppDrawer()?.screens ?: listOf())
     override val homeDrawer: StateFlow<List<ViewDrawer>>
         get() = _homeDrawer
 
     private val _newestDrawer =
-        MutableStateFlow(drawerStorageDataSource.getAppDrawer().newest ?: listOf())
+        MutableStateFlow(drawerStorageDataSource.getAppDrawer()?.newest ?: listOf())
     override val newestDrawer: StateFlow<List<ViewDrawer>>
         get() = _newestDrawer
 
     private val _categoryDrawer =
-        MutableStateFlow(drawerStorageDataSource.getAppDrawer().categories ?: listOf())
+        MutableStateFlow(drawerStorageDataSource.getAppDrawer()?.categories ?: listOf())
     override val categoryDrawer: StateFlow<List<ViewDrawer>>
         get() = _categoryDrawer
 
@@ -72,6 +72,8 @@ class SocketIoDataSource(
             try {
                 logger.d("Socket On (updateDrawer): ${it[0]}")
                 appDrawer = gson.fromJson(it[0].toString(), AppDrawer::class.java)
+
+                // TODO: Validate docVersion before we save the AppDrawer doc
                 drawerStorageDataSource.updateAppDrawer(appDrawer)
                 _homeDrawer.value = appDrawer.screens ?: listOf()
                 _newestDrawer.value = appDrawer.newest ?: listOf()

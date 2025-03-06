@@ -173,7 +173,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
 
         viewState.bands.let {
             if (it.isNullOrEmpty()) {
-                val headliner = viewState.concert?.concert?.headlinerImage
+                val headliner = viewState.concert?.concert?.headlinerImageUrl
                 show(
                     listOf(
                         BandViewData(null, getString(R.string.tba), headliner, 0, 0)
@@ -205,10 +205,10 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
             concertViewModel.onFavoriteImageViewClick(concert, isChecked)
         }
 
-        enableTicketPurchase(concert.concert.ticketingUrl, concert.concert.ticketingHost)
+        enableTicketPurchase(concert.concert.ticketingUrl, concert.concert.ticketingName)
 
         venueTextView.apply {
-            concert.concert.venue?.shortName?.let { venueName ->
+            concert.concert.venue?.name?.let { venueName ->
                 setImageView(R.drawable.ic_map)
                 setText(venueName, getString(R.string.go_to_maps))
                 showArrow()
@@ -232,15 +232,16 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
         }
 
         descriptionTextView.apply {
-            concert.concert.description?.let { description ->
+            concert.concert.about?.let { description ->
                 setImageView(R.drawable.ic_information)
                 setText(getString(R.string.about), description)
                 hideArrow()
             } ?: kotlin.run { descriptionTextView.visibility = View.GONE }
         }
 
-        showYoutube(concert.concert.trailerUrl)
-        showFacebook(concert.concert.facebookUrl)
+        // TODO: Replace this. Use Links instead
+        //showYoutube(concert.concert.trailerUrl)
+        //showFacebook(concert.concert.facebookUrl)
     }
 
     private fun show(bands: List<BandViewData>) {

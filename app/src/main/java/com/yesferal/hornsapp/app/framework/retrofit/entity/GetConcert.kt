@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
+import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
 import java.util.*
 
 data class GetConcert(
@@ -13,7 +14,7 @@ data class GetConcert(
     val headliner: ConcertComponent?,
     val ticketing: ConcertComponent?,
     val totalDays: Int?,
-    val links: List<ConcertLinks>?,
+    val links: List<ViewDrawer>?,
     val tags: List<String>?,
     val venue: GetVenue?,
     val state: GetState?,
@@ -24,15 +25,17 @@ data class GetConcert(
 
         return Concert.Builder(this._id)
             .addName(this.name)
-            .addDescription(this.about?.text)
+            .addAbout(this.about?.text)
             .addTimeInMillis(this.dateTime?.time)
-            .addGenre(this.headliner?.name)
-            .addHeadlinerImage(this.headliner?.url)
-            .addTicketingHost(this.ticketing?.name)
-            .addTicketingUrl(this.ticketing?.url)
             .addTotalDays(this.totalDays)
+            .addHeadlinerName(this.headliner?.name)
+            .addHeadlinerImageUrl(this.headliner?.url)
+            .addTicketingName(this.ticketing?.name)
+            .addTicketingUrl(this.ticketing?.url)
+            .addLinks(this.links)
             .addTags(this.tags)
             .addVenue(this.venue?.mapToVenue())
+            .addState(this.state?.mapToState())
             .addBands(this.bands?.map { it.mapToBand() })
             .isFavorite(isFavorite)
             .build()
@@ -41,12 +44,5 @@ data class GetConcert(
 
 data class ConcertComponent (
     val name: String,
-    val url: String,
-)
-
-data class ConcertLinks (
-    val key: String,
-    val name: LocalizedString,
-    val icon: String,
     val url: String,
 )

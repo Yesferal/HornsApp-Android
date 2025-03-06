@@ -17,9 +17,9 @@ class RoomDataSource(
             RoomConcert(
                 concert.id,
                 concert.name,
-                concert.headlinerImage,
+                concert.headlinerName,
+                concert.headlinerImageUrl,
                 concert.timeInMillis,
-                concert.genre
             )
         )
     }
@@ -31,9 +31,9 @@ class RoomDataSource(
             RoomConcert(
                 concert.id,
                 concert.name,
-                concert.headlinerImage,
+                concert.headlinerName,
+                concert.headlinerImageUrl,
                 concert.timeInMillis,
-                concert.genre
             )
         )
     }

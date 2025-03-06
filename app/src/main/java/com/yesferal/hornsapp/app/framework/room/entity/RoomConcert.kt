@@ -9,15 +9,15 @@ import com.yesferal.hornsapp.core.domain.entity.Concert
 data class RoomConcert(
     @PrimaryKey val id: String,
     @ColumnInfo val name: String?,
-    @ColumnInfo val headlinerImage: String?,
+    @ColumnInfo val headlinerName: String?,
+    @ColumnInfo val headlinerImageUrl: String?,
     @ColumnInfo val timeInMillis: Long?,
-    @ColumnInfo val genre: String?,
 ) {
     fun mapAsFavoriteConcert() = Concert.Builder(id)
         .addName(name)
-        .addHeadlinerImage(headlinerImage)
+        .addHeadlinerName(headlinerName)
+        .addHeadlinerImageUrl(headlinerImageUrl)
         .addTimeInMillis(timeInMillis)
-        .addGenre(genre)
         .isFavorite(true)
         .build()
 }
