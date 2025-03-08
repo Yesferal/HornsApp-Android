@@ -11,7 +11,7 @@ import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetReviewUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -37,10 +37,10 @@ class ReviewViewModel(
                         val delegates = mutableListOf<Delegate>()
                         result.value.views?.forEach {
                             when(it.type) {
-                                ViewDrawer.Type.TITLE_REVIEW_CARD_VIEW -> {
+                                ViewRender.Type.TITLE_REVIEW_CARD_VIEW -> {
                                     delegates.add(TitleReviewViewData(it.data?.title?.text))
                                 }
-                                ViewDrawer.Type.SUBTITLE_REVIEW_CARD_VIEW -> {
+                                ViewRender.Type.SUBTITLE_REVIEW_CARD_VIEW -> {
                                     delegates.add(TitleViewData(
                                         it.data?.title?.text,
                                         it.data?.subtitle?.text,
@@ -48,13 +48,13 @@ class ReviewViewModel(
                                         it.data?.icon
                                     ))
                                 }
-                                ViewDrawer.Type.IMAGE_REVIEW_CARD_VIEW -> {
+                                ViewRender.Type.IMAGE_REVIEW_CARD_VIEW -> {
                                     delegates.add(ImageReviewViewData(it.data?.imageUrl, it.data?.description?.text))
                                 }
-                                ViewDrawer.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
+                                ViewRender.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
                                     delegates.add(DescriptionReviewViewData(it.data?.description?.text))
                                 }
-                                ViewDrawer.Type.BUTTON_CARD_VIEW -> {
+                                ViewRender.Type.BUTTON_CARD_VIEW -> {
                                     delegates.add(RenderButtonViewData(it.data?.title?.text, it.navigation))
                                 }
                                 else -> { }

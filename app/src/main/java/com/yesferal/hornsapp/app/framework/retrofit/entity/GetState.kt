@@ -3,7 +3,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.State
-import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
+import com.yesferal.hornsapp.core.domain.entity.util.LocalizedString
 
 data class GetState(
     val _id: String,

@@ -17,10 +17,10 @@ import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.AdViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
-import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
+import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
-import com.yesferal.hornsapp.core.domain.entity.drawer.CategoryDrawer
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.entity.render.CategoryRender
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetUpcomingConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -34,19 +34,19 @@ class UpcomingViewModel(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getUpcomingConcertsUseCase: GetUpcomingConcertsUseCase,
     private val settingsRepository: SettingsRepository,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: RenderRepository
 ) : ViewModel() {
 
     private val _stateUpcoming = MutableLiveData<DelegateViewState>()
     val stateUpcoming: LiveData<DelegateViewState>
         get() = _stateUpcoming
 
-    private lateinit var categoryDrawer: List<ViewDrawer>
+    private lateinit var categoryDrawer: List<ViewRender>
 
     init {
         viewModelScope.launch {
             delay(settingsRepository.screenDelay)
-            drawerRepository.getCategoryDrawer().collect {
+            drawerRepository.getCategoryRender().collect {
                 categoryDrawer = it
                 onRender()
             }
@@ -55,14 +55,14 @@ class UpcomingViewModel(
 
     private fun onRender() {
         viewModelScope.launch {
-            _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.ALL)
+            _stateUpcoming.value = getUpcomingConcertsWith(CategoryRender.ALL)
         }
     }
 
     fun onCategoryClick(categoryViewData: CategoryViewData) {
         viewModelScope.launch {
             if (categoryViewData.isSelected) {
-                _stateUpcoming.value = getUpcomingConcertsWith(CategoryDrawer.ALL)
+                _stateUpcoming.value = getUpcomingConcertsWith(CategoryRender.ALL)
             } else {
                 _stateUpcoming.value = getUpcomingConcertsWith(categoryViewData.condition)
             }
@@ -169,14 +169,14 @@ class UpcomingViewModelFactory(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getUpcomingConcertsUseCase: GetUpcomingConcertsUseCase,
     private val settingsRepository: SettingsRepository,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: RenderRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             BusinessModelFactoryProducer::class.java,
             GetUpcomingConcertsUseCase::class.java,
             SettingsRepository::class.java,
-            DrawerRepository::class.java
+            RenderRepository::class.java
         ).newInstance(businessModelFactoryProducer, getUpcomingConcertsUseCase, settingsRepository, drawerRepository)
     }
 }

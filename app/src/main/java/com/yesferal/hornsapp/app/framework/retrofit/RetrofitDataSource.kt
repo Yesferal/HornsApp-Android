@@ -6,7 +6,7 @@ import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSourc
 import com.yesferal.hornsapp.core.data.abstraction.remote.ReviewRemoteDataSource
 import com.yesferal.hornsapp.core.domain.entity.Band
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.entity.drawer.ScreenRender
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import okhttp3.ResponseBody
 import retrofit2.Response

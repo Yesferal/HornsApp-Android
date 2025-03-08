@@ -2,8 +2,8 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
+import com.yesferal.hornsapp.core.domain.entity.util.LocalizedString
 import java.util.*
 
 data class GetConcert(
@@ -14,7 +14,7 @@ data class GetConcert(
     val headliner: ConcertComponent?,
     val ticketing: ConcertComponent?,
     val totalDays: Int?,
-    val links: List<ViewDrawer>?,
+    val links: List<ViewRender>?,
     val tags: List<String>?,
     val venue: GetVenue?,
     val state: GetState?,

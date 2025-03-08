@@ -2,7 +2,7 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.Venue
-import com.yesferal.hornsapp.core.domain.entity.drawer.LocalizedString
+import com.yesferal.hornsapp.core.domain.entity.util.LocalizedString
 
 data class GetVenue (
     val _id: String,

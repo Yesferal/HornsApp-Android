@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
@@ -17,17 +17,17 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: RenderRepository
 ) : ViewModel() {
     private val _state = MutableLiveData<HomeViewState>()
     val state: LiveData<HomeViewState>
         get() = _state
 
-    private lateinit var homeDrawer: List<ViewDrawer>
+    private lateinit var homeDrawer: List<ViewRender>
 
     init {
         viewModelScope.launch {
-            drawerRepository.getHomeDrawer().collect {
+            drawerRepository.getHomeRender().collect {
                 homeDrawer = it
                 onRefresh()
             }
@@ -63,12 +63,12 @@ class HomeViewModel(
 
 class HomeViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository
+    private val drawerRepository: RenderRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
-            DrawerRepository::class.java
+            RenderRepository::class.java
         ).newInstance(getConcertsUseCase, drawerRepository)
     }
 }

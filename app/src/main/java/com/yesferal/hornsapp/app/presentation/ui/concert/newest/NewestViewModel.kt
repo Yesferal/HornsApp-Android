@@ -18,11 +18,11 @@ import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
-import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.entity.drawer.ConditionDrawer
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.entity.render.ConditionRender
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -34,7 +34,7 @@ import kotlinx.coroutines.withContext
 class NewestViewModel(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository,
+    private val renderRepository: RenderRepository,
     private val logger: Logger
 ) : ViewModel() {
 
@@ -44,19 +44,19 @@ class NewestViewModel(
 
     init {
         viewModelScope.launch {
-            drawerRepository.getNewestDrawer().collect {
+            renderRepository.getNewestRender().collect {
                 onRender(it)
             }
         }
     }
 
-    private fun onRender(newestDrawer: List<ViewDrawer>) {
+    private fun onRender(newestDrawer: List<ViewRender>) {
         viewModelScope.launch {
             _stateNewest.value = getNewestConcerts(newestDrawer)
         }
     }
 
-    private suspend fun getNewestConcerts(newestDrawer: List<ViewDrawer>) =
+    private suspend fun getNewestConcerts(newestDrawer: List<ViewRender>) =
         withContext(Dispatchers.IO) {
             when (val result = getConcertsUseCase()) {
                 is HaResult.Success -> {
@@ -76,19 +76,19 @@ class NewestViewModel(
                     val delegates = mutableListOf<Delegate>()
                     newestDrawer.forEach {
                         when (it.type) {
-                            ViewDrawer.Type.CAROUSEL_VIEW -> {
+                            ViewRender.Type.CAROUSEL_VIEW -> {
                                 delegates.includeCarouselSection(concerts, it)
                             }
-                            ViewDrawer.Type.VERTICAL_LIST_VIEW -> {
+                            ViewRender.Type.VERTICAL_LIST_VIEW -> {
                                 delegates.includeVerticalSection(concerts, it)
                             }
-                            ViewDrawer.Type.ICON_HOME_CARD_VIEW -> {
+                            ViewRender.Type.ICON_HOME_CARD_VIEW -> {
                                 delegates.includeIconHomeCardSection(it)
                             }
-                            ViewDrawer.Type.IMAGE_HOME_CARD_VIEW -> {
+                            ViewRender.Type.IMAGE_HOME_CARD_VIEW -> {
                                 delegates.includeImageHomeCardSection(it)
                             }
-                            ViewDrawer.Type.AD_VIEW -> {
+                            ViewRender.Type.AD_VIEW -> {
                                 delegates.includeAdViewSection(it)
                             }
                             else -> {
@@ -114,7 +114,7 @@ class NewestViewModel(
 
     private fun MutableList<Delegate>.includeCarouselSection(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
@@ -131,7 +131,7 @@ class NewestViewModel(
 
     private fun MutableList<Delegate>.includeVerticalSection(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ) {
         val delegates = getConcertDelegates(concerts, screenDrawer)
 
@@ -153,19 +153,19 @@ class NewestViewModel(
 
     private fun getConcertDelegates(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ): List<Delegate> {
         return when (screenDrawer.condition?.type) {
-            ConditionDrawer.Type.SORT_BY_UPCOMING_DATE -> {
+            ConditionRender.Type.SORT_BY_UPCOMING_DATE -> {
                 sortByUpcomingDate(concerts, screenDrawer)
             }
-            ConditionDrawer.Type.FILTER_BY_CATEGORY -> {
+            ConditionRender.Type.FILTER_BY_CATEGORY -> {
                 filterByCategory(concerts, screenDrawer)
             }
-            ConditionDrawer.Type.SORT_BY_NEWEST_DATE -> {
+            ConditionRender.Type.SORT_BY_NEWEST_DATE -> {
                 sortByNewestDate(concerts, screenDrawer)
             }
-            ConditionDrawer.Type.PICK_FROM_DEFAULT_VALUES -> {
+            ConditionRender.Type.PICK_FROM_DEFAULT_VALUES -> {
                 val concertsFiltered = pickFromDefaultValues(concerts, screenDrawer)
                 return if (concertsFiltered.isEmpty()) {
                     sortByNewestDate(concerts, screenDrawer)
@@ -179,7 +179,7 @@ class NewestViewModel(
 
     private fun pickFromDefaultValues(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ): List<Delegate> {
         return concerts
             .filter { screenDrawer.condition?.values?.contains(it.id) == true }
@@ -199,7 +199,7 @@ class NewestViewModel(
 
     private fun sortRandomly(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ): List<Delegate> {
         return concerts
             .shuffled()
@@ -220,7 +220,7 @@ class NewestViewModel(
 
     private fun sortByNewestDate(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ): List<Delegate> {
         return concerts
             .takeLast(screenDrawer.condition?.take ?: Int.MAX_VALUE)
@@ -240,7 +240,7 @@ class NewestViewModel(
 
     private fun sortByUpcomingDate(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ): List<Delegate> {
         return concerts
             .sortedWith(compareBy { it.timeInMillis })
@@ -258,7 +258,7 @@ class NewestViewModel(
 
     private fun filterByCategory(
         concerts: List<Concert>,
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ): List<Delegate> {
         return concerts
             .filter { it.tags?.contains(screenDrawer.condition?.filter) == true }
@@ -280,7 +280,7 @@ class NewestViewModel(
     }
 
     private fun MutableList<Delegate>.includeIconHomeCardSection(
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ) {
         this.add(
             IconHomeCardViewData(
@@ -296,7 +296,7 @@ class NewestViewModel(
     }
 
     private fun MutableList<Delegate>.includeImageHomeCardSection(
-        screenDrawer: ViewDrawer
+        screenDrawer: ViewRender
     ) {
         this.add(
             TitleViewData(
@@ -317,7 +317,7 @@ class NewestViewModel(
     }
 
     private fun MutableList<Delegate>.includeAdViewSection(
-        viewDrawer: ViewDrawer
+        viewDrawer: ViewRender
     ) {
         this.add(
             AdViewData(
@@ -333,14 +333,14 @@ class NewestViewModel(
 class NewestViewModelFactory(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getConcertsUseCase: GetConcertsUseCase,
-    private val drawerRepository: DrawerRepository,
+    private val drawerRepository: RenderRepository,
     private val logger: Logger
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             BusinessModelFactoryProducer::class.java,
             GetConcertsUseCase::class.java,
-            DrawerRepository::class.java,
+            RenderRepository::class.java,
             Logger::class.java
         ).newInstance(businessModelFactoryProducer, getConcertsUseCase, drawerRepository, logger)
     }

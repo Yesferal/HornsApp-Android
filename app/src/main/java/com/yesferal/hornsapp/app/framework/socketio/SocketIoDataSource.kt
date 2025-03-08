@@ -3,11 +3,11 @@ package com.yesferal.hornsapp.app.framework.socketio
 
 import com.google.gson.Gson
 import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
-import com.yesferal.hornsapp.core.data.abstraction.remote.DrawerRemoteDataSource
-import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
+import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
+import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.entity.drawer.AppDrawer
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.entity.render.AppRender
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,35 +19,35 @@ class SocketIoDataSource(
     private val gson: Gson,
     private val logger: Logger,
     baseUrl: String,
-    drawerStorageDataSource: DrawerStorageDataSource,
+    drawerStorageDataSource: RenderStorageDataSource,
     packageInfoDataSource: PackageInfoDataSource
-) : DrawerRemoteDataSource {
-    private val VERSION = "versionCode"
+) : RenderRemoteDataSource {
+    private val APP_VERSION = "appVersion"
     private val PLATFORM = "platform"
 
     private lateinit var socket: Socket
 
-    private val _homeDrawer =
-        MutableStateFlow(drawerStorageDataSource.getAppDrawer()?.screens ?: listOf())
-    override val homeDrawer: StateFlow<List<ViewDrawer>>
-        get() = _homeDrawer
+    private val _homeRender =
+        MutableStateFlow(drawerStorageDataSource.getAppRender()?.screens ?: listOf())
+    override val homeRender: StateFlow<List<ViewRender>>
+        get() = _homeRender
 
-    private val _newestDrawer =
-        MutableStateFlow(drawerStorageDataSource.getAppDrawer()?.newest ?: listOf())
-    override val newestDrawer: StateFlow<List<ViewDrawer>>
-        get() = _newestDrawer
+    private val _newestRender =
+        MutableStateFlow(drawerStorageDataSource.getAppRender()?.newest ?: listOf())
+    override val newestRender: StateFlow<List<ViewRender>>
+        get() = _newestRender
 
-    private val _categoryDrawer =
-        MutableStateFlow(drawerStorageDataSource.getAppDrawer()?.categories ?: listOf())
-    override val categoryDrawer: StateFlow<List<ViewDrawer>>
-        get() = _categoryDrawer
+    private val _categoryRender =
+        MutableStateFlow(drawerStorageDataSource.getAppRender()?.categories ?: listOf())
+    override val categoryRender: StateFlow<List<ViewRender>>
+        get() = _categoryRender
 
     init {
         try {
             val versionCode = packageInfoDataSource.getVersionCode()
             val options = IO.Options()
             options.query = StringBuilder()
-                .append(VERSION)
+                .append(APP_VERSION)
                 .append("=")
                 .append(versionCode)
                 .append("&")
@@ -56,30 +56,31 @@ class SocketIoDataSource(
                 .append("android")
                 .toString()
             socket = IO.socket(URI(baseUrl), options)
-            logger.d("Success: " + socket.id())
+            logger.d("SocketIoDataSource: Success: URI(baseUrl): " + URI(baseUrl))
+            logger.d("SocketIoDataSource: Success: " + socket.id())
         } catch (e: Exception) {
-            logger.e("Fail: ${e.printStackTrace()}")
+            logger.e("SocketIoDataSource: Fail: ${e.printStackTrace()}")
         }
 
         socket.connect()
 
         socket.on("connect_error") {
-            logger.e("Socket On (connect_error): ${it[0]}")
+            logger.e("SocketIoDataSource: Socket On (connect_error): ${it[0]}")
         }
 
-        socket.on("updateDrawer") {
-            lateinit var appDrawer: AppDrawer
+        socket.on("updateAppRender") {
+            lateinit var appDrawer: AppRender
             try {
-                logger.d("Socket On (updateDrawer): ${it[0]}")
-                appDrawer = gson.fromJson(it[0].toString(), AppDrawer::class.java)
+                logger.d("SocketIoDataSource: Socket On (updateAppRender): ${it[0]}")
+                appDrawer = gson.fromJson(it[0].toString(), AppRender::class.java)
 
                 // TODO: Validate docVersion before we save the AppDrawer doc
-                drawerStorageDataSource.updateAppDrawer(appDrawer)
-                _homeDrawer.value = appDrawer.screens ?: listOf()
-                _newestDrawer.value = appDrawer.newest ?: listOf()
-                _categoryDrawer.value = appDrawer.categories ?: listOf()
+                drawerStorageDataSource.updateAppRender(appDrawer)
+                _homeRender.value = appDrawer.screens ?: listOf()
+                _newestRender.value = appDrawer.newest ?: listOf()
+                _categoryRender.value = appDrawer.categories ?: listOf()
             } catch (e: java.lang.Exception) {
-                logger.e("Socket On (updateDrawer): ${e.message.orEmpty()}")
+                logger.e("SocketIoDataSource: Socket On (updateDrawer): ${e.message.orEmpty()}")
             }
         }
     }

@@ -25,12 +25,12 @@ import com.yesferal.hornsapp.app.framework.room.RoomDataSource
 import com.yesferal.hornsapp.app.framework.socketio.SocketIoDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
-import com.yesferal.hornsapp.core.data.abstraction.remote.DrawerRemoteDataSource
+import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ReviewRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.ConcertStorageDataSource
-import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
+import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.dependency.Factory
 import com.yesferal.hornsapp.hadi.dependency.Singleton
@@ -64,7 +64,7 @@ fun Container.registerFrameworkModule() {
         resolve<PreferencesDataSource>()
     }
 
-    this register Factory<DrawerStorageDataSource> {
+    this register Factory<RenderStorageDataSource> {
         resolve<PreferencesDataSource>()
     }
 
@@ -138,7 +138,7 @@ fun Container.registerFrameworkModule() {
         )
     }
 
-    this register Factory<DrawerRemoteDataSource> {
+    this register Factory<RenderRemoteDataSource> {
         resolve<SocketIoDataSource>()
     }
 

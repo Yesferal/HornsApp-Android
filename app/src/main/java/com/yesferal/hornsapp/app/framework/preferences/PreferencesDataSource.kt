@@ -6,10 +6,10 @@ import com.yesferal.hornsapp.app.framework.gson.GsonDataSource
 import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
-import com.yesferal.hornsapp.core.data.abstraction.storage.DrawerStorageDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
-import com.yesferal.hornsapp.core.domain.entity.drawer.AppDrawer
+import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
+import com.yesferal.hornsapp.core.domain.entity.render.AppRender
 
 class PreferencesDataSource(
     context: Context,
@@ -18,7 +18,7 @@ class PreferencesDataSource(
     private val gsonDataSource: GsonDataSource,
     private val fileReaderManager: FileReaderManager,
     private val packageInfoDataSource: PackageInfoDataSource
-) : EnvironmentDataSource, OnBoardingDataSource, DrawerStorageDataSource {
+) : EnvironmentDataSource, OnBoardingDataSource, RenderStorageDataSource {
 
     enum class Key {
         ENVIRONMENT,
@@ -53,21 +53,21 @@ class PreferencesDataSource(
         editor.apply()
     }
 
-    override fun getAppDrawer(): AppDrawer? {
-        val localStorageAppDrawer = gsonDataSource.fromJsonSafe(getAppDrawerAsString(), AppDrawer::class.java)
+    override fun getAppRender(): AppRender? {
+        val localStorageAppDrawer = gsonDataSource.fromJsonSafe(getAppDrawerAsString(), AppRender::class.java)
 
         // TODO: Fix this, should use null to validate instead of 0
-        val locaStorageAppDrawerAppVersion = localStorageAppDrawer?.appVersion ?: 0
-        ChainLoggerProvider.provideLogger().d("appDrawer.appVersion: ${locaStorageAppDrawerAppVersion}")
+        val localStorageAppDrawerAppVersion = localStorageAppDrawer?.appVersion ?: 0
+        ChainLoggerProvider.provideLogger().d("appDrawer.appVersion: $localStorageAppDrawerAppVersion")
         ChainLoggerProvider.provideLogger().d("packageInfoDataSource.getVersionCode(): ${packageInfoDataSource.getVersionCode()}")
 
         // Remove Local Storage AppDrawer data if it belong to a different version
         // This validate if user has a wrong AppDrawer version stored in shared preferences
-        if (locaStorageAppDrawerAppVersion < packageInfoDataSource.getVersionCode()) {
+        if (localStorageAppDrawerAppVersion < packageInfoDataSource.getVersionCode()) {
             deleteAppDrawer()
             return gsonDataSource.fromJsonSafe(
                 fileReaderManager.getJsonDataFromAsset("app_drawer.json"),
-                AppDrawer::class.java
+                AppRender::class.java
             )
         }
 
@@ -85,9 +85,9 @@ class PreferencesDataSource(
         editor.apply()
     }
 
-    override fun updateAppDrawer(appDrawer: AppDrawer) {
+    override fun updateAppRender(appRender: AppRender) {
         val editor = sharedPreferences.edit()
-        editor.putString(Key.APP_DRAWER.name, gsonDataSource.toJsonSafe(appDrawer))
+        editor.putString(Key.APP_DRAWER.name, gsonDataSource.toJsonSafe(appRender))
         editor.apply()
     }
 }

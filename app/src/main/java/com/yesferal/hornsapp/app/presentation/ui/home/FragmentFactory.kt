@@ -5,14 +5,14 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragm
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 
 class FragmentFactory {
-    fun getFragment(type: ViewDrawer.Type): Fragment {
+    fun getFragment(type: ViewRender.Type): Fragment {
         return when (type) {
-            ViewDrawer.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
-            ViewDrawer.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
-            ViewDrawer.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
+            ViewRender.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
+            ViewRender.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
+            ViewRender.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
             else -> ErrorFragment.newInstance()
         }
     }

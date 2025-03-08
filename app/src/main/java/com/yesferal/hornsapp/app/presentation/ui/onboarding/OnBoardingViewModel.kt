@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yesferal.hornsapp.core.domain.abstraction.DrawerRepository
-import com.yesferal.hornsapp.core.domain.entity.drawer.ViewDrawer
+import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
+import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.FilterConcertsByCategoryUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateVisibilityOnBoardingUseCase
@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 class OnBoardingViewModel(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
-    private val drawerRepository: DrawerRepository,
+    private val drawerRepository: RenderRepository,
     private val filterConcertsByCategoryUseCase: FilterConcertsByCategoryUseCase
 ) : ViewModel() {
     private val _state = MutableLiveData<OnBoardingViewState>()
@@ -30,13 +30,13 @@ class OnBoardingViewModel(
 
     init {
         viewModelScope.launch {
-            drawerRepository.getCategoryDrawer().collect {
+            drawerRepository.getCategoryRender().collect {
                 onRender(it)
             }
         }
     }
 
-    private fun onRender(categoryDrawer: List<ViewDrawer>) {
+    private fun onRender(categoryDrawer: List<ViewRender>) {
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertsUseCase()) {
@@ -70,14 +70,14 @@ class OnBoardingViewModel(
 class OnBoardingViewModelFactory(
     private val getConcertsUseCase: GetConcertsUseCase,
     private val updateVisibilityOnBoardingUseCase: UpdateVisibilityOnBoardingUseCase,
-    private val drawerRepository: DrawerRepository,
+    private val drawerRepository: RenderRepository,
     private val filterConcertsByCategoryUseCase: FilterConcertsByCategoryUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             GetConcertsUseCase::class.java,
             UpdateVisibilityOnBoardingUseCase::class.java,
-            DrawerRepository::class.java,
+            RenderRepository::class.java,
             FilterConcertsByCategoryUseCase::class.java
         ).newInstance(getConcertsUseCase, updateVisibilityOnBoardingUseCase, drawerRepository, filterConcertsByCategoryUseCase)
     }
