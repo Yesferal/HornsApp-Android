@@ -4,13 +4,15 @@ package com.yesferal.hornsapp.app.framework.retrofit.entity
 import com.yesferal.hornsapp.core.domain.entity.Lineup
 import com.yesferal.hornsapp.core.domain.entity.Performance
 import com.yesferal.hornsapp.core.domain.entity.Stage
+import com.yesferal.hornsapp.core.domain.entity.util.LocalizedString
 import java.util.Date
 
 class GetLineup(
+    val day: LocalizedString?,
     val stages: List<GetStage>?
 ) {
     fun mapToLineup(): Lineup {
-        return Lineup(stages = stages?.map { it.mapToStage() })
+        return Lineup(day = day?.text, stages = stages?.map { it.mapToStage() })
     }
 }
 

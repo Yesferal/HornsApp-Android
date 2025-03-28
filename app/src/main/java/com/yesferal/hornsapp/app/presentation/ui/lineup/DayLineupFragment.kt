@@ -3,6 +3,8 @@ package com.yesferal.hornsapp.app.presentation.ui.lineup
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -12,6 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.FragmentFactory
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewState
@@ -24,6 +27,8 @@ class DayLineupFragment : RenderFragment<HomeViewState>() {
     private lateinit var tabLayout: TabLayout
     private lateinit var customProgressBar: View
     private lateinit var lineUpViewPager: ViewPager2
+    private lateinit var closeImageView: ImageView
+    private lateinit var titleTextView: TextView
     private lateinit var viewModel: LineupViewModel
     private val args: DayLineupFragmentArgs by navArgs()
 
@@ -42,9 +47,16 @@ class DayLineupFragment : RenderFragment<HomeViewState>() {
         tabLayout = view.findViewById(R.id.tabLayout)
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
+        titleTextView = view.findViewById(R.id.titleTextView)
+        closeImageView = view.findViewById(R.id.closeImageView)
+        closeImageView.setOnClickListener {
+            activity?.onBackPressedDispatcher?.onBackPressed()
+        }
+
         viewModel = getViewModel<LineupViewModel, LineupViewModelFactory>(param = lineup.id)
 
         viewModel.state.observe(viewLifecycleOwner) {
+            titleTextView.setUpWith(it.day)
             render(
                 HomeViewState(
                     it.headers?.map {

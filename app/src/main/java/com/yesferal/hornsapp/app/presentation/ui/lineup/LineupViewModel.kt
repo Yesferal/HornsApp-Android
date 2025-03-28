@@ -29,6 +29,7 @@ class LineupViewModel(
                     is HaResult.Success -> {
                         val lineup = result.value.lineup
                         LineupViewState(
+                            day = lineup?.firstOrNull()?.day,
                             headers = lineup?.firstOrNull()?.stages?.mapNotNull { it.title },
                             stages = lineup?.firstOrNull()?.stages
                         )
