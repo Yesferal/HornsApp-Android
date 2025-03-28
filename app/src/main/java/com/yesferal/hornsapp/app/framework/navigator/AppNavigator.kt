@@ -28,8 +28,11 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
             }
             ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
             ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
-            ScreenType.REVIEW -> getDirectionToDetail(navigator.parameters) {
-                getDirectionToReview(it)
+            ScreenType.SCREEN_RENDER -> getDirectionToDetail(navigator.parameters) {
+                getDirectionToScreenRender(it)
+            }
+            ScreenType.LINEUP -> getDirectionToDetail(navigator.parameters) {
+                getDirectionToLineup(it)
             }
             else -> null
         }
@@ -59,6 +62,12 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         return SplashFragmentDirections.actionToOnBoarding()
     }
 
+    private fun getDirectionToLineup(
+        parcelableViewData: ParcelableViewData
+    ): NavDirections {
+        return SplashFragmentDirections.actionToLineup(parcelableViewData)
+    }
+
     private fun getDirectionToSettings(): NavDirections {
         return HomeFragmentDirections.actionToSettings()
     }
@@ -74,10 +83,10 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         } else { null }
     }
 
-    private fun getDirectionToReview(
+    private fun getDirectionToScreenRender(
         parcelableViewData: ParcelableViewData
     ): NavDirections {
-        return HomeFragmentDirections.actionToReview(parcelableViewData)
+        return HomeFragmentDirections.actionToScreenRender(parcelableViewData)
     }
 
     private fun getDirectionToConcertDetail(

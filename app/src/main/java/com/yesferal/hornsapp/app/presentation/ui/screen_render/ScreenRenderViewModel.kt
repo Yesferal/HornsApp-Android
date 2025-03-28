@@ -1,5 +1,5 @@
-/* Copyright © 2023 HornsApp. All rights reserved. */
-package com.yesferal.hornsapp.app.presentation.ui.review
+/* Copyright © 2025 HornsApp. All rights reserved. */
+package com.yesferal.hornsapp.app.presentation.ui.screen_render
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.delegate.includeAdViewSection
+import com.yesferal.hornsapp.app.presentation.common.delegate.includeIconHomeCardSection
+import com.yesferal.hornsapp.app.presentation.common.delegate.includeImageHomeCardSection
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
@@ -20,12 +23,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ReviewViewModel(
+class ScreenRenderViewModel(
     id: String,
-    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getReviewUseCase: GetReviewUseCase,
+    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val logger: Logger
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _stateReview = MutableLiveData<DelegateViewState>()
     val stateReview: LiveData<DelegateViewState>
@@ -34,8 +37,7 @@ class ReviewViewModel(
     init {
         viewModelScope.launch {
             val stateReview = withContext(Dispatchers.IO) {
-                val result = getReviewUseCase(id)
-                when (result) {
+                when (val result = getReviewUseCase(id)) {
                     is HaResult.Success -> {
                         val delegates = mutableListOf<Delegate>()
                         result.value.views?.forEach {
@@ -59,6 +61,15 @@ class ReviewViewModel(
                                 }
                                 ViewRender.Type.BUTTON_CARD_VIEW -> {
                                     delegates.add(RenderButtonViewData(it.data?.ctas?.firstOrNull()?.title?.text, it.navigation))
+                                }
+                                ViewRender.Type.ICON_CARD_VIEW -> {
+                                    delegates.includeIconHomeCardSection(it)
+                                }
+                                ViewRender.Type.CARD_VIEW -> {
+                                    delegates.includeImageHomeCardSection(it)
+                                }
+                                ViewRender.Type.AD_VIEW -> {
+                                    delegates.includeAdViewSection(businessModelFactoryProducer, it)
                                 }
                                 else -> { }
                             }
@@ -84,22 +95,22 @@ class ReviewViewModel(
     }
 }
 
-class ReviewViewModelFactory(
+class ScreenRenderViewModelFactory(
     private val id: String,
-    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getReviewUseCase: GetReviewUseCase,
+    private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val logger: Logger,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
-            BusinessModelFactoryProducer::class.java,
             GetReviewUseCase::class.java,
+            BusinessModelFactoryProducer::class.java,
             Logger::class.java
         ).newInstance(
             id,
-            businessModelFactoryProducer,
             getReviewUseCase,
+            businessModelFactoryProducer,
             logger
         )
     }

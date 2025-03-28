@@ -4,6 +4,7 @@ package com.yesferal.hornsapp.app.presentation.ui.lineup
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -17,19 +18,23 @@ import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewState
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
-class LineupFragment : RenderFragment<HomeViewState>() {
-    override val layout = R.layout.fragment_lineup
+class DayLineupFragment : RenderFragment<HomeViewState>() {
+    override val layout = R.layout.fragment_day_lineup
 
     private lateinit var tabLayout: TabLayout
     private lateinit var customProgressBar: View
     private lateinit var lineUpViewPager: ViewPager2
     private lateinit var viewModel: LineupViewModel
-
-    // TODO: Make ID dynamic
-    private val ID = "67e61d62c644dc0fa6d3f8ec"
+    private val args: DayLineupFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val lineup = args.lineup
+        if (lineup?.id == null) {
+            activity?.onBackPressedDispatcher?.onBackPressed()
+            return
+        }
 
         customProgressBar = view.findViewById(R.id.customProgressBar)
         lineUpViewPager = view.findViewById(R.id.lineUpViewPager)
@@ -37,8 +42,7 @@ class LineupFragment : RenderFragment<HomeViewState>() {
         tabLayout = view.findViewById(R.id.tabLayout)
         tabLayout.addOnTabSelectedListener(instanceOnTabSelectedListener())
 
-        viewModel = getViewModel<LineupViewModel, LineupViewModelFactory>(param = ID)
-
+        viewModel = getViewModel<LineupViewModel, LineupViewModelFactory>(param = lineup.id)
 
         viewModel.state.observe(viewLifecycleOwner) {
             render(
@@ -55,7 +59,6 @@ class LineupFragment : RenderFragment<HomeViewState>() {
         viewState.screens?.let {
             showChildFragmentTitles(it)
         }
-
 
         if (viewState.isLoading) {
             showProgress()
@@ -84,7 +87,7 @@ class LineupFragment : RenderFragment<HomeViewState>() {
     }
 
     companion object {
-        fun newInstance() = LineupFragment()
+        fun newInstance() = DayLineupFragment()
     }
 }
 

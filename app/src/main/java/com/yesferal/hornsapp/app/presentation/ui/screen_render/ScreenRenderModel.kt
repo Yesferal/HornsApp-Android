@@ -1,5 +1,5 @@
 /* Copyright © 2023 HornsApp. All rights reserved. */
-package com.yesferal.hornsapp.app.presentation.ui.review
+package com.yesferal.hornsapp.app.presentation.ui.screen_render
 
 import android.view.View
 import android.widget.ImageView

@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.delegate.includeAdViewSection
+import com.yesferal.hornsapp.app.presentation.common.delegate.includeIconHomeCardSection
+import com.yesferal.hornsapp.app.presentation.common.delegate.includeImageHomeCardSection
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
@@ -89,7 +91,7 @@ class NewestViewModel(
                                 delegates.includeImageHomeCardSection(it)
                             }
                             ViewRender.Type.AD_VIEW -> {
-                                delegates.includeAdViewSection(it)
+                                delegates.includeAdViewSection(businessModelFactoryProducer, it)
                             }
                             else -> {
                                 return@forEach
@@ -230,56 +232,6 @@ class NewestViewModel(
                 }?: true
             }
             .take(screenDrawer.children?.take ?: Int.MAX_VALUE)
-    }
-
-    private fun MutableList<Delegate>.includeIconHomeCardSection(
-        screenDrawer: ViewRender
-    ) {
-        this.add(
-            IconHomeCardViewData(
-                screenDrawer.data?.title?.text,
-                screenDrawer.data?.subtitle?.text,
-                screenDrawer.data?.backgroundColor,
-                screenDrawer.data?.textColor,
-                screenDrawer.navigation,
-                screenDrawer.data?.icon
-            )
-        )
-        this.addVerticalDivider(24)
-    }
-
-    private fun MutableList<Delegate>.includeImageHomeCardSection(
-        screenDrawer: ViewRender
-    ) {
-        this.add(
-            TitleViewData(
-                screenDrawer.data?.title?.text,
-                screenDrawer.data?.subtitle?.text,
-                screenDrawer.navigation,
-                screenDrawer.data?.icon
-            )
-        )
-        this.add(
-            ImageHomeCardViewData(
-                screenDrawer.data?.description?.text,
-                screenDrawer.navigation,
-                screenDrawer.data?.imageUrl
-            )
-        )
-        this.addVerticalDivider(24)
-    }
-
-    private fun MutableList<Delegate>.includeAdViewSection(
-        viewDrawer: ViewRender
-    ) {
-        this.add(
-            AdViewData(
-                businessModelFactoryProducer.getViewFactory(),
-                viewDrawer.data?.height,
-                AdUnitIds.valueOfOrNull(viewDrawer.children?.key)
-            )
-        )
-        this.addVerticalDivider(24)
     }
 }
 

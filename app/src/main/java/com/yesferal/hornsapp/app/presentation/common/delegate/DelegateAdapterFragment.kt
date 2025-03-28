@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
-import com.yesferal.hornsapp.app.presentation.ui.review.ProgressBarViewData
+import com.yesferal.hornsapp.app.presentation.ui.screen_render.ProgressBarViewData
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 
