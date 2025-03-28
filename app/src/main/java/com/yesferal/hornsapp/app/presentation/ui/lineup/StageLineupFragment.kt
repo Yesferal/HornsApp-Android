@@ -3,14 +3,15 @@ package com.yesferal.hornsapp.app.presentation.ui.lineup
 
 import android.os.Bundle
 import android.view.View
+import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
-class StageLineupFragment : DelegateAdapterFragment(), TitleViewData.Listener {
+class StageLineupFragment : DelegateAdapterFragment(), LineupPerformanceViewData.Listener {
 
     private lateinit var viewModel: LineupViewModel
     // TODO: Make ID dynamic
@@ -26,13 +27,30 @@ class StageLineupFragment : DelegateAdapterFragment(), TitleViewData.Listener {
             getViewModel<LineupViewModel, LineupViewModelFactory>(param = ID)
 
         val position = arguments?.getInt(KEY_POSITION, 0) ?: 0
+
+        // TODO: Fix/Clean this logic
         viewModel.state.observe(viewLifecycleOwner) {
-            render(DelegateViewState(it.stages?.get(position)?.performances?.map { performance ->
+            var lineupStartTime = 1743253200000
+            val delegates = mutableListOf<Delegate>()
+            it.stages?.get(position)?.performances?.map { performance ->
+                ChainLoggerProvider.provideLogger().d("StageLineup: band: ${performance.title} . duration: ${performance.startTimeInMillis}")
                 val description = performance.startTimeInMillis.timeFormatted() + " - " + (performance.startTimeInMillis?.plus(
                     ((performance.duration ?: 60)* 60 * 1000)
                 )).timeFormatted()
-                TitleViewData(performance.title, description, null, "clock")
-            }))
+                if (lineupStartTime < (performance.startTimeInMillis ?: 0)) {
+                    delegates.add(LineupEmptyViewData(
+                        (performance.startTimeInMillis?.minus(
+                            lineupStartTime
+                        ))?.toInt()?.div(60000)
+                    ))
+                }
+
+                lineupStartTime = performance.startTimeInMillis?.plus(((performance.duration ?: 60)* 60 * 1000)) ?: 0
+
+                delegates.add(LineupPerformanceViewData(performance.title, description, performance.duration, null, "clock"))
+            }
+
+            render(DelegateViewState(delegates.toList()))
         }
     }
 
