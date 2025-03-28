@@ -74,9 +74,9 @@ class UpcomingViewModel(
     ) = withContext(Dispatchers.IO) {
         val categories = categoryDrawer.map { category ->
                 CategoryViewData(
-                    category.condition?.filter.orEmpty(),
+                    category.children?.filter.orEmpty(),
                     category.data?.title?.text.orEmpty(),
-                    categoryCondition == category.condition?.filter
+                    categoryCondition == category.children?.filter
                 )
             }
 

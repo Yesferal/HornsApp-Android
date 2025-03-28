@@ -54,6 +54,7 @@ class RetrofitDataSource(
         return try {
             request()
         } catch (e: Exception) {
+            //ChainLoggerProvider.provideLogger().d("Retrofit: safeCall: e: ${e}")
             Response.error(404, ResponseBody.create(null, String()))
         }
     }

@@ -19,6 +19,7 @@ data class GetConcert(
     val venue: GetVenue?,
     val state: GetState?,
     val bands: List<GetBand>?,
+    val lineup: List<GetLineup>?,
 ) {
     fun mapToConcert(): Concert {
         val isFavorite = false
@@ -38,11 +39,12 @@ data class GetConcert(
             .addState(this.state?.mapToState())
             .addBands(this.bands?.map { it.mapToBand() })
             .isFavorite(isFavorite)
+            .addLineup(lineup?.map { it.mapToLineup() })
             .build()
     }
 }
 
-data class ConcertComponent (
+data class ConcertComponent(
     val name: String,
     val url: String,
 )

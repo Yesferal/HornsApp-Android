@@ -3,6 +3,7 @@ package com.yesferal.hornsapp.app.presentation.di
 
 import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewModelFactory
+import com.yesferal.hornsapp.app.presentation.ui.lineup.LineupViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesViewModelFactory
@@ -97,7 +98,15 @@ fun Container.registerPresentationModule() {
         ReviewViewModelFactory(
             id = id,
             businessModelFactoryProducer = resolve(),
-            getReviewUseCase = resolve()
+            getReviewUseCase = resolve(),
+            logger = resolve()
+        )
+    }
+
+    this register Factory { (id: String) ->
+        LineupViewModelFactory(
+            id = id,
+            getConcertUseCase = resolve(),
         )
     }
 }

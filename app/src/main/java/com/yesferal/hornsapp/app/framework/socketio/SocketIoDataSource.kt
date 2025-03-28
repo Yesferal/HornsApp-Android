@@ -33,7 +33,7 @@ class SocketIoDataSource(
         get() = _homeRender
 
     private val _newestRender =
-        MutableStateFlow(drawerStorageDataSource.getAppRender()?.newest ?: listOf())
+        MutableStateFlow(drawerStorageDataSource.getAppRender()?.views ?: listOf())
     override val newestRender: StateFlow<List<ViewRender>>
         get() = _newestRender
 
@@ -77,7 +77,7 @@ class SocketIoDataSource(
                 // TODO: Validate docVersion before we save the AppDrawer doc
                 drawerStorageDataSource.updateAppRender(appDrawer)
                 _homeRender.value = appDrawer.screens ?: listOf()
-                _newestRender.value = appDrawer.newest ?: listOf()
+                _newestRender.value = appDrawer.views ?: listOf()
                 _categoryRender.value = appDrawer.categories ?: listOf()
             } catch (e: java.lang.Exception) {
                 logger.e("SocketIoDataSource: Socket On (updateDrawer): ${e.message.orEmpty()}")

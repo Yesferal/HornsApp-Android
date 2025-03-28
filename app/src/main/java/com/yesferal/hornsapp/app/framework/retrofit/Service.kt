@@ -23,7 +23,7 @@ interface Service {
         @Path("id") id: String
     ): Response<GetBand>
 
-    @GET("/review/{id}")
+    @GET("/screen_render/{id}")
     suspend fun getReviewBy(
         @Path("id") id: String
     ): Response<GetScreenRender>

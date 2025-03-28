@@ -15,6 +15,15 @@
     {
       "data": {
         "title": {
+          "en": "VxR",
+          "es": "VxR"
+        }
+      },
+      "key": "LINEUP_FRAGMENT"
+    },
+    {
+      "data": {
+        "title": {
           "en": "Upcoming",
           "es": "Próximos"
         }
@@ -31,14 +40,67 @@
       "key": "FAVORITE_FRAGMENT"
     }
   ],
-  "newest": [
+  "categories": [
     {
-      "key": "CAROUSEL_VIEW",
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "take": 1,
+      "key": "METAL",
+      "data": {
+        "title": {
+          "en": "Metal",
+          "es": "Metal"
+        }
+      },
+      "children": {
+        "filter": "METAL"
+      }
+    },
+    {
+      "key": "ROCK",
+      "data": {
+        "title": {
+          "en": "Rock",
+          "es": "Rock"
+        }
+      },
+      "children": {
+        "filter": "ROCK"
+      }
+    },
+    {
+      "key": "AMERICA",
+      "data": {
+        "title": {
+          "en": "America",
+          "es": "América"
+        }
+      },
+      "children": {
+        "filter": "AMERICA"
+      }
+    },
+    {
+      "key": "EUROPE",
+      "data": {
+        "title": {
+          "en": "Europe",
+          "es": "Europa"
+        }
+      },
+      "children": {
+        "filter": "EUROPE"
+      }
+    }
+  ],
+  "views": [
+    {
+      "key": "ROW_VIEW",
+      "data": {
+        "elevation": true
+      },
+      "children": {
+        "key": "CAROUSEL_CARD_VIEW",
+        "take": 2,
         "values": [
-          "0"
+          "67e61d62c644dc0fa6d3f8ec"
         ]
       }
     },
@@ -47,32 +109,31 @@
       "data": {
         "height": 50
       },
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "values": [
-          "FIRST_NEWEST_LIST"
-        ]
+      "children": {
+        "key": "FIRST_NEWEST_LIST"
       }
     },
     {
-      "key": "VERTICAL_LIST_VIEW",
+      "key": "COLUMN_VIEW",
       "data": {
         "title": {
           "en": "Upcoming",
           "es": "Próximos"
         },
-        "icon": "calendar"
-      },
-      "condition": {
-        "key": "SORT_BY_UPCOMING_DATE",
-        "take": 3
+        "icon": "calendar",
+        "elevation": true
       },
       "navigation": {
         "key": "UPCOMING"
+      },
+      "children": {
+        "key": "UPCOMING_CARD_VIEW",
+        "take": 3,
+        "sort": "UPCOMING_DATE"
       }
     },
     {
-      "key": "ICON_HOME_CARD_VIEW",
+      "key": "ICON_CARD_VIEW",
       "data": {
         "title": {
           "en": "Follow us on TikTok",
@@ -82,7 +143,9 @@
           "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
           "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
         },
-        "icon": "tiktok"
+        "icon": "tiktok",
+        "textColor": "#FFFFFF",
+        "backgroundColor": "#29303e"
       },
       "navigation": {
         "key": "WEB_VIEW",
@@ -96,15 +159,12 @@
       "data": {
         "height": 250
       },
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "values": [
-          "SECOND_NEWEST_LIST"
-        ]
+      "children": {
+        "key": "SECOND_NEWEST_LIST"
       }
     },
     {
-      "key": "IMAGE_HOME_CARD_VIEW",
+      "key": "CARD_VIEW",
       "data": {
         "title": {
           "en": "Bloodstock Open Air 2024",
@@ -115,7 +175,8 @@
           "es": "#instagram #anuncio"
         },
         "icon": "instagram",
-        "imageUrl": "https://i.ytimg.com/vi/Jrnx1fiXmeI/maxresdefault.jpg"
+        "imageUrl": "https://i.ytimg.com/vi/Jrnx1fiXmeI/maxresdefault.jpg",
+        "visibility": true
       },
       "navigation": {
         "key": "WEB_VIEW",
@@ -125,7 +186,7 @@
       }
     },
     {
-      "key": "VERTICAL_LIST_VIEW",
+      "key": "COLUMN_VIEW",
       "data": {
         "title": {
           "en": "Metal never dies",
@@ -136,14 +197,14 @@
           "es": "#metal"
         }
       },
-      "condition": {
-        "key": "FILTER_BY_CATEGORY",
+      "children": {
+        "key": "UPCOMING_IMAGE_CARD_VIEW",
         "filter": "METAL",
         "take": "3"
       }
     },
     {
-      "key": "ICON_HOME_CARD_VIEW",
+      "key": "ICON_CARD_VIEW",
       "data": {
         "title": {
           "en": "Follow us on Instagram",
@@ -153,6 +214,7 @@
           "en": "Did you know about our IG? Follow us and keep up posted.",
           "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
         },
+        "textColor": "#FFFFFF",
         "backgroundColor": "#4f5bd5",
         "icon": "instagram"
       },
@@ -168,15 +230,12 @@
       "data": {
         "height": 250
       },
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "values": [
-          "FIRST_NEWEST_LIST"
-        ]
+      "children": {
+        "key": "FIRST_NEWEST_LIST"
       }
     },
     {
-      "key": "IMAGE_HOME_CARD_VIEW",
+      "key": "CARD_VIEW",
       "data": {
         "title": {
           "en": "Iron Maiden at Power Trip 2023",
@@ -186,7 +245,7 @@
           "en": "#setlist",
           "es": "#setlist"
         },
-        "imageUrl": "https://www.ironmaiden.com/media/news/10305903.jpg"
+        "imageUrl": "https://img07.shop-pro.jp/PA01396/192/product/177758437.jpg"
       },
       "navigation": {
         "key": "REVIEW",
@@ -198,7 +257,7 @@
       }
     },
     {
-      "key": "VERTICAL_LIST_VIEW",
+      "key": "COLUMN_VIEW",
       "data": {
         "title": {
           "en": "European festivals",
@@ -209,14 +268,14 @@
           "es": "#europa"
         }
       },
-      "condition": {
-        "key": "FILTER_BY_CATEGORY",
+      "children": {
+        "key": "UPCOMING_IMAGE_CARD_VIEW",
         "filter": "EUROPE",
         "take": 3
       }
     },
     {
-      "key": "ICON_HOME_CARD_VIEW",
+      "key": "ICON_CARD_VIEW",
       "data": {
         "title": {
           "en": "Follow us on Spotify",
@@ -242,15 +301,12 @@
       "data": {
         "height": 250
       },
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "values": [
-          "SECOND_NEWEST_LIST"
-        ]
+      "children": {
+        "key": "SECOND_NEWEST_LIST"
       }
     },
     {
-      "key": "IMAGE_HOME_CARD_VIEW",
+      "key": "CARD_VIEW",
       "data": {
         "title": {
           "en": "Wacken Friday, 5 August 2023",
@@ -271,7 +327,7 @@
       }
     },
     {
-      "key": "VERTICAL_LIST_VIEW",
+      "key": "COLUMN_VIEW",
       "data": {
         "title": {
           "en": "Keep on rocking",
@@ -282,14 +338,14 @@
           "es": "#rock"
         }
       },
-      "condition": {
-        "key": "FILTER_BY_CATEGORY",
+      "children": {
+        "key": "UPCOMING_IMAGE_CARD_VIEW",
         "filter": "ROCK",
         "take": 3
       }
     },
     {
-      "key": "ICON_HOME_CARD_VIEW",
+      "key": "ICON_CARD_VIEW",
       "data": {
         "title": {
           "en": "Save your favorites",
@@ -299,7 +355,9 @@
           "en": "You can save your favorite concerts now, so you can find them easily later.",
           "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
         },
-        "icon": "favorite"
+        "icon": "favorite",
+        "backgroundColor": "#d1150c",
+        "textColor": "#FFFFFF"
       },
       "navigation": {
         "key": "FAVORITE"
@@ -310,15 +368,12 @@
       "data": {
         "height": 250
       },
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "values": [
-          "FIRST_NEWEST_LIST"
-        ]
+      "children": {
+        "key": "FIRST_NEWEST_LIST"
       }
     },
     {
-      "key": "IMAGE_HOME_CARD_VIEW",
+      "key": "CARD_VIEW",
       "data": {
         "title": {
           "en": "Alestorm at Wacken 2023",
@@ -329,7 +384,7 @@
           "es": "#spotify #playlist"
         },
         "icon": "spotify",
-        "imageUrl": "https://www.nationalrockreview.com/wp-content/uploads/2018/02/alestorm-northumbriainstitute-newcastle_uk-20180211-adamkennedy-13-e1518553501334.jpg"
+        "imageUrl": "https://i0.wp.com/haborymx.com/wp-content/uploads/2023/09/alestorm.png?fit=380"
       },
       "navigation": {
         "key": "WEB_VIEW",
@@ -339,7 +394,7 @@
       }
     },
     {
-      "key": "VERTICAL_LIST_VIEW",
+      "key": "COLUMN_VIEW",
       "data": {
         "title": {
           "en": "American festivals",
@@ -350,14 +405,14 @@
           "es": "#américa"
         }
       },
-      "condition": {
-        "key": "FILTER_BY_CATEGORY",
+      "children": {
+        "key": "UPCOMING_IMAGE_CARD_VIEW",
         "filter": "AMERICA",
         "take": 3
       }
     },
     {
-      "key": "ICON_HOME_CARD_VIEW",
+      "key": "ICON_CARD_VIEW",
       "data": {
         "title": {
           "en": "Follow us on Facebook",
@@ -368,7 +423,8 @@
           "es": "¿Sabías acerca de nuestro Facebook? Síguenos y mantente informado."
         },
         "backgroundColor": "#3b5998",
-        "icon": "facebook"
+        "icon": "facebook",
+        "textColor": "#FFFFFF"
       },
       "navigation": {
         "key": "WEB_VIEW",
@@ -382,15 +438,12 @@
       "data": {
         "height": 250
       },
-      "condition": {
-        "key": "PICK_FROM_DEFAULT_VALUES",
-        "values": [
-          "SECOND_NEWEST_LIST"
-        ]
+      "children": {
+        "key": "SECOND_NEWEST_LIST"
       }
     },
     {
-      "key": "IMAGE_HOME_CARD_VIEW",
+      "key": "CARD_VIEW",
       "data": {
         "title": {
           "en": "In Flames at Summer Breeze 2023",
@@ -408,56 +461,6 @@
         "parameters": {
           "param_android_uri": "https://www.youtube.com/watch?v=34BHbbQmr7s"
         }
-      }
-    }
-  ],
-  "categories": [
-    {
-      "key": "METAL",
-      "data": {
-        "title": {
-          "en": "Metal",
-          "es": "Metal"
-        }
-      },
-      "condition": {
-        "filter": "METAL"
-      }
-    },
-    {
-      "key": "ROCK",
-      "data": {
-        "title": {
-          "en": "Rock",
-          "es": "Rock"
-        }
-      },
-      "condition": {
-        "filter": "ROCK"
-      }
-    },
-    {
-      "key": "AMERICA",
-      "data": {
-        "title": {
-          "en": "America",
-          "es": "América"
-        }
-      },
-      "condition": {
-        "filter": "AMERICA"
-      }
-    },
-    {
-      "key": "EUROPE",
-      "data": {
-        "title": {
-          "en": "Europe",
-          "es": "Europa"
-        }
-      },
-      "condition": {
-        "filter": "EUROPE"
       }
     }
   ]

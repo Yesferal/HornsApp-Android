@@ -21,7 +21,7 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewDa
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
 import com.yesferal.hornsapp.core.domain.entity.Concert
-import com.yesferal.hornsapp.core.domain.entity.render.ConditionRender
+import com.yesferal.hornsapp.core.domain.entity.render.ChildrenRender
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
@@ -76,16 +76,16 @@ class NewestViewModel(
                     val delegates = mutableListOf<Delegate>()
                     newestDrawer.forEach {
                         when (it.type) {
-                            ViewRender.Type.CAROUSEL_VIEW -> {
+                            ViewRender.Type.ROW_VIEW -> {
                                 delegates.includeCarouselSection(concerts, it)
                             }
-                            ViewRender.Type.VERTICAL_LIST_VIEW -> {
+                            ViewRender.Type.COLUMN_VIEW -> {
                                 delegates.includeVerticalSection(concerts, it)
                             }
-                            ViewRender.Type.ICON_HOME_CARD_VIEW -> {
+                            ViewRender.Type.ICON_CARD_VIEW -> {
                                 delegates.includeIconHomeCardSection(it)
                             }
-                            ViewRender.Type.IMAGE_HOME_CARD_VIEW -> {
+                            ViewRender.Type.CARD_VIEW -> {
                                 delegates.includeImageHomeCardSection(it)
                             }
                             ViewRender.Type.AD_VIEW -> {
@@ -155,128 +155,81 @@ class NewestViewModel(
         concerts: List<Concert>,
         screenDrawer: ViewRender
     ): List<Delegate> {
-        return when (screenDrawer.condition?.type) {
-            ConditionRender.Type.SORT_BY_UPCOMING_DATE -> {
-                sortByUpcomingDate(concerts, screenDrawer)
+        var children = concerts
+            .filter { screenDrawer.children?.values?.contains(it.id) == true }
+
+        return when (screenDrawer.children?.type) {
+            ChildrenRender.Type.CAROUSEL_CARD_VIEW -> {
+                if (children.isEmpty()) {
+                    children = mapChildrenConcerts(
+                        concerts.reversed(),
+                        screenDrawer
+                    )
+                }
+                children.map {
+                    CarouselViewData(
+                        id = it.id,
+                        name = it.name,
+                        time = it.timeInMillis.dateTimeFormatted(),
+                        headlinerName = it.headlinerName,
+                        headlinerUrl = it.headlinerImageUrl,
+                        ticketingName = it.ticketingName,
+                        ticketingUrl = it.ticketingUrl,
+                    )
+                }
             }
-            ConditionRender.Type.FILTER_BY_CATEGORY -> {
-                filterByCategory(concerts, screenDrawer)
+            ChildrenRender.Type.UPCOMING_CARD_VIEW -> {
+                if (children.isEmpty()) {
+                    children = mapChildrenConcerts(
+                        concerts.sortedWith(compareBy { it.timeInMillis }),
+                        screenDrawer
+                    )
+                }
+                children.map {
+                    NewestViewData(
+                        id = it.id,
+                        day = it.timeInMillis.dayFormatted(),
+                        month = it.timeInMillis.monthFormatted(),
+                        name = it.name,
+                        ticketingHostName = it.ticketingName
+                    )
+                }
             }
-            ConditionRender.Type.SORT_BY_NEWEST_DATE -> {
-                sortByNewestDate(concerts, screenDrawer)
-            }
-            ConditionRender.Type.PICK_FROM_DEFAULT_VALUES -> {
-                val concertsFiltered = pickFromDefaultValues(concerts, screenDrawer)
-                return if (concertsFiltered.isEmpty()) {
-                    sortByNewestDate(concerts, screenDrawer)
-                } else {
-                    concertsFiltered
+            ChildrenRender.Type.UPCOMING_IMAGE_CARD_VIEW -> {
+                if (children.isEmpty()) {
+                    children = mapChildrenConcerts(
+                        concerts.sortedWith(compareBy { it.timeInMillis }),
+                        screenDrawer
+                    )
+                }
+                children.map {
+                    UpcomingViewData(
+                        id = it.id,
+                        image = it.headlinerImageUrl,
+                        day = it.timeInMillis.dayFormatted(),
+                        month = it.timeInMillis.monthFormatted(),
+                        year = it.timeInMillis.yearFormatted(),
+                        name = it.name,
+                        time = it.timeInMillis.timeFormatted(),
+                        headlinerName = it.headlinerName
+                    )
                 }
             }
             else -> listOf()
         }
     }
 
-    private fun pickFromDefaultValues(
+    private fun mapChildrenConcerts(
         concerts: List<Concert>,
         screenDrawer: ViewRender
-    ): List<Delegate> {
+    ): List<Concert> {
         return concerts
-            .filter { screenDrawer.condition?.values?.contains(it.id) == true }
-            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
-            .map {
-                CarouselViewData(
-                    id = it.id,
-                    name = it.name,
-                    time = it.timeInMillis.dateTimeFormatted(),
-                    headlinerName = it.headlinerName,
-                    headlinerUrl = it.headlinerImageUrl,
-                    ticketingName = it.ticketingName,
-                    ticketingUrl = it.ticketingUrl,
-                )
+            .filter {
+                screenDrawer.children?.filter?.let { filter ->
+                    it.tags?.contains(filter) == true
+                }?: true
             }
-    }
-
-    private fun sortRandomly(
-        concerts: List<Concert>,
-        screenDrawer: ViewRender
-    ): List<Delegate> {
-        return concerts
-            .shuffled()
-            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
-            .sortedWith(compareBy { it.timeInMillis })
-            .map {
-                CarouselViewData(
-                    id = it.id,
-                    name = it.name,
-                    time = it.timeInMillis.dateTimeFormatted(),
-                    headlinerName = it.headlinerName,
-                    headlinerUrl = it.headlinerImageUrl,
-                    ticketingName = it.ticketingName,
-                    ticketingUrl = it.ticketingUrl,
-                )
-            }
-    }
-
-    private fun sortByNewestDate(
-        concerts: List<Concert>,
-        screenDrawer: ViewRender
-    ): List<Delegate> {
-        return concerts
-            .takeLast(screenDrawer.condition?.take ?: Int.MAX_VALUE)
-            .reversed()
-            .map {
-                CarouselViewData(
-                    id = it.id,
-                    name = it.name,
-                    time = it.timeInMillis.dateTimeFormatted(),
-                    headlinerName = it.headlinerName,
-                    headlinerUrl = it.headlinerImageUrl,
-                    ticketingName = it.ticketingName,
-                    ticketingUrl = it.ticketingUrl,
-                )
-            }
-    }
-
-    private fun sortByUpcomingDate(
-        concerts: List<Concert>,
-        screenDrawer: ViewRender
-    ): List<Delegate> {
-        return concerts
-            .sortedWith(compareBy { it.timeInMillis })
-            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
-            .map { concert ->
-                NewestViewData(
-                    id = concert.id,
-                    day = concert.timeInMillis.dayFormatted(),
-                    month = concert.timeInMillis.monthFormatted(),
-                    name = concert.name,
-                    ticketingHostName = concert.ticketingName
-                )
-            }
-    }
-
-    private fun filterByCategory(
-        concerts: List<Concert>,
-        screenDrawer: ViewRender
-    ): List<Delegate> {
-        return concerts
-            .filter { it.tags?.contains(screenDrawer.condition?.filter) == true }
-            .shuffled()
-            .take(screenDrawer.condition?.take ?: Int.MAX_VALUE)
-            .sortedWith(compareBy { it.timeInMillis })
-            .map { concert ->
-                UpcomingViewData(
-                    id = concert.id,
-                    image = concert.headlinerImageUrl,
-                    day = concert.timeInMillis.dayFormatted(),
-                    month = concert.timeInMillis.monthFormatted(),
-                    year = concert.timeInMillis.yearFormatted(),
-                    name = concert.name,
-                    time = concert.timeInMillis.timeFormatted(),
-                    headlinerName = concert.headlinerName
-                )
-            }
+            .take(screenDrawer.children?.take ?: Int.MAX_VALUE)
     }
 
     private fun MutableList<Delegate>.includeIconHomeCardSection(
@@ -323,7 +276,7 @@ class NewestViewModel(
             AdViewData(
                 businessModelFactoryProducer.getViewFactory(),
                 viewDrawer.data?.height,
-                AdUnitIds.valueOfOrNull(viewDrawer.condition?.values?.firstOrNull())
+                AdUnitIds.valueOfOrNull(viewDrawer.children?.key)
             )
         )
         this.addVerticalDivider(24)
