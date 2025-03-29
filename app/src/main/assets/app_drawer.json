@@ -6,20 +6,20 @@
     {
       "data": {
         "title": {
+          "en": "VxR 2025",
+          "es": "VxR 2025"
+        }
+      },
+      "key": "SCREEN_RENDER_FRAGMENT"
+    },
+    {
+      "data": {
+        "title": {
           "en": "Home",
           "es": "Inicio"
         }
       },
       "key": "NEWEST_FRAGMENT"
-    },
-    {
-      "data": {
-        "title": {
-          "en": "VxR",
-          "es": "VxR"
-        }
-      },
-      "key": "LINEUP_FRAGMENT"
     },
     {
       "data": {
@@ -248,7 +248,7 @@
         "imageUrl": "https://img07.shop-pro.jp/PA01396/192/product/177758437.jpg"
       },
       "navigation": {
-        "key": "REVIEW",
+        "key": "SCREEN_RENDER",
         "parameters": {
           "param_parcelable_view_data": {
             "id": "655e9cb652ff4c82ea4a63da"
