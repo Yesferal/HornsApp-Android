@@ -6,15 +6,19 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.setImageIcon
 import com.yesferal.hornsapp.core.domain.entity.Stage
+import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
+import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
+import java.util.Date
 
 data class LineupViewState(
     val day: String? = null,
@@ -27,10 +31,10 @@ data class LineupViewState(
 data class LineupPerformanceViewData(
     val title: String?,
     val subtitle: String?,
+    val startTime: Long?,
     val duration: Int?,
-    val navigation: Parameters?,
-    val icon: String?
-) : InteractiveDelegate<LineupPerformanceViewData.Listener> {
+    var isFavorite: Boolean
+) : InteractiveDelegate<LineupPerformanceViewData.Listener>, NavViewData {
 
     override val layout = R.layout.item_lineup_performance
 
@@ -39,27 +43,68 @@ data class LineupPerformanceViewData(
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
-        view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
-        view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
-        view.findViewById<ImageView>(R.id.titleImageView).setImageIcon(icon)
-        navigation?.let {
-            view.findViewById<ImageView>(R.id.arrowView).visibility = View.VISIBLE
-            view.setOnClickListener {
-                listener.onClick(navigation)
-            }
-        } ?: kotlin.run {
-            view.findViewById<ImageView>(R.id.arrowView).visibility = View.GONE
-            view.setOnClickListener { }
-        }
+        val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
+        titleTextView.setUpWith(title)
+        val subtitleTextView = view.findViewById<TextView>(R.id.subtitleTextView)
+        subtitleTextView.setUpWith(subtitle)
+        val titleImageView = view.findViewById<ImageView>(R.id.titleImageView)
+
         val heightDP = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             (duration?.toFloat() ?: 0F) * 2.5F,
             view.context?.resources?.displayMetrics
         ).toInt()
 
+        val time = System.currentTimeMillis() - (5 * 60 * 60 * 1000)
+        if (time < (startTime ?: 0) || time > (startTime?.plus(((duration?.times(60) ?: 0) * 1000))
+                ?: 0)
+        ) {
+            // TODO: Create an Enum for icons if it does not existe
+            val textColor = ContextCompat.getColor(view.context, R.color.primaryText)
+
+            titleImageView.setColorFilter(textColor)
+            titleTextView.setTextColor(textColor)
+            subtitleTextView.setTextColor(
+                ContextCompat.getColor(
+                    view.context,
+                    R.color.secondaryText
+                )
+            )
+            view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.background))
+        } else {
+            val textColor = ContextCompat.getColor(view.context, R.color.background)
+            titleImageView.setColorFilter(textColor)
+            titleTextView.setTextColor(textColor)
+            subtitleTextView.setTextColor(textColor)
+            view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.accent))
+        }
+
         view.updateLayoutParams {
             height = heightDP
         }
+        view.setOnClickListener {
+            listener.onClick(toMap())
+        }
+    }
+
+    override fun toMap(): Parameters {
+        return Parameters(ScreenType.CALENDAR.name).apply {
+            // TODO: Create a HornsApp Calendar object
+            // Duplicated code in ConcertModel
+            if (title != null && startTime != null && duration != null) {
+                val beginTime = startTime + getLimaTime()
+
+                put(FragmentNavigator.PARAM_TITLE, title)
+                put(FragmentNavigator.PARAM_BEGIN_TIME, beginTime)
+                put(FragmentNavigator.PARAM_END_TIME, beginTime + (duration * 60 * 1000))
+            }
+        }
+    }
+
+    // TODO: USE A CORRECT TIME
+    // THIS JUST WORK FOR LIMA
+    fun getLimaTime(): Long {
+        return (5 * 60 * 60 * 1000)
     }
 }
 
@@ -73,6 +118,7 @@ data class LineupEmptyViewData(
     interface Listener : DelegateListener {
         fun onClick(parameters: Parameters)
     }
+
     override fun onBindViewDelegate(view: View) {
         val heightDP = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

@@ -6,16 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.core.domain.usecase.GetConcertUseCase
-import com.yesferal.hornsapp.core.domain.util.HaResult
+import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LineupViewModel(
     id: String,
-    getConcertUseCase: GetConcertUseCase,
+    private val lineupDataSource: LineupDataSource,
 ) : ViewModel() {
     private val _state = MutableLiveData<LineupViewState>()
 
@@ -25,19 +23,14 @@ class LineupViewModel(
     init {
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
-                when (val result = getConcertUseCase(id)) {
-                    is HaResult.Success -> {
-                        val lineup = result.value.lineup
-                        LineupViewState(
-                            day = lineup?.firstOrNull()?.day,
-                            headers = lineup?.firstOrNull()?.stages?.mapNotNull { it.title },
-                            stages = lineup?.firstOrNull()?.stages
-                        )
-                    }
-                    is HaResult.Error -> {
-                        LineupViewState(errorMessageId = R.string.error_default)
-                    }
-                }
+                val result = lineupDataSource.getLineup()
+                val lineup = result
+                ChainLoggerProvider.provideLogger().d("LineupViewModel: lineup: ${lineup}")
+                LineupViewState(
+                    day = lineup?.day,
+                    headers = lineup?.stages?.mapNotNull { it.title },
+                    stages = lineup?.stages
+                )
             }
             _state.value = state
         }
@@ -46,15 +39,15 @@ class LineupViewModel(
 
 class LineupViewModelFactory(
     private val id: String,
-    private val getConcertUseCase: GetConcertUseCase,
+    private val lineupDataSource: LineupDataSource,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
-            GetConcertUseCase::class.java,
+            LineupDataSource::class.java,
         ).newInstance(
             id,
-            getConcertUseCase,
+            lineupDataSource,
         )
     }
 }
