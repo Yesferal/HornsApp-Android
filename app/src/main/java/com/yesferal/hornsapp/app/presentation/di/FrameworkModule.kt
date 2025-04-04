@@ -43,7 +43,7 @@ fun Container.registerFrameworkModule() {
         PreferencesDataSource(
             context = resolve(),
             name = "hornsapp-shared-preferences.sp",
-            apiConstants = ApiConstants(),
+            apiConstants = ApiConstants(resolve()),
             gsonDataSource = resolve(),
             fileReaderManager = resolve(),
             packageInfoDataSource = resolve()
@@ -82,7 +82,7 @@ fun Container.registerFrameworkModule() {
     this register Singleton {
         val defaultEnvironment = resolve<PreferencesDataSource>()
             .getDefaultEnvironment()
-        val apiConstants = ApiConstants()
+        val apiConstants = ApiConstants(resolve())
         val authorization = apiConstants.authorizations[defaultEnvironment]
         ApiProvider.Builder()
             .addBaseUrl(apiConstants.environments[defaultEnvironment].second)
@@ -132,7 +132,7 @@ fun Container.registerFrameworkModule() {
     this register Singleton {
         val defaultEnvironment = resolve<PreferencesDataSource>()
             .getDefaultEnvironment()
-        val apiConstants = ApiConstants()
+        val apiConstants = ApiConstants(resolve())
 
         SocketIoDataSource(
             gson = resolve(),

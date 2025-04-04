@@ -10,5 +10,9 @@ fun Container.registerAppDependencies(context: Context) {
     registerDataModule()
     registerFrameworkModule()
     registerPresentationModule()
-    registerBuildVariantModule()
+    registerBuildTypeModule()
+    registerFlavorModule()
+    // TODO: Enabled only if we need
+    // some specific settings for a BuildType + Flavour
+    //registerBuildVariantModule()
 }

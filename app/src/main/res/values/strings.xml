@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">HornsApp</string>
+    <!-- Untranslatable -->
+    <string name="app_name" translatable="false">@string/flavor_app_name</string>
+    <string name="app_name_register" translatable="false">®</string>
 
     <!-- Words -->
     <string name="version">Version</string>
-    <string name="app_name_register">HornsApp®</string>
     <string name="get_started">Get Started</string>
     
     <!-- Settings -->

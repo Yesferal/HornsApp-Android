@@ -20,6 +20,7 @@
         android:padding="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_small"
         android:elevation="4dp"
+        app:tint="@color/primaryText"
         app:layout_constraintTop_toTopOf="@+id/toolbarBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarBackground"/>

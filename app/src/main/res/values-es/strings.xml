@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">HornsApp</string>
 
     <!-- Words -->
     <string name="version">Versión</string>
-    <string name="app_name_register">HornsApp®</string>
     <string name="get_started">Empecemos</string>
     
     <!-- Settings -->

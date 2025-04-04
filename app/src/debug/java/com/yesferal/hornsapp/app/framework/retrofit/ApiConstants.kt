@@ -1,14 +1,13 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-class ApiConstants {
-    companion object {
-        init {
-            System.loadLibrary("hornsapp-lib")
-        }
+import com.yesferal.hornsapp.app.presentation.di.FlavorDataClass
+
+class ApiConstants(flavorDataClass: FlavorDataClass) {
+    init {
+        System.loadLibrary(flavorDataClass.cFileName)
     }
 
     private external fun authorization(): String
-
     private external fun baseUrl(): String
 
     val authorizations = listOf(

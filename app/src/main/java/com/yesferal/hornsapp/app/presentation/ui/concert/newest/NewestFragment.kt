@@ -24,8 +24,6 @@ class NewestFragment : DelegateAdapterFragment(), NewestViewData.Listener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.divider))
-
         delegateRecyclerView.addItemDecoration(RecyclerViewVerticalDecorator())
 
         viewModel = getViewModel<NewestViewModel, NewestViewModelFactory>()

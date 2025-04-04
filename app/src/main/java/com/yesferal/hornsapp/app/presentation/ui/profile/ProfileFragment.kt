@@ -4,10 +4,12 @@ package com.yesferal.hornsapp.app.presentation.ui.profile
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
+import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.ScreenType
@@ -20,6 +22,7 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
     private lateinit var shareTextView: ImageTextView
     private lateinit var versionTextView: ImageTextView
     private lateinit var hornsAppImageView: ImageView
+    private lateinit var hornsAppTextView: TextView
 
     private var preferencesCountDown: Int = 0
 
@@ -30,10 +33,14 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
         shareTextView = view.findViewById(R.id.shareTextView)
         versionTextView = view.findViewById(R.id.versionTextView)
         hornsAppImageView = view.findViewById(R.id.hornsAppImageView)
+        hornsAppTextView = view.findViewById(R.id.hornsAppTextView)
 
         setUpPreferences()
         setUpVersion(versionSuffix())
         setUpShare()
+        val appName = getString(R.string.app_name)
+        val appNameRegister = getString(R.string.app_name_register)
+        hornsAppTextView.setUpWith(appName + appNameRegister)
     }
 
     private fun setUpShare() {
