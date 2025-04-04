@@ -18,7 +18,13 @@
 -keepclassmembers class com.yesferal.hornsapp.core.domain.entity.* {
     *;
 }
--keepclassmembers class com.yesferal.hornsapp.core.domain.entity.drawer.* {
+-keepclassmembers class com.yesferal.hornsapp.core.domain.entity.render.* {
+    *;
+}
+-keepclassmembers class com.yesferal.hornsapp.core.domain.entity.util.* {
+    *;
+}
+-keepclassmembers class com.yesferal.hornsapp.core.domain.common.* {
     *;
 }
 -keepclassmembers class com.yesferal.hornsapp.core.domain.navigator.Parameters {
