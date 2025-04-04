@@ -40,10 +40,14 @@ import retrofit2.Retrofit
 fun Container.registerFrameworkModule() {
 
     this register Singleton {
+        ApiConstants(resolve())
+    }
+
+    this register Singleton {
         PreferencesDataSource(
             context = resolve(),
             name = "hornsapp-shared-preferences.sp",
-            apiConstants = ApiConstants(resolve()),
+            apiConstants = resolve(),
             gsonDataSource = resolve(),
             fileReaderManager = resolve(),
             packageInfoDataSource = resolve()
@@ -82,7 +86,7 @@ fun Container.registerFrameworkModule() {
     this register Singleton {
         val defaultEnvironment = resolve<PreferencesDataSource>()
             .getDefaultEnvironment()
-        val apiConstants = ApiConstants(resolve())
+        val apiConstants = resolve<ApiConstants>()
         val authorization = apiConstants.authorizations[defaultEnvironment]
         ApiProvider.Builder()
             .addBaseUrl(apiConstants.environments[defaultEnvironment].second)
@@ -132,7 +136,7 @@ fun Container.registerFrameworkModule() {
     this register Singleton {
         val defaultEnvironment = resolve<PreferencesDataSource>()
             .getDefaultEnvironment()
-        val apiConstants = ApiConstants(resolve())
+        val apiConstants = resolve<ApiConstants>()
 
         SocketIoDataSource(
             gson = resolve(),
