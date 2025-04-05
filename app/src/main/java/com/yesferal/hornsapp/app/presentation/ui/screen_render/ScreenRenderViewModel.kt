@@ -14,7 +14,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.includeCarouselSe
 import com.yesferal.hornsapp.app.presentation.common.extension.includeIconHomeCardSection
 import com.yesferal.hornsapp.app.presentation.common.extension.includeImageHomeCardSection
 import com.yesferal.hornsapp.app.presentation.common.extension.includeVerticalSection
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender

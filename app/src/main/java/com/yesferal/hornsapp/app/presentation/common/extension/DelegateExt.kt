@@ -3,10 +3,10 @@ package com.yesferal.hornsapp.app.presentation.common.extension
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.AdViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.IconHomeCardViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ImageHomeCardViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.AdViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.IconHomeCardViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.ImageHomeCardViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.delegate.abstraction.Delegate

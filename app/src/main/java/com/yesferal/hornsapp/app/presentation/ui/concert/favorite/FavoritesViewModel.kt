@@ -14,7 +14,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.safeInsert
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.AdViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.AdViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository

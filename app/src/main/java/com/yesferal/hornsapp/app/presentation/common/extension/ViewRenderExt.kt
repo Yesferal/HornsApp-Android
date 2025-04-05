@@ -1,8 +1,8 @@
 /* Copyright © 2025 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.extension
 
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.CarouselViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.CarouselViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.NewestViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.render.ChildrenRender

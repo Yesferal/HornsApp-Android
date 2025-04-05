@@ -7,7 +7,7 @@ import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.Delegate

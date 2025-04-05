@@ -4,7 +4,6 @@ package com.yesferal.hornsapp.app.presentation.di
 import com.yesferal.hornsapp.app.presentation.ui.band.BandViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.ConcertViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.lineup.LineupViewModelFactory
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesViewModelFactory
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeViewModelFactory
@@ -44,15 +43,6 @@ fun Container.registerPresentationModule() {
             settingsRepository = resolve(),
             drawerRepository = resolve(),
             businessModelFactoryProducer = resolve()
-        )
-    }
-
-    this register Factory {
-        NewestViewModelFactory(
-            businessModelFactoryProducer = resolve(),
-            getConcertsUseCase = resolve(),
-            drawerRepository = resolve(),
-            logger = resolve()
         )
     }
 

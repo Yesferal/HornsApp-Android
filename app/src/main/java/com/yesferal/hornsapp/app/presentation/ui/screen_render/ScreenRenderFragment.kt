@@ -8,11 +8,11 @@ import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.CarouselViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.IconHomeCardViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.ImageHomeCardViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.CarouselViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.IconHomeCardViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.ImageHomeCardViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.NewestViewData
+import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
@@ -23,6 +23,7 @@ class ScreenRenderFragment : DelegateAdapterFragment(), TitleViewData.Listener,
     TitleReviewViewData.Listener, RenderButtonViewData.Listener, IconHomeCardViewData.Listener,
     ImageHomeCardViewData.Listener, NewestViewData.Listener,
     CarouselViewData.Listener, UpcomingViewData.Listener {
+
     private lateinit var viewModel: ScreenRenderViewModel
     private val args: ScreenRenderFragmentArgs? by navArgs()
 
@@ -65,19 +66,6 @@ class ScreenRenderFragment : DelegateAdapterFragment(), TitleViewData.Listener,
         activity?.onBackPressedDispatcher?.onBackPressed()
     }
 
-    companion object {
-        private val KEY_ID = "key_id"
-
-        fun newInstance(id: String?): ScreenRenderFragment {
-            val fragment = ScreenRenderFragment()
-
-            val args = Bundle()
-            args.putString(KEY_ID, id)
-            fragment.setArguments(args)
-            return fragment
-        }
-    }
-
     override fun onClick(newestViewData: NewestViewData) {
         startConcertActivity(newestViewData.asParcelable())
     }
@@ -100,5 +88,18 @@ class ScreenRenderFragment : DelegateAdapterFragment(), TitleViewData.Listener,
             .with(parcelableViewData)
             .build()
             .navigateTo()
+    }
+
+    companion object {
+        private val KEY_ID = "key_id"
+
+        fun newInstance(id: String?): ScreenRenderFragment {
+            val fragment = ScreenRenderFragment()
+
+            val args = Bundle()
+            args.putString(KEY_ID, id)
+            fragment.setArguments(args)
+            return fragment
+        }
     }
 }

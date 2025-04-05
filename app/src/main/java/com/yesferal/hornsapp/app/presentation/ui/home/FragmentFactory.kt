@@ -2,7 +2,6 @@ package com.yesferal.hornsapp.app.presentation.ui.home
 
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.favorite.FavoritesFragment
-import com.yesferal.hornsapp.app.presentation.ui.concert.newest.NewestFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragment
 import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
 import com.yesferal.hornsapp.app.presentation.ui.lineup.StageLineupFragment
@@ -12,7 +11,6 @@ import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 class FragmentFactory {
     fun getFragment(screenRender: ScreenRender, position: Int? = null): Fragment {
         return when (screenRender.type) {
-            ScreenRender.Type.NEWEST_SCREEN -> NewestFragment.newInstance()
             ScreenRender.Type.UPCOMING_SCREEN -> UpcomingFragment.newInstance()
             ScreenRender.Type.FAVORITE_SCREEN -> FavoritesFragment.newInstance()
             ScreenRender.Type.SCREEN_RENDER_SCREEN -> ScreenRenderFragment.newInstance(screenRender.id)
