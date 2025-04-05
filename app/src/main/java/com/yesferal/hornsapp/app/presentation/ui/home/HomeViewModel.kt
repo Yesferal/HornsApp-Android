@@ -48,11 +48,7 @@ class HomeViewModel(
     private suspend fun getConcerts() = withContext(Dispatchers.IO) {
         when (getConcertsUseCase()) {
             is HaResult.Success -> {
-                val screens = homeDrawer.map {
-                    Pair(it, it.data?.title?.text.orEmpty())
-                }
-
-                HomeViewState(screens)
+                HomeViewState(homeDrawer)
             }
             is HaResult.Error -> {
                 HomeViewState(errorMessage = R.string.error_default, allowRetry = true)

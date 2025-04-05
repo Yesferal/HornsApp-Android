@@ -93,12 +93,12 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         }
     }
 
-    private fun showChildFragmentTitles(screens: List<Pair<ScreenRender, String>>) {
-        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, FragmentFactory(), screens.map { it.first })
+    private fun showChildFragmentTitles(screens: List<ScreenRender>) {
+        concertsViewPager.adapter = ScreenSlidePagerAdapter(this, FragmentFactory(), screens)
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
-            tab.text = screens[position].second
+            tab.text = screens[position].data?.title?.text.orEmpty()
         }.attach()
         tabLayout.visibility = View.VISIBLE
     }
@@ -136,6 +136,16 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
     fun navigateToTab(tab: Int) {
         concertsViewPager.currentItem = tab
+    }
+
+    fun navigateToTab(type: ScreenRender.Type) {
+        homeViewModel.state.observe(viewLifecycleOwner) {
+            it.screens?.map { s ->
+                s.type
+            }?.toList()?.indexOf(type)?.let { s ->
+                concertsViewPager.currentItem = s
+            }
+        }
     }
 }
 

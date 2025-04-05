@@ -20,14 +20,14 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         val to = navigator.to
 
         val navDirections = when (to) {
-            ScreenRender.Type.HOME_SCREEN -> getDirectionToHome(view, tab = 0)
+            ScreenRender.Type.HOME_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.HOME_SCREEN)
             ScreenRender.Type.ON_BOARDING_SCREEN -> getDirectionToOnBoarding()
             ScreenRender.Type.SETTING_SCREEN -> getDirectionToSettings()
             ScreenRender.Type.CONCERT_DETAIL_SCREEN -> getDirectionToDetail(navigator.parameters) {
                 getDirectionToConcertDetail(it)
             }
-            ScreenRender.Type.UPCOMING_SCREEN -> getDirectionToHome(view, tab = 1)
-            ScreenRender.Type.FAVORITE_SCREEN -> getDirectionToHome(view, tab = 2)
+            ScreenRender.Type.UPCOMING_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.UPCOMING_SCREEN)
+            ScreenRender.Type.FAVORITE_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.FAVORITE_SCREEN)
             ScreenRender.Type.SCREEN_RENDER_SCREEN -> getDirectionToDetail(navigator.parameters) {
                 getDirectionToScreenRender(it)
             }
@@ -47,10 +47,10 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         }
     }
 
-    private fun getDirectionToHome(view: Fragment, tab: Int): NavDirections? {
+    private fun getDirectionToHome(view: Fragment, type: ScreenRender.Type): NavDirections? {
         return if (view.parentFragment is HomeFragment) {
-            logger.d("Its parent is HomeFragment, so we will navigate into a specific TAB #${tab}")
-            (view.parentFragment as HomeFragment).navigateToTab(tab)
+            logger.d("Its parent is HomeFragment, so we will navigate into a specific TAB $type")
+            (view.parentFragment as HomeFragment).navigateToTab(type)
             null
         } else {
             logger.d("Its parent is NOT HomeFragment, so we will navigate into HOME")
