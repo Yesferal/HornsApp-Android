@@ -6,8 +6,8 @@ import android.view.View
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.CategoryViewData
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
@@ -32,7 +32,7 @@ class UpcomingFragment : DelegateAdapterFragment(), CategoryViewData.Listener,
 
     override fun onClick(upcomingViewData: UpcomingViewData) {
         Navigator.Builder()
-            .to(ScreenType.CONCERT_DETAIL)
+            .to(ScreenRender.Type.CONCERT_DETAIL_SCREEN)
             .with(upcomingViewData.asParcelable())
             .build()
             .navigateTo()

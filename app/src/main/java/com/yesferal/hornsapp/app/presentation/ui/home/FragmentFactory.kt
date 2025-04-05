@@ -7,16 +7,16 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingFragme
 import com.yesferal.hornsapp.app.presentation.ui.error.ErrorFragment
 import com.yesferal.hornsapp.app.presentation.ui.lineup.StageLineupFragment
 import com.yesferal.hornsapp.app.presentation.ui.screen_render.ScreenRenderFragment
-import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 
 class FragmentFactory {
-    fun getFragment(type: ViewRender.Type, position: Int? = null): Fragment {
-        return when (type) {
-            ViewRender.Type.NEWEST_FRAGMENT -> NewestFragment.newInstance()
-            ViewRender.Type.UPCOMING_FRAGMENT -> UpcomingFragment.newInstance()
-            ViewRender.Type.FAVORITE_FRAGMENT -> FavoritesFragment.newInstance()
-            ViewRender.Type.SCREEN_RENDER_FRAGMENT -> ScreenRenderFragment.newInstance()
-            ViewRender.Type.STAGE_LINEUP_FRAGMENT -> StageLineupFragment.newInstance(position)
+    fun getFragment(screenRender: ScreenRender, position: Int? = null): Fragment {
+        return when (screenRender.type) {
+            ScreenRender.Type.NEWEST_SCREEN -> NewestFragment.newInstance()
+            ScreenRender.Type.UPCOMING_SCREEN -> UpcomingFragment.newInstance()
+            ScreenRender.Type.FAVORITE_SCREEN -> FavoritesFragment.newInstance()
+            ScreenRender.Type.SCREEN_RENDER_SCREEN -> ScreenRenderFragment.newInstance(screenRender.id)
+            ScreenRender.Type.STAGE_LINEUP_SCREEN -> StageLineupFragment.newInstance(position)
             else -> ErrorFragment.newInstance()
         }
     }

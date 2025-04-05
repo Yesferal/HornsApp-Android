@@ -7,6 +7,7 @@ import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.render.AppRender
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -29,13 +30,8 @@ class SocketIoDataSource(
 
     private val _homeRender =
         MutableStateFlow(drawerStorageDataSource.getAppRender()?.screens ?: listOf())
-    override val homeRender: StateFlow<List<ViewRender>>
+    override val homeRender: StateFlow<List<ScreenRender>>
         get() = _homeRender
-
-    private val _newestRender =
-        MutableStateFlow(drawerStorageDataSource.getAppRender()?.views ?: listOf())
-    override val newestRender: StateFlow<List<ViewRender>>
-        get() = _newestRender
 
     private val _categoryRender =
         MutableStateFlow(drawerStorageDataSource.getAppRender()?.categories ?: listOf())
@@ -77,7 +73,6 @@ class SocketIoDataSource(
                 // TODO: Validate docVersion before we save the AppDrawer doc
                 drawerStorageDataSource.updateAppRender(appDrawer)
                 _homeRender.value = appDrawer.screens ?: listOf()
-                _newestRender.value = appDrawer.views ?: listOf()
                 _categoryRender.value = appDrawer.categories ?: listOf()
             } catch (e: java.lang.Exception) {
                 logger.e("SocketIoDataSource: Socket On (updateDrawer): ${e.message.orEmpty()}")

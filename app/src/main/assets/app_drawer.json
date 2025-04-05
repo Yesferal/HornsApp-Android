@@ -1,6 +1,6 @@
 {
   "docVersion": 1,
-  "appVersion": 28,
+  "appVersion": 29,
   "platform": "android",
   "screens": [
     {
@@ -10,7 +10,8 @@
           "es": "VxR 2025"
         }
       },
-      "key": "SCREEN_RENDER_FRAGMENT"
+      "id": "67e6e5d4c644dc0fa6d3f900",
+      "key": "SCREEN_RENDER_SCREEN"
     },
     {
       "data": {
@@ -19,7 +20,8 @@
           "es": "Inicio"
         }
       },
-      "key": "NEWEST_FRAGMENT"
+      "id": "67f0da4dc644dc0fa6d3f927",
+      "key": "SCREEN_RENDER_SCREEN"
     },
     {
       "data": {
@@ -28,7 +30,7 @@
           "es": "Próximos"
         }
       },
-      "key": "UPCOMING_FRAGMENT"
+      "key": "UPCOMING_SCREEN"
     },
     {
       "data": {
@@ -37,7 +39,7 @@
           "es": "Favoritos"
         }
       },
-      "key": "FAVORITE_FRAGMENT"
+      "key": "FAVORITE_SCREEN"
     }
   ],
   "categories": [
@@ -66,401 +68,27 @@
       }
     },
     {
-      "key": "AMERICA",
+      "key": "LIMA",
       "data": {
         "title": {
-          "en": "America",
-          "es": "América"
+          "en": "Lima",
+          "es": "Lima"
         }
       },
       "children": {
-        "filter": "AMERICA"
+        "filter": "LIMA"
       }
     },
     {
-      "key": "EUROPE",
+      "key": "FEST",
       "data": {
         "title": {
-          "en": "Europe",
-          "es": "Europa"
+          "en": "Fest",
+          "es": "Festival"
         }
       },
       "children": {
-        "filter": "EUROPE"
-      }
-    }
-  ],
-  "views": [
-    {
-      "key": "ROW_VIEW",
-      "data": {
-        "elevation": true
-      },
-      "children": {
-        "key": "CAROUSEL_CARD_VIEW",
-        "take": 2,
-        "values": [
-          "67e61d62c644dc0fa6d3f8ec"
-        ]
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 50
-      },
-      "children": {
-        "key": "FIRST_NEWEST_LIST"
-      }
-    },
-    {
-      "key": "COLUMN_VIEW",
-      "data": {
-        "title": {
-          "en": "Upcoming",
-          "es": "Próximos"
-        },
-        "icon": "calendar",
-        "elevation": true
-      },
-      "navigation": {
-        "key": "UPCOMING"
-      },
-      "children": {
-        "key": "UPCOMING_CARD_VIEW",
-        "take": 3,
-        "sort": "UPCOMING_DATE"
-      }
-    },
-    {
-      "key": "ICON_CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Follow us on TikTok",
-          "es": "Síguenos en TikTok"
-        },
-        "subtitle": {
-          "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
-          "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
-        },
-        "icon": "tiktok",
-        "textColor": "#FFFFFF",
-        "backgroundColor": "#29303e"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
-        }
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
-      },
-      "children": {
-        "key": "SECOND_NEWEST_LIST"
-      }
-    },
-    {
-      "key": "CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Bloodstock Open Air 2024",
-          "es": "Bloodstock Open Air 2024"
-        },
-        "subtitle": {
-          "en": "#instagram #announcement",
-          "es": "#instagram #anuncio"
-        },
-        "icon": "instagram",
-        "imageUrl": "https://i.ytimg.com/vi/Jrnx1fiXmeI/maxresdefault.jpg",
-        "visibility": true
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.instagram.com/p/CzD4vLstO3Z/"
-        }
-      }
-    },
-    {
-      "key": "COLUMN_VIEW",
-      "data": {
-        "title": {
-          "en": "Metal never dies",
-          "es": "Metal nunca muere"
-        },
-        "subtitle": {
-          "en": "#metal",
-          "es": "#metal"
-        }
-      },
-      "children": {
-        "key": "UPCOMING_IMAGE_CARD_VIEW",
-        "filter": "METAL",
-        "take": "3"
-      }
-    },
-    {
-      "key": "ICON_CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Follow us on Instagram",
-          "es": "Síguenos en Instagram"
-        },
-        "subtitle": {
-          "en": "Did you know about our IG? Follow us and keep up posted.",
-          "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
-        },
-        "textColor": "#FFFFFF",
-        "backgroundColor": "#4f5bd5",
-        "icon": "instagram"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
-        }
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
-      },
-      "children": {
-        "key": "FIRST_NEWEST_LIST"
-      }
-    },
-    {
-      "key": "CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Iron Maiden at Power Trip 2023",
-          "es": "Iron Maiden en Power Trip 2023"
-        },
-        "subtitle": {
-          "en": "#setlist",
-          "es": "#setlist"
-        },
-        "imageUrl": "https://img07.shop-pro.jp/PA01396/192/product/177758437.jpg"
-      },
-      "navigation": {
-        "key": "SCREEN_RENDER",
-        "parameters": {
-          "param_parcelable_view_data": {
-            "id": "655e9cb652ff4c82ea4a63da"
-          }
-        }
-      }
-    },
-    {
-      "key": "COLUMN_VIEW",
-      "data": {
-        "title": {
-          "en": "European festivals",
-          "es": "Festivales Europeos"
-        },
-        "subtitle": {
-          "en": "#europe",
-          "es": "#europa"
-        }
-      },
-      "children": {
-        "key": "UPCOMING_IMAGE_CARD_VIEW",
-        "filter": "EUROPE",
-        "take": 3
-      }
-    },
-    {
-      "key": "ICON_CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Follow us on Spotify",
-          "es": "Síguenos en Spotify"
-        },
-        "subtitle": {
-          "en": "Did you know about our playlists on Spotify? There are a bunch of them waiting for you.",
-          "es": "¿Sabías acerca de nuestras playlists en Spotify? Hay muchas esperando por ti."
-        },
-        "backgroundColor": "#1DB954",
-        "textColor": "#29303e",
-        "icon": "spotify"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
-        }
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
-      },
-      "children": {
-        "key": "SECOND_NEWEST_LIST"
-      }
-    },
-    {
-      "key": "CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Wacken Friday, 5 August 2023",
-          "es": "Wacken 5 de agosto, 2023"
-        },
-        "subtitle": {
-          "en": "#tiktok #video",
-          "es": "#tiktok #video"
-        },
-        "icon": "tiktok",
-        "imageUrl": "https://metal.b-cdn.net/wp-content/uploads/2022/08/wacken2023-lineup-headliner-1.jpeg"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.tiktok.com/@hornsapp.pe/video/7275671660118822150"
-        }
-      }
-    },
-    {
-      "key": "COLUMN_VIEW",
-      "data": {
-        "title": {
-          "en": "Keep on rocking",
-          "es": "Siempre el Rock es prioridad"
-        },
-        "subtitle": {
-          "en": "#rock",
-          "es": "#rock"
-        }
-      },
-      "children": {
-        "key": "UPCOMING_IMAGE_CARD_VIEW",
-        "filter": "ROCK",
-        "take": 3
-      }
-    },
-    {
-      "key": "ICON_CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Save your favorites",
-          "es": "Guarda tus favoritos"
-        },
-        "subtitle": {
-          "en": "You can save your favorite concerts now, so you can find them easily later.",
-          "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
-        },
-        "icon": "favorite",
-        "backgroundColor": "#d1150c",
-        "textColor": "#FFFFFF"
-      },
-      "navigation": {
-        "key": "FAVORITE"
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
-      },
-      "children": {
-        "key": "FIRST_NEWEST_LIST"
-      }
-    },
-    {
-      "key": "CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Alestorm at Wacken 2023",
-          "es": "Alestorm en Wacken 2023"
-        },
-        "subtitle": {
-          "en": "#spotify #playlist",
-          "es": "#spotify #playlist"
-        },
-        "icon": "spotify",
-        "imageUrl": "https://i0.wp.com/haborymx.com/wp-content/uploads/2023/09/alestorm.png?fit=380"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://open.spotify.com/playlist/2tm8XiZrd1KF3t2LiJaYxY?si=19e62d9e6ce6435b"
-        }
-      }
-    },
-    {
-      "key": "COLUMN_VIEW",
-      "data": {
-        "title": {
-          "en": "American festivals",
-          "es": "Festivales Americanos"
-        },
-        "subtitle": {
-          "en": "#america",
-          "es": "#américa"
-        }
-      },
-      "children": {
-        "key": "UPCOMING_IMAGE_CARD_VIEW",
-        "filter": "AMERICA",
-        "take": 3
-      }
-    },
-    {
-      "key": "ICON_CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "Follow us on Facebook",
-          "es": "Síguenos en Facebook"
-        },
-        "subtitle": {
-          "en": "Did you know about our Facebook? Follow us and keep up posted.",
-          "es": "¿Sabías acerca de nuestro Facebook? Síguenos y mantente informado."
-        },
-        "backgroundColor": "#3b5998",
-        "icon": "facebook",
-        "textColor": "#FFFFFF"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.facebook.com/profile.php?id=100090226749195"
-        }
-      }
-    },
-    {
-      "key": "AD_VIEW",
-      "data": {
-        "height": 250
-      },
-      "children": {
-        "key": "SECOND_NEWEST_LIST"
-      }
-    },
-    {
-      "key": "CARD_VIEW",
-      "data": {
-        "title": {
-          "en": "In Flames at Summer Breeze 2023",
-          "es": "In Flames en Summer Breeze 2023"
-        },
-        "subtitle": {
-          "en": "#youtube #video",
-          "es": "#youtube #video"
-        },
-        "icon": "youtube",
-        "imageUrl": "https://images.squarespace-cdn.com/content/v1/57f2b82b29687fb32444a615/1662399330082-4ICDC7ACUZOVVZG9ZWN8/image-asset.jpeg"
-      },
-      "navigation": {
-        "key": "WEB_VIEW",
-        "parameters": {
-          "param_android_uri": "https://www.youtube.com/watch?v=34BHbbQmr7s"
-        }
+        "filter": "FEST"
       }
     }
   ]

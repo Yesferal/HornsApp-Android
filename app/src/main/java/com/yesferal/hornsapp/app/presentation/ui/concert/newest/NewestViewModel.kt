@@ -9,12 +9,12 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
-import com.yesferal.hornsapp.app.presentation.common.delegate.includeAdViewSection
-import com.yesferal.hornsapp.app.presentation.common.delegate.includeIconHomeCardSection
-import com.yesferal.hornsapp.app.presentation.common.delegate.includeImageHomeCardSection
 import com.yesferal.hornsapp.app.presentation.common.extension.addVerticalDivider
 import com.yesferal.hornsapp.app.presentation.common.extension.dateTimeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.dayFormatted
+import com.yesferal.hornsapp.app.presentation.common.extension.includeAdViewSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeIconHomeCardSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeImageHomeCardSection
 import com.yesferal.hornsapp.app.presentation.common.extension.monthFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.common.extension.yearFormatted
@@ -33,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// TODO: Delete this class
 class NewestViewModel(
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val getConcertsUseCase: GetConcertsUseCase,
@@ -46,8 +47,8 @@ class NewestViewModel(
 
     init {
         viewModelScope.launch {
-            renderRepository.getNewestRender().collect {
-                onRender(it)
+            renderRepository.getHomeRender().collect {
+                //onRender(it.)
             }
         }
     }

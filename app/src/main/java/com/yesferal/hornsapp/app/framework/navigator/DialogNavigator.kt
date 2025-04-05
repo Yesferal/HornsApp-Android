@@ -9,9 +9,9 @@ import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE
 import com.yesferal.hornsapp.app.presentation.ui.profile.ProfileBottomSheetFragment
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 class DialogNavigator(
     private val logger: Logger,
@@ -22,8 +22,8 @@ class DialogNavigator(
         val to = navigator.to
 
         val hornsBottomSheetFragment = when (to) {
-            ScreenType.PROFILE -> getDirectionToProfile()
-            ScreenType.BAND_DETAIL -> getDirectionToBandDetail(navigator.parameters)
+            ScreenRender.Type.PROFILE_SCREEN -> getDirectionToProfile()
+            ScreenRender.Type.BAND_DETAIL_SCREEN -> getDirectionToBandDetail(navigator.parameters)
             else -> null
         }
 

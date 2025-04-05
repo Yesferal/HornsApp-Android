@@ -9,13 +9,16 @@ import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
-import com.yesferal.hornsapp.app.presentation.common.delegate.includeAdViewSection
-import com.yesferal.hornsapp.app.presentation.common.delegate.includeIconHomeCardSection
-import com.yesferal.hornsapp.app.presentation.common.delegate.includeImageHomeCardSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeAdViewSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeCarouselSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeIconHomeCardSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeImageHomeCardSection
+import com.yesferal.hornsapp.app.presentation.common.extension.includeVerticalSection
 import com.yesferal.hornsapp.app.presentation.ui.concert.newest.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
+import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetReviewUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -26,6 +29,7 @@ import kotlinx.coroutines.withContext
 class ScreenRenderViewModel(
     id: String,
     private val getReviewUseCase: GetReviewUseCase,
+    private val getConcertsUseCase: GetConcertsUseCase,
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val logger: Logger
 ) : ViewModel() {
@@ -37,55 +41,63 @@ class ScreenRenderViewModel(
     init {
         viewModelScope.launch {
             val stateReview = withContext(Dispatchers.IO) {
-                when (val result = getReviewUseCase(id)) {
+                val concertsResult = getConcertsUseCase()
+                val screenResult = getReviewUseCase(id)
+                when (concertsResult) {
                     is HaResult.Success -> {
-                        val delegates = mutableListOf<Delegate>()
-                        result.value.views?.forEach {
-                            when(it.type) {
-                                ViewRender.Type.TITLE_REVIEW_CARD_VIEW -> {
-                                    delegates.add(TitleReviewViewData(it.data?.title?.text))
+                        when (screenResult) {
+                            is HaResult.Success -> {
+                                val delegates = mutableListOf<Delegate>()
+                                screenResult.value.views?.forEach {
+                                    when(it.type) {
+                                        ViewRender.Type.TITLE_REVIEW_CARD_VIEW -> {
+                                            delegates.add(TitleReviewViewData(it.data?.title?.text))
+                                        }
+                                        ViewRender.Type.SUBTITLE_REVIEW_CARD_VIEW -> {
+                                            delegates.add(TitleViewData(
+                                                it.data?.title?.text,
+                                                it.data?.subtitle?.text,
+                                                it.navigation,
+                                                it.data?.icon
+                                            ))
+                                        }
+                                        ViewRender.Type.IMAGE_REVIEW_CARD_VIEW -> {
+                                            delegates.add(ImageReviewViewData(it.data?.imageUrl, it.data?.description?.text))
+                                        }
+                                        ViewRender.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
+                                            delegates.add(DescriptionReviewViewData(it.data?.description?.text))
+                                        }
+                                        ViewRender.Type.BUTTON_CARD_VIEW -> {
+                                            delegates.add(RenderButtonViewData(it.data?.ctas?.firstOrNull()?.title?.text, it.navigation))
+                                        }
+                                        ViewRender.Type.ICON_CARD_VIEW -> {
+                                            delegates.includeIconHomeCardSection(it)
+                                        }
+                                        ViewRender.Type.CARD_VIEW -> {
+                                            delegates.includeImageHomeCardSection(it)
+                                        }
+                                        ViewRender.Type.AD_VIEW -> {
+                                            delegates.includeAdViewSection(businessModelFactoryProducer, it)
+                                        }
+                                        ViewRender.Type.ROW_VIEW -> {
+                                            delegates.includeCarouselSection(concertsResult.value, it)
+                                        }
+                                        ViewRender.Type.COLUMN_VIEW -> {
+                                            delegates.includeVerticalSection(concertsResult.value, it)
+                                        }
+                                        else -> { }
+                                    }
                                 }
-                                ViewRender.Type.SUBTITLE_REVIEW_CARD_VIEW -> {
-                                    delegates.add(TitleViewData(
-                                        it.data?.title?.text,
-                                        it.data?.subtitle?.text,
-                                        it.navigation,
-                                        it.data?.icon
-                                    ))
-                                }
-                                ViewRender.Type.IMAGE_REVIEW_CARD_VIEW -> {
-                                    delegates.add(ImageReviewViewData(it.data?.imageUrl, it.data?.description?.text))
-                                }
-                                ViewRender.Type.DESCRIPTION_REVIEW_CARD_VIEW -> {
-                                    delegates.add(DescriptionReviewViewData(it.data?.description?.text))
-                                }
-                                ViewRender.Type.BUTTON_CARD_VIEW -> {
-                                    delegates.add(RenderButtonViewData(it.data?.ctas?.firstOrNull()?.title?.text, it.navigation))
-                                }
-                                ViewRender.Type.ICON_CARD_VIEW -> {
-                                    delegates.includeIconHomeCardSection(it)
-                                }
-                                ViewRender.Type.CARD_VIEW -> {
-                                    delegates.includeImageHomeCardSection(it)
-                                }
-                                ViewRender.Type.AD_VIEW -> {
-                                    delegates.includeAdViewSection(businessModelFactoryProducer, it)
-                                }
-                                else -> { }
+
+                                return@withContext DelegateViewState(delegates)
+                            }
+                            is HaResult.Error -> {
+                                return@withContext showDelegateViewStateError()
                             }
                         }
-
-                        return@withContext DelegateViewState(delegates)
                     }
                     is HaResult.Error -> {
-                        return@withContext DelegateViewState(
-                            delegates = listOf(
-                                ErrorViewData(
-                                    R.drawable.ic_music_note,
-                                    R.string.error_default
-                                )
-                            )
-                        )
+                        return@withContext showDelegateViewStateError()
                     }
                 }
             }
@@ -93,11 +105,23 @@ class ScreenRenderViewModel(
             _stateReview.value = stateReview
         }
     }
+
+    private fun showDelegateViewStateError(): DelegateViewState {
+        return DelegateViewState(
+            delegates = listOf(
+                ErrorViewData(
+                    R.drawable.ic_music_note,
+                    R.string.error_default
+                )
+            )
+        )
+    }
 }
 
 class ScreenRenderViewModelFactory(
     private val id: String,
     private val getReviewUseCase: GetReviewUseCase,
+    private val getConcertsUseCase: GetConcertsUseCase,
     private val businessModelFactoryProducer: BusinessModelFactoryProducer,
     private val logger: Logger,
 ) : ViewModelProvider.Factory {
@@ -105,11 +129,13 @@ class ScreenRenderViewModelFactory(
         return modelClass.getConstructor(
             String::class.java,
             GetReviewUseCase::class.java,
+            GetConcertsUseCase::class.java,
             BusinessModelFactoryProducer::class.java,
             Logger::class.java
         ).newInstance(
             id,
             getReviewUseCase,
+            getConcertsUseCase,
             businessModelFactoryProducer,
             logger
         )

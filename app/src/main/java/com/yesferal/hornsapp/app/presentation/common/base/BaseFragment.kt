@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.hadi
 
 abstract class BaseFragment : Fragment(), LayoutBinding {
@@ -40,7 +40,7 @@ abstract class BaseFragment : Fragment(), LayoutBinding {
 
     fun startExternalActivity(navViewData: NavViewData) {
         Navigator.Builder()
-            .to(ScreenType.WEB_VIEW)
+            .to(ScreenRender.Type.WEB_VIEW_SCREEN)
             .with(navViewData)
             .build()
             .navigateTo()

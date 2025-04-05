@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
 
@@ -20,18 +20,18 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
         val to = navigator.to
 
         val navDirections = when (to) {
-            ScreenType.HOME -> getDirectionToHome(view, tab = 0)
-            ScreenType.ON_BOARDING -> getDirectionToOnBoarding()
-            ScreenType.SETTING -> getDirectionToSettings()
-            ScreenType.CONCERT_DETAIL -> getDirectionToDetail(navigator.parameters) {
+            ScreenRender.Type.HOME_SCREEN -> getDirectionToHome(view, tab = 0)
+            ScreenRender.Type.ON_BOARDING_SCREEN -> getDirectionToOnBoarding()
+            ScreenRender.Type.SETTING_SCREEN -> getDirectionToSettings()
+            ScreenRender.Type.CONCERT_DETAIL_SCREEN -> getDirectionToDetail(navigator.parameters) {
                 getDirectionToConcertDetail(it)
             }
-            ScreenType.UPCOMING -> getDirectionToHome(view, tab = 1)
-            ScreenType.FAVORITE -> getDirectionToHome(view, tab = 2)
-            ScreenType.SCREEN_RENDER -> getDirectionToDetail(navigator.parameters) {
+            ScreenRender.Type.UPCOMING_SCREEN -> getDirectionToHome(view, tab = 1)
+            ScreenRender.Type.FAVORITE_SCREEN -> getDirectionToHome(view, tab = 2)
+            ScreenRender.Type.SCREEN_RENDER_SCREEN -> getDirectionToDetail(navigator.parameters) {
                 getDirectionToScreenRender(it)
             }
-            ScreenType.LINEUP -> getDirectionToDetail(navigator.parameters) {
+            ScreenRender.Type.LINEUP_SCREEN -> getDirectionToDetail(navigator.parameters) {
                 getDirectionToLineup(it)
             }
             else -> null

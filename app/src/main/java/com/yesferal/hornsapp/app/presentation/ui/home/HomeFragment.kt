@@ -17,9 +17,9 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class HomeFragment : RenderFragment<HomeViewState>() {
@@ -49,7 +49,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 
         hornsAppImageView.setOnClickListener {
             Navigator.Builder()
-                .to(ScreenType.PROFILE)
+                .to(ScreenRender.Type.PROFILE_SCREEN)
                 .build()
                 .navigateTo()
         }
@@ -93,7 +93,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         }
     }
 
-    private fun showChildFragmentTitles(screens: List<Pair<ViewRender.Type, String>>) {
+    private fun showChildFragmentTitles(screens: List<Pair<ScreenRender, String>>) {
         concertsViewPager.adapter = ScreenSlidePagerAdapter(this, FragmentFactory(), screens.map { it.first })
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
@@ -142,13 +142,13 @@ class HomeFragment : RenderFragment<HomeViewState>() {
 private class ScreenSlidePagerAdapter(
     activity: Fragment,
     private val fragmentFactory: FragmentFactory,
-    private val screens: List<ViewRender.Type>
+    private val screens: List<ScreenRender>
 ) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = screens.size
 
     override fun createFragment(position: Int): Fragment {
-        return fragmentFactory.getFragment(type = screens[position])
+        return fragmentFactory.getFragment(screens[position])
     }
 }
 

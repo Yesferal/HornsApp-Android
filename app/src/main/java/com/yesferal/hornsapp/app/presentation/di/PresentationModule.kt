@@ -105,6 +105,7 @@ fun Container.registerPresentationModule() {
         ScreenRenderViewModelFactory(
             id = id,
             getReviewUseCase = resolve(),
+            getConcertsUseCase = resolve(),
             businessModelFactoryProducer = resolve(),
             logger = resolve(),
         )

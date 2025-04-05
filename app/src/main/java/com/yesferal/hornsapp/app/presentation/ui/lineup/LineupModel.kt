@@ -12,13 +12,12 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.core.domain.entity.Stage
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
-import java.util.Date
 
 data class LineupViewState(
     val day: String? = null,
@@ -88,7 +87,7 @@ data class LineupPerformanceViewData(
     }
 
     override fun toMap(): Parameters {
-        return Parameters(ScreenType.CALENDAR.name).apply {
+        return Parameters(ScreenRender.Type.CALENDAR_SCREEN.name).apply {
             // TODO: Create a HornsApp Calendar object
             // Duplicated code in ConcertModel
             if (title != null && startTime != null && duration != null) {

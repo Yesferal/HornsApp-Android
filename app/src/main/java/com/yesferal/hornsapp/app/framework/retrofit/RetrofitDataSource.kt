@@ -44,8 +44,8 @@ class RetrofitDataSource(
         id: String
     ): HaResult<ScreenRender> {
         return service
-            .safeCall { getReviewBy(id) }
-            .mapToResult { it.mapToScreenRender() }
+            .safeCall { getScreenRenderBy(id) }
+            .mapToResult { it }
     }
 
     private suspend fun <INPUT> Service.safeCall(

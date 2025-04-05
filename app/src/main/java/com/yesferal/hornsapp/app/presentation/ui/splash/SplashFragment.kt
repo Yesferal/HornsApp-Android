@@ -7,8 +7,8 @@ import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class SplashFragment : RenderFragment<SplashState>() {
@@ -42,14 +42,14 @@ class SplashFragment : RenderFragment<SplashState>() {
 
     override fun render(viewState: SplashState) {
         val directionType = if (viewState.onBoardingVisibility) {
-            ScreenType.ON_BOARDING
+            ScreenRender.Type.ON_BOARDING_SCREEN
         } else {
-            ScreenType.HOME
+            ScreenRender.Type.HOME_SCREEN
         }
         initMotionLayout(directionType)
     }
 
-    private fun initMotionLayout(screenType: ScreenType) {
+    private fun initMotionLayout(screenType: ScreenRender.Type) {
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 Navigator.Builder()

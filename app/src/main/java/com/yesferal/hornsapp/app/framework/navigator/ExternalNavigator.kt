@@ -6,8 +6,8 @@ import android.net.Uri
 import android.provider.CalendarContract
 import androidx.fragment.app.Fragment
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 
 class ExternalNavigator(
     private val logger: Logger,
@@ -19,10 +19,10 @@ class ExternalNavigator(
 
     override fun navigate(view: Fragment, navigator: Navigator) {
         val intent = when (navigator.to) {
-            ScreenType.WEB_VIEW -> navigateToWebView(navigator)
-            ScreenType.CALENDAR -> navigateToCalendar(navigator)
-            ScreenType.MAP -> navigateToWebView(navigator)
-            ScreenType.MESSAGE -> navigateToMessage(navigator)
+            ScreenRender.Type.WEB_VIEW_SCREEN -> navigateToWebView(navigator)
+            ScreenRender.Type.CALENDAR_SCREEN -> navigateToCalendar(navigator)
+            ScreenRender.Type.MAP_SCREEN -> navigateToWebView(navigator)
+            ScreenRender.Type.MESSAGE_SCREEN -> navigateToMessage(navigator)
             else -> null
         }
 

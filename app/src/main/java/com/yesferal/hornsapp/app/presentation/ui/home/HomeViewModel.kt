@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
-import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import kotlinx.coroutines.Dispatchers
@@ -23,12 +23,12 @@ class HomeViewModel(
     val state: LiveData<HomeViewState>
         get() = _state
 
-    private lateinit var homeDrawer: List<ViewRender>
+    private lateinit var homeDrawer: List<ScreenRender>
 
     init {
         viewModelScope.launch {
-            drawerRepository.getHomeRender().collect {
-                homeDrawer = it
+            drawerRepository.getHomeRender().collect { screens ->
+                homeDrawer = screens
                 onRefresh()
             }
         }
@@ -49,7 +49,7 @@ class HomeViewModel(
         when (getConcertsUseCase()) {
             is HaResult.Success -> {
                 val screens = homeDrawer.map {
-                    Pair(it.type, it.data?.title?.text.orEmpty())
+                    Pair(it, it.data?.title?.text.orEmpty())
                 }
 
                 HomeViewState(screens)

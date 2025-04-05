@@ -11,8 +11,8 @@ import com.yesferal.hornsapp.app.presentation.common.base.BaseFragment
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.app.presentation.ui.settings.EasterEggsApplier
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.hadi_android.hadi
 
 class ProfileFragment : BaseFragment(), EasterEggsApplier {
@@ -51,7 +51,7 @@ class ProfileFragment : BaseFragment(), EasterEggsApplier {
         )
         shareTextView.setOnClickListener {
             Navigator.Builder()
-                .to(ScreenType.MESSAGE)
+                .to(ScreenRender.Type.MESSAGE_SCREEN)
                 .with(MessageViewData(getString(R.string.share_hornsapp_message)))
                 .build()
                 .navigateTo()

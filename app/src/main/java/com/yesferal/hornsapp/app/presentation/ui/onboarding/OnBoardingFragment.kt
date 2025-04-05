@@ -11,8 +11,8 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeIn
 import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.render.RenderFragment
+import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.ScreenType
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.hadi_android.getViewModel
@@ -60,7 +60,7 @@ class OnBoardingFragment : RenderFragment<OnBoardingViewState>() {
         nextTextView.setOnClickListener {
             onBoardingViewModel.updateVisibilityOnBoarding()
             Navigator.Builder()
-                .to(ScreenType.HOME)
+                .to(ScreenRender.Type.HOME_SCREEN)
                 .popBackStack(R.id.fragment_on_boarding)
                 .build()
                 .navigateTo()
