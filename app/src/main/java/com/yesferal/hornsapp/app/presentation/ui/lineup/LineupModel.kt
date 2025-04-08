@@ -59,7 +59,7 @@ data class LineupPerformanceViewData(
         if (time < (startTime ?: 0) || time > (startTime?.plus(((duration?.times(60) ?: 0) * 1000))
                 ?: 0)
         ) {
-            // TODO: Create an Enum for icons if it does not existe
+            // TODO: Create an Enum for icons if it does not exist
             val textColor = ContextCompat.getColor(view.context, R.color.primaryText)
 
             titleImageView.setColorFilter(textColor)

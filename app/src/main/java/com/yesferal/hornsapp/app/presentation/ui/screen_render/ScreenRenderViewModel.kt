@@ -41,6 +41,7 @@ class ScreenRenderViewModel(
     init {
         viewModelScope.launch {
             val stateReview = withContext(Dispatchers.IO) {
+                var renderAd = true
                 val concertsResult = getConcertsUseCase()
                 val screenResult = getReviewUseCase(id)
                 when (concertsResult) {
@@ -77,6 +78,7 @@ class ScreenRenderViewModel(
                                             delegates.includeImageHomeCardSection(it)
                                         }
                                         ViewRender.Type.AD_VIEW -> {
+                                            renderAd = false
                                             delegates.includeAdViewSection(businessModelFactoryProducer, it)
                                         }
                                         ViewRender.Type.ROW_VIEW -> {
@@ -89,7 +91,7 @@ class ScreenRenderViewModel(
                                     }
                                 }
 
-                                return@withContext DelegateViewState(delegates)
+                                return@withContext DelegateViewState(delegates, renderAd)
                             }
                             is HaResult.Error -> {
                                 return@withContext showDelegateViewStateError()
