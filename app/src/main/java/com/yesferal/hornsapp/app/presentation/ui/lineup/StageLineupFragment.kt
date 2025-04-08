@@ -3,7 +3,8 @@ package com.yesferal.hornsapp.app.presentation.ui.lineup
 
 import android.os.Bundle
 import android.view.View
-import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
@@ -30,61 +31,59 @@ class StageLineupFragment : DelegateAdapterFragment(), TitleViewData.Listener,
         viewModel =
             getViewModel<LineupViewModel, LineupViewModelFactory>(param = ID)
 
-        val position = arguments?.getInt(KEY_POSITION, 0) ?: 0
-
         // TODO: Fix/Clean this logic
         viewModel.state.observe(viewLifecycleOwner) {
-            var lineupStartTime = 1743253200000
-            val delegates = mutableListOf<Delegate>()
-            val stage = it.stages?.get(position)
-            delegates.add(TitleViewData(stage?.title.orEmpty(), null, null, null))
+            val columnDelegates = mutableListOf<Delegate>()
 
-            // TODO : Clean up this mess
-            stage?.performances?.map { performance ->
-                val description =
-                    performance.startTimeInMillis.timeFormatted() + " - " + (performance.startTimeInMillis?.plus(
-                        ((performance.duration ?: 60) * 60 * 1000)
-                    )).timeFormatted()
-                if (lineupStartTime < (performance.startTimeInMillis ?: 0)) {
+            it.stages?.forEach { stage ->
+                // TODO: Use first event time instead
+                var lineupStartTime = 1743253200000
+                // TODO : Clean up this mess
+                val delegates = mutableListOf<Delegate>()
+                delegates.add(TitleViewData(stage.title.orEmpty(), null, null, null))
+                stage.performances?.forEach { performance ->
+                    val description =
+                        performance.startTimeInMillis.timeFormatted() + " - " + (performance.startTimeInMillis?.plus(
+                            ((performance.duration ?: 60) * 60 * 1000)
+                        )).timeFormatted()
+                    if (lineupStartTime < (performance.startTimeInMillis ?: 0)) {
+                        delegates.add(
+                            LineupEmptyViewData(
+                                (performance.startTimeInMillis?.minus(
+                                    lineupStartTime
+                                ))?.toInt()?.div(60000)
+                            )
+                        )
+                    }
+
+                    lineupStartTime =
+                        performance.startTimeInMillis?.plus(
+                            ((performance.duration ?: 60) * 60 * 1000)
+                        )
+                            ?: 0
+
                     delegates.add(
-                        LineupEmptyViewData(
-                            (performance.startTimeInMillis?.minus(
-                                lineupStartTime
-                            ))?.toInt()?.div(60000)
+                        LineupPerformanceViewData(
+                            performance.title,
+                            description,
+                            performance.startTimeInMillis,
+                            performance.duration,
+                            false
                         )
                     )
                 }
 
-                lineupStartTime =
-                    performance.startTimeInMillis?.plus(((performance.duration ?: 60) * 60 * 1000))
-                        ?: 0
-
-                delegates.add(
-                    LineupPerformanceViewData(
-                        performance.title,
-                        description,
-                        performance.startTimeInMillis,
-                        performance.duration,
-                        false
-                    )
+                columnDelegates.add(
+                    ColumnDelegate.Builder().addItems(delegates)
+                        .addElevation(4F).build()
                 )
             }
-
-            render(DelegateViewState(delegates.toList()))
+            render(DelegateViewState(columnDelegates))
         }
     }
 
-    companion object {
-        private val KEY_POSITION = "position"
-
-        fun newInstance(position: Int?): StageLineupFragment {
-            val stageLineupFragment = StageLineupFragment()
-
-            val args = Bundle()
-            args.putInt(KEY_POSITION, position ?: 0)
-            stageLineupFragment.setArguments(args)
-            return stageLineupFragment
-        }
+    override fun getLayoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onClick(parameters: Parameters) {
@@ -93,5 +92,9 @@ class StageLineupFragment : DelegateAdapterFragment(), TitleViewData.Listener,
             .with(parameters)
             .build()
             .navigateTo()
+    }
+
+    companion object {
+        fun newInstance() = StageLineupFragment()
     }
 }

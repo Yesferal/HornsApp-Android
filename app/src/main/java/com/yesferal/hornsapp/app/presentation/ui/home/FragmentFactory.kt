@@ -9,12 +9,12 @@ import com.yesferal.hornsapp.app.presentation.ui.screen_render.ScreenRenderFragm
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 
 class FragmentFactory {
-    fun getFragment(screenRender: ScreenRender, position: Int? = null): Fragment {
+    fun getFragment(screenRender: ScreenRender): Fragment {
         return when (screenRender.type) {
             ScreenRender.Type.UPCOMING_SCREEN -> UpcomingFragment.newInstance()
             ScreenRender.Type.FAVORITE_SCREEN -> FavoritesFragment.newInstance()
             ScreenRender.Type.SCREEN_RENDER_SCREEN -> ScreenRenderFragment.newInstance(screenRender.id)
-            ScreenRender.Type.STAGE_LINEUP_SCREEN -> StageLineupFragment.newInstance(position)
+            ScreenRender.Type.STAGE_LINEUP_SCREEN -> StageLineupFragment.newInstance()
             else -> ErrorFragment.newInstance()
         }
     }

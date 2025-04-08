@@ -34,7 +34,7 @@ abstract class DelegateAdapterFragment : RenderFragment<DelegateViewState>(), De
 
         delegateRecyclerView.also {
             it.adapter = delegateAdapter
-            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            it.layoutManager = getLayoutManager()
         }
     }
 
@@ -42,5 +42,9 @@ abstract class DelegateAdapterFragment : RenderFragment<DelegateViewState>(), De
         viewState.delegates?.let {
             delegateAdapter.updateDelegates(it)
         }
+    }
+
+    open fun getLayoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 }

@@ -1,6 +1,7 @@
 /* Copyright © 2025 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.lineup
 
+import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
@@ -71,7 +72,8 @@ data class LineupPerformanceViewData(
             )
             view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.background))
         } else {
-            val textColor = ContextCompat.getColor(view.context, R.color.background)
+            // TODO: Set Button style to this view instead
+            val textColor = Color.WHITE
             titleImageView.setColorFilter(textColor)
             titleTextView.setTextColor(textColor)
             subtitleTextView.setTextColor(textColor)

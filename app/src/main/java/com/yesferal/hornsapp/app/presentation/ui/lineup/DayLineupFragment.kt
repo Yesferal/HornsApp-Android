@@ -37,19 +37,11 @@ class DayLineupFragment: RenderFragment<HomeViewState>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val stage1Fragment = StageLineupFragment.newInstance(0)
-        val stage2Fragment = StageLineupFragment.newInstance(1)
-        val stage3Fragment = StageLineupFragment.newInstance(2)
-        val stage4Fragment = StageLineupFragment.newInstance(3)
-        val stage5Fragment = StageLineupFragment.newInstance(4)
+        val stageLineupFragment = StageLineupFragment.newInstance()
 
         val transaction = getChildFragmentManager().beginTransaction()
 
-        transaction.replace(R.id.stage1Fragment, stage1Fragment)
-            .replace(R.id.stage2Fragment, stage2Fragment)
-            .replace(R.id.stage3Fragment, stage3Fragment)
-            .replace(R.id.stage4Fragment, stage4Fragment)
-            .replace(R.id.stage5Fragment, stage5Fragment)
+        transaction.replace(R.id.stageLineupFragment, stageLineupFragment)
             .commit()
 
         return super.onCreateView(inflater, container, savedInstanceState)

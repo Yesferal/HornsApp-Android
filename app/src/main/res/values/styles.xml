@@ -47,6 +47,7 @@
     <style name="HornsApp.BottomSheetDialogTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/HornsApp.ModalStyle</item>
+        <item name="android:fontFamily">@font/aileron_regular</item>
     </style>
 
     <style name="HornsApp.ModalStyle" parent="Widget.Design.BottomSheet.Modal">
