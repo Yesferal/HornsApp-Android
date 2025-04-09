@@ -32,7 +32,7 @@ jobs:
 
       # Execute lint validation
       - name: Assemble
-        run: ./gradlew :app:assembleVasirDebug
+        run: ./gradlew :app:assembleMuvinDebug
 
       # Execute lint validation
       - name: Assemble
@@ -44,4 +44,4 @@ jobs:
 
       # Execute unit tests
       - name: Unit Test
-        run: ./gradlew testVasirDebugUnitTest
+        run: ./gradlew testMuvinDebugUnitTest
