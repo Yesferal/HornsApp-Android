@@ -32,20 +32,24 @@ class LineupViewModel(
     init {
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
-                when (val result = lineupUseCase.getLineup()) {
+                when (val result = lineupUseCase.getLineup(id)) {
                     is HaResult.Success -> {
                         val screenDelegates = mutableListOf<Delegate>()
-                        screenDelegates.add(TitleReviewViewData(result.value.day))
+                        screenDelegates.add(TitleReviewViewData(result.value.title))
 
                         val columnDelegates = mutableListOf<Delegate>()
 
-                        result.value.stages?.forEach { stage ->
-                            // TODO: Use first event time instead
-                            var lineupStartTime = 1743253200000
+                        val firstDailyLineup = result.value.days?.firstOrNull()
+
+                        val dateTimeInMillis = firstDailyLineup?.dateTimeInMillis
+                            ?: return@withContext DelegateViewState(screenDelegates)
+
+                        firstDailyLineup.stages?.forEach { stage ->
                             // TODO : Clean up this mess
+                            var lineupStartTime = dateTimeInMillis
                             val delegates = mutableListOf<Delegate>()
                             delegates.add(TitleViewData(stage.title.orEmpty(), null, null, null))
-                            stage.performances?.forEach { performance ->
+                            stage.events?.forEach { performance ->
                                 val description =
                                     performance.startTimeInMillis.timeFormatted() + " - " + (performance.startTimeInMillis?.plus(
                                         ((performance.duration ?: 60) * 60 * 1000)

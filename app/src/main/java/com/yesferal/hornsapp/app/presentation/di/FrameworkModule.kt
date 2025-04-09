@@ -70,7 +70,7 @@ fun Container.registerFrameworkModule() {
     }
 
     this register Factory<LineupUseCase> {
-        resolve<PreferencesDataSource>()
+        resolve<RetrofitDataSource>()
     }
 
     this register Factory<RenderStorageDataSource> {

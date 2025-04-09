@@ -6,14 +6,10 @@ import com.yesferal.hornsapp.app.framework.gson.GsonDataSource
 import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
-import com.yesferal.hornsapp.app.framework.retrofit.entity.GetLineup
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
-import com.yesferal.hornsapp.core.domain.entity.Lineup
 import com.yesferal.hornsapp.core.domain.entity.render.AppRender
-import com.yesferal.hornsapp.core.domain.usecase.LineupUseCase
-import com.yesferal.hornsapp.core.domain.util.HaResult
 
 class PreferencesDataSource(
     context: Context,
@@ -22,7 +18,7 @@ class PreferencesDataSource(
     private val gsonDataSource: GsonDataSource,
     private val fileReaderManager: FileReaderManager,
     private val packageInfoDataSource: PackageInfoDataSource
-) : EnvironmentDataSource, OnBoardingDataSource, RenderStorageDataSource, LineupUseCase {
+) : EnvironmentDataSource, OnBoardingDataSource, RenderStorageDataSource {
 
     enum class Key {
         ENVIRONMENT,
@@ -76,18 +72,6 @@ class PreferencesDataSource(
         }
 
         return localStorageAppDrawer
-    }
-
-    override fun getLineup(): HaResult<Lineup> {
-        val value = gsonDataSource.fromJsonSafe(
-            fileReaderManager.getJsonDataFromAsset("vxr_lineup.json"),
-            GetLineup::class.java
-        )?.mapToLineup()
-        return if (value != null) {
-            HaResult.Success(value)
-        } else {
-            HaResult.Error
-        }
     }
 
     private fun getAppDrawerAsString(): String? {

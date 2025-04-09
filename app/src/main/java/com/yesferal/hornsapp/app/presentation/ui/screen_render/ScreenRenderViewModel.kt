@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.includeAdViewSection
@@ -15,7 +14,6 @@ import com.yesferal.hornsapp.app.presentation.common.extension.includeIconHomeCa
 import com.yesferal.hornsapp.app.presentation.common.extension.includeImageHomeCardSection
 import com.yesferal.hornsapp.app.presentation.common.extension.includeVerticalSection
 import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
-import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.ErrorViewData
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase

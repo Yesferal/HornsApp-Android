@@ -6,7 +6,9 @@ import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSourc
 import com.yesferal.hornsapp.core.data.abstraction.remote.ReviewRemoteDataSource
 import com.yesferal.hornsapp.core.domain.entity.Band
 import com.yesferal.hornsapp.core.domain.entity.Concert
+import com.yesferal.hornsapp.core.domain.entity.Lineup
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
+import com.yesferal.hornsapp.core.domain.usecase.LineupUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -14,7 +16,7 @@ import java.lang.Exception
 
 class RetrofitDataSource(
     private val service: Service
-) : ConcertRemoteDataSource, BandRemoteDataSource, ReviewRemoteDataSource {
+) : ConcertRemoteDataSource, BandRemoteDataSource, ReviewRemoteDataSource, LineupUseCase {
 
     override suspend fun getConcerts(): HaResult<List<Concert>> {
         return service
@@ -46,6 +48,12 @@ class RetrofitDataSource(
         return service
             .safeCall { getScreenRenderBy(id) }
             .mapToResult { it }
+    }
+
+    override suspend fun getLineup(id: String): HaResult<Lineup> {
+        return service
+            .safeCall { getLineupBy(id) }
+            .mapToResult { it.mapToLineup() }
     }
 
     private suspend fun <INPUT> Service.safeCall(
