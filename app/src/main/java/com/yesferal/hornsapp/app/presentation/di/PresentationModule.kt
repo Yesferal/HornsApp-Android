@@ -87,7 +87,7 @@ fun Container.registerPresentationModule() {
     this register Factory { (id: String) ->
         LineupViewModelFactory(
             id = id,
-            lineupDataSource = resolve(),
+            lineupUseCase = resolve(),
         )
     }
 

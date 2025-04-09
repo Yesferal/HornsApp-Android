@@ -12,6 +12,7 @@ import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
 import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
 import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.screen_render.TitleReviewViewData
+import com.yesferal.hornsapp.core.domain.usecase.LineupUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.delegate.RowDelegate
@@ -21,7 +22,7 @@ import kotlinx.coroutines.withContext
 
 class LineupViewModel(
     id: String,
-    private val lineupDataSource: LineupDataSource,
+    private val lineupUseCase: LineupUseCase,
 ) : ViewModel() {
     private val _state = MutableLiveData<DelegateViewState>()
 
@@ -31,7 +32,7 @@ class LineupViewModel(
     init {
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
-                when (val result = lineupDataSource.getLineup()) {
+                when (val result = lineupUseCase.getLineup()) {
                     is HaResult.Success -> {
                         val screenDelegates = mutableListOf<Delegate>()
                         screenDelegates.add(TitleReviewViewData(result.value.day))
@@ -101,15 +102,15 @@ class LineupViewModel(
 
 class LineupViewModelFactory(
     private val id: String,
-    private val lineupDataSource: LineupDataSource,
+    private val lineupUseCase: LineupUseCase,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(
             String::class.java,
-            LineupDataSource::class.java,
+            LineupUseCase::class.java,
         ).newInstance(
             id,
-            lineupDataSource,
+            lineupUseCase,
         )
     }
 }

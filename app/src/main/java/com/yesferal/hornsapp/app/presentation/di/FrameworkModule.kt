@@ -23,7 +23,6 @@ import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
 import com.yesferal.hornsapp.app.framework.socketio.SocketIoDataSource
-import com.yesferal.hornsapp.app.presentation.ui.lineup.LineupDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
@@ -32,6 +31,7 @@ import com.yesferal.hornsapp.core.data.abstraction.storage.ConcertStorageDataSou
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
+import com.yesferal.hornsapp.core.domain.usecase.LineupUseCase
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.dependency.Factory
 import com.yesferal.hornsapp.hadi.dependency.Singleton
@@ -69,7 +69,7 @@ fun Container.registerFrameworkModule() {
         resolve<PreferencesDataSource>()
     }
 
-    this register Factory<LineupDataSource> {
+    this register Factory<LineupUseCase> {
         resolve<PreferencesDataSource>()
     }
 

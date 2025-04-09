@@ -7,12 +7,12 @@ import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
 import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.app.framework.retrofit.ApiConstants
 import com.yesferal.hornsapp.app.framework.retrofit.entity.GetLineup
-import com.yesferal.hornsapp.app.presentation.ui.lineup.LineupDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.EnvironmentDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
 import com.yesferal.hornsapp.core.domain.entity.Lineup
 import com.yesferal.hornsapp.core.domain.entity.render.AppRender
+import com.yesferal.hornsapp.core.domain.usecase.LineupUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 
 class PreferencesDataSource(
@@ -22,7 +22,7 @@ class PreferencesDataSource(
     private val gsonDataSource: GsonDataSource,
     private val fileReaderManager: FileReaderManager,
     private val packageInfoDataSource: PackageInfoDataSource
-) : EnvironmentDataSource, OnBoardingDataSource, RenderStorageDataSource, LineupDataSource {
+) : EnvironmentDataSource, OnBoardingDataSource, RenderStorageDataSource, LineupUseCase {
 
     enum class Key {
         ENVIRONMENT,
