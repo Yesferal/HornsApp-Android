@@ -6,7 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yesferal.hornsapp.app.framework.logger.ChainLoggerProvider
+import com.yesferal.hornsapp.app.R
+import com.yesferal.hornsapp.app.presentation.common.delegate.ColumnDelegate
+import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateViewState
+import com.yesferal.hornsapp.app.presentation.common.extension.timeFormatted
+import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
+import com.yesferal.hornsapp.app.presentation.ui.screen_render.TitleReviewViewData
+import com.yesferal.hornsapp.core.domain.util.HaResult
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
+import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,22 +23,76 @@ class LineupViewModel(
     id: String,
     private val lineupDataSource: LineupDataSource,
 ) : ViewModel() {
-    private val _state = MutableLiveData<LineupViewState>()
+    private val _state = MutableLiveData<DelegateViewState>()
 
-    val state: LiveData<LineupViewState>
+    val state: LiveData<DelegateViewState>
         get() = _state
 
     init {
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
-                val result = lineupDataSource.getLineup()
-                val lineup = result
-                ChainLoggerProvider.provideLogger().d("LineupViewModel: lineup: ${lineup}")
-                LineupViewState(
-                    day = lineup?.day,
-                    headers = lineup?.stages?.mapNotNull { it.title },
-                    stages = lineup?.stages
-                )
+                when (val result = lineupDataSource.getLineup()) {
+                    is HaResult.Success -> {
+                        val screenDelegates = mutableListOf<Delegate>()
+                        screenDelegates.add(TitleReviewViewData(result.value.day))
+
+                        val columnDelegates = mutableListOf<Delegate>()
+
+                        result.value.stages?.forEach { stage ->
+                            // TODO: Use first event time instead
+                            var lineupStartTime = 1743253200000
+                            // TODO : Clean up this mess
+                            val delegates = mutableListOf<Delegate>()
+                            delegates.add(TitleViewData(stage.title.orEmpty(), null, null, null))
+                            stage.performances?.forEach { performance ->
+                                val description =
+                                    performance.startTimeInMillis.timeFormatted() + " - " + (performance.startTimeInMillis?.plus(
+                                        ((performance.duration ?: 60) * 60 * 1000)
+                                    )).timeFormatted()
+                                if (lineupStartTime < (performance.startTimeInMillis ?: 0)) {
+                                    delegates.add(
+                                        LineupEmptyViewData(
+                                            (performance.startTimeInMillis?.minus(
+                                                lineupStartTime
+                                            ))?.toInt()?.div(60000)
+                                        )
+                                    )
+                                }
+
+                                lineupStartTime =
+                                    performance.startTimeInMillis?.plus(
+                                        ((performance.duration ?: 60) * 60 * 1000)
+                                    )
+                                        ?: 0
+
+                                delegates.add(
+                                    LineupPerformanceViewData(
+                                        performance.title,
+                                        description,
+                                        performance.startTimeInMillis,
+                                        performance.duration,
+                                        false
+                                    )
+                                )
+                            }
+
+                            columnDelegates.add(
+                                ColumnDelegate.Builder().addItems(delegates)
+                                    .addBackground(R.color.divider).build()
+                            )
+                        }
+
+                        screenDelegates.add(
+                            RowDelegate.Builder().addItems(columnDelegates).build()
+                        )
+
+                        return@withContext DelegateViewState(screenDelegates)
+                    }
+
+                    is HaResult.Error -> {
+                        return@withContext DelegateViewState.showDelegateViewStateError()
+                    }
+                }
             }
             _state.value = state
         }

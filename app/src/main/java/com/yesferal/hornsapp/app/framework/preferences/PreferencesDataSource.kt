@@ -13,6 +13,7 @@ import com.yesferal.hornsapp.core.data.abstraction.storage.OnBoardingDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
 import com.yesferal.hornsapp.core.domain.entity.Lineup
 import com.yesferal.hornsapp.core.domain.entity.render.AppRender
+import com.yesferal.hornsapp.core.domain.util.HaResult
 
 class PreferencesDataSource(
     context: Context,
@@ -77,11 +78,16 @@ class PreferencesDataSource(
         return localStorageAppDrawer
     }
 
-    override fun getLineup(): Lineup? {
-        return gsonDataSource.fromJsonSafe(
+    override fun getLineup(): HaResult<Lineup> {
+        val value = gsonDataSource.fromJsonSafe(
             fileReaderManager.getJsonDataFromAsset("vxr_lineup.json"),
             GetLineup::class.java
-            )?.mapToLineup()
+        )?.mapToLineup()
+        return if (value != null) {
+            HaResult.Success(value)
+        } else {
+            HaResult.Error
+        }
     }
 
     private fun getAppDrawerAsString(): String? {

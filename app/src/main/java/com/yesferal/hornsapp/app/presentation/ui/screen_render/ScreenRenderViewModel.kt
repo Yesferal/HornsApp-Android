@@ -94,29 +94,18 @@ class ScreenRenderViewModel(
                                 return@withContext DelegateViewState(delegates, renderAd)
                             }
                             is HaResult.Error -> {
-                                return@withContext showDelegateViewStateError()
+                                return@withContext DelegateViewState.showDelegateViewStateError()
                             }
                         }
                     }
                     is HaResult.Error -> {
-                        return@withContext showDelegateViewStateError()
+                        return@withContext DelegateViewState.showDelegateViewStateError()
                     }
                 }
             }
 
             _stateReview.value = stateReview
         }
-    }
-
-    private fun showDelegateViewStateError(): DelegateViewState {
-        return DelegateViewState(
-            delegates = listOf(
-                ErrorViewData(
-                    R.drawable.ic_music_note,
-                    R.string.error_default
-                )
-            )
-        )
     }
 }
 

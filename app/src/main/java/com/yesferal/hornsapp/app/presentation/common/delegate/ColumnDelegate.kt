@@ -1,5 +1,5 @@
 /* Copyright © 2025 HornsApp. All rights reserved. */
-package com.yesferal.hornsapp.app.presentation.ui.lineup
+package com.yesferal.hornsapp.app.presentation.common.delegate
 
 import android.view.View
 import androidx.annotation.ColorRes

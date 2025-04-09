@@ -6,27 +6,17 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.core.domain.entity.Stage
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
-
-data class LineupViewState(
-    val day: String? = null,
-    val headers: List<String>? = null,
-    val stages: List<Stage>? = null,
-    val isLoading: Boolean = false,
-    @StringRes val errorMessageId: Int? = null
-)
 
 data class LineupPerformanceViewData(
     val title: String?,
@@ -48,12 +38,6 @@ data class LineupPerformanceViewData(
         val subtitleTextView = view.findViewById<TextView>(R.id.subtitleTextView)
         subtitleTextView.setUpWith(subtitle)
         val titleImageView = view.findViewById<ImageView>(R.id.titleImageView)
-
-        val heightDP = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            (duration?.toFloat() ?: 0F) * 2.5F,
-            view.context?.resources?.displayMetrics
-        ).toInt()
 
         val time = System.currentTimeMillis() - (5 * 60 * 60 * 1000)
         if (time < (startTime ?: 0) || time > (startTime?.plus(((duration?.times(60) ?: 0) * 1000))
@@ -81,7 +65,7 @@ data class LineupPerformanceViewData(
         }
 
         view.updateLayoutParams {
-            height = heightDP
+            height = view.getLineupHeight(duration)
         }
         view.setOnClickListener {
             listener.onClick(toMap())
@@ -121,14 +105,16 @@ data class LineupEmptyViewData(
     }
 
     override fun onBindViewDelegate(view: View) {
-        val heightDP = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            (duration?.toFloat() ?: 0F) * 2.5F,
-            view.context?.resources?.displayMetrics
-        ).toInt()
-
         view.updateLayoutParams {
-            height = heightDP
+            height = view.getLineupHeight(duration)
         }
     }
+}
+
+fun View.getLineupHeight(duration: Int?): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        (duration?.toFloat() ?: 0F) * 2.5F,
+        this.context?.resources?.displayMetrics
+    ).toInt()
 }

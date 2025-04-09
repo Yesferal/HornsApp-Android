@@ -2,7 +2,8 @@
 package com.yesferal.hornsapp.app.presentation.ui.lineup
 
 import com.yesferal.hornsapp.core.domain.entity.Lineup
+import com.yesferal.hornsapp.core.domain.util.HaResult
 
 interface LineupDataSource {
-    fun getLineup(): Lineup?
+    fun getLineup(): HaResult<Lineup>
 }
