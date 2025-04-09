@@ -5,8 +5,8 @@ buildscript {
             'jvmTarget': '17',
             'kotlin': '2.1.0',
             'coroutines': '1.4.1',
-            'navigation': '2.5.3',
-            'room': "2.3.0",
+            'navigation': '2.8.9',
+            'room': "2.6.1",
             'retrofit': "2.9.0"
     ]
 
