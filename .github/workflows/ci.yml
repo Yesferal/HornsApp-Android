@@ -32,8 +32,16 @@ jobs:
 
       # Execute lint validation
       - name: Assemble
-        run: ./gradlew :app:assembleDebug
+        run: ./gradlew :app:assembleVasirDebug
+
+      # Execute lint validation
+      - name: Assemble
+        run: ./gradlew :app:assembleHornsappDebug
 
       # Execute unit tests
       - name: Unit Test
-        run: ./gradlew :app:testDebugUnitTest
+        run: ./gradlew testHornsappDebugUnitTest
+
+      # Execute unit tests
+      - name: Unit Test
+        run: ./gradlew testVasirDebugUnitTest
