@@ -22,11 +22,15 @@
 
     <action
         android:id="@+id/action_to_lineup"
-        app:destination="@+id/fragment_lineup" />
+        app:destination="@+id/fragment_lineup"
+        app:enterAnim="@anim/slide_in"
+        app:popExitAnim="@anim/slide_out" />
 
     <action
         android:id="@+id/action_to_screen_render"
-        app:destination="@+id/fragment_screen_render" />
+        app:destination="@+id/fragment_screen_render"
+        app:enterAnim="@anim/slide_in"
+        app:popExitAnim="@anim/slide_out" />
 
     <action
         android:id="@+id/action_to_on_boarding"
