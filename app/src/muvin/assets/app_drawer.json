@@ -1,0 +1,85 @@
+{
+  "docVersion": 1,
+  "appVersion": 29,
+  "platform": "android",
+  "screens": [
+    {
+      "data": {
+        "title": {
+          "en": "Home",
+          "es": "Inicio"
+        }
+      },
+      "id": "67f0da4dc644dc0fa6d3f927",
+      "key": "SCREEN_RENDER_SCREEN"
+    },
+    {
+      "data": {
+        "title": {
+          "en": "Upcoming",
+          "es": "Próximos"
+        }
+      },
+      "key": "UPCOMING_SCREEN"
+    },
+    {
+      "data": {
+        "title": {
+          "en": "Favorites",
+          "es": "Favoritos"
+        }
+      },
+      "key": "FAVORITE_SCREEN"
+    }
+  ],
+  "categories": [
+    {
+      "key": "METAL",
+      "data": {
+        "title": {
+          "en": "Metal",
+          "es": "Metal"
+        }
+      },
+      "children": {
+        "filter": "METAL"
+      }
+    },
+    {
+      "key": "ROCK",
+      "data": {
+        "title": {
+          "en": "Rock",
+          "es": "Rock"
+        }
+      },
+      "children": {
+        "filter": "ROCK"
+      }
+    },
+    {
+      "key": "LIMA",
+      "data": {
+        "title": {
+          "en": "Lima",
+          "es": "Lima"
+        }
+      },
+      "children": {
+        "filter": "LIMA"
+      }
+    },
+    {
+      "key": "FEST",
+      "data": {
+        "title": {
+          "en": "Fest",
+          "es": "Festival"
+        }
+      },
+      "children": {
+        "filter": "FEST"
+      }
+    }
+  ]
+}

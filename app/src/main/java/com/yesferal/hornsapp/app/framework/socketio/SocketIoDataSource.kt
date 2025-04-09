@@ -2,6 +2,7 @@
 package com.yesferal.hornsapp.app.framework.socketio
 
 import com.google.gson.Gson
+import com.yesferal.hornsapp.app.BuildConfig
 import com.yesferal.hornsapp.app.framework.packageinfo.PackageInfoDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
@@ -25,6 +26,7 @@ class SocketIoDataSource(
 ) : RenderRemoteDataSource {
     private val APP_VERSION = "appVersion"
     private val PLATFORM = "platform"
+    private val APP_ID = "appId"
 
     private lateinit var socket: Socket
 
@@ -50,6 +52,10 @@ class SocketIoDataSource(
                 .append(PLATFORM)
                 .append("=")
                 .append("android")
+                .append("&")
+                .append(APP_ID)
+                .append("=")
+                .append(BuildConfig.APPLICATION_ID)
                 .toString()
             socket = IO.socket(URI(baseUrl), options)
             logger.d("SocketIoDataSource: Success: URI(baseUrl): " + URI(baseUrl))
