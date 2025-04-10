@@ -6,7 +6,7 @@ Java_com_yesferal_hornsapp_app_framework_retrofit_ApiConstants_authorization(
         JNIEnv* env,
         jobject /* this */) {
 
-    return env->NewStringUTF("Authorization");
+    return env->NewStringUTF("");
 }
 
 extern "C" JNIEXPORT jstring JNICALL
@@ -14,7 +14,7 @@ Java_com_yesferal_hornsapp_app_framework_retrofit_ApiConstants_baseUrl(
         JNIEnv* env,
         jobject /* this */) {
 
-    return env->NewStringUTF("https://github.com/Yesferal/");
+    return env->NewStringUTF("https://demo8819092.mockable.io/");
 }
 
 extern "C" JNIEXPORT jstring JNICALL
