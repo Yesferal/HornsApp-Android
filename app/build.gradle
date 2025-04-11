@@ -6,28 +6,41 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
-Properties properties = new Properties()
+Properties hornsAppProperties = new Properties()
 
-// This ad mob value is a test value, real value is in app/release.properties
-def DEBUG_AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
-def DEBUG_C_MAKE_FLAVOR = "-DFLAVOR=DEBUG"
+// The real value of these attributes will be in hornsapp/release.properties
+def HORNS_APP_AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+def HORNS_APP_C_MAKE_FLAVOR = "-DFLAVOR=DEBUG"
 
-// The real value of these attributes are in release.properties
-def RELEASE_AD_MOB_APP_ID = ""
-def RELEASE_C_MAKE_FLAVOR = ""
-
-// Add your values in app/release.properties file in order to get them here
-if (project.file('src/release/release.properties').exists()) {
-    properties.load(project.file('src/release/release.properties').newDataInputStream())
+// Add your values in {flavor}/release.properties file in order to get them here
+if (project.file('src/hornsappRelease/release.properties').exists()) {
+    hornsAppProperties.load(project.file('src/hornsappRelease/release.properties').newDataInputStream())
     // If you want the app use a specific ad mob key while develop
-    if (properties.getProperty('AD_MOB_APP_ID')) {
-        DEBUG_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
-        RELEASE_AD_MOB_APP_ID = properties.getProperty('AD_MOB_APP_ID')
+    if (hornsAppProperties.getProperty('AD_MOB_APP_ID')) {
+        HORNS_APP_AD_MOB_APP_ID = hornsAppProperties.getProperty('AD_MOB_APP_ID')
     }
     // If you want the app use an specific endpoint while develop
-    if (properties.getProperty('C_MAKE_FLAVOR')) {
-        DEBUG_C_MAKE_FLAVOR = properties.getProperty('C_MAKE_FLAVOR')
-        RELEASE_C_MAKE_FLAVOR = properties.getProperty('C_MAKE_FLAVOR')
+    if (hornsAppProperties.getProperty('C_MAKE_FLAVOR')) {
+        HORNS_APP_C_MAKE_FLAVOR = hornsAppProperties.getProperty('C_MAKE_FLAVOR')
+    }
+}
+
+Properties muvinProperties = new Properties()
+
+// The real value of these attributes will be in muvin/release.properties
+def MUVIN_AD_MOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+def MUVIN_C_MAKE_FLAVOR = "-DFLAVOR=DEBUG"
+
+// Add your values in {flavor}/release.properties file in order to get them here
+if (project.file('src/muvinRelease/release.properties').exists()) {
+    muvinProperties.load(project.file('src/muvinRelease/release.properties').newDataInputStream())
+    // If you want the app use a specific ad mob key while develop
+    if (muvinProperties.getProperty('AD_MOB_APP_ID')) {
+        MUVIN_AD_MOB_APP_ID = muvinProperties.getProperty('AD_MOB_APP_ID')
+    }
+    // If you want the app use an specific endpoint while develop
+    if (muvinProperties.getProperty('C_MAKE_FLAVOR')) {
+        MUVIN_C_MAKE_FLAVOR = muvinProperties.getProperty('C_MAKE_FLAVOR')
     }
 }
 
@@ -51,29 +64,31 @@ android {
     buildTypes {
         debug {
             debuggable true
-            manifestPlaceholders = [crashlyticsCollectionEnabled: "false", AD_MOB_APP_ID: DEBUG_AD_MOB_APP_ID]
-            externalNativeBuild.cmake {
-                arguments DEBUG_C_MAKE_FLAVOR
-            }
+            manifestPlaceholders.crashlyticsCollectionEnabled = "false"
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [crashlyticsCollectionEnabled: "true", AD_MOB_APP_ID: RELEASE_AD_MOB_APP_ID]
-            externalNativeBuild.cmake {
-                arguments RELEASE_C_MAKE_FLAVOR
-            }
+            manifestPlaceholders.crashlyticsCollectionEnabled = "true"
         }
     }
     flavorDimensions = ["default"]
     productFlavors {
         create("hornsapp") {
             applicationIdSuffix = ".hornsapp"
+            manifestPlaceholders.AD_MOB_APP_ID = HORNS_APP_AD_MOB_APP_ID
+            externalNativeBuild.cmake {
+                arguments HORNS_APP_C_MAKE_FLAVOR
+            }
         }
         create("muvin") {
             applicationIdSuffix = ".muvin"
+            manifestPlaceholders.AD_MOB_APP_ID = MUVIN_AD_MOB_APP_ID
+            externalNativeBuild.cmake {
+                arguments MUVIN_C_MAKE_FLAVOR
+            }
         }
     }
     externalNativeBuild {

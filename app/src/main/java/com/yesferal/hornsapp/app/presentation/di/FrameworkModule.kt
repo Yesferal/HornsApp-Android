@@ -88,8 +88,9 @@ fun Container.registerFrameworkModule() {
             .getDefaultEnvironment()
         val apiConstants = resolve<ApiConstants>()
         val authorization = apiConstants.authorizations[defaultEnvironment]
+        val baseUrl = apiConstants.environments[defaultEnvironment].second
         ApiProvider.Builder()
-            .addBaseUrl(apiConstants.environments[defaultEnvironment].second)
+            .addBaseUrl(baseUrl)
             .addInterceptors(listOf(AuthenticationInterceptor(authorization)))
             .addConverter(resolve())
             .build()
