@@ -33,7 +33,7 @@ fun View.fadeOut() {
 fun ViewGroup.addBottomView(viewFactory: AbstractViewFactory, type: AdUnitIds.Type, size: Int) {
     removeAllViews()
     val viewBackground = View(this.context)
-    viewBackground.layoutParams = LinearLayout.LayoutParams(width, parseIntToDp(size.toFloat()))
+    viewBackground.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, viewFactory.getHeight(viewBackground, size), 1.0f)
     addView(viewBackground)
     addView(viewFactory.drawView(context, type, size))
 }
@@ -43,5 +43,13 @@ fun View.parseIntToDp(dp: Float): Int {
         TypedValue.COMPLEX_UNIT_DIP,
         dp,
         resources.displayMetrics
+    ).toInt()
+}
+
+fun View.getLineupHeight(duration: Int?): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        (duration?.toFloat() ?: 0F) * 2.5F,
+        this.context?.resources?.displayMetrics
     ).toInt()
 }

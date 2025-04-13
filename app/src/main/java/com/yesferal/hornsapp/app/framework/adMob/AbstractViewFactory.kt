@@ -11,4 +11,5 @@ import android.view.View
  */
 interface AbstractViewFactory {
     fun drawView(context: Context, type: AdUnitIds.Type, size: Int): View
+    fun getHeight(view: View, size: Int): Int
 }

@@ -6,6 +6,7 @@ import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.yesferal.hornsapp.app.presentation.common.extension.parseIntToDp
 
 /**
  * This class follow the Factory Pattern & it is also part of the Abstract Factory Pattern
@@ -18,6 +19,10 @@ class FreeViewFactory(private val adUnitIds: AdUnitIds): AbstractViewFactory {
 
     override fun drawView(context: Context, type: AdUnitIds.Type, size: Int): View {
         return getAdView(context, getAdViewData(size, type))
+    }
+
+    override fun getHeight(view: View, size: Int): Int {
+        return view.parseIntToDp(size.toFloat())
     }
 
     private fun getAdView(context: Context, adViewData: AdViewData): AdView {

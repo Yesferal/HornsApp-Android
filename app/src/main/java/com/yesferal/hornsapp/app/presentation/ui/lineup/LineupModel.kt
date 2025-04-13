@@ -2,7 +2,6 @@
 package com.yesferal.hornsapp.app.presentation.ui.lineup
 
 import android.graphics.Color
-import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
+import com.yesferal.hornsapp.app.presentation.common.extension.getLineupHeight
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
@@ -88,7 +88,7 @@ data class LineupPerformanceViewData(
 
     // TODO: USE A CORRECT TIME
     // THIS JUST WORK FOR LIMA
-    fun getLimaTime(): Long {
+    private fun getLimaTime(): Long {
         return (5 * 60 * 60 * 1000)
     }
 }
@@ -109,12 +109,4 @@ data class LineupEmptyViewData(
             height = view.getLineupHeight(duration)
         }
     }
-}
-
-fun View.getLineupHeight(duration: Int?): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        (duration?.toFloat() ?: 0F) * 2.5F,
-        this.context?.resources?.displayMetrics
-    ).toInt()
 }
