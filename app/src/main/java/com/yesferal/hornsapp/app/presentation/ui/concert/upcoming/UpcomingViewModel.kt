@@ -122,7 +122,9 @@ class UpcomingViewModel(
                         ))
                     }
 
+                var renderAdView = true
                 for (item: Int in 0..(delegates.size / NUMBER_OF_FIRST_BANNER_ROW)) {
+                    renderAdView = false
                     val height = if (item == 0) {
                         50
                     } else {
@@ -141,7 +143,7 @@ class UpcomingViewModel(
                     delegates.safeInsert(NUMBER_OF_FIRST_BANNER_ROW * (item + 1), adViewData)
                 }
 
-                return@withContext DelegateViewState(delegates.toList())
+                return@withContext DelegateViewState(delegates.toList(), renderAdView)
             }
             is HaResult.Error -> {
                 return@withContext DelegateViewState(

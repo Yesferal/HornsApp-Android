@@ -69,7 +69,9 @@ class FavoritesViewModel(
                         }
 
                     val NUMBER_OF_FIRST_BANNER_ROW = 3
+                    var renderAdView = true
                     for (item: Int in 0..(delegates.size / NUMBER_OF_FIRST_BANNER_ROW)) {
+                        renderAdView = false
                         val height = if (item == 0) {
                             50
                         } else {
@@ -88,7 +90,7 @@ class FavoritesViewModel(
                         delegates.safeInsert(NUMBER_OF_FIRST_BANNER_ROW * (item + 1), adViewData)
                     }
 
-                    DelegateViewState(delegates)
+                    DelegateViewState(delegates.toList(), renderAdView)
                 }
             }
             _stateFavorite.value = stateFavorite
