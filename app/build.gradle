@@ -51,8 +51,8 @@ android {
         namespace = "com.yesferal.hornsapp.app"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 29
-        versionName "2.6.0"
+        versionCode 30
+        versionName "2.7.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake { cppFlags "" }
