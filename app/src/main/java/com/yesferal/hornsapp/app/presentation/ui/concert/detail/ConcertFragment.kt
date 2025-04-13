@@ -176,7 +176,7 @@ class ConcertFragment : RenderFragment<ConcertViewState>() {
                 val headliner = viewState.concert?.concert?.headlinerImageUrl
                 show(
                     listOf(
-                        BandViewData(null, getString(R.string.tba), headliner, 0, 0)
+                        BandViewData(null, null, headliner, 0, 0)
                     )
                 )
             } else {

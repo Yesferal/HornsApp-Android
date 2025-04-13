@@ -18,7 +18,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/shape_rectangle_rounded_16dp"
         android:backgroundTint="@color/primary"
-        android:alpha="0.5"
+        android:alpha="0.6"
         app:layout_constraintTop_toTopOf="@+id/itemImageView"
         app:layout_constraintStart_toStartOf="@+id/itemImageView"
         app:layout_constraintEnd_toEndOf="@+id/itemImageView"

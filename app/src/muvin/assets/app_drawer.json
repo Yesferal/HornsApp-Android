@@ -46,15 +46,15 @@
       }
     },
     {
-      "key": "THEATER",
+      "key": "FEST",
       "data": {
         "title": {
-          "en": "Theater",
-          "es": "Teatro"
+          "en": "Fest",
+          "es": "Festival"
         }
       },
       "children": {
-        "filter": "THEATER"
+        "filter": "FEST"
       }
     },
     {
@@ -70,15 +70,27 @@
       }
     },
     {
-      "key": "FEST",
+      "key": "SPORT",
       "data": {
         "title": {
-          "en": "Fest",
-          "es": "Festival"
+          "en": "Sport",
+          "es": "Deporte"
         }
       },
       "children": {
-        "filter": "FEST"
+        "filter": "SPORT"
+      }
+    },
+    {
+      "key": "THEATER",
+      "data": {
+        "title": {
+          "en": "Theater",
+          "es": "Teatro"
+        }
+      },
+      "children": {
+        "filter": "THEATER"
       }
     }
   ]
