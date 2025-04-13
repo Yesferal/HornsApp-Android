@@ -76,58 +76,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_small"
         android:textStyle="bold"
         android:textColor="@android:color/white"
         style="@style/HornsApp.TextView.Title"
         app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
         app:layout_constraintEnd_toEndOf="@id/concertImageForegroundView"
-        app:layout_constraintBottom_toTopOf="@id/timeImageView"/>
+        app:layout_constraintBottom_toTopOf="@id/time_custom_icon_text_view"/>
 
-    <ImageView
-        android:id="@+id/timeImageView"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_clock"
-        android:layout_marginStart="@dimen/margin_medium"
-        android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="@+id/timeTextView"
-        app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
-        app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
-        app:tint="@android:color/white" />
-
-    <TextView
-        android:id="@+id/timeTextView"
+    <com.yesferal.hornsapp.app.presentation.common.custom.IconTextView
+        android:id="@+id/time_custom_icon_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:layout_marginStart="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_medium"
-        app:layout_constraintStart_toEndOf="@id/timeImageView"
+        app:layout_constraintStart_toStartOf="@id/concertImageForegroundView"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageForegroundView"/>
 
-    <ImageView
-        android:id="@+id/genreImageView"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_mic"
-        android:layout_marginStart="@dimen/margin_big"
-        android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintTop_toTopOf="@+id/genreTextView"
-        app:layout_constraintStart_toEndOf="@id/timeTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/genreTextView"
-        app:tint="@android:color/white" />
-
-    <TextView
-        android:id="@+id/genreTextView"
+    <com.yesferal.hornsapp.app.presentation.common.custom.IconTextView
+        android:id="@+id/headliner_custom_icon_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:layout_marginStart="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_medium"
-        app:layout_constraintStart_toEndOf="@id/genreImageView"
+        app:layout_constraintStart_toEndOf="@id/time_custom_icon_text_view"
         app:layout_constraintBottom_toBottomOf="@+id/concertImageForegroundView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

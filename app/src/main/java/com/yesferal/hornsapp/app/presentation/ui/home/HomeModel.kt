@@ -1,3 +1,4 @@
+/* Copyright © 2025 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.ui.home
 
 import android.graphics.Color
@@ -13,6 +14,7 @@ import com.yesferal.hornsapp.app.framework.adMob.AbstractViewFactory
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
 import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.presentation.common.custom.IconTextView
 import com.yesferal.hornsapp.app.presentation.common.extension.addBottomView
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
@@ -170,8 +172,24 @@ data class CarouselViewData(
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(name)
-        view.findViewById<TextView>(R.id.timeTextView).setUpWith(time)
-        view.findViewById<TextView>(R.id.genreTextView).setUpWith(headlinerName)
+        val timeIconTextView = view.findViewById<IconTextView>(R.id.time_custom_icon_text_view)
+        time?.let {
+            timeIconTextView.apply {
+                setImageView(R.drawable.ic_calendar)
+                setText(it)
+            }
+        } ?: kotlin.run {
+            timeIconTextView.visibility = View.GONE
+        }
+        val headlinerIconTextView = view.findViewById<IconTextView>(R.id.headliner_custom_icon_text_view)
+        headlinerName?.let {
+            headlinerIconTextView.apply {
+                setImageView(R.drawable.ic_mic)
+                setText(it)
+            }
+        } ?: kotlin.run {
+            headlinerIconTextView.visibility = View.GONE
+        }
 
         val concertImageView = view.findViewById<ShapeableImageView>(R.id.concertImageView)
         concertImageView.load(headlinerUrl)

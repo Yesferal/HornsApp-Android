@@ -38,47 +38,19 @@
         app:layout_constraintEnd_toStartOf="@id/buyTicketsTextView"
         app:layout_constraintTop_toBottomOf="@+id/concertImageView"/>
 
-    <ImageView
-        android:id="@+id/timeImageView"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_calendar"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        app:layout_constraintTop_toTopOf="@+id/timeTextView"
-        app:layout_constraintStart_toStartOf="@id/concertImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/timeTextView"
-        app:tint="@color/secondaryText" />
-
-    <TextView
-        android:id="@+id/timeTextView"
+    <com.yesferal.hornsapp.app.presentation.common.custom.IconTextView
+        android:id="@+id/time_custom_icon_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_marginVertical="@dimen/margin_small"
-        app:layout_constraintStart_toEndOf="@id/timeImageView"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toStartOf="@id/concertImageView"/>
 
-    <ImageView
-        android:id="@+id/genreImageView"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_mic"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        app:layout_constraintTop_toTopOf="@+id/genreTextView"
-        app:layout_constraintStart_toStartOf="@id/concertImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/genreTextView"
-        app:tint="@color/secondaryText" />
-
-    <TextView
-        android:id="@+id/genreTextView"
+    <com.yesferal.hornsapp.app.presentation.common.custom.IconTextView
+        android:id="@+id/headliner_custom_icon_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_marginVertical="@dimen/margin_tiny"
-        app:layout_constraintStart_toEndOf="@id/genreImageView"
-        app:layout_constraintTop_toBottomOf="@+id/timeTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/time_custom_icon_text_view"
+        app:layout_constraintStart_toStartOf="@id/concertImageView"/>
 
     <TextView
         android:id="@+id/buyTicketsTextView"
@@ -92,6 +64,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_medium"
-        app:layout_constraintTop_toBottomOf="@+id/genreTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/headliner_custom_icon_text_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

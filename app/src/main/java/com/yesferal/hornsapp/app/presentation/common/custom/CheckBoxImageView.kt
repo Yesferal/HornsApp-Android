@@ -1,10 +1,11 @@
+/* Copyright © 2025 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.custom
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.extension.tintWith
+import com.yesferal.hornsapp.app.presentation.common.extension.tintWithColorRes
 
 class CheckBoxImageView @JvmOverloads constructor(
     context: Context,
@@ -16,10 +17,10 @@ class CheckBoxImageView @JvmOverloads constructor(
         set(value) {
             if (value) {
                 setImageResource(R.drawable.ic_favorite_selected)
-                tintWith(R.color.accent)
+                tintWithColorRes(R.color.accent)
             } else {
                 setImageResource(R.drawable.ic_favorite)
-                tintWith(R.color.primaryText)
+                tintWithColorRes(R.color.primaryText)
             }
             field = value
         }

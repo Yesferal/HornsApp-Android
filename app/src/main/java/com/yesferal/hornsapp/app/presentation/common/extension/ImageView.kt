@@ -1,8 +1,10 @@
+/* Copyright © 2025 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.presentation.common.extension
 
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
@@ -20,13 +22,17 @@ fun ImageView.load(url: String?) {
         .into(this)
 }
 
-fun ImageView.tintWith(color: Int) {
+fun ImageView.tintWithColorRes(@ColorRes color: Int) {
     setColorFilter(
         ContextCompat.getColor(
             context,
             color
         )
     )
+}
+
+fun ImageView.tintWithColor(color: Int) {
+    setColorFilter(color)
 }
 
 fun ShapeableImageView.setAllCornersRounded(dp: Int = 16) {
