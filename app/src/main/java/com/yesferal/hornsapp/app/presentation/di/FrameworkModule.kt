@@ -101,7 +101,10 @@ fun Container.registerFrameworkModule() {
         val service = resolve<Retrofit>()
             .create(Service::class.java)
 
-        RetrofitDataSource(service = service)
+        RetrofitDataSource(
+            service = service,
+            flavorDataClass = resolve()
+        )
     }
 
     this register Factory<ConcertRemoteDataSource> {

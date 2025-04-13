@@ -1,6 +1,7 @@
 /* Copyright © 2023 HornsApp. All rights reserved. */
 package com.yesferal.hornsapp.app.framework.retrofit
 
+import com.yesferal.hornsapp.app.presentation.di.FlavorDataClass
 import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ReviewRemoteDataSource
@@ -15,12 +16,13 @@ import retrofit2.Response
 import java.lang.Exception
 
 class RetrofitDataSource(
-    private val service: Service
+    private val service: Service,
+    private val flavorDataClass: FlavorDataClass
 ) : ConcertRemoteDataSource, BandRemoteDataSource, ReviewRemoteDataSource, LineupUseCase {
 
     override suspend fun getConcerts(): HaResult<List<Concert>> {
         return service
-            .safeCall { getConcerts() }
+            .safeCall { getConcerts(flavorDataClass.eventsPath) }
             .mapToResult {
                 it.map { apiConcert -> apiConcert.mapToConcert() }
             }

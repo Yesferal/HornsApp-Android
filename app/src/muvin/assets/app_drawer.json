@@ -34,39 +34,39 @@
   ],
   "categories": [
     {
-      "key": "METAL",
+      "key": "CONCERT",
       "data": {
         "title": {
-          "en": "Metal",
-          "es": "Metal"
+          "en": "Concert",
+          "es": "Concierto"
         }
       },
       "children": {
-        "filter": "METAL"
+        "filter": "CONCERT"
       }
     },
     {
-      "key": "ROCK",
+      "key": "THEATER",
       "data": {
         "title": {
-          "en": "Rock",
-          "es": "Rock"
+          "en": "Theater",
+          "es": "Teatro"
         }
       },
       "children": {
-        "filter": "ROCK"
+        "filter": "THEATER"
       }
     },
     {
-      "key": "LIMA",
+      "key": "MUSEUM",
       "data": {
         "title": {
-          "en": "Lima",
-          "es": "Lima"
+          "en": "Museum",
+          "es": "Museo"
         }
       },
       "children": {
-        "filter": "LIMA"
+        "filter": "MUSEUM"
       }
     },
     {

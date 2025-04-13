@@ -9,12 +9,13 @@ import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 interface Service {
-    @GET("/concert")
-    suspend fun getConcerts(): Response<List<GetConcerts>>
+    @GET()
+    suspend fun getConcerts(@Url url: String): Response<List<GetConcerts>>
 
-    @GET("/concert/{id}")
+    @GET("/event/{id}")
     suspend fun getConcertBy(
         @Path("id") id: String
     ): Response<GetConcert>
