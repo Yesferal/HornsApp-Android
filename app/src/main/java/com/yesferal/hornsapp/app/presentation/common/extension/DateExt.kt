@@ -1,7 +1,9 @@
 package com.yesferal.hornsapp.app.presentation.common.extension
 
 import java.lang.StringBuilder
-import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 fun Long?.formattedWith(pattern: String): String? {
@@ -10,9 +12,15 @@ fun Long?.formattedWith(pattern: String): String? {
     }
 
     return try {
-        val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
-        simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
-        simpleDateFormat.format(Date(this))
+        val locale = Locale.getDefault()
+        val zoneId = ZoneId.systemDefault()
+
+        val zonedDateTime = Instant.ofEpochMilli(this)
+            .atZone(zoneId)
+
+        val formatter = DateTimeFormatter.ofPattern(pattern, locale)
+
+        return zonedDateTime.format(formatter)
     } catch (e: Exception) {
         null
     }
