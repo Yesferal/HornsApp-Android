@@ -12,8 +12,10 @@ import com.yesferal.hornsapp.delegate.abstraction.Delegate
 fun ViewRender.getConcertDelegates(
     concerts: List<Concert>,
 ): List<Delegate> {
+    // Children On Demand
+    // FIXME: We can rename sort as onDemand or something similar
     var children = concerts
-        .filter { this.children?.filterBy?.events?.contains(it.id) == true }
+        .filter { this.children?.sort?.contains(it.id) == true }
 
     return when (this.children?.type) {
         ChildrenRender.Type.CAROUSEL_CARD_VIEW -> {
@@ -78,7 +80,17 @@ fun ViewRender.mapChildrenConcerts(
 ): List<Concert> {
     return concerts
         .filter { concert ->
-            val categories = this.children?.filterBy?.categories
+            val events = this.children?.filter?.events
+            if (events.isNullOrEmpty()) {
+                true
+            } else {
+                events.any { anyEvent ->
+                    concert.id == anyEvent
+                }
+            }
+        }
+        .filter { concert ->
+            val categories = this.children?.filter?.categories
             if (categories.isNullOrEmpty()) {
                 true
             } else {

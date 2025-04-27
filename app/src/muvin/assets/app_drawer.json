@@ -9,15 +9,17 @@
       "views": [
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [
-                "67e61d62c644dc0fa6d3f8ec"
+                "680e68a1fd23ead6b0ca6c8c"
               ],
               "categories": []
             },
+            "sort": [],
             "key": "CAROUSEL_CARD_VIEW",
             "take": 2
           },
+          "_id": "680dec41fd23ead6b0ca68a6",
           "key": "ROW_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca641f",
@@ -26,12 +28,14 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "FIRST_NEWEST_LIST"
           },
+          "_id": "680dec41fd23ead6b0ca68a8",
           "key": "AD_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca6420",
@@ -40,14 +44,15 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "UPCOMING_CARD_VIEW",
-            "take": 3,
-            "sort": "UPCOMING_DATE"
+            "take": 3
           },
+          "_id": "680dec41fd23ead6b0ca68aa",
           "key": "COLUMN_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6421",
@@ -65,11 +70,13 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68ae",
           "key": "ICON_CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6424",
@@ -86,6 +93,7 @@
             "icon": "tiktok"
           },
           "style": {
+            "_id": "680debdbfd23ead6b0ca6859",
             "textColor": "#FFFFFF",
             "backgroundColor": "#29303e"
           },
@@ -99,12 +107,14 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "SECOND_NEWEST_LIST"
           },
+          "_id": "680dec41fd23ead6b0ca68b4",
           "key": "AD_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca6428",
@@ -113,11 +123,13 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68b6",
           "key": "CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6429",
@@ -144,37 +156,41 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": [
-                "THEATER"
+                "6809c52f6c0fbf6561d8e6d4"
               ]
             },
+            "sort": [],
             "key": "UPCOMING_IMAGE_CARD_VIEW",
             "take": 3
           },
+          "_id": "680dec41fd23ead6b0ca68bb",
           "key": "COLUMN_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca642d",
             "title": {
               "_id": "680de6b4fd23ead6b0ca642e",
-              "en": "Metal never dies",
-              "es": "Metal nunca muere"
+              "en": "Pick a Free Plan",
+              "es": "Planes gratis para ti"
             },
             "subtitle": {
               "_id": "680de6b4fd23ead6b0ca642f",
-              "en": "#metal",
-              "es": "#metal"
+              "en": "#free",
+              "es": "#gratis"
             }
           }
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68bf",
           "key": "ICON_CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6430",
@@ -191,6 +207,7 @@
             "icon": "instagram"
           },
           "style": {
+            "_id": "680debdbfd23ead6b0ca6866",
             "textColor": "#FFFFFF",
             "backgroundColor": "#4f5bd5"
           },
@@ -204,12 +221,14 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "FIRST_NEWEST_LIST"
           },
+          "_id": "680dec41fd23ead6b0ca68c5",
           "key": "AD_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca6434",
@@ -218,11 +237,13 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68c7",
           "key": "CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6435",
@@ -250,37 +271,41 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": [
-                "EUROPE"
+                "680a6b466c0fbf6561d8ed2b"
               ]
             },
+            "sort": [],
             "key": "UPCOMING_IMAGE_CARD_VIEW",
             "take": 3
           },
+          "_id": "680dec41fd23ead6b0ca68cc",
           "key": "COLUMN_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6439",
             "title": {
               "_id": "680de6b4fd23ead6b0ca643a",
-              "en": "European festivals",
-              "es": "Festivales Europeos"
+              "en": "Run for your life",
+              "es": "Corre por tu salud"
             },
             "subtitle": {
               "_id": "680de6b4fd23ead6b0ca643b",
-              "en": "#europe",
-              "es": "#europa"
+              "en": "#sport",
+              "es": "#deporte"
             }
           }
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68d0",
           "key": "ICON_CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca643c",
@@ -297,6 +322,7 @@
             "icon": "spotify"
           },
           "style": {
+            "_id": "680debdbfd23ead6b0ca6873",
             "backgroundColor": "#1DB954",
             "textColor": "#29303e"
           },
@@ -310,12 +336,14 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "SECOND_NEWEST_LIST"
           },
+          "_id": "680dec41fd23ead6b0ca68d6",
           "key": "AD_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca6440",
@@ -324,11 +352,13 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68d8",
           "key": "CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6441",
@@ -355,37 +385,41 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": [
-                "ROCK"
+                "680a6b1f6c0fbf6561d8ed15"
               ]
             },
+            "sort": [],
             "key": "UPCOMING_IMAGE_CARD_VIEW",
             "take": 3
           },
+          "_id": "680dec41fd23ead6b0ca68dd",
           "key": "COLUMN_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6445",
             "title": {
               "_id": "680de6b4fd23ead6b0ca6446",
-              "en": "Keep on rocking",
-              "es": "Siempre el Rock es prioridad"
+              "en": "Music is life",
+              "es": "La musica nos mueve"
             },
             "subtitle": {
               "_id": "680de6b4fd23ead6b0ca6447",
-              "en": "#rock",
-              "es": "#rock"
+              "en": "#concerts",
+              "es": "#conciertos"
             }
           }
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68e1",
           "key": "ICON_CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6448",
@@ -402,6 +436,7 @@
             "icon": "favorite"
           },
           "style": {
+            "_id": "680debdbfd23ead6b0ca6880",
             "backgroundColor": "#d1150c",
             "textColor": "#FFFFFF"
           },
@@ -412,12 +447,14 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "FIRST_NEWEST_LIST"
           },
+          "_id": "680dec41fd23ead6b0ca68e7",
           "key": "AD_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca644c",
@@ -426,11 +463,13 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68e9",
           "key": "CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca644d",
@@ -457,37 +496,41 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": [
-                "AMERICA"
+                "680a6b586c0fbf6561d8ed39"
               ]
             },
+            "sort": [],
             "key": "UPCOMING_IMAGE_CARD_VIEW",
             "take": 3
           },
+          "_id": "680dec41fd23ead6b0ca68ee",
           "key": "COLUMN_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6451",
             "title": {
               "_id": "680de6b4fd23ead6b0ca6452",
-              "en": "American festivals",
-              "es": "Festivales Americanos"
+              "en": "Theaters at Night",
+              "es": "Noches de teatros"
             },
             "subtitle": {
               "_id": "680de6b4fd23ead6b0ca6453",
-              "en": "#america",
-              "es": "#américa"
+              "en": "#theater",
+              "es": "#teatro"
             }
           }
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68f2",
           "key": "ICON_CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6454",
@@ -504,6 +547,7 @@
             "icon": "facebook"
           },
           "style": {
+            "_id": "680debdbfd23ead6b0ca688d",
             "backgroundColor": "#3b5998",
             "textColor": "#FFFFFF"
           },
@@ -517,12 +561,14 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
             },
+            "sort": [],
             "key": "SECOND_NEWEST_LIST"
           },
+          "_id": "680dec41fd23ead6b0ca68f8",
           "key": "AD_VIEW",
           "style": {
             "_id": "680de6b4fd23ead6b0ca6458",
@@ -531,11 +577,13 @@
         },
         {
           "children": {
-            "filterBy": {
+            "filter": {
               "events": [],
               "categories": []
-            }
+            },
+            "sort": []
           },
+          "_id": "680dec41fd23ead6b0ca68fa",
           "key": "CARD_VIEW",
           "data": {
             "_id": "680de6b4fd23ead6b0ca6459",
@@ -558,6 +606,62 @@
             },
             "_id": "680de6b4fd23ead6b0ca645c",
             "key": "WEB_VIEW"
+          }
+        },
+        {
+          "children": {
+            "filter": {
+              "events": [],
+              "categories": [
+                "680a6b586c0fbf6561d8ed39"
+              ]
+            },
+            "sort": [],
+            "key": "UPCOMING_IMAGE_CARD_VIEW",
+            "take": 3
+          },
+          "_id": "680dec41fd23ead6b0ca68ee",
+          "key": "COLUMN_VIEW",
+          "data": {
+            "_id": "680de6b4fd23ead6b0ca6451",
+            "title": {
+              "_id": "680de6b4fd23ead6b0ca6452",
+              "en": "Sing along",
+              "es": "Canta con nosotros"
+            },
+            "subtitle": {
+              "_id": "680de6b4fd23ead6b0ca6453",
+              "en": "#theater",
+              "es": "#teatro"
+            }
+          }
+        },
+        {
+          "children": {
+            "filter": {
+              "events": [],
+              "categories": [
+                "6809c52f6c0fbf6561d8e6d4"
+              ]
+            },
+            "sort": [],
+            "key": "UPCOMING_IMAGE_CARD_VIEW",
+            "take": 3
+          },
+          "_id": "680dec41fd23ead6b0ca68bb",
+          "key": "COLUMN_VIEW",
+          "data": {
+            "_id": "680de6b4fd23ead6b0ca642d",
+            "title": {
+              "_id": "680de6b4fd23ead6b0ca642e",
+              "en": "Your Story Begins Here",
+              "es": "Museo es cultura"
+            },
+            "subtitle": {
+              "_id": "680de6b4fd23ead6b0ca642f",
+              "en": "#theater",
+              "es": "#teatro"
+            }
           }
         }
       ],
