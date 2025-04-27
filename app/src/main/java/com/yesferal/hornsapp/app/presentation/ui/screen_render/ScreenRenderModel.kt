@@ -11,7 +11,7 @@ import com.yesferal.hornsapp.app.presentation.common.extension.fadeOut
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
-import com.yesferal.hornsapp.core.domain.navigator.Parameters
+import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
@@ -80,22 +80,22 @@ data class TitleReviewViewData(
 
 data class RenderButtonViewData(
     val text: String?,
-    val navigation: Parameters?
+    val navigatorRender: NavigatorRender?
 ): InteractiveDelegate<RenderButtonViewData.Listener> {
     override val layout: Int
         get() = R.layout.item_render_button
 
     interface Listener : DelegateListener {
-        fun onClick(parameters: Parameters)
+        fun onClick(navigatorRender: NavigatorRender)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         val renderButtonTextView = view.findViewById<TextView>(R.id.renderButtonTextView)
-        navigation?.let {
+        navigatorRender?.let {
             renderButtonTextView.setUpWith(text)
             renderButtonTextView.visibility = View.VISIBLE
             view.setOnClickListener {
-                listener.onClick(navigation)
+                listener.onClick(navigatorRender)
             }
         }?: kotlin.run {
             renderButtonTextView.visibility = View.GONE

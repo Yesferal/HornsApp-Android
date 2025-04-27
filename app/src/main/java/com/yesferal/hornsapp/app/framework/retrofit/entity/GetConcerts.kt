@@ -11,7 +11,7 @@ data class GetConcerts(
     val dateTime: Date?,
     val headliner: ConcertComponent?,
     val ticketing: ConcertComponent?,
-    val tags: List<String>?,
+    val categories: List<String>?,
 ) {
     fun mapToConcert(): Concert {
         
@@ -24,7 +24,7 @@ data class GetConcerts(
             .addHeadlinerImageUrl(this.headliner?.url)
             .addTicketingName(this.ticketing?.name)
             .addTicketingUrl(this.ticketing?.url)
-            .addTags(this.tags)
+            .addCategories(this.categories)
             .isFavorite(isFavorite)
             .build()
     }

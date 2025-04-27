@@ -41,7 +41,7 @@ class ExternalNavigator(
     }
 
     private fun navigateToWebView(navigator: Navigator): Intent? {
-        val params = navigator.parameters
+        val params = navigator.navigatorRender
         val uri = params?.getString(FragmentNavigator.PARAM_ANDROID_URI)
         if (uri.isNullOrEmpty()) {
             return null
@@ -53,7 +53,7 @@ class ExternalNavigator(
     }
 
     private fun navigateToCalendar(navigator: Navigator): Intent? {
-        val params = navigator.parameters
+        val params = navigator.navigatorRender
         val title = params?.getString(FragmentNavigator.PARAM_TITLE)
         val beginTime = params?.getLong(FragmentNavigator.PARAM_BEGIN_TIME)
         val endTime = params?.getLong(FragmentNavigator.PARAM_END_TIME)
@@ -80,7 +80,7 @@ class ExternalNavigator(
     }
 
     private fun navigateToMessage(navigator: Navigator): Intent? {
-        val params = navigator.parameters
+        val params = navigator.navigatorRender
         val message = params?.getString(FragmentNavigator.PARAM_MESSAGE)
         if (message.isNullOrEmpty()) {
             return null

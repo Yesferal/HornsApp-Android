@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
-import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
+import com.yesferal.hornsapp.core.domain.entity.render.CategoryRender
 import com.yesferal.hornsapp.core.domain.usecase.FilterConcertsByCategoryUseCase
 import com.yesferal.hornsapp.core.domain.usecase.GetConcertsUseCase
 import com.yesferal.hornsapp.core.domain.usecase.UpdateVisibilityOnBoardingUseCase
@@ -36,15 +36,15 @@ class OnBoardingViewModel(
         }
     }
 
-    private fun onRender(categoryDrawer: List<ViewRender>) {
+    private fun onRender(categoryDrawer: List<CategoryRender>) {
         viewModelScope.launch {
             val state = withContext(Dispatchers.IO) {
                 when (val result = getConcertsUseCase()) {
                     is HaResult.Success -> {
                         val concerts = result.value
                         val categoryDelegates = categoryDrawer.map { drawer ->
-                            val amount = filterConcertsByCategoryUseCase(concerts, drawer.children?.filter).size
-                            OnBoardingCategoryViewData(drawer.data?.title?.text.orEmpty(), amount)
+                            val amount = filterConcertsByCategoryUseCase(concerts, drawer._id).size
+                            OnBoardingCategoryViewData(drawer.name?.text.orEmpty(), amount)
                         }
                         val delegates = mutableListOf<Delegate>()
                         delegates.add(DividerDelegate(width = 24))

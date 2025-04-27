@@ -98,7 +98,7 @@ class HomeFragment : RenderFragment<HomeViewState>() {
         TabLayoutMediator(tabLayout, concertsViewPager) { tab, position ->
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab_layout)
-            tab.text = screens[position].data?.title?.text.orEmpty()
+            tab.text = screens[position].title?.text.orEmpty()
         }.attach()
         tabLayout.visibility = View.VISIBLE
     }

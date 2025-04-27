@@ -13,7 +13,7 @@ fun ViewRender.getConcertDelegates(
     concerts: List<Concert>,
 ): List<Delegate> {
     var children = concerts
-        .filter { this.children?.values?.contains(it.id) == true }
+        .filter { this.children?.filterBy?.events?.contains(it.id) == true }
 
     return when (this.children?.type) {
         ChildrenRender.Type.CAROUSEL_CARD_VIEW -> {
@@ -77,10 +77,15 @@ fun ViewRender.mapChildrenConcerts(
     concerts: List<Concert>,
 ): List<Concert> {
     return concerts
-        .filter {
-            this.children?.filter?.let { filter ->
-                it.tags?.contains(filter) == true
-            }?: true
+        .filter { concert ->
+            val categories = this.children?.filterBy?.categories
+            if (categories.isNullOrEmpty()) {
+                true
+            } else {
+                categories.any { anyCategory ->
+                    concert.categories?.contains(anyCategory) == true
+                }
+            }
         }
         .take(this.children?.take ?: Int.MAX_VALUE)
 }

@@ -19,8 +19,8 @@ import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRoun
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
 import com.yesferal.hornsapp.core.domain.entity.Concert
 import com.yesferal.hornsapp.core.domain.entity.Venue
+import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
-import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import java.util.*
@@ -56,8 +56,8 @@ data class ConcertViewData(
     // TODO: Fix this value, cause is not accurate. The hour does not fit
     private val endTime = beginTime + (2 * oneHourInMilliseconds) + ((concert.totalDays?.minus(1)?: 0) * 24 * 60 * 60 * 1000)
 
-    override fun toMap(): Parameters {
-        return Parameters().apply {
+    override fun toMap(): NavigatorRender {
+        return NavigatorRender().apply {
             put(FragmentNavigator.PARAM_TITLE, concert.name.orEmpty())
             put(FragmentNavigator.PARAM_BEGIN_TIME, beginTime)
             put(FragmentNavigator.PARAM_END_TIME, endTime)
@@ -80,8 +80,8 @@ data class VenueViewData(
         .append(query.orEmpty())
         .toString()
 
-    override fun toMap(): Parameters {
-        return Parameters().apply {
+    override fun toMap(): NavigatorRender {
+        return NavigatorRender().apply {
             if (venue.mapSearchName != null && venue.latitude != null && venue.longitude != null) {
                 put(FragmentNavigator.PARAM_ANDROID_URI, uri)
             }

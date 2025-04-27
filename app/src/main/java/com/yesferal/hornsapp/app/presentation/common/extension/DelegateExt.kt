@@ -31,8 +31,8 @@ fun MutableList<Delegate>.includeIconHomeCardSection(
         IconHomeCardViewData(
             screenDrawer.data?.title?.text,
             screenDrawer.data?.subtitle?.text,
-            screenDrawer.data?.backgroundColor,
-            screenDrawer.data?.textColor,
+            screenDrawer.style?.backgroundColor,
+            screenDrawer.style?.textColor,
             screenDrawer.navigation,
             screenDrawer.data?.icon
         )
@@ -68,7 +68,7 @@ fun MutableList<Delegate>.includeAdViewSection(
     this.add(
         AdViewData(
             businessModelFactoryProducer.getViewFactory(),
-            viewDrawer.data?.height,
+            viewDrawer.style?.height,
             AdUnitIds.valueOfOrNull(viewDrawer.children?.key)
         )
     )

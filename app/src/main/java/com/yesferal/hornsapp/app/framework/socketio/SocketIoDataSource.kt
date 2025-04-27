@@ -8,8 +8,8 @@ import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.storage.RenderStorageDataSource
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
 import com.yesferal.hornsapp.core.domain.entity.render.AppRender
+import com.yesferal.hornsapp.core.domain.entity.render.CategoryRender
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
-import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,7 +37,7 @@ class SocketIoDataSource(
 
     private val _categoryRender =
         MutableStateFlow(drawerStorageDataSource.getAppRender()?.categories ?: listOf())
-    override val categoryRender: StateFlow<List<ViewRender>>
+    override val categoryRender: StateFlow<List<CategoryRender>>
         get() = _categoryRender
 
     init {

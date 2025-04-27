@@ -20,7 +20,6 @@ import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.filters.Catego
 import com.yesferal.hornsapp.core.domain.abstraction.RenderRepository
 import com.yesferal.hornsapp.core.domain.abstraction.SettingsRepository
 import com.yesferal.hornsapp.core.domain.entity.render.CategoryRender
-import com.yesferal.hornsapp.core.domain.entity.render.ViewRender
 import com.yesferal.hornsapp.core.domain.usecase.GetUpcomingConcertsUseCase
 import com.yesferal.hornsapp.core.domain.util.HaResult
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
@@ -41,7 +40,7 @@ class UpcomingViewModel(
     val stateUpcoming: LiveData<DelegateViewState>
         get() = _stateUpcoming
 
-    private lateinit var categoryDrawer: List<ViewRender>
+    private lateinit var categoryDrawer: List<CategoryRender>
 
     init {
         viewModelScope.launch {
@@ -74,9 +73,9 @@ class UpcomingViewModel(
     ) = withContext(Dispatchers.IO) {
         val categories = categoryDrawer.map { category ->
                 CategoryViewData(
-                    category.children?.filter.orEmpty(),
-                    category.data?.title?.text.orEmpty(),
-                    categoryCondition == category.children?.filter
+                    category._id.orEmpty(),
+                    category.name?.text.orEmpty(),
+                    categoryCondition == category._id
                 )
             }
 

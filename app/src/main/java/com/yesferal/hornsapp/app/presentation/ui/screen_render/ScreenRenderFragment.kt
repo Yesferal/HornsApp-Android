@@ -14,9 +14,9 @@ import com.yesferal.hornsapp.app.presentation.ui.home.ImageHomeCardViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.NewestViewData
 import com.yesferal.hornsapp.app.presentation.ui.home.TitleViewData
 import com.yesferal.hornsapp.app.presentation.ui.concert.upcoming.UpcomingViewData
+import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.hadi_android.getViewModel
 
 class ScreenRenderFragment : DelegateAdapterFragment(), TitleViewData.Listener,
@@ -54,10 +54,10 @@ class ScreenRenderFragment : DelegateAdapterFragment(), TitleViewData.Listener,
         }
     }
 
-    override fun onClick(parameters: Parameters) {
+    override fun onClick(navigatorRender: NavigatorRender) {
         Navigator.Builder()
-            .to(parameters.key.orEmpty())
-            .with(parameters)
+            .to(navigatorRender.key.orEmpty())
+            .with(navigatorRender)
             .build()
             .navigateTo()
     }

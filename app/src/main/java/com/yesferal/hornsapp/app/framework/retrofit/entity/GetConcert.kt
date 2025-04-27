@@ -15,7 +15,7 @@ data class GetConcert(
     val ticketing: ConcertComponent?,
     val totalDays: Int?,
     val links: List<ViewRender>?,
-    val tags: List<String>?,
+    val categories: List<String>?,
     val venue: GetVenue?,
     val state: GetState?,
     val bands: List<GetBand>?,
@@ -34,7 +34,7 @@ data class GetConcert(
             .addTicketingName(this.ticketing?.name)
             .addTicketingUrl(this.ticketing?.url)
             .addLinks(this.links)
-            .addTags(this.tags)
+            .addCategories(this.categories)
             .addVenue(this.venue?.mapToVenue())
             .addState(this.state?.mapToState())
             .addBands(this.bands?.map { it.mapToBand() })

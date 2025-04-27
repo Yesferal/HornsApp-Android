@@ -10,9 +10,9 @@ import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.HomeFragmentDirections
 import com.yesferal.hornsapp.app.presentation.ui.splash.SplashFragmentDirections
 import com.yesferal.hornsapp.core.domain.abstraction.Logger
+import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.Navigator
-import com.yesferal.hornsapp.core.domain.navigator.Parameters
 
 class AppNavigator(private val logger: Logger, private val fragmentNavigator: FragmentNavigator? = null) :
     FragmentNavigator {
@@ -23,15 +23,15 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
             ScreenRender.Type.HOME_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.HOME_SCREEN)
             ScreenRender.Type.ON_BOARDING_SCREEN -> getDirectionToOnBoarding()
             ScreenRender.Type.SETTING_SCREEN -> getDirectionToSettings()
-            ScreenRender.Type.CONCERT_DETAIL_SCREEN -> getDirectionToDetail(navigator.parameters) {
+            ScreenRender.Type.CONCERT_DETAIL_SCREEN -> getDirectionToDetail(navigator.navigatorRender) {
                 getDirectionToConcertDetail(it)
             }
             ScreenRender.Type.UPCOMING_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.UPCOMING_SCREEN)
             ScreenRender.Type.FAVORITE_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.FAVORITE_SCREEN)
-            ScreenRender.Type.SCREEN_RENDER_SCREEN -> getDirectionToDetail(navigator.parameters) {
+            ScreenRender.Type.SCREEN_RENDER_SCREEN -> getDirectionToDetail(navigator.navigatorRender) {
                 getDirectionToScreenRender(it)
             }
-            ScreenRender.Type.LINEUP_SCREEN -> getDirectionToDetail(navigator.parameters) {
+            ScreenRender.Type.LINEUP_SCREEN -> getDirectionToDetail(navigator.navigatorRender) {
                 getDirectionToLineup(it)
             }
             else -> null
@@ -73,10 +73,10 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
     }
 
     private fun getDirectionToDetail(
-        parameters: Parameters?,
+        navigatorRender: NavigatorRender?,
         func: (ParcelableViewData) -> NavDirections
     ): NavDirections? {
-        val parcelable = parameters?.getParcelableViewData(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
+        val parcelable = navigatorRender?.getParcelableViewData(FragmentNavigator.PARAM_PARCELABLE_VIEW_DATA)
 
         return if (parcelable is ParcelableViewData) {
             func(parcelable)

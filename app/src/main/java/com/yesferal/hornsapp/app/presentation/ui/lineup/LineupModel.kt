@@ -11,9 +11,9 @@ import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.app.presentation.common.extension.getLineupHeight
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
-import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
@@ -29,7 +29,7 @@ data class LineupPerformanceViewData(
     override val layout = R.layout.item_lineup_performance
 
     interface Listener : DelegateListener {
-        fun onClick(parameters: Parameters)
+        fun onClick(navigatorRender: NavigatorRender)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
@@ -72,8 +72,8 @@ data class LineupPerformanceViewData(
         }
     }
 
-    override fun toMap(): Parameters {
-        return Parameters(ScreenRender.Type.CALENDAR_SCREEN.name).apply {
+    override fun toMap(): NavigatorRender {
+        return NavigatorRender(ScreenRender.Type.CALENDAR_SCREEN.name).apply {
             // TODO: Create a HornsApp Calendar object
             // Duplicated code in ConcertModel
             if (title != null && startTime != null && duration != null) {
@@ -101,7 +101,7 @@ data class LineupEmptyViewData(
     override val layout = R.layout.item_lineup_empty
 
     interface Listener : DelegateListener {
-        fun onClick(parameters: Parameters)
+        fun onClick(navigatorRender: NavigatorRender)
     }
 
     override fun onBindViewDelegate(view: View) {

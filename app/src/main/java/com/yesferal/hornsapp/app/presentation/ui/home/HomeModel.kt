@@ -20,8 +20,8 @@ import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpCTA
 import com.yesferal.hornsapp.app.presentation.common.extension.setUpWith
+import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.core.domain.entity.render.ScreenRender
-import com.yesferal.hornsapp.core.domain.navigator.Parameters
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
@@ -36,25 +36,25 @@ data class HomeViewState(
 data class TitleViewData(
     val title: String?,
     val subtitle: String?,
-    val navigation: Parameters?,
+    val navigatorRender: NavigatorRender?,
     val icon: String?
 ) : InteractiveDelegate<TitleViewData.Listener> {
 
     override val layout = R.layout.item_newest_title
 
     interface Listener : DelegateListener {
-        fun onClick(parameters: Parameters)
+        fun onClick(navigatorRender: NavigatorRender)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.titleTextView).setUpWith(title)
         view.findViewById<TextView>(R.id.subtitleTextView).setUpWith(subtitle)
         view.findViewById<ImageView>(R.id.titleImageView).setImageIcon(icon)
-        navigation?.let {
+        navigatorRender?.let {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.arrowView).visibility = View.VISIBLE
             view.setOnClickListener {
-                listener.onClick(navigation)
+                listener.onClick(navigatorRender)
             }
         } ?: kotlin.run {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
@@ -69,14 +69,14 @@ data class IconHomeCardViewData(
     val subtitle: String?,
     val backgroundColor: String?,
     val textColor: String?,
-    val navigation: Parameters?,
+    val navigatorRender: NavigatorRender?,
     val icon: String?
 ) : InteractiveDelegate<IconHomeCardViewData.Listener> {
 
     override val layout = R.layout.item_home_card
 
     interface Listener : DelegateListener {
-        fun onClick(parameters: Parameters)
+        fun onClick(navigatorRender: NavigatorRender)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
@@ -137,10 +137,10 @@ data class IconHomeCardViewData(
                 }
             } catch (e: Exception) { }
         }
-        navigation?.let {
+        navigatorRender?.let {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.VISIBLE
             view.setOnClickListener {
-                listener.onClick(navigation)
+                listener.onClick(navigatorRender)
             }
         }?: kotlin.run {
             view.findViewById<TextView>(R.id.goNowTicketsTextView).visibility = View.GONE
@@ -275,22 +275,22 @@ data class AdViewData(
 
 data class ImageHomeCardViewData(
     val description: String?,
-    val navigation: Parameters?,
+    val navigatorRender: NavigatorRender?,
     val image: String?
 ) : InteractiveDelegate<ImageHomeCardViewData.Listener> {
 
     override val layout = R.layout.item_image_home_card
 
     interface Listener : DelegateListener {
-        fun onClick(parameters: Parameters)
+        fun onClick(navigatorRender: NavigatorRender)
     }
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.descriptionTextView).setUpWith(description)
-        navigation?.let {
+        navigatorRender?.let {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
             view.setOnClickListener {
-                listener.onClick(navigation)
+                listener.onClick(navigatorRender)
             }
         }?: kotlin.run {
             view.findViewById<TextView>(R.id.seeMoreTextView).visibility = View.GONE
