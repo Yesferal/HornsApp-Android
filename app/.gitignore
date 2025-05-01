@@ -7,9 +7,6 @@
 # C++ files
 /src/release/cpp/*
 
-# App Properties
-/src/release/release.properties
-
 # HornsApp
 hornsapp/*
 ## Google Services (e.g. Ad Mob or Firebase keys)
