@@ -36,6 +36,7 @@ fun ViewRender.getConcertDelegates(
                 )
             }
         }
+
         ChildrenRender.Type.UPCOMING_CARD_VIEW -> {
             if (children.isEmpty()) {
                 children = this.mapChildrenConcerts(
@@ -52,6 +53,7 @@ fun ViewRender.getConcertDelegates(
                 )
             }
         }
+
         ChildrenRender.Type.UPCOMING_IMAGE_CARD_VIEW -> {
             if (children.isEmpty()) {
                 children = this.mapChildrenConcerts(
@@ -71,6 +73,7 @@ fun ViewRender.getConcertDelegates(
                 )
             }
         }
+
         else -> listOf()
     }
 }
@@ -78,26 +81,28 @@ fun ViewRender.getConcertDelegates(
 fun ViewRender.mapChildrenConcerts(
     concerts: List<Concert>,
 ): List<Concert> {
-    return concerts
+    var events = concerts
         .filter { concert ->
             val events = this.children?.filter?.events
             if (events.isNullOrEmpty()) {
                 true
             } else {
-                events.any { anyEvent ->
-                    concert.id == anyEvent
-                }
+                events.contains(concert.id)
             }
         }
-        .filter { concert ->
-            val categories = this.children?.filter?.categories
-            if (categories.isNullOrEmpty()) {
-                true
-            } else {
-                categories.any { anyCategory ->
-                    concert.categories?.contains(anyCategory) == true
-                }
+
+    if (events.isEmpty()) {
+        events = concerts
+    }
+
+    return events.filter { concert ->
+        val categories = this.children?.filter?.categories
+        if (categories.isNullOrEmpty()) {
+            true
+        } else {
+            categories.any { anyCategory ->
+                concert.categories?.contains(anyCategory) == true
             }
         }
-        .take(this.children?.take ?: Int.MAX_VALUE)
+    }.take(this.children?.take ?: Int.MAX_VALUE)
 }
