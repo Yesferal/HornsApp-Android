@@ -11,7 +11,7 @@
         }
       },
       "id": "67e6e5d4c644dc0fa6d3f900",
-      "key": "SCREEN_RENDER_SCREEN"
+      "key": "RENDER_SCREEN"
     },
     {
       "data": {
@@ -21,7 +21,7 @@
         }
       },
       "id": "67f0da4dc644dc0fa6d3f927",
-      "key": "SCREEN_RENDER_SCREEN"
+      "key": "RENDER_SCREEN"
     },
     {
       "data": {

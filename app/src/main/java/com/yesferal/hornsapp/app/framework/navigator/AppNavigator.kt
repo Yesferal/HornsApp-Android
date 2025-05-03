@@ -28,7 +28,7 @@ class AppNavigator(private val logger: Logger, private val fragmentNavigator: Fr
             }
             ScreenRender.Type.UPCOMING_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.UPCOMING_SCREEN)
             ScreenRender.Type.FAVORITE_SCREEN -> getDirectionToHome(view, type = ScreenRender.Type.FAVORITE_SCREEN)
-            ScreenRender.Type.SCREEN_RENDER_SCREEN -> getDirectionToDetail(navigator.navigatorRender) {
+            ScreenRender.Type.RENDER_SCREEN -> getDirectionToDetail(navigator.navigatorRender) {
                 getDirectionToScreenRender(it)
             }
             ScreenRender.Type.LINEUP_SCREEN -> getDirectionToDetail(navigator.navigatorRender) {

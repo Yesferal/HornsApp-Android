@@ -2,8 +2,8 @@
 package com.yesferal.hornsapp.app.framework.retrofit.entity
 
 import com.yesferal.hornsapp.core.domain.entity.DailyLineup
-import com.yesferal.hornsapp.core.domain.entity.Event
 import com.yesferal.hornsapp.core.domain.entity.Lineup
+import com.yesferal.hornsapp.core.domain.entity.LineupActivity
 import com.yesferal.hornsapp.core.domain.entity.Stage
 import com.yesferal.hornsapp.core.domain.entity.util.LocalizedString
 import java.util.Date
@@ -28,21 +28,21 @@ class GetDailyLineup(
 
 class GetStage(
     val title: String?,
-    val events: List<GetEvent>?
+    val activities: List<GetLineupActivity>?
 ) {
     fun mapToStage(): Stage {
-        return Stage(title, events?.map { it.mapToEvent() })
+        return Stage(title, activities?.map { it.mapToEvent() })
     }
 }
 
-class GetEvent(
+class GetLineupActivity(
     val id: String?,
     val title: String?,
     val subtitle: String?,
     val start: Date?,
     val duration: Int?
 ) {
-    fun mapToEvent(): Event {
-        return Event(id, title, subtitle, start?.time, duration)
+    fun mapToEvent(): LineupActivity {
+        return LineupActivity(id, title, subtitle, start?.time, duration)
     }
 }

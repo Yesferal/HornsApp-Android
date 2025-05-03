@@ -49,7 +49,7 @@ class LineupViewModel(
                             var lineupStartTime = dateTimeInMillis
                             val delegates = mutableListOf<Delegate>()
                             delegates.add(TitleViewData(stage.title.orEmpty(), null, null, null))
-                            stage.events?.forEach { performance ->
+                            stage.activities?.forEach { performance ->
                                 val description =
                                     performance.startTimeInMillis.timeFormatted() + " - " + (performance.startTimeInMillis?.plus(
                                         ((performance.duration ?: 60) * 60 * 1000)

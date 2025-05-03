@@ -13,7 +13,7 @@ class FragmentFactory {
         return when (screenRender.type) {
             ScreenRender.Type.UPCOMING_SCREEN -> UpcomingFragment.newInstance()
             ScreenRender.Type.FAVORITE_SCREEN -> FavoritesFragment.newInstance()
-            ScreenRender.Type.SCREEN_RENDER_SCREEN -> ScreenRenderFragment.newInstance(screenRender._id)
+            ScreenRender.Type.RENDER_SCREEN -> ScreenRenderFragment.newInstance(screenRender._id)
             ScreenRender.Type.STAGE_LINEUP_SCREEN -> LineupFragment.newInstance()
             else -> ErrorFragment.newInstance()
         }

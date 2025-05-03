@@ -665,7 +665,7 @@
           }
         }
       ],
-      "key": "SCREEN_RENDER_SCREEN",
+      "key": "RENDER_SCREEN",
       "title": {
         "_id": "6803cf1e8065d89d4b13171e",
         "en": "Muvin",

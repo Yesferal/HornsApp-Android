@@ -7,8 +7,8 @@ import com.yesferal.hornsapp.core.domain.entity.util.LocalizedString
 data class GetBand(
     val _id: String,
     val name: String?,
-    val images: BandImages?,
     val about: LocalizedString?,
+    val images: BandImages?,
     val country: LocalizedString?,
     val formerIn: Int?,
     val genres: List<String>?,

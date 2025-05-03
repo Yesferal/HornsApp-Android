@@ -40,15 +40,15 @@ class ConcertViewModel(
                         var count = 0
                         val bandsViewData = mutableListOf<BandViewData>()
 
-                        if (!concert.bands.isNullOrEmpty()) {
-                            concert.bands?.reversed()?.map { band ->
+                        if (!concert.activities.isNullOrEmpty()) {
+                            concert.activities?.reversed()?.map { band ->
                                 count++
                                 bandsViewData.add(BandViewData(
                                     band.id,
                                     band.name,
                                     band.membersImage,
                                     count,
-                                    concert.bands?.size
+                                    concert.activities?.size
                                 ))
                             }
                         }
