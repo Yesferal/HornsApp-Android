@@ -1,675 +1,17 @@
 {
   "docVersion": 1,
-  "appVersion": 30,
+  "appVersion": 31,
   "platform": "android",
   "appId": "com.yesferal.muvin",
   "screens": [
     {
       "_id": "680de6604e764417408ffd69",
-      "views": [
-        {
-          "children": {
-            "filter": {
-              "events": [
-                "680e68a1fd23ead6b0ca6c8c"
-              ],
-              "categories": []
-            },
-            "sort": [],
-            "key": "CAROUSEL_CARD_VIEW",
-            "take": 2
-          },
-          "_id": "680dec41fd23ead6b0ca68a6",
-          "key": "ROW_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca641f",
-            "elevation": true
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "FIRST_NEWEST_LIST"
-          },
-          "_id": "680dec41fd23ead6b0ca68a8",
-          "key": "AD_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca6420",
-            "height": 50
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "UPCOMING_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68aa",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6421",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6422",
-              "en": "Upcoming",
-              "es": "Próximos"
-            },
-            "icon": "calendar"
-          },
-          "navigation": {
-            "_id": "680de6b4fd23ead6b0ca6423",
-            "key": "UPCOMING"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68ae",
-          "key": "ICON_CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6424",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6425",
-              "en": "Follow us on TikTok",
-              "es": "Síguenos en TikTok"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6426",
-              "en": "Did you know about our TikTok? Follow us and find amazing live videos.",
-              "es": "¿Sabías acerca de nuestro TikTok? Síguenos y encuentra increibles videos de conciertos."
-            },
-            "icon": "tiktok"
-          },
-          "style": {
-            "_id": "680debdbfd23ead6b0ca6859",
-            "textColor": "#FFFFFF",
-            "backgroundColor": "#29303e"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://www.tiktok.com/@hornsapp.pe"
-            },
-            "_id": "680de6b4fd23ead6b0ca6427",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "SECOND_NEWEST_LIST"
-          },
-          "_id": "680dec41fd23ead6b0ca68b4",
-          "key": "AD_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca6428",
-            "height": 250
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68b6",
-          "key": "CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6429",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca642a",
-              "en": "Bloodstock Open Air 2024",
-              "es": "Bloodstock Open Air 2024"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca642b",
-              "en": "#instagram #announcement",
-              "es": "#instagram #anuncio"
-            },
-            "icon": "instagram",
-            "imageUrl": "https://i.ytimg.com/vi/Jrnx1fiXmeI/maxresdefault.jpg"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://www.instagram.com/p/CzD4vLstO3Z/"
-            },
-            "_id": "680de6b4fd23ead6b0ca642c",
-            "key": "WEB_VIEW_SCREEN"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": [
-                "6809c52f6c0fbf6561d8e6d4"
-              ]
-            },
-            "sort": [],
-            "key": "UPCOMING_IMAGE_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68bb",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca642d",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca642e",
-              "en": "Pick a Free Plan",
-              "es": "Planes gratis para ti"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca642f",
-              "en": "#free",
-              "es": "#gratis"
-            }
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68bf",
-          "key": "ICON_CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6430",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6431",
-              "en": "Follow us on Instagram",
-              "es": "Síguenos en Instagram"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6432",
-              "en": "Did you know about our IG? Follow us and keep up posted.",
-              "es": "¿Sabías acerca de nuestro Instagram? Síguenos y mantente informado."
-            },
-            "icon": "instagram"
-          },
-          "style": {
-            "_id": "680debdbfd23ead6b0ca6866",
-            "textColor": "#FFFFFF",
-            "backgroundColor": "#4f5bd5"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://www.instagram.com/hornsapp.pe/"
-            },
-            "_id": "680de6b4fd23ead6b0ca6433",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "FIRST_NEWEST_LIST"
-          },
-          "_id": "680dec41fd23ead6b0ca68c5",
-          "key": "AD_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca6434",
-            "height": 250
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68c7",
-          "key": "CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6435",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6436",
-              "en": "Iron Maiden at Power Trip 2023",
-              "es": "Iron Maiden en Power Trip 2023"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6437",
-              "en": "#setlist",
-              "es": "#setlist"
-            },
-            "imageUrl": "https://img07.shop-pro.jp/PA01396/192/product/177758437.jpg"
-          },
-          "navigation": {
-            "parameters": {
-              "param_parcelable_view_data": {
-                "id": "655e9cb652ff4c82ea4a63da"
-              }
-            },
-            "_id": "680de6b4fd23ead6b0ca6438",
-            "key": "SCREEN_RENDER"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": [
-                "680a6b466c0fbf6561d8ed2b"
-              ]
-            },
-            "sort": [],
-            "key": "UPCOMING_IMAGE_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68cc",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6439",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca643a",
-              "en": "Run for your life",
-              "es": "Corre por tu salud"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca643b",
-              "en": "#sport",
-              "es": "#deporte"
-            }
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68d0",
-          "key": "ICON_CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca643c",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca643d",
-              "en": "Follow us on Spotify",
-              "es": "Síguenos en Spotify"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca643e",
-              "en": "Did you know about our playlists on Spotify? There are a bunch of them waiting for you.",
-              "es": "¿Sabías acerca de nuestras playlists en Spotify? Hay muchas esperando por ti."
-            },
-            "icon": "spotify"
-          },
-          "style": {
-            "_id": "680debdbfd23ead6b0ca6873",
-            "backgroundColor": "#1DB954",
-            "textColor": "#29303e"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://open.spotify.com/user/vhx70zw6rpz3qm8u2fsplhwg1"
-            },
-            "_id": "680de6b4fd23ead6b0ca643f",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "SECOND_NEWEST_LIST"
-          },
-          "_id": "680dec41fd23ead6b0ca68d6",
-          "key": "AD_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca6440",
-            "height": 250
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68d8",
-          "key": "CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6441",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6442",
-              "en": "Wacken Friday, 5 August 2023",
-              "es": "Wacken 5 de agosto, 2023"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6443",
-              "en": "#tiktok #video",
-              "es": "#tiktok #video"
-            },
-            "icon": "tiktok",
-            "imageUrl": "https://metal.b-cdn.net/wp-content/uploads/2022/08/wacken2023-lineup-headliner-1.jpeg"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://www.tiktok.com/@hornsapp.pe/video/7275671660118822150"
-            },
-            "_id": "680de6b4fd23ead6b0ca6444",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": [
-                "680a6b1f6c0fbf6561d8ed15"
-              ]
-            },
-            "sort": [],
-            "key": "UPCOMING_IMAGE_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68dd",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6445",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6446",
-              "en": "Music is life",
-              "es": "La musica nos mueve"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6447",
-              "en": "#concerts",
-              "es": "#conciertos"
-            }
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68e1",
-          "key": "ICON_CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6448",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6449",
-              "en": "Save your favorites",
-              "es": "Guarda tus favoritos"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca644a",
-              "en": "You can save your favorite concerts now, so you can find them easily later.",
-              "es": "Ya puedes guardar tus conciertos favoritos y así encontrarlos más fácil luego."
-            },
-            "icon": "favorite"
-          },
-          "style": {
-            "_id": "680debdbfd23ead6b0ca6880",
-            "backgroundColor": "#d1150c",
-            "textColor": "#FFFFFF"
-          },
-          "navigation": {
-            "_id": "680de6b4fd23ead6b0ca644b",
-            "key": "FAVORITE"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "FIRST_NEWEST_LIST"
-          },
-          "_id": "680dec41fd23ead6b0ca68e7",
-          "key": "AD_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca644c",
-            "height": 250
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68e9",
-          "key": "CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca644d",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca644e",
-              "en": "Alestorm at Wacken 2023",
-              "es": "Alestorm en Wacken 2023"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca644f",
-              "en": "#spotify #playlist",
-              "es": "#spotify #playlist"
-            },
-            "icon": "spotify",
-            "imageUrl": "https://i0.wp.com/haborymx.com/wp-content/uploads/2023/09/alestorm.png?fit=380"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://open.spotify.com/playlist/2tm8XiZrd1KF3t2LiJaYxY?si=19e62d9e6ce6435b"
-            },
-            "_id": "680de6b4fd23ead6b0ca6450",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": [
-                "680a6b586c0fbf6561d8ed39"
-              ]
-            },
-            "sort": [],
-            "key": "UPCOMING_IMAGE_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68ee",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6451",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6452",
-              "en": "Theaters at Night",
-              "es": "Noches de teatros"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6453",
-              "en": "#theater",
-              "es": "#teatro"
-            }
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68f2",
-          "key": "ICON_CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6454",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6455",
-              "en": "Follow us on Facebook",
-              "es": "Síguenos en Facebook"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6456",
-              "en": "Did you know about our Facebook? Follow us and keep up posted.",
-              "es": "¿Sabías acerca de nuestro Facebook? Síguenos y mantente informado."
-            },
-            "icon": "facebook"
-          },
-          "style": {
-            "_id": "680debdbfd23ead6b0ca688d",
-            "backgroundColor": "#3b5998",
-            "textColor": "#FFFFFF"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://www.facebook.com/profile.php?id=100090226749195"
-            },
-            "_id": "680de6b4fd23ead6b0ca6457",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": [],
-            "key": "SECOND_NEWEST_LIST"
-          },
-          "_id": "680dec41fd23ead6b0ca68f8",
-          "key": "AD_VIEW",
-          "style": {
-            "_id": "680de6b4fd23ead6b0ca6458",
-            "height": 250
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": []
-            },
-            "sort": []
-          },
-          "_id": "680dec41fd23ead6b0ca68fa",
-          "key": "CARD_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6459",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca645a",
-              "en": "In Flames at Summer Breeze 2023",
-              "es": "In Flames en Summer Breeze 2023"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca645b",
-              "en": "#youtube #video",
-              "es": "#youtube #video"
-            },
-            "icon": "youtube",
-            "imageUrl": "https://images.squarespace-cdn.com/content/v1/57f2b82b29687fb32444a615/1662399330082-4ICDC7ACUZOVVZG9ZWN8/image-asset.jpeg"
-          },
-          "navigation": {
-            "parameters": {
-              "param_android_uri": "https://www.youtube.com/watch?v=34BHbbQmr7s"
-            },
-            "_id": "680de6b4fd23ead6b0ca645c",
-            "key": "WEB_VIEW"
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": [
-                "680a6b586c0fbf6561d8ed39"
-              ]
-            },
-            "sort": [],
-            "key": "UPCOMING_IMAGE_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68ee",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca6451",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca6452",
-              "en": "Sing along",
-              "es": "Canta con nosotros"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca6453",
-              "en": "#theater",
-              "es": "#teatro"
-            }
-          }
-        },
-        {
-          "children": {
-            "filter": {
-              "events": [],
-              "categories": [
-                "6809c52f6c0fbf6561d8e6d4"
-              ]
-            },
-            "sort": [],
-            "key": "UPCOMING_IMAGE_CARD_VIEW",
-            "take": 3
-          },
-          "_id": "680dec41fd23ead6b0ca68bb",
-          "key": "COLUMN_VIEW",
-          "data": {
-            "_id": "680de6b4fd23ead6b0ca642d",
-            "title": {
-              "_id": "680de6b4fd23ead6b0ca642e",
-              "en": "Your Story Begins Here",
-              "es": "Museo es cultura"
-            },
-            "subtitle": {
-              "_id": "680de6b4fd23ead6b0ca642f",
-              "en": "#theater",
-              "es": "#teatro"
-            }
-          }
-        }
-      ],
+      "views": [],
       "key": "RENDER_SCREEN",
       "title": {
         "_id": "6803cf1e8065d89d4b13171e",
-        "en": "Muvin",
-        "es": "Muvin"
+        "en": "Home",
+        "es": "Inicio"
       }
     },
     {
@@ -703,7 +45,8 @@
         "_id": "680a6b1f6c0fbf6561d8ed16",
         "en": "Concert",
         "es": "Concierto"
-      }
+      },
+      "__v": 0
     },
     {
       "_id": "680a6b316c0fbf6561d8ed1f",
@@ -712,7 +55,18 @@
         "_id": "680a6b316c0fbf6561d8ed20",
         "en": "Festival",
         "es": "Festival"
-      }
+      },
+      "__v": 0
+    },
+    {
+      "_id": "680e75c4fd23ead6b0ca7f51",
+      "key": "FREE",
+      "name": {
+        "_id": "680e75c4fd23ead6b0ca7f52",
+        "en": "Free",
+        "es": "Gratis"
+      },
+      "__v": 0
     },
     {
       "_id": "6809c52f6c0fbf6561d8e6d4",
@@ -721,7 +75,8 @@
         "_id": "6809c52f6c0fbf6561d8e6d5",
         "en": "Museum",
         "es": "Museo"
-      }
+      },
+      "__v": 0
     },
     {
       "_id": "680e726cfd23ead6b0ca76cb",
@@ -730,7 +85,8 @@
         "_id": "680e726cfd23ead6b0ca76cc",
         "en": "Musical",
         "es": "Musical"
-      }
+      },
+      "__v": 0
     },
     {
       "_id": "680a6b466c0fbf6561d8ed2b",
@@ -739,7 +95,8 @@
         "_id": "680a6b466c0fbf6561d8ed2c",
         "en": "Sport",
         "es": "Deporte"
-      }
+      },
+      "__v": 0
     },
     {
       "_id": "680a6b586c0fbf6561d8ed39",
@@ -748,7 +105,8 @@
         "_id": "680a6b586c0fbf6561d8ed3a",
         "en": "Theater",
         "es": "Teatro"
-      }
+      },
+      "__v": 0
     }
   ]
 }

@@ -1,95 +1,72 @@
 {
   "docVersion": 1,
-  "appVersion": 29,
+  "appVersion": 31,
   "platform": "android",
+  "appId": "com.yesferal.hornsapp",
   "screens": [
     {
-      "data": {
-        "title": {
-          "en": "VxR 2025",
-          "es": "VxR 2025"
-        }
-      },
-      "id": "67e6e5d4c644dc0fa6d3f900",
-      "key": "RENDER_SCREEN"
+      "_id": "681af8f86e0f80da2ce330c3",
+      "views": [],
+      "key": "RENDER_SCREEN",
+      "title": {
+        "_id": "6803cf1e8065d89d4b13171e",
+        "en": "Home",
+        "es": "Inicio"
+      }
     },
     {
-      "data": {
-        "title": {
-          "en": "Home",
-          "es": "Inicio"
-        }
+      "_id": "6803dc6c4eeba8b13550b2a8",
+      "key": "UPCOMING_SCREEN",
+      "title": {
+        "_id": "6803dc6c4eeba8b13550b2a9",
+        "en": "Upcoming",
+        "es": "Próximos"
       },
-      "id": "67f0da4dc644dc0fa6d3f927",
-      "key": "RENDER_SCREEN"
+      "views": [],
+      "__v": 0
     },
     {
-      "data": {
-        "title": {
-          "en": "Upcoming",
-          "es": "Próximos"
-        }
+      "_id": "6803dc8b4eeba8b13550b388",
+      "key": "FAVORITE_SCREEN",
+      "title": {
+        "_id": "6803dc8b4eeba8b13550b389",
+        "en": "Favorites",
+        "es": "Favoritos"
       },
-      "key": "UPCOMING_SCREEN"
-    },
-    {
-      "data": {
-        "title": {
-          "en": "Favorites",
-          "es": "Favoritos"
-        }
-      },
-      "key": "FAVORITE_SCREEN"
+      "views": [],
+      "__v": 0
     }
   ],
   "categories": [
     {
+      "_id": "68041b3bd6756ac71587fa1e",
       "key": "METAL",
-      "data": {
-        "title": {
-          "en": "Metal",
-          "es": "Metal"
-        }
-      },
-      "children": {
-        "filter": "METAL"
+      "__v": 0,
+      "name": {
+        "_id": "68041b7ba5203cc93bbd2e53",
+        "en": "Metal",
+        "es": "Metal"
       }
     },
     {
+      "_id": "681afac457fc1eba7491e8e0",
+      "key": "POP",
+      "name": {
+        "en": "Pop",
+        "es": "Pop",
+        "_id": "681afac457fc1eba7491e8e1"
+      },
+      "__v": 0
+    },
+    {
+      "_id": "68041bb4a5203cc93bbd2e59",
       "key": "ROCK",
-      "data": {
-        "title": {
-          "en": "Rock",
-          "es": "Rock"
-        }
+      "name": {
+        "_id": "68041bb4a5203cc93bbd2e5a",
+        "en": "Rock",
+        "es": "Rock"
       },
-      "children": {
-        "filter": "ROCK"
-      }
-    },
-    {
-      "key": "LIMA",
-      "data": {
-        "title": {
-          "en": "Lima",
-          "es": "Lima"
-        }
-      },
-      "children": {
-        "filter": "LIMA"
-      }
-    },
-    {
-      "key": "FEST",
-      "data": {
-        "title": {
-          "en": "Fest",
-          "es": "Festival"
-        }
-      },
-      "children": {
-        "filter": "FEST"
-      }
+      "__v": 0
     }
   ]
 }
