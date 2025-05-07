@@ -25,7 +25,7 @@ interface Service {
         @Path("id") id: String
     ): Response<GetBand>
 
-    @GET("/screen_render/{id}")
+    @GET("/screen/{id}")
     suspend fun getScreenRenderBy(
         @Path("id") id: String
     ): Response<ScreenRender>
