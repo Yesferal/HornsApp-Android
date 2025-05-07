@@ -20,7 +20,7 @@ interface Service {
         @Path("id") id: String
     ): Response<GetConcert>
 
-    @GET("/band/{id}")
+    @GET("/activity/{id}")
     suspend fun getBandBy(
         @Path("id") id: String
     ): Response<GetBand>
