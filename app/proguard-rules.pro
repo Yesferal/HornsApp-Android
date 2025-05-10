@@ -32,8 +32,8 @@
 }
 
 # Navigation Component
--keepnames class com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
--keepclassmembers class com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData {
+-keepnames class com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData
+-keepclassmembers class com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData {
     *;
 }
 

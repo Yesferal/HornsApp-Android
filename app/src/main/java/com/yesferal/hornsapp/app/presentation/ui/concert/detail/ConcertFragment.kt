@@ -18,7 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.yesferal.hornsapp.app.R
 import com.yesferal.hornsapp.app.framework.adMob.AdUnitIds
 import com.yesferal.hornsapp.app.framework.adMob.BusinessModelFactoryProducer
-import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
+import com.yesferal.hornsapp.app.framework.navigator.ExternalNavViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.CheckBoxImageView
 import com.yesferal.hornsapp.app.presentation.common.custom.ImageTextView
 import com.yesferal.hornsapp.app.presentation.common.custom.ScalePageTransformation

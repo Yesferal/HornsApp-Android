@@ -4,7 +4,7 @@ package com.yesferal.hornsapp.app.presentation.common.extension
 
 import android.os.Build
 import android.os.Bundle
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData
 
 fun Bundle?.getParcelableViewData(KEY: String): ParcelableViewData? {
     return if (Build.VERSION.SDK_INT >= 33) {

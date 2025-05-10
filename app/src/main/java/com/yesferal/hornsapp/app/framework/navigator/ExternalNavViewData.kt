@@ -1,7 +1,6 @@
 /* Copyright © 2023 HornsApp. All rights reserved. */
-package com.yesferal.hornsapp.app.presentation.common.base
+package com.yesferal.hornsapp.app.framework.navigator
 
-import com.yesferal.hornsapp.app.framework.navigator.FragmentNavigator
 import com.yesferal.hornsapp.core.domain.entity.render.NavigatorRender
 import com.yesferal.hornsapp.core.domain.navigator.NavViewData
 

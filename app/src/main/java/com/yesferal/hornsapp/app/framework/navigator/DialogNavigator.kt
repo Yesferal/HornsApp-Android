@@ -3,7 +3,6 @@ package com.yesferal.hornsapp.app.framework.navigator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.HornsBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.band.BandBottomSheetFragment
 import com.yesferal.hornsapp.app.presentation.ui.concert.detail.EXTRA_PARAM_PARCELABLE

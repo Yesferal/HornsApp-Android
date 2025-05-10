@@ -63,7 +63,7 @@
         <argument
             android:name="concert"
             android:defaultValue="@null"
-            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData"
+            app:argType="com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData"
             app:nullable="true" />
     </fragment>
 
@@ -75,7 +75,7 @@
         <argument
             android:name="screen"
             android:defaultValue="@null"
-            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData"
+            app:argType="com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData"
             app:nullable="true" />
     </fragment>
 
@@ -87,7 +87,7 @@
         <argument
             android:name="lineup"
             android:defaultValue="@null"
-            app:argType="com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData"
+            app:argType="com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData"
             app:nullable="true" />
     </fragment>
 

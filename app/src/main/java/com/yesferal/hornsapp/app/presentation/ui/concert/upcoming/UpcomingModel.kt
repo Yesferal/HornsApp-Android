@@ -9,8 +9,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.google.android.material.imageview.ShapeableImageView
 import com.yesferal.hornsapp.app.R
-import com.yesferal.hornsapp.app.presentation.common.base.Parcelable
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.framework.navigator.Parcelable
+import com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.IconTextView
 import com.yesferal.hornsapp.app.presentation.common.extension.load
 import com.yesferal.hornsapp.app.presentation.common.extension.setAllCornersRounded

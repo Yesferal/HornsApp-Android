@@ -4,8 +4,8 @@ package com.yesferal.hornsapp.app.presentation.ui.screen_render
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
-import com.yesferal.hornsapp.app.presentation.common.base.ExternalNavViewData
-import com.yesferal.hornsapp.app.presentation.common.base.ParcelableViewData
+import com.yesferal.hornsapp.app.framework.navigator.ExternalNavViewData
+import com.yesferal.hornsapp.app.framework.navigator.ParcelableViewData
 import com.yesferal.hornsapp.app.presentation.common.custom.RecyclerViewVerticalDecorator
 import com.yesferal.hornsapp.app.presentation.common.delegate.DelegateAdapterFragment
 import com.yesferal.hornsapp.app.presentation.ui.home.CarouselViewData
