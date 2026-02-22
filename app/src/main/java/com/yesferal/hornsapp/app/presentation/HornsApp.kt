@@ -5,6 +5,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.yesferal.hornsapp.app.presentation.di.registerAppDependencies
 import com.yesferal.hornsapp.hadi.container.Container
 import com.yesferal.hornsapp.hadi.container.Hadi
@@ -18,8 +19,10 @@ class HornsApp : Application(), HadiApp {
 
     override fun onCreate() {
         super.onCreate()
-        FirebaseApp.initializeApp(this)
         container.registerAppDependencies(context = this)
+
+        FirebaseApp.initializeApp(this)
         firebaseAnalytics = Firebase.analytics
+        FirebaseMessaging.getInstance().subscribeToTopic("android-app-render")
     }
 }

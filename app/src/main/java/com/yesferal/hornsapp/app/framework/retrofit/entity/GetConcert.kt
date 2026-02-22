@@ -45,6 +45,6 @@ data class GetConcert(
 }
 
 data class ConcertComponent(
-    val name: String,
-    val url: String,
+    val name: String?,
+    val url: String?,
 )
