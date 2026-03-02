@@ -78,6 +78,8 @@ class SocketIoDataSource(
 
                 // TODO: Validate docVersion before we save the AppDrawer doc
                 drawerStorageDataSource.updateAppRender(appDrawer)
+                // FIXME: We are updating the screen all the time
+                // FIXME: We just validate in the updateAppRender
                 _homeRender.value = appDrawer.screens ?: listOf()
                 _categoryRender.value = appDrawer.categories ?: listOf()
             } catch (e: java.lang.Exception) {

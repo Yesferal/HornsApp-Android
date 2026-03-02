@@ -1,10 +1,10 @@
 package com.yesferal.hornsapp.app.framework.retrofit
 
-import com.yesferal.hornsapp.app.presentation.di.FlavorDataClass
+import com.yesferal.hornsapp.app.presentation.di.SettingFlavorDataClass
 
-class ApiConstants(flavorDataClass: FlavorDataClass) {
+class ApiConstants(settingFlavorDataClass: SettingFlavorDataClass) {
     init {
-        System.loadLibrary(flavorDataClass.cFileName)
+        System.loadLibrary(settingFlavorDataClass.cFileName)
     }
 
     private external fun authorization(): String

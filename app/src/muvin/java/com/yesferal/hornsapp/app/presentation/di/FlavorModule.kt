@@ -6,6 +6,6 @@ import com.yesferal.hornsapp.hadi.dependency.Factory
 
 fun Container.registerFlavorModule() {
     this register Factory {
-        FlavorDataClass("yesferal-lib", "event")
+        SettingFlavorDataClass("yesferal-lib", "event", "muvin")
     }
 }

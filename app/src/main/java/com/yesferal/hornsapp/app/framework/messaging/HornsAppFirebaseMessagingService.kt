@@ -12,7 +12,10 @@ class HornsAppFirebaseMessagingService: FirebaseMessagingService() {
     private val dispatcher by lazy {
         PushDispatcher(
             listOf(
-                AppRenderUpdatePushHandler(),
+                AppRenderUpdatePushHandler(
+                    context = applicationContext,
+                    gson = hadi().resolve(),
+                    logger = hadi().resolve()),
                 NotificationPushHandler(),
             )
         )

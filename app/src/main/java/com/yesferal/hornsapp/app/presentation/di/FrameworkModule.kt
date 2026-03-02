@@ -22,7 +22,7 @@ import com.yesferal.hornsapp.app.framework.retrofit.AuthenticationInterceptor
 import com.yesferal.hornsapp.app.framework.retrofit.Service
 import com.yesferal.hornsapp.app.framework.room.AppDatabase
 import com.yesferal.hornsapp.app.framework.room.RoomDataSource
-import com.yesferal.hornsapp.app.framework.socketio.SocketIoDataSource
+import com.yesferal.hornsapp.app.framework.worker.AppRenderWorkerFactory
 import com.yesferal.hornsapp.core.data.abstraction.remote.BandRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.ConcertRemoteDataSource
 import com.yesferal.hornsapp.core.data.abstraction.remote.RenderRemoteDataSource
@@ -103,7 +103,9 @@ fun Container.registerFrameworkModule() {
 
         RetrofitDataSource(
             service = service,
-            flavorDataClass = resolve()
+            settingFlavorDataClass = resolve(),
+            renderStorageDataSource = resolve(),
+            logger = resolve()
         )
     }
 
@@ -137,22 +139,8 @@ fun Container.registerFrameworkModule() {
         resolve<RoomDataSource>()
     }
 
-    this register Singleton {
-        val defaultEnvironment = resolve<PreferencesDataSource>()
-            .getDefaultEnvironment()
-        val apiConstants = resolve<ApiConstants>()
-
-        SocketIoDataSource(
-            gson = resolve(),
-            logger = resolve(),
-            baseUrl = apiConstants.environments[defaultEnvironment].second,
-            drawerStorageDataSource = resolve(),
-            packageInfoDataSource = resolve()
-        )
-    }
-
     this register Factory<RenderRemoteDataSource> {
-        resolve<SocketIoDataSource>()
+        resolve<RetrofitDataSource>()
     }
 
     this register Factory {
@@ -187,5 +175,13 @@ fun Container.registerFrameworkModule() {
             .getPackageInfo(context.packageName, 0)
 
         PackageInfoDataSource(packageInfo = packageInfo)
+    }
+
+    this register Singleton {
+        AppRenderWorkerFactory(
+            retrofitDataSource = resolve(),
+            logger = resolve(),
+            packageInfoDataSource = resolve()
+        )
     }
 }
